@@ -13,6 +13,12 @@ The project follows semantic versioning while in beta. `0.x` releases may contai
 - Issue and pull-request templates.
 - Dependabot and CodeQL configuration.
 - Public beta roadmap and release gates.
+- Repository secret scanning, push protection, and private vulnerability reporting.
+
+### Security
+
+- Bounded failed target returndata copying to 256 bytes while retaining size-bound evidence.
+- Updated and pinned frontend dependencies to resolve the initial public-repository audit alerts.
 
 ## [0.1.0] - 2026-07-24
 
