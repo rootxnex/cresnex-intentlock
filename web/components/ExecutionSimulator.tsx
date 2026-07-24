@@ -55,8 +55,9 @@ export function ExecutionSimulator() {
   }
 
   return (
-    <section className="panel">
-      <div className="eyebrow">Agent execution simulator</div>
+    <section className="panel simulator">
+      <div className="panel-number">02 — EXECUTION</div>
+      <div className="eyebrow">Agent simulator</div>
       <h2>Submit signed intent</h2>
       {!saved && <p className="muted">Connect the owner and sign a scenario in the intent builder first.</p>}
       {saved && <>
@@ -67,7 +68,7 @@ export function ExecutionSimulator() {
           <span>Nonce <strong>{saved.manifest.nonce}</strong></span>
         </div>
         <button className="primary" disabled={!isAgent || writer.isPending || receipt.isLoading} onClick={execute}>Execute as signed agent</button>
-        <button onClick={() => { localStorage.removeItem("cresnex.signedIntent"); setSaved(null); }}>Clear</button>
+        <button className="text-button" onClick={() => { localStorage.removeItem("cresnex.signedIntent"); setSaved(null); }}>Clear package</button>
         {!isAgent && <p className="demo-note">Switch the connected wallet to the signed agent address to execute. The owner signature remains stored only in this browser.</p>}
       </>}
       {writer.error && <p className="error-note">Submission failed: {writer.error.message}</p>}

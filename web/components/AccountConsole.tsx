@@ -118,7 +118,8 @@ export function AccountConsole() {
         <article><span>Protection</span><strong className={paused ? "" : "green"}>{status}</strong><small>Threshold {quarantineThreshold?.toString() ?? "—"}</small></article>
       </section>
 
-      <section className="panel" id="agents">
+      <section className="panel owner-panel" id="agents">
+        <div className="panel-number">LIVE / OWNER</div>
         <div className="eyebrow">Live owner controls</div>
         <h2>Agent management</h2>
         <div className="form-grid">
@@ -144,6 +145,7 @@ export function AccountConsole() {
       </section>
 
       <section className="panel events" id="events">
+        <div className="panel-number">ONCHAIN / LOG</div>
         <div className="eyebrow">Persistent onchain evidence</div>
         <h2>Security timeline</h2>
         {events.map((item) => (

@@ -118,6 +118,7 @@ export function IntentBuilder() {
 
   return (
     <section className="panel builder" id="builder">
+      <div className="panel-number">INTENT LAB / EIP-712</div>
       <div className="eyebrow">Owner workspace</div>
       <h2>Build a bounded intent</h2>
       <p className="muted">Bind one exact call to a spend ceiling, output floor, recipient, allowance cap, nonce and expiry.</p>
