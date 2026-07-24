@@ -221,7 +221,9 @@ The low-level external self-call is intentional. A revert inside `executeIsolate
 - the account's input-token balance;
 - the signed recipient's output-token balance.
 
-It executes every call in order with ordinary EVM `call`, then measures:
+It executes every call in order with ordinary EVM `call`, then measures. Successful target returndata is ignored. On target failure, the account hashes the reported returndata size together with at most its first 256 bytes. This prevents unbounded returndata copying while retaining compact failure evidence.
+
+The measured postconditions are:
 
 ```text
 spent    = max(inputBefore - inputAfter, 0)
@@ -463,4 +465,4 @@ The repository implements an end-to-end research prototype:
 - unit, fuzz, invariant, and gas test infrastructure; and
 - local/Base Sepolia deployment workflows.
 
-Before production use it would require independent audit, adversarial-token and real-protocol testing, broader asset accounting, operational monitoring, production key/recovery design, gas and returndata hardening, and formal or substantially stronger verification. Real assets should not be deposited into the current deployment.
+Before production use it would require independent audit, adversarial-token and real-protocol testing, broader asset accounting, operational monitoring, production key/recovery design, additional gas hardening, and formal or substantially stronger verification. Real assets should not be deposited into the current deployment.

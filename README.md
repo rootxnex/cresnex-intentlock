@@ -2,7 +2,7 @@
 
 **Intent- and Outcome-Bound Execution with Persistent Containment for Autonomous Smart Accounts**
 
-Cresnex IntentLock is a final-year Web3 security research prototype for AI-agent-controlled smart accounts. It authenticates an owner-signed EIP-712 intent, executes exact calls in an isolated external self-call, verifies their final financial outcome, and reverts unsafe nested effects while preserving evidence and quarantining repeat offenders in the outer frame.
+**Cresnex IntentLock v0.1 Beta** is an MIT-licensed, testnet-only Web3 security research implementation for AI-agent-controlled smart accounts. It authenticates an owner-signed EIP-712 intent, executes exact calls in an isolated external self-call, verifies their final financial outcome, and reverts unsafe nested effects while preserving evidence and quarantining repeat offenders in the outer frame.
 
 It does not reverse confirmed transactions. It is not audited, production-ready, a full ERC-4337 account, or intended for real assets.
 
@@ -20,6 +20,18 @@ Target and calldata validation prove what an agent attempted to call, but not ne
 6. An unsafe execution reverts its inner frame. The outer frame stores compact evidence, adds a strike and quarantines at the threshold.
 
 See the comprehensive [code architecture](docs/architecture.md) and [threat model](docs/threat-model.md).
+
+## Open-source beta
+
+The standalone account architecture is the current supported research target. ERC-4337 and ERC-7579 compatibility are later milestones after the policy model, tests, SDK, and documentation stabilize.
+
+- [Roadmap](ROADMAP.md)
+- [Contributing](CONTRIBUTING.md)
+- [Security policy](SECURITY.md)
+- [Governance](GOVERNANCE.md)
+- [Code of conduct](CODE_OF_CONDUCT.md)
+- [Changelog](CHANGELOG.md)
+- [MIT License](LICENSE)
 
 ## Supported MVP
 
@@ -143,7 +155,7 @@ The owner key, policy choices and conventional ERC-20 behavior are trusted. One 
 
 ## Future work
 
-Bound multiple asset deltas, cap returndata copying with assembly, add target allowlists as an optional policy, improve stateful handlers, test adversarial token callbacks, integrate a safe module/account standard without claiming premature compliance, and conduct independent review.
+Bound multiple asset deltas, add target allowlists as an optional policy, improve stateful handlers, test adversarial token callbacks, integrate a safe module/account standard without claiming premature compliance, and conduct independent review.
 
 ## Academic evaluation
 

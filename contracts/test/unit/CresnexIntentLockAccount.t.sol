@@ -7,6 +7,7 @@ import {CresnexIntentLockAccount} from "../../src/CresnexIntentLockAccount.sol";
 import {IntentTypes} from "../../src/IntentTypes.sol";
 import {MockERC20} from "../../src/mocks/MockERC20.sol";
 import {MockDexRouter} from "../../src/mocks/MockDexRouter.sol";
+import {MaliciousTarget} from "../../src/mocks/MaliciousTarget.sol";
 import {ReentrantTarget} from "../../src/mocks/ReentrantTarget.sol";
 
 contract CresnexIntentLockAccountTest is Test {
@@ -201,6 +202,25 @@ contract CresnexIntentLockAccountTest is Test {
             IntentTypes.ExecutionCall(address(target), 0, abi.encodeCall(target.reenter, (address(account), nested)));
         (bool ok,) = _execute(_manifest(calls, 19, false, 0, 0), calls, ownerKey);
         assertFalse(ok);
+    }
+
+    function testLargeTargetRevertIsContainedWithBoundedEvidence() public {
+        MaliciousTarget malicious = new MaliciousTarget();
+        IntentTypes.ExecutionCall[] memory calls = new IntentTypes.ExecutionCall[](1);
+        calls[0] = IntentTypes.ExecutionCall({
+            target: address(malicious), value: 0, data: abi.encodeCall(malicious.revertWithData, (4_096))
+        });
+        IntentTypes.IntentManifest memory manifest = _manifest(calls, 91, false, 0, 0);
+
+        (bool success, bytes32 evidenceHash) = _execute(manifest, calls, ownerKey);
+
+        assertFalse(success);
+        assertTrue(evidenceHash != bytes32(0));
+        assertTrue(account.usedNonces(manifest.nonce));
+        (,, uint256 strikes) = account.agents(agent);
+        assertEq(strikes, 1);
+        (,,,,, bytes4 reasonSelector,,) = account.violations(evidenceHash);
+        assertEq(reasonSelector, CresnexIntentLockAccount.TargetCallFailed.selector);
     }
 
     function testPausedAccountRejectsExecution() public {

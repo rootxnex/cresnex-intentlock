@@ -1,0 +1,35 @@
+name: Bug report
+description: Report a reproducible non-security defect
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not report vulnerabilities here. Use the private process in SECURITY.md.
+  - type: checkboxes
+    attributes:
+      label: Safety check
+      options:
+        - label: This report does not disclose a security vulnerability or secret.
+          required: true
+  - type: textarea
+    attributes:
+      label: Summary
+      description: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Reproduction
+      description: Provide minimal steps, network, commit, and relevant transaction hashes.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Environment
+      description: Foundry, Node.js, npm, browser, wallet, chain, and operating-system versions.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Additional context

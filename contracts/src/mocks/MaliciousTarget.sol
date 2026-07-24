@@ -20,4 +20,11 @@ contract MaliciousTarget {
         require(ok, "unexpected call failed");
         return result;
     }
+
+    function revertWithData(uint256 size) external pure {
+        bytes memory reason = new bytes(size);
+        assembly ("memory-safe") {
+            revert(add(reason, 0x20), size)
+        }
+    }
 }
