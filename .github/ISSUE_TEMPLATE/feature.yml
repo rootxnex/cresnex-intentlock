@@ -1,0 +1,34 @@
+name: Feature proposal
+description: Propose a scoped beta improvement
+title: "[Proposal]: "
+body:
+  - type: textarea
+    attributes:
+      label: Problem
+      description: Describe the user, research, or security problem.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Proposed change
+      description: Explain behavior and alternatives considered.
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Primary area
+      options:
+        - Contracts
+        - Frontend
+        - SDK
+        - Deployment
+        - Testing
+        - Documentation
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Security and compatibility impact
+      description: Note trust, schema, API, storage, deployment, and migration effects.
+    validations:
+      required: true

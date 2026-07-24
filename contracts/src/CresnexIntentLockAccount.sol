@@ -17,6 +17,7 @@ contract CresnexIntentLockAccount is ICresnexIntentLock, EIP712, Ownable2Step, P
     using SafeERC20 for IERC20;
 
     uint256 public constant MAX_BATCH_SIZE = 16;
+    uint256 public constant MAX_REVERT_DATA_COPY = 256;
     bytes32 public constant EXECUTION_CALL_TYPEHASH =
         keccak256("ExecutionCall(address target,uint256 value,bytes data)");
     bytes32 public constant INTENT_TYPEHASH = keccak256(
@@ -204,8 +205,8 @@ contract CresnexIntentLockAccount is ICresnexIntentLock, EIP712, Ownable2Step, P
         uint256 outputBefore = IERC20(m.outputToken).balanceOf(m.recipient);
 
         for (uint256 i; i < calls.length; ++i) {
-            (bool ok, bytes memory reason) = calls[i].target.call{value: calls[i].value}(calls[i].data);
-            if (!ok) revert TargetCallFailed(i, keccak256(reason));
+            (bool ok, bytes32 revertDataHash) = _boundedCall(calls[i]);
+            if (!ok) revert TargetCallFailed(i, revertDataHash);
         }
 
         uint256 inputAfter = IERC20(m.inputToken).balanceOf(address(this));
@@ -246,6 +247,31 @@ contract CresnexIntentLockAccount is ICresnexIntentLock, EIP712, Ownable2Step, P
         if (hashCalls(calls) != m.callsHash) revert CallsHashMismatch();
         digest = hashIntent(m);
         if (ECDSA.recover(digest, signature) != owner()) revert InvalidOwnerSignature();
+    }
+
+    /// @dev Ignores successful returndata and commits at most MAX_REVERT_DATA_COPY
+    /// bytes of failed returndata to memory. The hash binds the full reported
+    /// returndata size and its bounded prefix, preventing unbounded copying in
+    /// the account while retaining compact failure evidence.
+    function _boundedCall(IntentTypes.ExecutionCall calldata call_) private returns (bool ok, bytes32 revertDataHash) {
+        uint256 maxCopy = MAX_REVERT_DATA_COPY;
+        address target = call_.target;
+        uint256 value = call_.value;
+        bytes memory data = call_.data;
+        assembly ("memory-safe") {
+            ok := call(gas(), target, value, add(data, 0x20), mload(data), 0, 0)
+            if iszero(ok) {
+                let size := returndatasize()
+                let copySize := size
+                if gt(copySize, maxCopy) { copySize := maxCopy }
+
+                let ptr := mload(0x40)
+                mstore(ptr, size)
+                returndatacopy(add(ptr, 0x20), 0, copySize)
+                revertDataHash := keccak256(ptr, add(0x20, copySize))
+                mstore(0x40, and(add(add(add(ptr, 0x20), copySize), 0x1f), not(0x1f)))
+            }
+        }
     }
 
     function _selector(bytes memory data) private pure returns (bytes4 selector) {
