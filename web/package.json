@@ -15,7 +15,7 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "viem": "2.23.5",
-    "wagmi": "2.14.11"
+    "wagmi": "2.19.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "3.3.1",
