@@ -1,0 +1,16 @@
+.env
+.env.local
+.env.*.local
+out/
+cache/
+broadcast/
+node_modules/
+.next/
+coverage/
+gas-snapshot
+*.tsbuildinfo
+*.log
+
+.vercel
+.agents/
+.codex/

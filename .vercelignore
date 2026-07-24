@@ -1,0 +1,12 @@
+.git
+.agents
+.codex
+contracts/broadcast
+contracts/cache
+contracts/lib
+contracts/out
+contracts/coverage
+web/.next
+web/node_modules
+web/.env.local
+*.log
