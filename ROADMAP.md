@@ -10,7 +10,8 @@ The roadmap is ordered by security dependency, not marketing priority. Dates are
 - [x] dependency update automation
 - [x] JavaScript/TypeScript CodeQL scanning
 - [x] beta identity, changelog, templates, and release gates
-- [ ] enable GitHub private vulnerability reporting and branch protection
+- [x] enable GitHub private vulnerability reporting, secret scanning, and push protection
+- [ ] enable branch protection after required checks stabilize
 - [ ] obtain written contributor and institutional IP confirmation
 
 ## Phase 1 — standalone security hardening
