@@ -121,17 +121,14 @@ export function IntentBuilder() {
       <div className="eyebrow">Owner workspace</div>
       <h2>Build a bounded intent</h2>
       <p className="muted">Bind one exact call to a spend ceiling, output floor, recipient, allowance cap, nonce and expiry.</p>
-      <div className="form-grid">
-        <label>Agent address<input value={agent} onChange={(e) => setAgent(e.target.value)} placeholder="0x…" /></label>
-        <label>Scenario<select value={scenario} onChange={(event) => setScenario(event.target.value as keyof typeof scenarios)}>{Object.entries(scenarios).map(([value, label]) => <option value={value} key={value}>{label}</option>)}</select></label>
-        {scenario === "custom" && <><label>Call target<input value={target} onChange={(e) => setTarget(e.target.value)} placeholder="0x…" /></label><label>Complete calldata<input value={calldata} onChange={(e) => setCalldata(e.target.value)} /></label></>}
-      </div>
-      <div className="policy">
+      <div className="builder-step"><span>01</span><div><h3>Agent</h3><label>Agent address<input value={agent} onChange={(e) => setAgent(e.target.value)} placeholder="0x…" /></label></div></div>
+      <div className="builder-step"><span>02</span><div><h3>Execution</h3><label>Test scenario<select value={scenario} onChange={(event) => setScenario(event.target.value as keyof typeof scenarios)}>{Object.entries(scenarios).map(([value, label]) => <option value={value} key={value}>{label}</option>)}</select></label>{scenario === "custom" && <div className="form-grid"><label>Call target<input value={target} onChange={(e) => setTarget(e.target.value)} placeholder="0x…" /></label><label>Complete calldata<input value={calldata} onChange={(e) => setCalldata(e.target.value)} /></label></div>}</div></div>
+      <div className="builder-step"><span>03</span><div><h3>Financial boundaries</h3><div className="policy">
         <span>Maximum input <strong>{scenario === "allowance" ? "0" : "100 USDC"}</strong></span><span>Minimum output <strong>{scenario === "allowance" ? "0" : "1 WETH"}</strong></span>
-        <span>Final allowance <strong>0</strong></span><span>Expires <strong>in 1 hour</strong></span>
-        <span>Bound calls <strong>{calls.length}</strong></span>
-      </div>
-      <div className="hash"><span>Canonical calls hash</span><code>{callsHash || "Complete the call to calculate"}</code></div>
+        <span>Final allowance <strong>Exact / 0</strong></span>
+      </div></div></div>
+      <div className="builder-step"><span>04</span><div><h3>Validity</h3><div className="policy"><span>Expiration <strong>1 hour</strong></span><span>Bound calls <strong>{calls.length}</strong></span><span>Chain <strong>{chainId}</strong></span></div></div></div>
+      <div className="builder-step review-step"><span>05</span><div><h3>Review</h3><div className="hash"><span>Canonical calls hash</span><code>{callsHash || "Complete the call to calculate"}</code></div></div></div>
       <button className="primary" disabled={!address || !callsHash || !isAddress(agent)} onClick={sign}>Sign EIP-712 intent</button>
       {signature && <div className="hash success"><span>Owner signature created and saved for the agent wallet</span><code>{signature}</code></div>}
     </section>
