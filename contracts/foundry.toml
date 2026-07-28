@@ -11,6 +11,7 @@ via_ir = true
 fuzz.runs = 256
 invariant.runs = 128
 invariant.depth = 32
+fs_permissions = [{ access = "read-write", path = "../shared/deployments" }]
 
 [rpc_endpoints]
 base_sepolia = "${BASE_SEPOLIA_RPC_URL}"

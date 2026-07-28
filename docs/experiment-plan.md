@@ -6,6 +6,8 @@ Run each system against benign swap, overspend, insufficient output, wrong recip
 
 Measure attack-blocking rate, benign success rate, false positives, gas, wall-clock latency, rollback success, evidence persistence and quarantine effectiveness. A blocked attack counts only when harmful balances/allowances are unchanged. Do not fill final results from expectations.
 
+The first measured 30-run transfer slice is published in [experiments.md](experiments.md), with machine-readable [JSON](../reports/phase6-experiments.json) and [CSV](../reports/phase6-experiments.csv). It does not include latency or claim completion of the broader matrix below.
+
 ## Results template
 
 | System | Scenario | Trials | Accepted | Blocked | False positives | Mean gas | p95 latency | Rollback | Evidence | Quarantine |

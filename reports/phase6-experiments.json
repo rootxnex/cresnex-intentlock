@@ -1,0 +1,104 @@
+{
+  "schema": "cresnex-intentlock-experiment-v1",
+  "generatedAt": "2026-07-28T13:51:00+05:30",
+  "environment": {
+    "chain": "Foundry in-memory EVM",
+    "chainId": 31337,
+    "solc": "0.8.26",
+    "optimizer": true,
+    "optimizerRuns": 200,
+    "viaIR": true,
+    "forgeCommand": "forge test --match-contract AcademicBaselinesTest --fuzz-runs 30 -vv"
+  },
+  "measurementWarning": "Gas is Forge test-function gas for comparative research, not a live transaction receipt. Wall-clock latency was not measured.",
+  "results": [
+    {
+      "scenario": "benign standard ERC-20 transfer",
+      "baseline": "A SignatureOnlyAccount",
+      "result": "committed",
+      "trials": 30,
+      "meanGas": 80319,
+      "harmfulStateSurvived": false,
+      "evidenceSurvived": false,
+      "strikeResult": 0,
+      "quarantineResult": false
+    },
+    {
+      "scenario": "benign standard ERC-20 transfer",
+      "baseline": "B SpendLimitGuardAccount",
+      "result": "committed",
+      "trials": 30,
+      "meanGas": 79902,
+      "harmfulStateSurvived": false,
+      "evidenceSurvived": false,
+      "strikeResult": 0,
+      "quarantineResult": false
+    },
+    {
+      "scenario": "benign standard ERC-20 transfer",
+      "baseline": "C PathAndSpendGuardAccount",
+      "result": "committed",
+      "trials": 30,
+      "meanGas": 81007,
+      "harmfulStateSurvived": false,
+      "evidenceSurvived": false,
+      "strikeResult": 0,
+      "quarantineResult": false
+    },
+    {
+      "scenario": "benign standard ERC-20 transfer",
+      "baseline": "D CresnexIntentLockAccountV2",
+      "result": "committed",
+      "trials": 30,
+      "meanGas": 135939,
+      "harmfulStateSurvived": false,
+      "evidenceSurvived": false,
+      "strikeResult": 0,
+      "quarantineResult": false
+    },
+    {
+      "scenario": "wrong-recipient ERC-20 transfer",
+      "baseline": "A SignatureOnlyAccount",
+      "result": "harm committed",
+      "trials": 30,
+      "meanGas": 81825,
+      "harmfulStateSurvived": true,
+      "evidenceSurvived": false,
+      "strikeResult": 0,
+      "quarantineResult": false
+    },
+    {
+      "scenario": "wrong-recipient ERC-20 transfer",
+      "baseline": "B SpendLimitGuardAccount",
+      "result": "harm committed",
+      "trials": 30,
+      "meanGas": 81892,
+      "harmfulStateSurvived": true,
+      "evidenceSurvived": false,
+      "strikeResult": 0,
+      "quarantineResult": false
+    },
+    {
+      "scenario": "wrong-recipient ERC-20 transfer",
+      "baseline": "C PathAndSpendGuardAccount",
+      "result": "harm committed",
+      "trials": 30,
+      "meanGas": 82931,
+      "harmfulStateSurvived": true,
+      "evidenceSurvived": false,
+      "strikeResult": 0,
+      "quarantineResult": false
+    },
+    {
+      "scenario": "wrong-recipient ERC-20 transfer",
+      "baseline": "D CresnexIntentLockAccountV2",
+      "result": "contained",
+      "trials": 30,
+      "meanGas": 223004,
+      "harmfulStateSurvived": false,
+      "evidenceSurvived": true,
+      "strikeResult": 1,
+      "quarantineResult": false
+    }
+  ]
+}

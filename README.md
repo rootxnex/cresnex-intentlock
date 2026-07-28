@@ -2,6 +2,8 @@
 
 **Intent- and Outcome-Bound Execution with Persistent Containment for Autonomous Smart Accounts**
 
+> **Cresnex IntentLock is an unaudited research prototype intended only for local development and public testnets. It is not production-ready and must not be used with real assets.**
+
 **Cresnex IntentLock v0.1 Beta** is an MIT-licensed, testnet-only Web3 security research implementation for AI-agent-controlled smart accounts. It authenticates an owner-signed EIP-712 intent, executes exact calls in an isolated external self-call, verifies their final financial outcome, and reverts unsafe nested effects while preserving evidence and quarantining repeat offenders in the outer frame.
 
 It does not reverse confirmed transactions. It is not audited, production-ready, a full ERC-4337 account, or intended for real assets.
@@ -38,6 +40,33 @@ The standalone account architecture is the current supported research target. ER
 One owner, multiple registered agents, single/ordered batch calls (maximum 16), mock USDC/WETH/router, EIP-712 signatures, nonce/time bounds, spend/output/recipient/allowance policies, strikes, quarantine, pause, two-step ownership and emergency token recovery. There is no delegatecall.
 
 Authentication and malformed-intent failures revert without strikes. Valid authenticated intents whose execution or outcome is unsafe consume the nonce and persist a violation.
+
+## Intent Manifest v2 — Phase 1
+
+The repository now also contains a separate, non-upgradeable `CresnexIntentLockAccountV2` research contract. It does not reinterpret v1 signatures or replace a deployed v1 account.
+
+Phase 1 adds:
+
+- a versioned manifest binding owner, policy hash, operation mode, and evidence configuration;
+- bounded arrays of up to eight ERC-20 outcome constraints and eight allowance constraints;
+- native-token spend and minimum-balance constraints;
+- transfer, swap, approval, and exact ordered-batch policy modules;
+- mock ERC-721/ERC-1155 purchase and selector-allowlisted administration modules;
+- stable violation codes and compact block/timestamp evidence;
+- owner nonce cancellation and emergency agent revocation; and
+- non-punitive classification for ordinary target failures.
+
+See [the v2 EIP-712 schema](docs/eip712-schema.md), [policy definitions](docs/policies.md), and [known limitations](docs/known-limitations.md). The existing dashboard and published deployment flow remain v1 until the dedicated SDK/frontend and deployment phases; they must not be pointed at a v2 address yet.
+
+Phase 2 additionally implements mock ERC-4626 deposit and withdrawal policies plus a controlled yield rebalance across signed mock vaults. It measures underlying/share deltas, caps final allowances and aggregate movement, and enforces a minimum portfolio value using a deterministic mock price source. This is research infrastructure—not a real yield optimizer, live-protocol integration, or production oracle design.
+
+Phase 3 adds bounded DAO treasury payments, payroll, and recurring subscriptions. It persists unique treasury references, epoch spend, payroll IDs and employee periods, subscription billing periods and payment counts, and owner cancellation. These are payment-policy research fixtures, not full governance, payroll administration, or merchant billing systems.
+
+Phase 4 adds fixed-interface mock ERC-721/ERC-1155 purchases and carefully bounded mock protocol administration. NFT policies verify exact delivery after measured payment and enforce residual allowance caps. Administration permits only five explicit selectors and rejects ownership transfer, upgrades, extra calls, and values outside signed bounds. Phase 4 validation lives in an immutable validator deployed with the account; it cannot execute account calls and is not upgradeable.
+
+Phase 5 adds an explicitly versioned TypeScript v2 SDK and browser lab. It builds all twelve policy encodings, mirrors Solidity's canonical hashes, signs v2 EIP-712 manifests, simulates exact packages, exports bigint-safe JSON, rejects tampered imports, submits from the bound agent, and decodes v2 evidence separately from v1. See [SDK packages](docs/sdk.md) and the [frontend demonstration](docs/frontend-demo.md).
+
+Phase 6 adds three explicitly unsafe academic baselines, 30-run comparative gas/outcome measurements, a complete local/testnet research-stack deployment script, public deployment manifests, chain-state smoke checks, and a measured dashboard section. See [experiments](docs/experiments.md) and [deployment](docs/base-sepolia-deployment.md). No Base Sepolia address is published until an actual broadcast and smoke check occur.
 
 ## Repository
 

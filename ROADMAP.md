@@ -26,13 +26,16 @@ The roadmap is ordered by security dependency, not marketing priority. Dates are
 
 ## Phase 2 — multi-asset policy v2
 
-- [ ] publish an Intent Manifest v2 design proposal
-- [ ] support bounded input deltas for multiple assets
-- [ ] support minimum recipient output deltas for multiple assets
-- [ ] support multiple token/spender final-allowance caps
-- [ ] define canonical array hashing and maximum bounds
-- [ ] benchmark gas and denial-of-service limits
-- [ ] preserve v1 deployments and provide explicit migration tooling
+- [x] publish the implemented Intent Manifest v2 Phase 1 schema
+- [x] support bounded input deltas for multiple assets
+- [x] support minimum recipient output deltas for multiple assets
+- [x] support multiple token/spender final-allowance caps
+- [x] define canonical array hashing and maximum bounds
+- [x] add transfer, swap, approval, and ordered-batch modules
+- [x] preserve v1 deployments with an explicit separate v2 contract
+- [ ] complete adversarial-token characterization
+- [ ] deploy and publish a versioned v2 testnet manifest
+- [ ] complete the SDK and v2 dashboard migration
 
 The v2 schema will be a new typed-data version and contract deployment. It will not silently reinterpret v1 signatures.
 
@@ -45,22 +48,64 @@ The v2 schema will be a new typed-data version and contract deployment. It will 
 - [ ] add indexed evidence pagination and explorer links
 - [ ] add accessibility, responsive, and end-to-end browser tests
 
+## Completed implementation slice — controlled DeFi research
+
+- [x] add an ERC-4626-shaped mock vault
+- [x] enforce maximum deposit and minimum shares
+- [x] enforce maximum shares burned and minimum withdrawal assets
+- [x] enforce exact beneficiaries and residual allowance caps
+- [x] add controlled rebalance across an ordered approved-vault set
+- [x] enforce deterministic mock portfolio value and movement limits
+- [x] add malicious-vault, fuzz, stateful invariant, and gas coverage
+- [ ] evaluate selected public-testnet protocol interfaces in a later integration phase
+
+## Completed implementation slice — bounded payments
+
+- [x] unique treasury purpose/reference hashes
+- [x] optional treasury epoch budgets
+- [x] payroll execution windows and unique payment IDs
+- [x] one payroll execution per token/employee/period
+- [x] recurring subscription periods and payment-count caps
+- [x] owner subscription cancellation
+- [x] payment fuzz, stateful no-double-charge invariant, and gas coverage
+- [ ] full DAO governance, employment, invoicing, and merchant integrations remain out of scope
+
+## Completed implementation slice — NFT and bounded administration
+
+- [x] bind mock ERC-721 and ERC-1155 purchases to an exact marketplace and collection
+- [x] enforce token commitment, maximum payment, exact recipient, minimum quantity, and zero residual allowance
+- [x] verify NFT delivery after execution and roll back payment when delivery is missing or wrong
+- [x] allowlist bounded mock parameter, address, pause, role, and treasury-limit changes
+- [x] reject hidden calls, ownership transfer, proxy upgrade selectors, and premature timelocked execution
+- [ ] production marketplace adapters, governance integrations, and multi-owner approval remain out of scope
+
 ## Phase 4 — deployment and releases
 
-- [ ] reproducible Base Sepolia deployment manifest
-- [ ] explorer verification in CI-assisted release procedure
-- [ ] signed release checksums and ABI artifacts
-- [ ] deployment smoke tests
-- [ ] documented pause/replacement incident procedure
+- [x] reproducible local and Base Sepolia-ready full-stack deployment script
+- [x] public versioned local deployment manifest
+- [x] deployment smoke tests
+- [x] documented verification and pause/replacement procedure
+- [ ] perform and publish an actual Base Sepolia v2 deployment
+- [ ] publish explorer verification links and signed release checksums
 - [ ] `v0.2.0-beta` public testnet release
+
+## Completed implementation slice — academic evaluation
+
+- [x] minimal signature-only, spend-limit, and path-plus-spend research baselines
+- [x] 30-run benign and wrong-recipient comparison
+- [x] reproducible JSON and CSV results
+- [x] measured frontend research section
+- [ ] extend equal-trial A/B/C/D measurements to every attack scenario and public-testnet receipt latency
 
 ## Phase 5 — SDK and integrations
 
-- [ ] TypeScript SDK for call hashing, typed data, package validation, and submission
-- [ ] framework-independent examples
-- [ ] versioned ABI and deployment packages
-- [ ] generated API reference
-- [ ] integration test application
+- [x] initial TypeScript SDK for call hashing, typed data, package validation, and submission
+- [x] v2 browser integration lab for all policy modules
+- [x] advisory simulation and decoded evidence timeline
+- [x] bigint-safe, hash-verified JSON package import/export
+- [ ] publish a framework-independent npm package and examples
+- [ ] publish versioned deployment metadata
+- [ ] generate stable API reference after the SDK boundary freezes
 
 ## Later milestone — account standards
 

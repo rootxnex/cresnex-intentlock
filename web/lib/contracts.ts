@@ -26,3 +26,23 @@ export const accountAddress = (
 ) as Address | undefined;
 
 export const deploymentBlock = BigInt(process.env.NEXT_PUBLIC_DEPLOYMENT_BLOCK || "0");
+
+export const accountV2Abi = parseAbi([
+  "function owner() view returns (address)",
+  "function paused() view returns (bool)",
+  "function agents(address) view returns (bool registered, bool quarantined, uint64 strikes)",
+  "function hashCalls((address target,uint256 value,bytes data,uint8 operation)[] calls) pure returns (bytes32)",
+  "function hashPolicy((uint8 module,(address token,uint256 maxSpend,address recipient,uint256 minReceive,uint256 minFinalBalance)[] assets,(address token,address spender,uint256 maxFinalAllowance)[] allowances,(uint256 maxSpend,uint256 minFinalBalance) nativeConstraint,bytes moduleData) policy) pure returns (bytes32)",
+  "function executeIntent((uint16 version,address account,address owner,address agent,uint256 chainId,bytes32 callsHash,bytes32 policyHash,uint256 nonce,uint48 validAfter,uint48 validUntil,bool allowBatch,uint8 evidenceMode) manifest,(address target,uint256 value,bytes data,uint8 operation)[] calls,(uint8 module,(address token,uint256 maxSpend,address recipient,uint256 minReceive,uint256 minFinalBalance)[] assets,(address token,address spender,uint256 maxFinalAllowance)[] allowances,(uint256 maxSpend,uint256 minFinalBalance) nativeConstraint,bytes moduleData) policy,bytes ownerSignature) returns (bool success,bytes32 evidenceHash)",
+  "event IntentExecuted(bytes32 indexed intentDigest,address indexed agent,bytes32 indexed callsHash)",
+  "event IntentViolation(bytes32 indexed intentDigest,address indexed agent,uint8 code,uint8 module,bytes32 evidenceHash,uint256 strikeCount,bool quarantined)",
+  "event ExecutionFailed(bytes32 indexed intentDigest,address indexed agent,bytes32 indexed callsHash,bytes32 failureHash)",
+]) as Abi;
+
+export const accountV2Address = (
+  isAddress(process.env.NEXT_PUBLIC_ACCOUNT_V2_ADDRESS ?? "")
+    ? process.env.NEXT_PUBLIC_ACCOUNT_V2_ADDRESS
+    : undefined
+) as Address | undefined;
+
+export const deploymentV2Block = BigInt(process.env.NEXT_PUBLIC_DEPLOYMENT_V2_BLOCK || "0");

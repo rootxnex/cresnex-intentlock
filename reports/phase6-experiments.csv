@@ -1,0 +1,9 @@
+scenario,baseline,result,trials,mean_gas,harmful_state_survived,evidence_survived,strike_result,quarantine_result
+benign standard ERC-20 transfer,A SignatureOnlyAccount,committed,30,80319,false,false,0,false
+benign standard ERC-20 transfer,B SpendLimitGuardAccount,committed,30,79902,false,false,0,false
+benign standard ERC-20 transfer,C PathAndSpendGuardAccount,committed,30,81007,false,false,0,false
+benign standard ERC-20 transfer,D CresnexIntentLockAccountV2,committed,30,135939,false,false,0,false
+wrong-recipient ERC-20 transfer,A SignatureOnlyAccount,harm committed,30,81825,true,false,0,false
+wrong-recipient ERC-20 transfer,B SpendLimitGuardAccount,harm committed,30,81892,true,false,0,false
+wrong-recipient ERC-20 transfer,C PathAndSpendGuardAccount,harm committed,30,82931,true,false,0,false
+wrong-recipient ERC-20 transfer,D CresnexIntentLockAccountV2,contained,30,223004,false,true,1,false

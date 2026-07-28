@@ -2,6 +2,22 @@
 
 This document describes the architecture implemented by this repository. Cresnex IntentLock is security-critical research code: it is a working prototype for intent- and outcome-bound smart-account execution, but it is not audited, production-ready, or intended to custody real assets.
 
+## Version status
+
+The numbered v1 sections below describe the original deployment-compatible prototype. Phase 1 adds `CresnexIntentLockAccountV2` as a separate, non-upgradeable research contract with a new typed-data domain and ABI.
+
+V2 preserves the outer authentication → nonce consumption → external self-call → classification flow, but replaces the single input/output/allowance tuple with bounded arrays. It distinguishes authenticated `PolicyViolation` failures from ordinary `TargetCallFailed` failures; only policy violations add strikes. See [eip712-schema.md](eip712-schema.md) and [policies.md](policies.md) for the implemented modules.
+
+Phase 2 adds ERC-4626-shaped deposit/withdrawal validation and controlled yield-rebalance postconditions. The account treats vault return values as untrusted, measures underlying and share balances, and derives mock portfolio value only from the signed deterministic pricing fixture. No production protocol or oracle integration is implied.
+
+Phase 3 adds successful-payment state in the outer controller. Treasury references/budgets, payroll IDs/periods, and subscription periods/counts are checked during isolated authenticated validation and recorded only after inner execution succeeds. Policy violations leave those success registries unchanged while still preserving violation evidence and strikes.
+
+Phase 4 delegates NFT and administration policy decoding to an immutable `Phase4PolicyValidator` created in the account constructor. The validator has no authority or mutable state and never executes calls. The account retains authentication, nonce state, isolated execution, outcome measurement, evidence, and discipline. This external boundary avoids `delegatecall`, upgradeability, and EIP-170 growth while preserving the external-self-call containment frame.
+
+Phase 5 keeps v1 and v2 clients explicitly separate. The v2 TypeScript layer mirrors the Solidity hash functions, uses the version-2 domain, validates imported package commitments, and submits the exact manifest/calls/policy tuple. Its event reader uses the v2 ABI and violation-code table rather than interpreting v2 logs through the legacy schema.
+
+Phase 6 introduces three independent academic baseline contracts. They do not share execution code or storage with IntentLock and are never selected by the production research account. The deployment script creates immutable v1/v2 accounts and clearly labelled mocks, then writes public chain metadata after broadcasting. Local smoke checks compare that manifest with deployed owner, funding, oracle, and bytecode state.
+
 ## 1. System context
 
 The system separates authority, submission, execution, and observation:

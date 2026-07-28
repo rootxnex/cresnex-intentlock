@@ -3,6 +3,9 @@ import { IntentBuilder } from "@/components/IntentBuilder";
 import { WalletButton } from "@/components/WalletButton";
 import { AccountConsole } from "@/components/AccountConsole";
 import { ExecutionSimulator } from "@/components/ExecutionSimulator";
+import { V2IntentLab } from "@/components/V2IntentLab";
+import { V2EvidenceTimeline } from "@/components/V2EvidenceTimeline";
+import { ResearchResults } from "@/components/ResearchResults";
 
 export default function Home() {
   return (
@@ -26,6 +29,9 @@ export default function Home() {
         <ExecutionSimulator />
       </section>
       <IntentBuilder />
+      <V2IntentLab />
+      <V2EvidenceTimeline />
+      <ResearchResults />
       <section className="comparison"><div className="comparison-intro"><div className="eyebrow">Academic evaluation</div><h2>Path is not outcome.</h2><p>Calling an approved target does not guarantee an approved financial result.</p></div><div className="compare-grid"><article><span>CONTROL / A</span><strong>Checks where</strong><p>Path-only validation can miss harmful results produced by an allowed target.</p><div className="compare-mark bad">PATH ≠ SAFETY</div></article><article className="highlight"><span>CONTROL / B</span><strong>Checks what happened</strong><p>IntentLock measures final state, reverts unsafe effects, and preserves evidence outside.</p><div className="compare-mark good">OUTCOME BOUND</div></article></div><p className="demo-note">Conceptual comparison. Generate measured gas and experiment results from the included test plan.</p></section>
       <footer><a className="brand" href="#"><Image className="brand-logo footer-logo" src="/brand/cresnex-logo.jpeg" width={36} height={34} alt="" /><span>Cresnex IntentLock</span></a><span>Web3 security research · Testnet only · Not audited</span><a href="#builder">Return to intent lab ↑</a></footer>
     </main>
