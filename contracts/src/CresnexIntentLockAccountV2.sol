@@ -13,10 +13,6 @@ import {IntentTypesV2} from "./IntentTypesV2.sol";
 import {ICresnexIntentLockV2} from "./interfaces/ICresnexIntentLockV2.sol";
 import {Phase4PolicyValidator} from "./policies/Phase4PolicyValidator.sol";
 
-interface IVaultPriceOracle {
-    function price(address vault) external view returns (uint256);
-}
-
 /// @notice Unaudited research account for local development and public testnets only.
 contract CresnexIntentLockAccountV2 is ICresnexIntentLockV2, EIP712, Ownable2Step, Pausable, ReentrancyGuard {
     using SafeERC20 for IERC20;
@@ -40,11 +36,6 @@ contract CresnexIntentLockAccountV2 is ICresnexIntentLockV2, EIP712, Ownable2Ste
     bytes32 public constant INTENT_TYPEHASH = keccak256(
         "IntentManifest(uint16 version,address account,address owner,address agent,uint256 chainId,bytes32 callsHash,bytes32 policyHash,uint256 nonce,uint48 validAfter,uint48 validUntil,bool allowBatch,uint8 evidenceMode)"
     );
-
-    bytes4 private constant TRANSFER_SELECTOR = IERC20.transfer.selector;
-    bytes4 private constant APPROVE_SELECTOR = IERC20.approve.selector;
-    bytes4 private constant DEPOSIT_SELECTOR = bytes4(keccak256("deposit(uint256,address)"));
-    bytes4 private constant WITHDRAW_SELECTOR = bytes4(keccak256("withdraw(uint256,address,address)"));
 
     error OnlySelf();
     error UnauthorizedAgent();
@@ -308,7 +299,8 @@ contract CresnexIntentLockAccountV2 is ICresnexIntentLockV2, EIP712, Ownable2Ste
         external
         onlySelf
     {
-        _validateModule(calls, policy);
+        phase4Validator.validateCalls(calls, policy, address(this));
+        _validateStatefulPolicy(calls, policy);
         uint256 nativeBefore = address(this).balance;
         uint256[] memory accountBefore = new uint256[](policy.assets.length);
         uint256[] memory recipientBefore = new uint256[](policy.assets.length);
@@ -348,7 +340,7 @@ contract CresnexIntentLockAccountV2 is ICresnexIntentLockV2, EIP712, Ownable2Ste
         if (policy.assets.length > MAX_ASSET_CONSTRAINTS || policy.allowances.length > MAX_ALLOWANCE_CONSTRAINTS) {
             revert InvalidPolicy();
         }
-        _validatePolicyShape(policy);
+        phase4Validator.validateShape(policy, address(this));
         for (uint256 i; i < calls.length; ++i) {
             if (calls[i].target == address(0) || calls[i].target == address(this)) revert InvalidCallTarget();
             if (calls[i].operation != IntentTypesV2.Operation.Call) revert UnsupportedOperation();
@@ -359,6 +351,7 @@ contract CresnexIntentLockAccountV2 is ICresnexIntentLockV2, EIP712, Ownable2Ste
         if (ECDSA.recover(digest, signature) != owner()) revert InvalidOwnerSignature();
     }
 
+    /* Module-specific shape and call validation moved to the immutable Phase4PolicyValidator.
     function _validatePolicyShape(IntentTypesV2.Policy calldata policy) private view {
         uint256 expectedModuleDataLength;
         if (policy.module == IntentTypesV2.PolicyModule.Transfer) expectedModuleDataLength = 192;
@@ -569,6 +562,20 @@ contract CresnexIntentLockAccountV2 is ICresnexIntentLockV2, EIP712, Ownable2Ste
         }
     }
 
+    */
+    function _validateStatefulPolicy(IntentTypesV2.ExecutionCall[] calldata calls, IntentTypesV2.Policy calldata policy)
+        private
+        view
+    {
+        if (policy.module == IntentTypesV2.PolicyModule.TreasuryPayment) {
+            _validateTreasuryPayment(calls, policy);
+        } else if (policy.module == IntentTypesV2.PolicyModule.Payroll) {
+            _validatePayrollPayment(calls, policy);
+        } else if (policy.module == IntentTypesV2.PolicyModule.Subscription) {
+            _validateSubscriptionPayment(calls, policy);
+        }
+    }
+
     function _validateTreasuryPayment(
         IntentTypesV2.ExecutionCall[] calldata calls,
         IntentTypesV2.Policy calldata policy
@@ -582,7 +589,10 @@ contract CresnexIntentLockAccountV2 is ICresnexIntentLockV2, EIP712, Ownable2Ste
             uint48 epochLength,
             uint256 epochBudget
         ) = abi.decode(policy.moduleData, (address, address, uint256, bytes32, bytes32, uint48, uint256));
-        uint256 amount = _validateTokenPaymentCall(calls, asset, recipient, maximum);
+        asset;
+        recipient;
+        maximum;
+        uint256 amount = _paymentAmount(calls[0].data);
         if (usedTreasuryReferences[referenceHash]) {
             _violate(ViolationCode.PaymentPeriodViolation, keccak256(abi.encode(referenceHash)));
         }
@@ -597,7 +607,7 @@ contract CresnexIntentLockAccountV2 is ICresnexIntentLockV2, EIP712, Ownable2Ste
         }
     }
 
-    function _validatePayrollPayment(IntentTypesV2.ExecutionCall[] calldata calls, IntentTypesV2.Policy calldata policy)
+    function _validatePayrollPayment(IntentTypesV2.ExecutionCall[] calldata, IntentTypesV2.Policy calldata policy)
         private
         view
     {
@@ -610,7 +620,7 @@ contract CresnexIntentLockAccountV2 is ICresnexIntentLockV2, EIP712, Ownable2Ste
             uint48 earliest,
             uint48 latest
         ) = abi.decode(policy.moduleData, (address, address, uint256, bytes32, uint256, uint48, uint48));
-        _validateTokenPaymentCall(calls, asset, employee, maximum);
+        maximum;
         bytes32 periodKey = keccak256(abi.encode(asset, employee, period));
         if (
             block.timestamp < earliest || block.timestamp > latest || usedPayrollPayments[paymentId]
@@ -623,10 +633,10 @@ contract CresnexIntentLockAccountV2 is ICresnexIntentLockV2, EIP712, Ownable2Ste
         }
     }
 
-    function _validateSubscriptionPayment(
-        IntentTypesV2.ExecutionCall[] calldata calls,
-        IntentTypesV2.Policy calldata policy
-    ) private view {
+    function _validateSubscriptionPayment(IntentTypesV2.ExecutionCall[] calldata, IntentTypesV2.Policy calldata policy)
+        private
+        view
+    {
         (
             bytes32 subscriptionId,
             address asset,
@@ -637,7 +647,9 @@ contract CresnexIntentLockAccountV2 is ICresnexIntentLockV2, EIP712, Ownable2Ste
             uint48 end,
             uint32 maxPayments
         ) = abi.decode(policy.moduleData, (bytes32, address, address, uint256, uint48, uint48, uint48, uint32));
-        _validateTokenPaymentCall(calls, asset, merchant, maximum);
+        asset;
+        merchant;
+        maximum;
         if (
             cancelledSubscriptions[subscriptionId] || block.timestamp < start || block.timestamp > end
                 || subscriptionPaymentCount[subscriptionId] >= maxPayments
@@ -653,6 +665,7 @@ contract CresnexIntentLockAccountV2 is ICresnexIntentLockV2, EIP712, Ownable2Ste
         }
     }
 
+    /* Pure module call checks moved to the immutable Phase4PolicyValidator.
     function _validateTokenPaymentCall(
         IntentTypesV2.ExecutionCall[] calldata calls,
         address asset,
@@ -774,6 +787,7 @@ contract CresnexIntentLockAccountV2 is ICresnexIntentLockV2, EIP712, Ownable2Ste
         }
     }
 
+    */
     function _validateOutcomes(
         IntentTypesV2.Policy calldata policy,
         uint256 nativeBefore,
@@ -818,13 +832,15 @@ contract CresnexIntentLockAccountV2 is ICresnexIntentLockV2, EIP712, Ownable2Ste
                 _violate(ViolationCode.AllowanceExceeded, keccak256(abi.encode(i, finalAllowance, a.maxFinalAllowance)));
             }
         }
-        if (policy.module == IntentTypesV2.PolicyModule.YieldRebalance) {
-            _validateYieldOutcome(policy, totalSpent);
-        } else if (policy.module == IntentTypesV2.PolicyModule.NftPurchase) {
-            phase4Validator.validateOutcome(policy);
+        if (
+            policy.module == IntentTypesV2.PolicyModule.YieldRebalance
+                || policy.module == IntentTypesV2.PolicyModule.NftPurchase
+        ) {
+            phase4Validator.validateOutcome(policy, address(this), totalSpent);
         }
     }
 
+    /* Yield-specific outcome validation moved to the immutable Phase4PolicyValidator.
     function _validateYieldOutcome(IntentTypesV2.Policy calldata policy, uint256 totalSpent) private view {
         (address asset, address oracle,, uint256 maxMovement, uint256 minPortfolioValue) =
             abi.decode(policy.moduleData, (address, address, bytes32, uint256, uint256));
@@ -842,6 +858,7 @@ contract CresnexIntentLockAccountV2 is ICresnexIntentLockV2, EIP712, Ownable2Ste
         }
     }
 
+    */
     function _recordSuccessfulPolicy(IntentTypesV2.Policy calldata policy, IntentTypesV2.ExecutionCall[] calldata calls)
         private
     {
@@ -875,6 +892,7 @@ contract CresnexIntentLockAccountV2 is ICresnexIntentLockV2, EIP712, Ownable2Ste
         (, amount) = abi.decode(data[4:], (address, uint256));
     }
 
+    /* Module-specific constraint lookup helpers moved to the immutable Phase4PolicyValidator.
     function _hasAssetConstraint(
         IntentTypesV2.Policy calldata policy,
         address token,
@@ -945,6 +963,7 @@ contract CresnexIntentLockAccountV2 is ICresnexIntentLockV2, EIP712, Ownable2Ste
         return false;
     }
 
+    */
     function _boundedCall(IntentTypesV2.ExecutionCall calldata call_)
         private
         returns (bool ok, bytes32 revertDataHash)

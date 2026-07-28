@@ -4,6 +4,8 @@
 
 Version 2 is a new EIP-712 schema and a separate contract deployment. A v1 signature is never valid for v2.
 
+The Phase 4 policy-validator extraction does not change this schema, the ABI package shape, `callsHash`, `policyHash`, or any module ID. The validator address is account-created and immutable; it is not an unsigned execution input.
+
 ## Domain
 
 - Name: `Cresnex IntentLock`

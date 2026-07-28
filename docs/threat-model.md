@@ -14,7 +14,7 @@ The Phase 0–2 review additionally enforces structural module-to-constraint bin
 
 Phase 3 prevents duplicate successful treasury references, repeated payroll IDs or employee periods, repeated subscription billing periods, charges beyond subscription count caps, and charges after owner cancellation. It does not authenticate off-chain work, invoices, employment status, service delivery, or legal authority; the owner remains responsible for signing correct payment policies.
 
-Phase 4 assumes the signed mock marketplace and collection addresses are intentional. It measures payment and final NFT delivery but does not validate production order books, royalties, provenance, metadata, or collection authenticity. Administration is selector-allowlisted and argument-bounded; ownership transfer, upgrades, and arbitrary `delegatecall` remain forbidden. The immutable validator is trusted code deployed with each account, not a replaceable plugin.
+Phase 4 assumes the signed mock marketplace and collection addresses are intentional. It measures ERC-20 or native payment and final NFT delivery but does not validate production order books, royalties, provenance, metadata, or collection authenticity. Administration is selector-allowlisted and argument-bounded; ownership transfer, upgrades, and arbitrary `delegatecall` remain forbidden. The immutable validator is trusted stateless code deployed with each account, not a replaceable plugin. It cannot consume nonces, mutate account storage, execute the signed calls, or select a different module than the signed module ID. Authentication and authenticated-failure classification remain solely in the account.
 
 ## Assets and trust
 

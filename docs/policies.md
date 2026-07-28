@@ -90,9 +90,11 @@ Time checks use `block.timestamp` and therefore inherit normal validator timesta
 
 ## NFT purchase
 
-The initial NFT adapter supports only the repository's mock marketplace entry points for ERC-721 and ERC-1155 purchases. It binds the exact marketplace, collection, payment token, maximum price, NFT recipient, token ID commitment, token standard, and minimum ERC-1155 quantity.
+The initial NFT adapter supports only the repository's mock marketplace entry points for ERC-721 and ERC-1155 purchases. It binds the exact marketplace, collection, ERC-20 or native payment asset, maximum price, NFT recipient, token ID commitment, token standard, and minimum ERC-1155 quantity.
 
-Payment approval is limited to the signed marketplace and price, and the final allowance is measured after execution. The isolated frame also verifies final ERC-721 ownership or ERC-1155 balance; payment without delivery, wrong-recipient delivery, and excessive spend are rolled back. The account accepts single ERC-721 and ERC-1155 safe transfers through a selector-restricted receiver fallback.
+ERC-20 payment approval is limited to the signed marketplace and price, and the final allowance is measured after execution. Native purchases require the marketplace call value to equal the encoded price and remain within the signed native maximum. The isolated frame also verifies final ERC-721 ownership or ERC-1155 balance; payment without delivery, wrong-recipient delivery, residual approval, and excessive spend are rolled back. The account accepts single ERC-721 and ERC-1155 safe transfers through a selector-restricted receiver fallback.
+
+All module-specific validators are stateless code at the account-created immutable validator address. The signed module ID selects a fixed code path; neither owner nor agent supplies a validator address. The EIP-712 schema, policy hash, ABI package shape, and module IDs are unchanged by this extraction.
 
 This is not a universal marketplace adapter. Production order formats, royalties, collection impersonation, off-chain order validity, criteria bids, and marketplace-specific callbacks are outside this research slice.
 

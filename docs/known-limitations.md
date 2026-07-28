@@ -20,7 +20,7 @@ Transfer, swap, approval, ordered batch, mock ERC-4626 deposit/withdrawal, contr
 
 The payment policies do not provide full DAO governance, employment administration, invoicing, fiat conversion, tax handling, legal compliance, payment dispute resolution, or off-chain service cancellation. Epoch and billing calculations use EVM timestamps.
 
-NFT support is limited to the repository's fixed mock ERC-721/ERC-1155 marketplace interfaces. It does not support arbitrary production order protocols, safe ERC-1155 batch receipt, royalties, criteria orders, or every callback pattern. Administration supports only five explicit mock selectors; it is not a general governance executor and deliberately rejects ownership transfer and upgrades.
+NFT support is limited to the repository's fixed mock ERC-721/ERC-1155 marketplace interfaces and conventional ERC-20 or exact native payment. It does not support arbitrary production order protocols, NFT batch purchases, royalties, criteria orders, or every callback pattern. Administration supports only five explicit mock selectors; it is not a general governance executor and deliberately rejects ownership transfer and upgrades.
 
 The DeFi modules are tested against repository mocks rather than live protocols. The deterministic pricing fixture is ownerless test infrastructure and must never be treated as a production oracle. The beta does not model share-price manipulation, donations, inflation attacks, asynchronous vaults, withdrawal queues, protocol fees, or oracle freshness.
 

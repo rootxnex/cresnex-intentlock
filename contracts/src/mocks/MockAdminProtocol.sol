@@ -7,6 +7,7 @@ contract MockAdminProtocol {
     address public approvedAddress;
     bool public paused;
     uint256 public treasuryLimit;
+    uint256 public dangerousCallCount;
     mapping(bytes32 role => mapping(address account => bool granted)) public roles;
 
     function setParameter(uint256 value) external {
@@ -29,7 +30,11 @@ contract MockAdminProtocol {
         treasuryLimit = value;
     }
 
-    function transferOwnership(address) external {}
+    function transferOwnership(address) external {
+        ++dangerousCallCount;
+    }
 
-    function upgradeToAndCall(address, bytes calldata) external {}
+    function upgradeToAndCall(address, bytes calldata) external {
+        ++dangerousCallCount;
+    }
 }

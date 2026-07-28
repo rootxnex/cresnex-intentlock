@@ -14,7 +14,9 @@ contract MockNftMarketplace {
         Normal,
         ExcessiveDebit,
         WrongRecipient,
-        NoDelivery
+        NoDelivery,
+        LargeReturnData,
+        LargeRevertData
     }
 
     Behavior public behavior;
@@ -26,11 +28,13 @@ contract MockNftMarketplace {
 
     function buyERC721(address collection, uint256 tokenId, address paymentToken, uint256 price, address recipient)
         external
+        payable
     {
         _takePayment(paymentToken, price);
         if (behavior != Behavior.NoDelivery) {
             MockERC721(collection).mint(behavior == Behavior.WrongRecipient ? wrongRecipient : recipient, tokenId);
         }
+        _finishAdversarialResponse();
     }
 
     function buyERC1155(
@@ -40,16 +44,35 @@ contract MockNftMarketplace {
         address paymentToken,
         uint256 price,
         address recipient
-    ) external {
+    ) external payable {
         _takePayment(paymentToken, price);
         if (behavior != Behavior.NoDelivery) {
             MockERC1155(collection)
                 .mint(behavior == Behavior.WrongRecipient ? wrongRecipient : recipient, tokenId, quantity);
         }
+        _finishAdversarialResponse();
     }
 
     function _takePayment(address paymentToken, uint256 price) private {
         uint256 debit = behavior == Behavior.ExcessiveDebit ? price + 1 : price;
-        IERC20(paymentToken).safeTransferFrom(msg.sender, address(this), debit);
+        if (paymentToken == address(0)) {
+            require(msg.value == debit, "native payment mismatch");
+        } else {
+            require(msg.value == 0, "unexpected native payment");
+            IERC20(paymentToken).safeTransferFrom(msg.sender, address(this), debit);
+        }
+    }
+
+    function _finishAdversarialResponse() private view {
+        if (behavior == Behavior.LargeReturnData) {
+            assembly ("memory-safe") {
+                return(0, 0x10000)
+            }
+        }
+        if (behavior == Behavior.LargeRevertData) {
+            assembly ("memory-safe") {
+                revert(0, 0x10000)
+            }
+        }
     }
 }
