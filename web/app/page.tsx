@@ -6,6 +6,7 @@ import { ExecutionSimulator } from "@/components/ExecutionSimulator";
 import { V2IntentLab } from "@/components/V2IntentLab";
 import { V2EvidenceTimeline } from "@/components/V2EvidenceTimeline";
 import { ResearchResults } from "@/components/ResearchResults";
+import { V2AccountConsole } from "@/components/V2AccountConsole";
 
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
         </div>
       </header>
       <section className="pipeline" aria-label="Execution pipeline"><span><b>01</b> Intent</span><i>→</i><span><b>02</b> Authenticate</span><i>→</i><span><b>03</b> Isolate</span><i>→</i><span><b>04</b> Measure</span><i>→</i><span><b>05</b> Commit / contain</span></section>
+      <V2AccountConsole />
       <AccountConsole />
       <section className="grid">
         <section className="panel decision-card allowed"><div className="panel-number">01 — CONTAINMENT</div><div className="eyebrow">Persistent response</div><h2>Rollback the harm.<br/>Keep the signal.</h2><div className="agent"><div className="avatar">AI</div><div><strong>Authenticated agent</strong><code>unsafe nested effects → atomic revert</code></div><span className="badge">✓ EVIDENCE SURVIVES</span></div><div className="strikebar"><i/><i/><i/></div><p className="muted">A valid but unsafe attempt consumes its nonce and adds a strike. Authentication mistakes revert without punishment.</p></section>

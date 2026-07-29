@@ -157,39 +157,8 @@ contract Phase4PolicyValidator {
                     || end < start || maxPayments == 0 || !_hasAsset(policy, asset, maximum, merchant, 0)
             ) revert InvalidPolicy();
         } else if (policy.module == IntentTypesV2.PolicyModule.NftPurchase) {
-            (
-                address marketplace,
-                address collection,
-                uint256 tokenId,
-                bytes32 tokenCommitment,
-                address paymentToken,
-                uint256 maxPayment,
-                address recipient,
-                uint256 minQuantity,
-                uint8 standard,
-                address approvalSpender,
-                uint256 maxFinalAllowance,
-                bool requireExactToken
-            ) = abi.decode(
-                policy.moduleData,
-                (address, address, uint256, bytes32, address, uint256, address, uint256, uint8, address, uint256, bool)
-            );
-            if (
-                marketplace == address(0) || collection == address(0) || recipient == address(0) || standard < 1
-                    || standard > 2 || minQuantity == 0
-                    || (requireExactToken && tokenCommitment != keccak256(abi.encode(tokenId)))
-            ) revert InvalidPolicy();
-            if (paymentToken == address(0)) {
-                if (
-                    approvalSpender != address(0) || maxFinalAllowance != 0
-                        || policy.nativeConstraint.maxSpend > maxPayment
-                ) revert InvalidPolicy();
-            } else if (
-                approvalSpender != marketplace || !_hasAsset(policy, paymentToken, maxPayment, account, 0)
-                    || !_hasAllowance(policy, paymentToken, marketplace, maxFinalAllowance)
-            ) {
-                revert InvalidPolicy();
-            }
+            _validateNftIdentityShape(policy);
+            _validateNftPaymentShape(policy, account);
         } else if (policy.module == IntentTypesV2.PolicyModule.Administration) {
             (
                 address target,
@@ -206,6 +175,50 @@ contract Phase4PolicyValidator {
                     || ((selector == SET_APPROVED_ADDRESS_SELECTOR || selector == GRANT_ROLE_SELECTOR)
                         && approvedAddress == address(0)) || (selector == GRANT_ROLE_SELECTOR && role == bytes32(0))
             ) revert InvalidPolicy();
+        }
+    }
+
+    function _validateNftIdentityShape(IntentTypesV2.Policy calldata policy) private pure {
+        (
+            address marketplace,
+            address collection,
+            uint256 tokenId,
+            bytes32 tokenCommitment,,,
+            address recipient,
+            uint256 minQuantity,
+            uint8 standard,,,
+            bool requireExactToken
+        ) = abi.decode(
+            policy.moduleData,
+            (address, address, uint256, bytes32, address, uint256, address, uint256, uint8, address, uint256, bool)
+        );
+        if (
+            marketplace == address(0) || collection == address(0) || recipient == address(0) || standard < 1
+                || standard > 2 || minQuantity == 0
+                || (requireExactToken && tokenCommitment != keccak256(abi.encode(tokenId)))
+        ) revert InvalidPolicy();
+    }
+
+    function _validateNftPaymentShape(IntentTypesV2.Policy calldata policy, address account) private pure {
+        (
+            address marketplace,,,,
+            address paymentToken,
+            uint256 maxPayment,,,,
+            address approvalSpender,
+            uint256 maxFinalAllowance,
+        ) = abi.decode(
+            policy.moduleData,
+            (address, address, uint256, bytes32, address, uint256, address, uint256, uint8, address, uint256, bool)
+        );
+        if (paymentToken == address(0)) {
+            if (
+                approvalSpender != address(0) || maxFinalAllowance != 0 || policy.nativeConstraint.maxSpend > maxPayment
+            ) revert InvalidPolicy();
+        } else if (
+            approvalSpender != marketplace || !_hasAsset(policy, paymentToken, maxPayment, account, 0)
+                || !_hasAllowance(policy, paymentToken, marketplace, maxFinalAllowance)
+        ) {
+            revert InvalidPolicy();
         }
     }
 

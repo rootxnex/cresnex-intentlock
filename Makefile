@@ -10,7 +10,7 @@ gas:
 experiments:
 	cd contracts && forge test --match-contract AcademicBaselinesTest --fuzz-runs 30 -vv
 coverage:
-	cd contracts && forge coverage
+	cd contracts && forge coverage --ir-minimum
 web-install:
 	cd web && npm ci
 web-check:

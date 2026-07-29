@@ -112,16 +112,16 @@ export function AccountConsole() {
   return (
     <>
       <section className="stats">
-        <article><span>Account</span><strong>{short(accountAddress)}</strong><small>{configured ? "Configured deployment" : "Set NEXT_PUBLIC_ACCOUNT_ADDRESS"}</small></article>
+        <article><span>Legacy V1 account</span><strong>{short(accountAddress)}</strong><small>{configured ? "Configured legacy deployment" : "Legacy deployment not connected"}</small></article>
         <article><span>Owner</span><strong>{short(owner)}</strong><small>{isOwner ? "Connected as owner" : "Read from chain"}</small></article>
         <article><span>Network</span><strong>{chain?.name ?? "Not connected"}</strong><small>{chain ? `Chain ID ${chain.id}` : "Connect a wallet"}</small></article>
         <article><span>Protection</span><strong className={paused ? "" : "green"}>{status}</strong><small>Threshold {quarantineThreshold?.toString() ?? "—"}</small></article>
       </section>
 
       <section className="panel owner-panel" id="agents">
-        <div className="panel-number">LIVE / OWNER</div>
-        <div className="eyebrow">Live owner controls</div>
-        <h2>Agent management</h2>
+        <div className="panel-number">LEGACY V1 / OWNER</div>
+        <div className="eyebrow">Legacy V1 controls</div>
+        <h2>V1 agent management</h2>
         <div className="form-grid">
           <label className="wide">Agent address<input value={agent} onChange={(event) => setAgent(event.target.value)} placeholder="0x…" /></label>
           <label>Quarantine threshold<input type="number" min="1" value={threshold} onChange={(event) => setThreshold(event.target.value)} /></label>
