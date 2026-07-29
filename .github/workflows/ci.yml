@@ -23,7 +23,7 @@ jobs:
       - run: forge fmt --check src test script
       - run: forge build
       - run: forge test --gas-report
-      - run: forge coverage
+      - run: forge coverage --ir-minimum
 
   web:
     runs-on: ubuntu-latest
