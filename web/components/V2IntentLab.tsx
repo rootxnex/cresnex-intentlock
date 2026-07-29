@@ -320,7 +320,7 @@ export function V2IntentLab() {
       <div className="eyebrow">Phase 5 research lab</div>
       <h2>Build, verify, and simulate v2</h2>
       <p className="muted">Every package binds complete calls and policy bytes. Imported JSON is rejected if either canonical hash differs.</p>
-      {!configured && <p className="error-note">Set NEXT_PUBLIC_ACCOUNT_V2_ADDRESS before signing or submitting v2 packages.</p>}
+      {!configured && <p className="error-note">Connect a verified V2 deployment before signing or submitting packages. See the deployment setup panel above for the required public configuration.</p>}
       <div className="form-grid">
         <label>Policy module<select value={module} onChange={(event) => setModule(Number(event.target.value) as PolicyModule)}>
           {policyModuleNames.map((name, index) => <option key={name} value={index}>{index} · {name}</option>)}

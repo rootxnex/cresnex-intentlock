@@ -112,7 +112,7 @@ export function V2EvidenceTimeline() {
       <div className="panel-number">V2 / EVIDENCE</div>
       <div className="eyebrow">Decoded persistent outcomes</div>
       <h2>V2 security timeline</h2>
-      {!accountV2Address && <div className="empty">Set NEXT_PUBLIC_ACCOUNT_V2_ADDRESS to load v2 evidence.</div>}
+      {!accountV2Address && <div className="empty">Connect a verified V2 deployment to load live evidence. The deployment setup panel lists the required public configuration.</div>}
       {accountV2Address && items.length === 0 && !error && <div className="empty">No v2 events in the configured scan window.</div>}
       {error && <p className="error-note">{error}</p>}
       {items.map((item) => <div className="event" key={item.key}>
