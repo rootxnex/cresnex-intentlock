@@ -11,7 +11,7 @@ import { V2AccountConsole } from "@/components/V2AccountConsole";
 export default function Home() {
   return (
     <main>
-      <nav><a className="brand" href="#" aria-label="Cresnex IntentLock home"><Image className="brand-logo" src="/brand/cresnex-logo.jpeg" width={42} height={40} priority alt="" /><span>CRESNEX <i>/</i> <b>INTENTLOCK</b></span></a><div className="navlinks"><a href="#agents">Agents</a><a href="#builder">Intent lab</a><a href="#events">Evidence</a></div><WalletButton /></nav>
+      <nav><a className="brand" href="#" aria-label="Cresnex IntentLock home"><Image className="brand-logo" src="/brand/cresnex-intentlock-logo.png" width={42} height={42} priority alt="" /><span>CRESNEX <i>/</i> <b>INTENTLOCK</b></span></a><div className="navlinks"><a href="#agents">Agents</a><a href="#builder">Intent lab</a><a href="#events">Evidence</a></div><WalletButton /></nav>
       <header className="hero">
         <div className="hero-copy"><div className="eyebrow live">Research prototype · Base Sepolia</div><h1>Let agents act.<br/><em>Keep outcomes bounded.</em></h1><p>Owner-signed financial boundaries for autonomous smart wallets. Unsafe effects roll back. Compact evidence survives.</p><div className="hero-actions"><a className="primary link" href="#builder">Build an intent <span>↗</span></a><a className="secondary link" href="#events">Inspect evidence</a></div><div className="hero-proof"><span>01 / Exact calls</span><span>02 / Measured outcomes</span><span>03 / Persistent response</span></div></div>
         <div className="containment" aria-label="Intent containment model">
@@ -35,7 +35,7 @@ export default function Home() {
       <V2EvidenceTimeline />
       <ResearchResults />
       <section className="comparison"><div className="comparison-intro"><div className="eyebrow">Academic evaluation</div><h2>Path is not outcome.</h2><p>Calling an approved target does not guarantee an approved financial result.</p></div><div className="compare-grid"><article><span>CONTROL / A</span><strong>Checks where</strong><p>Path-only validation can miss harmful results produced by an allowed target.</p><div className="compare-mark bad">PATH ≠ SAFETY</div></article><article className="highlight"><span>CONTROL / B</span><strong>Checks what happened</strong><p>IntentLock measures final state, reverts unsafe effects, and preserves evidence outside.</p><div className="compare-mark good">OUTCOME BOUND</div></article></div><p className="demo-note">Conceptual comparison. Generate measured gas and experiment results from the included test plan.</p></section>
-      <footer><a className="brand" href="#"><Image className="brand-logo footer-logo" src="/brand/cresnex-logo.jpeg" width={36} height={34} alt="" /><span>Cresnex IntentLock</span></a><span>Web3 security research · Testnet only · Not audited</span><a href="#builder">Return to intent lab ↑</a></footer>
+      <footer><a className="brand" href="#"><Image className="brand-logo footer-logo" src="/brand/cresnex-intentlock-logo.png" width={36} height={36} alt="" /><span>Cresnex IntentLock</span></a><span>Web3 security research · Testnet only · Not audited</span><a href="#builder">Return to intent lab ↑</a></footer>
     </main>
   );
 }
