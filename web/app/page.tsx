@@ -7,11 +7,13 @@ import { V2IntentLab } from "@/components/V2IntentLab";
 import { V2EvidenceTimeline } from "@/components/V2EvidenceTimeline";
 import { ResearchResults } from "@/components/ResearchResults";
 import { V2AccountConsole } from "@/components/V2AccountConsole";
+import { ProtectionStatus } from "@/components/ProtectionStatus";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export default function Home() {
   return (
     <main>
-      <nav><a className="brand" href="#" aria-label="Cresnex IntentLock home"><Image className="brand-logo" src="/brand/cresnex-intentlock-logo.png" width={42} height={42} priority alt="" /><span>CRESNEX <i>/</i> <b>INTENTLOCK</b></span></a><div className="navlinks"><a href="#agents">Agents</a><a href="#builder">Intent lab</a><a href="#events">Evidence</a></div><WalletButton /></nav>
+      <nav><a className="brand" href="#" aria-label="Cresnex IntentLock home"><Image className="brand-logo" src="/brand/cresnex-intentlock-logo.png" width={42} height={42} priority alt="" /><span>CRESNEX <i>/</i> <b>INTENTLOCK</b></span></a><div className="navlinks"><a href="#agents">Agents</a><a href="#builder">Intent lab</a><a href="#events">Evidence</a></div><div className="nav-actions"><ThemeToggle /><WalletButton /></div></nav>
       <header className="hero">
         <div className="hero-copy"><div className="eyebrow live">Research prototype · Base Sepolia</div><h1>Let agents act.<br/><em>Keep outcomes bounded.</em></h1><p>Owner-signed financial boundaries for autonomous smart wallets. Unsafe effects roll back. Compact evidence survives.</p><div className="hero-actions"><a className="primary link" href="#builder">Build an intent <span>↗</span></a><a className="secondary link" href="#events">Inspect evidence</a></div><div className="hero-proof"><span>01 / Exact calls</span><span>02 / Measured outcomes</span><span>03 / Persistent response</span></div></div>
         <div className="containment" aria-label="Intent containment model">
@@ -20,7 +22,7 @@ export default function Home() {
           <div className="containment-label label-input">OWNER INTENT</div>
           <div className="containment-label label-output">BOUNDED RESULT</div>
           <div className="containment-core"><span className="core-index">IL / 01</span><strong>CONTAIN</strong><small>execute · measure · decide</small></div>
-          <div className="protection-chip"><span className="status-dot" /><div><small>Protection state</small><strong>ARMED</strong></div></div>
+          <ProtectionStatus />
         </div>
       </header>
       <section className="pipeline" aria-label="Execution pipeline"><span><b>01</b> Intent</span><i>→</i><span><b>02</b> Authenticate</span><i>→</i><span><b>03</b> Isolate</span><i>→</i><span><b>04</b> Measure</span><i>→</i><span><b>05</b> Commit / contain</span></section>

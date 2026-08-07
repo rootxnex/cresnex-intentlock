@@ -9,7 +9,7 @@ import {
   useWaitForTransactionReceipt,
   useWriteContract,
 } from "wagmi";
-import { accountV2Abi, accountV2Address } from "@/lib/contracts";
+import { accountV2Abi, accountV2Address, targetChainId } from "@/lib/contracts";
 
 const short = (value?: string) => value ? `${value.slice(0, 8)}…${value.slice(-6)}` : "—";
 
@@ -23,15 +23,16 @@ export function V2AccountConsole() {
   const reads = useReadContracts({
     allowFailure: true,
     contracts: accountV2Address ? [
-      { address: accountV2Address, abi: accountV2Abi, functionName: "owner" },
-      { address: accountV2Address, abi: accountV2Abi, functionName: "paused" },
-      { address: accountV2Address, abi: accountV2Abi, functionName: "quarantineThreshold" },
+      { address: accountV2Address, abi: accountV2Abi, functionName: "owner", chainId: targetChainId },
+      { address: accountV2Address, abi: accountV2Abi, functionName: "paused", chainId: targetChainId },
+      { address: accountV2Address, abi: accountV2Abi, functionName: "quarantineThreshold", chainId: targetChainId },
     ] : [],
     query: { enabled: configured, refetchInterval: 4_000 },
   });
   const owner = reads.data?.[0]?.result as Address | undefined;
   const paused = reads.data?.[1]?.result as boolean | undefined;
   const quarantineThreshold = reads.data?.[2]?.result as bigint | undefined;
+  const readFailed = reads.isError || Boolean(reads.data?.some((result) => result.status === "failure"));
   const isOwner = Boolean(address && owner && address.toLowerCase() === owner.toLowerCase());
   const selectedAgent = isAddress(agent) ? agent as Address : undefined;
 
@@ -80,6 +81,8 @@ export function V2AccountConsole() {
         </details>
       </section>}
 
+      {configured && readFailed && <p className="error-note" role="alert">The configured V2 contract could not be verified on chain {targetChainId}. Controls remain disabled until its public state can be read.</p>}
+
       {configured && <section className="panel owner-panel" id="v2-agents">
         <div className="panel-number">V2 / OWNER</div>
         <div className="eyebrow">Verified onchain controls</div>
@@ -96,7 +99,7 @@ export function V2AccountConsole() {
           <span>Strikes <strong>{agentState?.[2]?.toString() ?? "—"}</strong></span>
         </div>
         <div className="control-row">
-          <button disabled={!isOwner || !selectedAgent || busy} onClick={() => write("registerAgent", [selectedAgent])}>Register agent</button>
+          <button disabled={readFailed || !isOwner || !selectedAgent || busy} onClick={() => write("registerAgent", [selectedAgent])}>Register agent</button>
           <button disabled={!isOwner || !selectedAgent || busy} onClick={() => write("removeAgent", [selectedAgent])}>Remove agent</button>
           <button className="danger-control" disabled={!isOwner || !selectedAgent || busy} onClick={() => write("emergencyRevokeAgent", [selectedAgent])}>Emergency revoke</button>
           <button disabled={!isOwner || !selectedAgent || busy} onClick={() => write("resetAgentStrikes", [selectedAgent])}>Reset strikes</button>

@@ -1,5 +1,8 @@
 import { type Abi, type Address, isAddress, parseAbi } from "viem";
 
+const configuredChainId = Number(process.env.NEXT_PUBLIC_CHAIN_ID || "84532");
+export const targetChainId = configuredChainId === 31337 ? 31337 : 84532;
+
 export const accountAbi = parseAbi([
   "function owner() view returns (address)",
   "function paused() view returns (bool)",
