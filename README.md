@@ -8,6 +8,29 @@
 
 It does not reverse confirmed transactions. It is not audited, production-ready, a full ERC-4337 account, or intended for real assets.
 
+## ETHOnline 2026 — Continuity Track
+
+### Pre-existing before ETHOnline 2026
+
+The repository history before ETHOnline 2026 already includes:
+
+- V1 and V2 IntentLock smart contracts;
+- an EIP-712 owner-signed intent flow with account, agent, chain, nonce, validity, calls, and policy binding;
+- spend, output, recipient, protected-balance, native-value, and final-allowance policy enforcement;
+- isolated execution with rollback, persistent evidence, strikes, and agent quarantine;
+- Foundry unit, fuzz, invariant, and gas-benchmark test suites;
+- a Next.js dashboard using wagmi and viem; and
+- the existing V2 research modules, TypeScript SDK/browser lab, academic baselines, and deployment tooling documented below.
+
+### Planned / Built during ETHOnline 2026
+
+Unchecked items are planned work and are not implemented at this baseline:
+
+- [ ] The Graph live risk-data integration
+- [ ] Context-aware agent risk decision flow
+- [ ] New adversarial/security tests
+- [ ] Updated ETHOnline demo
+
 ## Why it exists
 
 Target and calldata validation prove what an agent attempted to call, but not necessarily what financially happened. IntentLock binds both path and measurable postconditions: maximum input spent, minimum output received by the signed recipient, and maximum final allowance.
