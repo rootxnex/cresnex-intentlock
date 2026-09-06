@@ -1,0 +1,24 @@
+type Agent @entity(immutable: false) {
+  id: Bytes!
+  lifetimeViolationCount: BigInt!
+  lastViolationBlock: BigInt
+  lastViolationTimestamp: BigInt
+  violations: [Violation!]! @derivedFrom(field: "agent")
+}
+
+type Violation @entity(immutable: true) {
+  id: Bytes!
+  agent: Agent!
+  account: Bytes!
+  intentDigest: Bytes!
+  evidenceHash: Bytes!
+  code: Int!
+  module: Int!
+  strikeCount: BigInt!
+  quarantined: Boolean!
+  blockNumber: BigInt!
+  blockHash: Bytes!
+  timestamp: BigInt!
+  transactionHash: Bytes!
+  logIndex: BigInt!
+}
