@@ -28,13 +28,13 @@ Unchecked items are planned work and must not be described as implemented until 
 
 - [x] Base Sepolia V2 deployment baseline
 - [x] Project-owned The Graph subgraph baseline for indexing real `IntentViolation` events
-- [ ] Deploy and validate the subgraph against live Base Sepolia events
-- [ ] Query live Graph-provider data for recent agent policy violations
-- [ ] Implement deterministic context-aware agent risk evaluation
+- [x] Deploy and validate the subgraph against live Base Sepolia events
+- [x] Query live Graph-provider data for recent agent policy violations
+- [x] Implement deterministic context-aware agent risk evaluation
 - [ ] Add Chainlink CRE confidential risk-evaluation workflow
 - [ ] Feed Graph-derived risk context into the CRE workflow
 - [ ] Produce a risk verdict that can safely influence IntentLock enforcement
-- [ ] Implement fail-closed behavior for stale, malformed, missing, or errored external data
+- [x] Implement fail-closed behavior for stale, malformed, missing, or errored Graph data
 - [ ] Add adversarial/security tests covering Graph and CRE failure cases
 - [ ] Update the ETHOnline frontend/demo to show ALLOW, BLOCK, and QUARANTINE decisions
 - [ ] Document reproducible end-to-end demo evidence
