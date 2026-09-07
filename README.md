@@ -24,12 +24,85 @@ The repository history before ETHOnline 2026 already includes:
 
 ### Planned / Built during ETHOnline 2026
 
-Unchecked items are planned work and are not implemented at this baseline:
+Unchecked items are planned work and must not be described as implemented until executable evidence exists:
 
-- [ ] The Graph live risk-data integration
-- [ ] Context-aware agent risk decision flow
-- [ ] New adversarial/security tests
-- [ ] Updated ETHOnline demo
+- [x] Base Sepolia V2 deployment baseline
+- [x] Project-owned The Graph subgraph baseline for indexing real `IntentViolation` events
+- [ ] Deploy and validate the subgraph against live Base Sepolia events
+- [ ] Query live Graph-provider data for recent agent policy violations
+- [ ] Implement deterministic context-aware agent risk evaluation
+- [ ] Add Chainlink CRE confidential risk-evaluation workflow
+- [ ] Feed Graph-derived risk context into the CRE workflow
+- [ ] Produce a risk verdict that can safely influence IntentLock enforcement
+- [ ] Implement fail-closed behavior for stale, malformed, missing, or errored external data
+- [ ] Add adversarial/security tests covering Graph and CRE failure cases
+- [ ] Update the ETHOnline frontend/demo to show ALLOW, BLOCK, and QUARANTINE decisions
+- [ ] Document reproducible end-to-end demo evidence
+
+### ETHOnline architecture
+
+```text
+AI Agent
+   |
+   v
+Transaction Intent
+   |
+   v
+The Graph
+live IntentViolation history
+   |
+   v
+Behavioral risk context
+   |
+   v
+Chainlink CRE
+confidential risk evaluation
+   |
+   v
+Risk verdict
+   |
+   v
+Cresnex IntentLock
+owner-signed deterministic enforcement
+   |
+   +--> ALLOW
+   +--> BLOCK
+   +--> QUARANTINE
+   |
+   v
+Onchain evidence
+```
+
+- **The Graph** provides live indexed behavioral/onchain context.
+- **Chainlink CRE** performs confidential risk evaluation using protected thresholds, private parameters, or sensitive off-chain inputs.
+- **IntentLock** remains the final deterministic enforcement boundary for owner-signed transaction policies.
+
+Fundamental IntentLock safety invariants must not move entirely into Chainlink CRE. Spend limits, allowed recipients, approval limits, slippage and minimum-output requirements, nonce and deadline checks, and allowed operation/call constraints remain deterministically enforceable by IntentLock contracts or owner-signed policy.
+
+Chainlink CRE is planned for data or logic that benefits from confidentiality, such as proprietary risk scoring, private risk thresholds, protected API credentials, sensitive off-chain signals, internal fraud/risk parameters, and confidential intermediate evaluation. Until a CRE workflow has working code and reproducible evidence in this repository, it is planned—not integrated—and this project does not claim confidential execution, production-grade privacy, secure off-chain risk evaluation, or onchain CRE enforcement.
+
+The Graph qualification path requires live provider data; mocked, static, or local-only Graph responses do not demonstrate the sponsor integration. The signal is limited to recent indexed IntentLock `IntentViolation` events and is not universal agent reputation. Missing, stale, malformed, or indexing-error data must never silently produce `ALLOW`.
+
+### ETHOnline demo target
+
+```text
+Scenario A — Safe agent action
+
+Signed policy        PASS
+Graph risk context   LOW
+CRE risk verdict     ALLOW
+IntentLock           EXECUTE
+
+Scenario B — Risky agent action
+
+Signed policy        PASS
+Graph risk context   HIGH
+CRE risk verdict     DENY
+IntentLock           BLOCK / QUARANTINE
+Evidence             RECORDED
+```
+
+The demo target is to prove that external risk context materially changes the IntentLock outcome; The Graph and Chainlink are not presented only as dashboard data.
 
 ## Why it exists
 
