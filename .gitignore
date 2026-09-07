@@ -14,3 +14,7 @@ gas-snapshot
 .vercel
 .agents/
 .codex/
+
+# The Graph generated artifacts
+subgraph/build/
+subgraph/generated/
