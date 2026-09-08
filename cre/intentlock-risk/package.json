@@ -8,7 +8,8 @@
   },
   "license": "UNLICENSED",
   "dependencies": {
-    "@chainlink/cre-sdk": "^1.19.1"
+    "@chainlink/cre-sdk": "^1.19.1",
+    "viem": "^2.56.3"
   },
   "devDependencies": {
     "typescript": "5.9.3"

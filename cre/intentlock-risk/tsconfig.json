@@ -11,5 +11,5 @@
     "forceConsistentCasingInFileNames": true,
     "types": []
   },
-  "include": ["main.ts", "graph.ts", "risk.ts"]
+  "include": ["main.ts", "graph.ts", "risk.ts", "verdict.ts"]
 }
