@@ -4,7 +4,7 @@
 
 This document records work performed on the `ethonline-2026` branch after continuity baseline commit `b5aaed21110a1836724d546b357af95bae23a325`. The V1 and V2 accounts, EIP-712 intent flow, policy modules, outcome containment, evidence, strikes, quarantine, tests, SDK, and dashboard pre-date ETHOnline 2026.
 
-The Phase 1 hackathon addition is a project-owned subgraph that indexes real V2 `IntentViolation` events. Phase 1 does not modify the account contracts, evaluate risk, issue attestations, or enforce Graph results onchain. Those steps remain unimplemented until live indexing is demonstrated and reviewed.
+ETHOnline work now includes a project-owned subgraph that indexes real V2 `IntentViolation` events, a successful live Graph Studio deployment and query, and a deterministic fail-closed evaluator. The account contracts remain unchanged. Graph-derived decisions are not yet enforced onchain, and no attestation or Chainlink CRE workflow has been implemented.
 
 ## Verified Base Sepolia deployment
 
@@ -20,6 +20,32 @@ The Phase 1 hackathon addition is a project-owned subgraph that indexes real V2 
 | Smoke test | Passed |
 
 The subgraph starts at the actual V2 creation block, `46426662`. It deliberately does not use the deployment manifest's generic stack start block, `46426645`.
+
+## Live Graph deployment and evidence
+
+| Field | Verified value |
+| --- | --- |
+| Graph Studio subgraph | `cresnex-intent-lock-agent-risk-base-sepolia` |
+| Studio version | `v0.1.0` |
+| Indexed network | Base Sepolia |
+| Indexing health | `_meta.hasIndexingErrors = false` |
+| Observed freshness | Indexed near the contemporaneous Base Sepolia chain head |
+
+The live qualification path indexed a real V2 violation with matching onchain and Graph evidence:
+
+| Field | Verified value |
+| --- | --- |
+| Transaction | `0x1ab7f7a000da3e71293c48db84c4e363bb541fbb3f86df6aeac5c88214fa2679` |
+| Block | `46470151` |
+| Intent digest | `0xf60531b6345b18b63a29977f8ea9c766e0d8750a527f72d5d1c0ffe02b54fa98` |
+| Evidence hash | `0x4bd9a6accc413bef1ec8e4e7dee93410ed5e0a6cfe44e8b49fccf0d66b3d872a` |
+| Violation code | `3` / `WrongRecipient` |
+| Policy module | `0` / `Transfer` |
+| Strike count | `1` |
+| Quarantined | `false` |
+| Graph lifetime violation count | `1` |
+
+This proves the live zero-to-one transition. It does not demonstrate three or more live violations.
 
 ## Indexed signal
 
@@ -41,9 +67,9 @@ It does **not** mean:
 
 It is not cross-protocol or universal reputation. It covers only the explicit IntentLock deployments listed as subgraph data sources.
 
-## Planned deterministic decision rule
+## Deterministic decision rule
 
-The future evaluator will count an exact agent's indexed `IntentViolation` events in the preceding 24 hours:
+The evaluator counts an exact agent's indexed `IntentViolation` events in the preceding 24 hours:
 
 | Recent violations | Decision |
 | ---: | --- |
@@ -51,11 +77,11 @@ The future evaluator will count an exact agent's indexed `IntentViolation` event
 | 1–2 | `ESCALATE` |
 | 3 or more | `BLOCK` |
 
-`ESCALATE` must never silently become `ALLOW`. This rule is documented here but is not implemented in Phase 1.
+`ESCALATE` never silently becomes `ALLOW`. The evaluator is implemented in `web/lib/graphRisk.ts` and unit-tested in `web/lib/graphRisk.test.ts`.
 
-## Planned query
+## Graph query
 
-The evaluator will supply the lowercase agent address as `Bytes!` and a Unix timestamp equal to evaluation time minus 24 hours as `BigInt!`.
+The query supplies the lowercase agent address as `Bytes!` and a Unix timestamp equal to evaluation time minus 24 hours as `BigInt!`.
 
 ```graphql
 query AgentRecentViolations($agent: Bytes!, $windowStart: BigInt!) {
@@ -99,25 +125,25 @@ Fetching only three recent records is sufficient to distinguish the three planne
 
 ## Trust assumptions
 
-The eventual decision path will trust:
+The current evidence path trusts:
 
 - the public subgraph manifest, schema, and mapping logic;
 - the explicitly listed IntentLock deployment addresses and start blocks;
 - The Graph indexer's faithful processing of canonical Base Sepolia events;
 - the Graph response metadata used to assess freshness; and
-- later evaluator and attestation components, once separately specified and implemented.
+- the deterministic evaluator's response validation and decision boundaries.
 
 The account owner and existing signed policy remain trusted as described in the main threat model. The agent, external targets, browser input, stale responses, and caller-supplied evidence remain untrusted.
 
 ## Freshness and fail-closed behavior
 
-The provisional proposal of a 100-block maximum indexing lag is not finalized. Phase 2 must measure actual Base Sepolia lag by comparing `_meta.block.number` with the contemporaneous Base Sepolia RPC head across multiple samples. The measured behavior and chosen safety margin must be documented before any constant is added to application or contract code.
+Live validation observed the Studio deployment indexing near the contemporaneous Base Sepolia chain head. The earlier proposal of a permanent 100-block maximum lag remains unfinalized; the evaluator instead accepts an explicit maximum allowed lag from its caller so the policy can be selected from measured behavior.
 
-Missing, malformed, stale, or indexing-error Graph data must never produce `ALLOW`. `_meta.hasIndexingErrors` must be false, and `_meta.block` must be present. Until the evaluator and enforcement path exist, the subgraph output is observational only.
+Missing, malformed, stale, future-block, or indexing-error Graph data fails closed to `BLOCK`. `_meta.hasIndexingErrors` must be false, `_meta.block` must be present, and violation timestamps must fall within the exact 24-hour window. The evaluator does not itself provide an onchain enforcement path.
 
 ## Indexing limitations
 
-- Phase 1 indexes one verified V2 account; no second account is invented.
+- The subgraph indexes one verified V2 account; no second account is invented.
 - Events before the configured start block are outside the data source.
 - Events from unlisted IntentLock deployments are invisible.
 - Indexing necessarily lags the chain head.
@@ -135,4 +161,4 @@ False negatives can arise when an agent rotates addresses, acts outside indexed 
 
 ## Qualification boundary
 
-Hackathon qualification must use live Base Sepolia events returned by the deployed subgraph. Mocked or static Graph responses may later support unit tests, but they cannot demonstrate the sponsor integration. Subgraph deployment, live query validation, deterministic evaluation, attestation, and onchain enforcement are separate review gates.
+Hackathon qualification uses live Base Sepolia events returned by the deployed subgraph. Mocked or static Graph responses support unit tests, but they do not demonstrate the sponsor integration. Live subgraph deployment, live query validation, and deterministic evaluation are complete; attestation, Chainlink CRE, and onchain enforcement remain separate, unimplemented review gates. This is an unaudited research prototype for testnet use, not a production-ready reputation or enforcement system.

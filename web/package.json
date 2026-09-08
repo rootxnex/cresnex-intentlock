@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test:sdk": "node --experimental-strip-types --test lib/intentV2.test.ts"
+    "test:sdk": "node --experimental-strip-types --test lib/intentV2.test.ts",
+    "test:risk": "node --experimental-strip-types --test lib/graphRisk.test.ts"
   },
   "dependencies": {
     "@tanstack/react-query": "5.66.9",
