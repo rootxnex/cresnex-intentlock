@@ -1,3 +1,6 @@
 {
-  "schedule": "*/30 * * * * *"
+  "schedule": "*/30 * * * * *",
+  "graphEndpoint": "https://api.studio.thegraph.com/query/1758760/cresnex-intent-lock-agent-risk-base-sepolia/v0.1.0",
+  "agent": "0xeda2435282d178a5a9c8c001793b1857fef84e28",
+  "maxAllowedLag": "20"
 }
