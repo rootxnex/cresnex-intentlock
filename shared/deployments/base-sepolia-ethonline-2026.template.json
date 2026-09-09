@@ -1,0 +1,18 @@
+{
+  "chainId": 84532,
+  "consumer": null,
+  "v3": null,
+  "validator": null,
+  "forwarder": "0xF8344CFd5c43616a4366C34E3EEE75af79a74482",
+  "workflowId": null,
+  "workflowOwner": null,
+  "workflowHash": null,
+  "graphEndpoint": "https://api.studio.thegraph.com/query/1758760/cresnex-intent-lock-agent-risk-base-sepolia/v0.1.0",
+  "deployBlock": null,
+  "consumerDeployTx": null,
+  "v3DeployTx": null,
+  "gateConfigTx": null,
+  "workflowConfigTx": null,
+  "firstReportTx": null,
+  "firstV3ExecutionTx": null
+}
