@@ -5,8 +5,7 @@ import {IERC165} from "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 import {IReceiver} from "./IReceiver.sol";
 
 /// @notice Standalone Phase 10 receiver for CRE-produced IntentLock risk verdicts.
-/// @dev Forwarder authentication is enforced, but workflow identity metadata is intentionally
-///      not decoded until a real workflow ID/owner and the production metadata format are configured.
+/// @dev Both the Forwarder and the configured workflow identity must authenticate every report.
 contract CREIntentRiskConsumer is IReceiver {
     uint8 public constant VERDICT_VERSION = 1;
     uint8 public constant DECISION_ALLOW = 0;
@@ -19,6 +18,9 @@ contract CREIntentRiskConsumer is IReceiver {
     address public immutable forwarder;
     address public immutable gateAdmin;
     address public authorizedGate;
+    bytes32 public expectedWorkflowId;
+    address public expectedWorkflowOwner;
+    bool public workflowAuthorizationConfigured;
 
     struct RiskVerdict {
         uint8 version;
@@ -73,6 +75,12 @@ contract CREIntentRiskConsumer is IReceiver {
     error ZeroGate();
     error GateAlreadyConfigured();
     error UnauthorizedGate(address caller);
+    error InvalidMetadataLength(uint256 length);
+    error WorkflowAuthorizationNotConfigured();
+    error ZeroWorkflowId();
+    error ZeroWorkflowOwner();
+    error WorkflowAuthorizationAlreadyConfigured();
+    error UnauthorizedWorkflow(bytes32 workflowId, address workflowOwner);
     error VerdictMissing(bytes32 verdictKey);
     error VerdictExpired(bytes32 verdictKey);
     error VerdictNotAllow(bytes32 verdictKey);
@@ -88,6 +96,7 @@ contract CREIntentRiskConsumer is IReceiver {
         uint256 validUntil
     );
     event AuthorizedGateConfigured(address indexed gate);
+    event ExpectedWorkflowConfigured(bytes32 indexed workflowId, address indexed workflowOwner);
     event RiskVerdictConsumed(bytes32 indexed verdictKey, bytes32 indexed evidenceHash);
 
     constructor(address forwarder_) {
@@ -104,9 +113,25 @@ contract CREIntentRiskConsumer is IReceiver {
         emit AuthorizedGateConfigured(gate);
     }
 
+    function setExpectedWorkflow(bytes32 workflowId, address workflowOwner) external {
+        if (msg.sender != gateAdmin) revert UnauthorizedGateAdmin(msg.sender);
+        if (workflowId == bytes32(0)) revert ZeroWorkflowId();
+        if (workflowOwner == address(0)) revert ZeroWorkflowOwner();
+        if (workflowAuthorizationConfigured) revert WorkflowAuthorizationAlreadyConfigured();
+        expectedWorkflowId = workflowId;
+        expectedWorkflowOwner = workflowOwner;
+        workflowAuthorizationConfigured = true;
+        emit ExpectedWorkflowConfigured(workflowId, workflowOwner);
+    }
+
     /// @inheritdoc IReceiver
-    function onReport(bytes calldata, bytes calldata report) external override {
+    function onReport(bytes calldata metadata, bytes calldata report) external override {
         if (msg.sender != forwarder) revert UnauthorizedForwarder(msg.sender);
+        (bytes32 workflowId, address workflowOwner) = _decodeMetadata(metadata);
+        if (!workflowAuthorizationConfigured) revert WorkflowAuthorizationNotConfigured();
+        if (workflowId != expectedWorkflowId || workflowOwner != expectedWorkflowOwner) {
+            revert UnauthorizedWorkflow(workflowId, workflowOwner);
+        }
         RiskVerdict memory verdict = _decodeVerdict(report);
         _validateVerdict(verdict);
 
@@ -176,6 +201,20 @@ contract CREIntentRiskConsumer is IReceiver {
 
     function supportsInterface(bytes4 interfaceId) external pure override returns (bool) {
         return interfaceId == type(IReceiver).interfaceId || interfaceId == type(IERC165).interfaceId;
+    }
+
+    function _decodeMetadata(bytes calldata metadata)
+        internal
+        pure
+        returns (bytes32 workflowId, address workflowOwner)
+    {
+        if (metadata.length != 64) {
+            revert InvalidMetadataLength(metadata.length);
+        }
+        assembly ("memory-safe") {
+            workflowId := calldataload(metadata.offset)
+            workflowOwner := shr(96, calldataload(add(metadata.offset, 42)))
+        }
     }
 
     function _decodeVerdict(bytes calldata report) internal pure returns (RiskVerdict memory verdict) {

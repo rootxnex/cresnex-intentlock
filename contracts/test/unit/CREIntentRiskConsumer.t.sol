@@ -11,11 +11,16 @@ contract CREIntentRiskConsumerTest is Test {
     address internal constant AGENT = 0xEDa2435282D178a5A9c8c001793b1857Fef84E28;
     bytes32 internal constant CALLS_HASH = bytes32(uint256(0x1111));
     bytes32 internal constant POLICY_HASH = bytes32(uint256(0x2222));
+    bytes32 internal constant WORKFLOW_ID = keccak256("intentlock-risk-workflow");
+    address internal constant WORKFLOW_OWNER = address(0xC0FFEE);
+    bytes10 internal constant WORKFLOW_NAME = "intentlock";
+    bytes2 internal constant REPORT_ID = 0x0001;
 
     function setUp() public {
         vm.chainId(84_532);
         vm.warp(2_000_000_000);
         consumer = new CREIntentRiskConsumer(FORWARDER);
+        consumer.setExpectedWorkflow(WORKFLOW_ID, WORKFLOW_OWNER);
     }
 
     function testValidAllowAccepted() public {
@@ -40,7 +45,7 @@ contract CREIntentRiskConsumerTest is Test {
 
     function testWrongCallerRejected() public {
         vm.expectPartialRevert(CREIntentRiskConsumer.UnauthorizedForwarder.selector);
-        consumer.onReport("", _encode(_verdict(0, 0, true, false)));
+        consumer.onReport(_metadata(), _encode(_verdict(0, 0, true, false)));
     }
 
     function testZeroForwarderRejected() public {
@@ -157,7 +162,7 @@ contract CREIntentRiskConsumerTest is Test {
         _submit(verdict);
         vm.prank(FORWARDER);
         vm.expectPartialRevert(CREIntentRiskConsumer.VerdictReplay.selector);
-        consumer.onReport("", _encode(verdict));
+        consumer.onReport(_metadata(), _encode(verdict));
     }
 
     function testChangingNonceChangesKey() public view {
@@ -192,7 +197,7 @@ contract CREIntentRiskConsumerTest is Test {
         bytes memory payload =
             hex"0000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002200000000000000000000000004423d32fe243d06d7f025ef4855bc241857041680000000000000000000000000000000000000000000000000000000000014a34000000000000000000000000eda2435282d178a5a9c8c001793b1857fef84e2800000000000000000000000000000000000000000000000000000000000000071111111111111111111111111111111111111111111111111111111111111111222222222222222222222222222222222222222222222222222222222222222200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002c6a0e500000000000000000000000000000000000000000000000000000000773442800000000000000000000000000000000000000000000000000000000077359400000000000000000000000000000000000000000000000000000000007735952c000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000007b0e03f362114d38006adca7fa449448ffcd363b1d15502877e293c971e21e2e0000000000000000000000000000000000000000000000000000000000000022696e74656e746c6f636b2d6167656e742d76696f6c6174696f6e732d3234682d7631000000000000000000000000000000000000000000000000000000000000";
         vm.prank(FORWARDER);
-        consumer.onReport("", payload);
+        consumer.onReport(_metadata(), payload);
         bytes32 vectorCallsHash = 0x1111111111111111111111111111111111111111111111111111111111111111;
         bytes32 vectorPolicyHash = 0x2222222222222222222222222222222222222222222222222222222222222222;
         bytes32 key = _key(ACCOUNT, AGENT, 7, vectorCallsHash, vectorPolicyHash);
@@ -228,6 +233,79 @@ contract CREIntentRiskConsumerTest is Test {
         vm.prank(address(0xBAD));
         vm.expectPartialRevert(CREIntentRiskConsumer.UnauthorizedGateAdmin.selector);
         consumer.setAuthorizedGate(address(this));
+    }
+
+    function testCorrectWorkflowMetadataAccepted() public {
+        _submit(_verdict(0, 0, true, false));
+    }
+
+    function testWorkflowAuthorizationMustBeConfigured() public {
+        CREIntentRiskConsumer unconfigured = new CREIntentRiskConsumer(FORWARDER);
+        vm.prank(FORWARDER);
+        vm.expectRevert(CREIntentRiskConsumer.WorkflowAuthorizationNotConfigured.selector);
+        unconfigured.onReport(_metadata(), _encode(_verdict(0, 0, true, false)));
+    }
+
+    function testWrongWorkflowIdRejected() public {
+        bytes memory metadata =
+            abi.encodePacked(bytes32(uint256(WORKFLOW_ID) ^ 1), WORKFLOW_NAME, WORKFLOW_OWNER, REPORT_ID);
+        _expectMetadataRevert(CREIntentRiskConsumer.UnauthorizedWorkflow.selector, metadata);
+    }
+
+    function testWrongWorkflowOwnerRejected() public {
+        bytes memory metadata = abi.encodePacked(WORKFLOW_ID, WORKFLOW_NAME, address(0xBAD), REPORT_ID);
+        _expectMetadataRevert(CREIntentRiskConsumer.UnauthorizedWorkflow.selector, metadata);
+    }
+
+    function testShortMetadataRejected() public {
+        _expectMetadataRevert(CREIntentRiskConsumer.InvalidMetadataLength.selector, new bytes(63));
+    }
+
+    function testLongMetadataRejected() public {
+        _expectMetadataRevert(CREIntentRiskConsumer.InvalidMetadataLength.selector, new bytes(65));
+    }
+
+    function testZeroWorkflowIdConfigurationRejected() public {
+        CREIntentRiskConsumer unconfigured = new CREIntentRiskConsumer(FORWARDER);
+        vm.expectRevert(CREIntentRiskConsumer.ZeroWorkflowId.selector);
+        unconfigured.setExpectedWorkflow(bytes32(0), WORKFLOW_OWNER);
+    }
+
+    function testZeroWorkflowOwnerConfigurationRejected() public {
+        CREIntentRiskConsumer unconfigured = new CREIntentRiskConsumer(FORWARDER);
+        vm.expectRevert(CREIntentRiskConsumer.ZeroWorkflowOwner.selector);
+        unconfigured.setExpectedWorkflow(WORKFLOW_ID, address(0));
+    }
+
+    function testOnlyGateAdminCanConfigureWorkflow() public {
+        CREIntentRiskConsumer unconfigured = new CREIntentRiskConsumer(FORWARDER);
+        vm.prank(address(0xBAD));
+        vm.expectPartialRevert(CREIntentRiskConsumer.UnauthorizedGateAdmin.selector);
+        unconfigured.setExpectedWorkflow(WORKFLOW_ID, WORKFLOW_OWNER);
+    }
+
+    function testWorkflowAuthorizationCanOnlyBeConfiguredOnce() public {
+        vm.expectRevert(CREIntentRiskConsumer.WorkflowAuthorizationAlreadyConfigured.selector);
+        consumer.setExpectedWorkflow(bytes32(uint256(1)), address(1));
+    }
+
+    function testCorrectMetadataWrongForwarderRejected() public {
+        vm.expectPartialRevert(CREIntentRiskConsumer.UnauthorizedForwarder.selector);
+        consumer.onReport(_metadata(), _encode(_verdict(0, 0, true, false)));
+    }
+
+    function testForwarderWithWrongWorkflowRejected() public {
+        bytes memory metadata = abi.encodePacked(bytes32(uint256(1)), WORKFLOW_NAME, WORKFLOW_OWNER, REPORT_ID);
+        _expectMetadataRevert(CREIntentRiskConsumer.UnauthorizedWorkflow.selector, metadata);
+    }
+
+    function testKeystoneMetadataFixtureUsesExactLayout() public {
+        bytes memory metadata = _metadata();
+        assertEq(metadata.length, 64);
+        vm.prank(FORWARDER);
+        consumer.onReport(metadata, _encode(_verdict(0, 0, true, false)));
+        assertEq(consumer.expectedWorkflowId(), WORKFLOW_ID);
+        assertEq(consumer.expectedWorkflowOwner(), WORKFLOW_OWNER);
     }
 
     function testZeroGateRejected() public {
@@ -363,13 +441,13 @@ contract CREIntentRiskConsumerTest is Test {
 
     function _submit(CREIntentRiskConsumer.RiskVerdict memory verdict) internal {
         vm.prank(FORWARDER);
-        consumer.onReport("", _encode(verdict));
+        consumer.onReport(_metadata(), _encode(verdict));
     }
 
     function _expectInvalid(bytes4 selector, CREIntentRiskConsumer.RiskVerdict memory verdict) internal {
         vm.prank(FORWARDER);
         vm.expectPartialRevert(selector);
-        consumer.onReport("", _encode(verdict));
+        consumer.onReport(_metadata(), _encode(verdict));
     }
 
     function _expectInconsistent(CREIntentRiskConsumer.RiskVerdict memory verdict) internal {
@@ -390,6 +468,16 @@ contract CREIntentRiskConsumerTest is Test {
         consumer.setAuthorizedGate(address(this));
         vm.expectPartialRevert(CREIntentRiskConsumer.VerdictNotAllow.selector);
         _consume(verdict);
+    }
+
+    function _metadata() internal pure returns (bytes memory) {
+        return abi.encodePacked(WORKFLOW_ID, WORKFLOW_NAME, WORKFLOW_OWNER, REPORT_ID);
+    }
+
+    function _expectMetadataRevert(bytes4 selector, bytes memory metadata) internal {
+        vm.prank(FORWARDER);
+        vm.expectPartialRevert(selector);
+        consumer.onReport(metadata, _encode(_verdict(0, 0, true, false)));
     }
 
     function _key(address account, address agent, uint256 nonce, bytes32 callsHash, bytes32 policyHash)

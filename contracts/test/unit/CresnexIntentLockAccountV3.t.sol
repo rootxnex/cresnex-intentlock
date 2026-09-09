@@ -14,6 +14,9 @@ contract CresnexIntentLockAccountV3Test is Test {
     address internal constant FORWARDER = address(0xF0);
     address internal constant AGENT = address(0xB0B);
     address internal constant RECIPIENT = address(0xCAFE);
+    bytes32 internal constant WORKFLOW_ID = keccak256("intentlock-risk-workflow");
+    address internal constant WORKFLOW_OWNER = address(0xC0FFEE);
+    bytes10 internal constant WORKFLOW_NAME = "intentlock";
 
     address internal owner;
     CREIntentRiskConsumer internal consumer;
@@ -24,6 +27,7 @@ contract CresnexIntentLockAccountV3Test is Test {
         vm.warp(1_700_000_000);
         owner = vm.addr(OWNER_KEY);
         consumer = new CREIntentRiskConsumer(FORWARDER);
+        consumer.setExpectedWorkflow(WORKFLOW_ID, WORKFLOW_OWNER);
         account = new CresnexIntentLockAccountV3(owner, consumer);
         consumer.setAuthorizedGate(address(account));
         vm.prank(owner);
@@ -417,7 +421,9 @@ contract CresnexIntentLockAccountV3Test is Test {
 
     function _accept(CREIntentRiskConsumer.RiskVerdict memory verdict) internal {
         vm.prank(FORWARDER);
-        consumer.onReport("", _encode(verdict));
+        consumer.onReport(
+            abi.encodePacked(WORKFLOW_ID, WORKFLOW_NAME, WORKFLOW_OWNER, bytes2(0x0001)), _encode(verdict)
+        );
     }
 
     function _consumed(CREIntentRiskConsumer.RiskVerdict memory verdict) internal view returns (bool consumed) {
