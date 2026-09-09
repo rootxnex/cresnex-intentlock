@@ -19,6 +19,11 @@ type Item = {
   detail: string;
   tone: "ok" | "danger" | "neutral";
   transactionHash?: string;
+  intentDigest?: string;
+  evidenceHash?: string;
+  module?: string;
+  strikeCount?: bigint;
+  quarantined?: boolean;
 };
 
 const short = (value?: string) => value ? `${value.slice(0, 10)}…${value.slice(-6)}` : "—";
@@ -70,6 +75,7 @@ export function V2EvidenceTimeline({ limit = 30, title = "V2 security timeline",
             detail: `${short(args.agent)} · intent ${short(args.intentDigest)} · calls ${short(args.callsHash)}`,
             tone: "ok" as const,
             transactionHash: log.transactionHash,
+            intentDigest: args.intentDigest,
           };
         }),
         ...violated.map((log) => {
@@ -88,6 +94,11 @@ export function V2EvidenceTimeline({ limit = 30, title = "V2 security timeline",
             detail: `${policyModuleNames[Number(args.module ?? 0)] ?? "Unknown module"} · evidence ${short(args.evidenceHash)} · strike ${args.strikeCount ?? "—"}${args.quarantined ? " · quarantined" : ""}`,
             tone: "danger" as const,
             transactionHash: log.transactionHash,
+            intentDigest: args.intentDigest,
+            evidenceHash: args.evidenceHash,
+            module: policyModuleNames[Number(args.module ?? 0)] ?? "Unknown module",
+            strikeCount: args.strikeCount,
+            quarantined: args.quarantined,
           };
         }),
         ...failed.map((log) => {
@@ -112,7 +123,7 @@ export function V2EvidenceTimeline({ limit = 30, title = "V2 security timeline",
   }, [client, latestBlock, limit]);
 
   return (
-    <section className={`panel events${compact ? " compact-events" : ""}`} id="v2-events">
+    <section className={`panel events${compact ? " compact-events" : ""}${detailed ? " forensic-events" : ""}`} id="v2-events">
       <div className="panel-number">V2 / EVIDENCE</div>
       <div className="eyebrow">Decoded persistent outcomes</div>
       <h2>{title}</h2>
@@ -122,7 +133,14 @@ export function V2EvidenceTimeline({ limit = 30, title = "V2 security timeline",
       {items.map((item) => <div className="event" key={item.key}>
         <time>Block {item.block.toString()}</time>
         <span className="event-icon">{item.tone === "ok" ? "✓" : item.tone === "danger" ? "!" : "↺"}</span>
-        <div><strong>{item.title}</strong><p>{item.detail}</p>{detailed && item.transactionHash && <a className="event-link" href={`https://sepolia.basescan.org/tx/${item.transactionHash}`} target="_blank" rel="noreferrer">View transaction {short(item.transactionHash)} ↗</a>}</div>
+        <div><strong>{item.title}</strong><p>{item.detail}</p>{detailed && <dl className="event-evidence">
+          {item.intentDigest && <div><dt>Intent digest</dt><dd title={item.intentDigest}>{short(item.intentDigest)}</dd></div>}
+          {item.module && <div><dt>Module</dt><dd>{item.module}</dd></div>}
+          {item.evidenceHash && <div><dt>Evidence hash</dt><dd title={item.evidenceHash}>{short(item.evidenceHash)}</dd></div>}
+          {item.strikeCount !== undefined && <div><dt>Strike count</dt><dd>{item.strikeCount.toString()}</dd></div>}
+          {item.quarantined !== undefined && <div><dt>Quarantine</dt><dd>{item.quarantined ? "Yes" : "No"}</dd></div>}
+          <div><dt>Block</dt><dd>{item.block.toString()}</dd></div>
+        </dl>}{detailed && item.transactionHash && <a className="event-link" href={`https://sepolia.basescan.org/tx/${item.transactionHash}`} target="_blank" rel="noreferrer">View transaction {short(item.transactionHash)} ↗</a>}</div>
       </div>)}
     </section>
   );
