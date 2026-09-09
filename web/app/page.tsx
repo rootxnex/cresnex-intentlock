@@ -9,32 +9,27 @@ import { ResearchResults } from "@/components/ResearchResults";
 import { V2AccountConsole } from "@/components/V2AccountConsole";
 import { ProtectionStatus } from "@/components/ProtectionStatus";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { SecurityOverview } from "@/components/SecurityOverview";
 
 export default function Home() {
   return (
     <main>
-      <nav><a className="brand" href="#" aria-label="Cresnex IntentLock home"><Image className="brand-logo" src="/brand/cresnex-intentlock-logo.png" width={42} height={42} priority alt="" /><span>CRESNEX <i>/</i> <b>INTENTLOCK</b></span></a><div className="navlinks"><a href="#agents">Agents</a><a href="#builder">Intent lab</a><a href="#events">Evidence</a></div><div className="nav-actions"><ThemeToggle /><WalletButton /></div></nav>
+      <nav><a className="brand" href="#overview" aria-label="Cresnex IntentLock overview"><Image className="brand-logo" src="/brand/cresnex-intentlock-logo.png" width={38} height={38} priority alt="" /><span>Cresnex <b>IntentLock</b></span></a><div className="navlinks"><a href="#overview">Overview</a><a href="#v2-builder">Intent</a><a href="#risk">Risk</a><a href="#v2-events">Evidence</a><a href="#research">Research</a></div><div className="nav-actions"><ThemeToggle /><WalletButton /></div></nav>
       <header className="hero">
-        <div className="hero-copy"><div className="eyebrow live">Research prototype · Base Sepolia</div><h1>Let agents act.<br/><em>Keep outcomes bounded.</em></h1><p>Owner-signed financial boundaries for autonomous smart wallets. Unsafe effects roll back. Compact evidence survives.</p><div className="hero-actions"><a className="primary link" href="#builder">Build an intent <span>↗</span></a><a className="secondary link" href="#events">Inspect evidence</a></div><div className="hero-proof"><span>01 / Exact calls</span><span>02 / Measured outcomes</span><span>03 / Persistent response</span></div></div>
-        <div className="containment" aria-label="Intent containment model">
-          <div className="orbit orbit-one" />
-          <div className="orbit orbit-two" />
-          <div className="containment-label label-input">OWNER INTENT</div>
-          <div className="containment-label label-output">BOUNDED RESULT</div>
-          <div className="containment-core"><span className="core-index">IL / 01</span><strong>CONTAIN</strong><small>execute · measure · decide</small></div>
-          <ProtectionStatus />
-        </div>
+        <div className="hero-backdrop" aria-hidden="true" />
+        <div className="hero-copy" id="overview"><div className="eyebrow"><span className="live-dot" />ETHOnline 2026 · Security research</div><h1>Cresnex <span>IntentLock</span></h1><p>Security and outcome enforcement for autonomous onchain agents.</p><div className="hero-actions"><a className="primary link" href="#v2-builder">Build signed intent</a><a className="secondary link" href="#risk">Inspect risk controls</a></div></div>
+        <ProtectionStatus />
       </header>
-      <section className="pipeline" aria-label="Execution pipeline"><span><b>01</b> Intent</span><i>→</i><span><b>02</b> Authenticate</span><i>→</i><span><b>03</b> Isolate</span><i>→</i><span><b>04</b> Measure</span><i>→</i><span><b>05</b> Commit / contain</span></section>
-      <section className="ethonline-status" aria-labelledby="ethonline-status-title">
-        <div><div className="eyebrow">ETHOnline 2026 status</div><h2 id="ethonline-status-title">Live evidence. Honest boundaries.</h2><p>V2 and The Graph are live on Base Sepolia. CRE report delivery works in local simulation; the CRE consumer and gated V3 are tested but await deployment access.</p></div>
-        <ul>
-          <li><span>Base Sepolia V2</span><strong className="green">LIVE</strong></li>
-          <li><span>Graph risk index</span><strong className="green">LIVE</strong></li>
-          <li><span>CRE local simulation</span><strong>READY</strong></li>
-          <li><span>V3 / CRE consumer</span><strong className="pending">DEPLOYMENT PENDING</strong></li>
-          <li><span>CRE deployment access</span><strong className="pending">PENDING</strong></li>
-        </ul>
+      <section className="pipeline" aria-label="Primary security pipeline">
+        {[["✎","Signed Intent","Owner-authorized execution context"],["◇","The Graph Risk","Live indexed policy violations"],["◈","Chainlink CRE Verdict","Fresh, deterministic risk decision"],["✓","IntentLock Enforcement","Risk gate plus existing policy checks"]].map(([icon,title,copy], index) => <div className="pipeline-card" key={title}><span className="pipeline-icon" aria-hidden="true">{icon}</span><div><small>0{index + 1}</small><strong>{title}</strong><p>{copy}</p></div>{index < 3 && <i aria-hidden="true">→</i>}</div>)}
+      </section>
+      <section className="status-bento" aria-label="System deployment status">
+        {[["Base Sepolia V2","LIVE","live","◉"],["The Graph Risk Index","LIVE","live","◇"],["CRE Risk Evaluation","SIMULATION READY","simulation","◈"],["CRE Consumer","TESTED / NOT DEPLOYED","tested","✓"],["CRE-Gated V3","TESTED / NOT DEPLOYED","tested","✓"],["Live CRE Workflow","PENDING ACCESS","pending","◷"]].map(([title,status,tone,icon]) => <article className={`status-card ${tone}`} key={title}><span className="status-icon" aria-hidden="true">{icon}</span><div><h2>{title}</h2><span className={`status-badge ${tone}`}>{status}</span></div></article>)}
+      </section>
+      <SecurityOverview />
+      <section className="support-grid">
+        <article className="dashboard-card continuity"><span className="kicker">ETHOnline 2026</span><h2>Continuity</h2><div><strong>Pre-existing</strong><p>IntentLock V1/V2 signed policy enforcement, isolation, evidence, strikes, and quarantine.</p></div><div><strong>Built during ETHOnline</strong><p>The Graph risk indexing, Chainlink CRE evaluation, RiskVerdict, CRE consumer, and V3 risk gate.</p></div></article>
+        <article className="dashboard-card deployment"><span className="kicker">Verified public state</span><h2>Deployment Status</h2><dl><div><dt>Network</dt><dd>Base Sepolia</dd></div><div><dt>V2 / Graph</dt><dd><span className="status-badge live">LIVE</span></dd></div><div><dt>CRE</dt><dd><span className="status-badge simulation">SIMULATION READY</span></dd></div><div><dt>Consumer / V3</dt><dd>NOT DEPLOYED</dd></div><div><dt>Workflow</dt><dd>PENDING DEPLOY ACCESS</dd></div><div><dt>Forwarder</dt><dd title="0xF8344CFd5c43616a4366C34E3EEE75af79a74482">0xF8344C…a74482 · official</dd></div><div><dt>Forwarder delivery</dt><dd>NOT YET PROVEN</dd></div></dl></article>
       </section>
       <V2AccountConsole />
       <AccountConsole />
@@ -45,7 +40,7 @@ export default function Home() {
       <IntentBuilder />
       <V2IntentLab />
       <V2EvidenceTimeline />
-      <ResearchResults />
+      <div id="research"><ResearchResults /></div>
       <section className="comparison"><div className="comparison-intro"><div className="eyebrow">Academic evaluation</div><h2>Path is not outcome.</h2><p>Calling an approved target does not guarantee an approved financial result.</p></div><div className="compare-grid"><article><span>CONTROL / A</span><strong>Checks where</strong><p>Path-only validation can miss harmful results produced by an allowed target.</p><div className="compare-mark bad">PATH ≠ SAFETY</div></article><article className="highlight"><span>CONTROL / B</span><strong>Checks what happened</strong><p>IntentLock measures final state, reverts unsafe effects, and preserves evidence outside.</p><div className="compare-mark good">OUTCOME BOUND</div></article></div><p className="demo-note">Conceptual comparison. Generate measured gas and experiment results from the included test plan.</p></section>
       <footer><a className="brand" href="#"><Image className="brand-logo footer-logo" src="/brand/cresnex-intentlock-logo.png" width={36} height={36} alt="" /><span>Cresnex IntentLock</span></a><span>Web3 security research · Testnet only · Not audited</span><a href="#builder">Return to intent lab ↑</a></footer>
     </main>
