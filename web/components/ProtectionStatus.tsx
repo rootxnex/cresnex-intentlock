@@ -23,12 +23,12 @@ export function ProtectionStatus() {
         ? "VERIFYING"
         : paused
           ? "PAUSED"
-          : "ARMED";
+          : "V2 ACTIVE";
 
   return (
-    <div className={`protection-chip${label === "ARMED" ? " active" : ""}`}>
+    <div className={`protection-chip${label === "V2 ACTIVE" ? " active" : ""}`}>
       <span className="status-dot" />
-      <div><small>Protection state</small><strong>{label}</strong></div>
+      <div><small>Base Sepolia V2</small><strong>{label}</strong></div>
     </div>
   );
 }

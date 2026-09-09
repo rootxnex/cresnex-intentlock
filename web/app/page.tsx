@@ -26,6 +26,16 @@ export default function Home() {
         </div>
       </header>
       <section className="pipeline" aria-label="Execution pipeline"><span><b>01</b> Intent</span><i>→</i><span><b>02</b> Authenticate</span><i>→</i><span><b>03</b> Isolate</span><i>→</i><span><b>04</b> Measure</span><i>→</i><span><b>05</b> Commit / contain</span></section>
+      <section className="ethonline-status" aria-labelledby="ethonline-status-title">
+        <div><div className="eyebrow">ETHOnline 2026 status</div><h2 id="ethonline-status-title">Live evidence. Honest boundaries.</h2><p>V2 and The Graph are live on Base Sepolia. CRE report delivery works in local simulation; the CRE consumer and gated V3 are tested but await deployment access.</p></div>
+        <ul>
+          <li><span>Base Sepolia V2</span><strong className="green">LIVE</strong></li>
+          <li><span>Graph risk index</span><strong className="green">LIVE</strong></li>
+          <li><span>CRE local simulation</span><strong>READY</strong></li>
+          <li><span>V3 / CRE consumer</span><strong className="pending">DEPLOYMENT PENDING</strong></li>
+          <li><span>CRE deployment access</span><strong className="pending">PENDING</strong></li>
+        </ul>
+      </section>
       <V2AccountConsole />
       <AccountConsole />
       <section className="grid">
