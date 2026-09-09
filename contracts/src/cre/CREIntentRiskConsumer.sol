@@ -17,6 +17,8 @@ contract CREIntentRiskConsumer is IReceiver {
     bytes32 public constant RULE_ID_HASH = keccak256(bytes(RULE_ID));
 
     address public immutable forwarder;
+    address public immutable gateAdmin;
+    address public authorizedGate;
 
     struct RiskVerdict {
         uint8 version;
@@ -46,6 +48,7 @@ contract CREIntentRiskConsumer is IReceiver {
         bytes32 evidenceHash;
         uint256 receivedAt;
         bool received;
+        bool consumed;
     }
 
     mapping(bytes32 verdictKey => StoredVerdict verdict) public verdicts;
@@ -66,6 +69,14 @@ contract CREIntentRiskConsumer is IReceiver {
     error InconsistentDecisionEvidence();
     error InvalidEvidenceHash();
     error VerdictReplay(bytes32 verdictKey);
+    error UnauthorizedGateAdmin(address caller);
+    error ZeroGate();
+    error GateAlreadyConfigured();
+    error UnauthorizedGate(address caller);
+    error VerdictMissing(bytes32 verdictKey);
+    error VerdictExpired(bytes32 verdictKey);
+    error VerdictNotAllow(bytes32 verdictKey);
+    error VerdictAlreadyConsumed(bytes32 verdictKey);
 
     event RiskVerdictAccepted(
         bytes32 indexed verdictKey,
@@ -76,10 +87,21 @@ contract CREIntentRiskConsumer is IReceiver {
         bytes32 evidenceHash,
         uint256 validUntil
     );
+    event AuthorizedGateConfigured(address indexed gate);
+    event RiskVerdictConsumed(bytes32 indexed verdictKey, bytes32 indexed evidenceHash);
 
     constructor(address forwarder_) {
         if (forwarder_ == address(0)) revert ZeroForwarder();
         forwarder = forwarder_;
+        gateAdmin = msg.sender;
+    }
+
+    function setAuthorizedGate(address gate) external {
+        if (msg.sender != gateAdmin) revert UnauthorizedGateAdmin(msg.sender);
+        if (gate == address(0)) revert ZeroGate();
+        if (authorizedGate != address(0)) revert GateAlreadyConfigured();
+        authorizedGate = gate;
+        emit AuthorizedGateConfigured(gate);
     }
 
     /// @inheritdoc IReceiver
@@ -100,7 +122,8 @@ contract CREIntentRiskConsumer is IReceiver {
             thresholdReached: verdict.thresholdReached,
             evidenceHash: verdict.evidenceHash,
             receivedAt: block.timestamp,
-            received: true
+            received: true,
+            consumed: false
         });
         emit RiskVerdictAccepted(
             key,
@@ -111,6 +134,28 @@ contract CREIntentRiskConsumer is IReceiver {
             verdict.evidenceHash,
             verdict.validUntil
         );
+    }
+
+    function consumeVerdict(
+        address account,
+        uint256 chainId,
+        address agent,
+        uint256 nonce,
+        bytes32 callsHash,
+        bytes32 policyHash
+    ) external returns (bytes32 key, bytes32 evidenceHash) {
+        if (msg.sender != authorizedGate) revert UnauthorizedGate(msg.sender);
+        key = verdictKey(account, chainId, agent, nonce, callsHash, policyHash);
+        StoredVerdict storage stored = verdicts[key];
+        if (!stored.received) revert VerdictMissing(key);
+        if (stored.consumed) revert VerdictAlreadyConsumed(key);
+        if (block.timestamp > stored.validUntil) revert VerdictExpired(key);
+        if (stored.decision != DECISION_ALLOW || !stored.evidenceUsable || stored.thresholdReached) {
+            revert VerdictNotAllow(key);
+        }
+        stored.consumed = true;
+        evidenceHash = stored.evidenceHash;
+        emit RiskVerdictConsumed(key, evidenceHash);
     }
 
     function verdictKey(

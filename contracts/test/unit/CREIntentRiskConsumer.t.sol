@@ -196,7 +196,7 @@ contract CREIntentRiskConsumerTest is Test {
         bytes32 vectorCallsHash = 0x1111111111111111111111111111111111111111111111111111111111111111;
         bytes32 vectorPolicyHash = 0x2222222222222222222222222222222222222222222222222222222222222222;
         bytes32 key = _key(ACCOUNT, AGENT, 7, vectorCallsHash, vectorPolicyHash);
-        (uint8 decision,,,, bytes32 evidenceHash,, bool received) = consumer.verdicts(key);
+        (uint8 decision,,,, bytes32 evidenceHash,, bool received,) = consumer.verdicts(key);
         assertEq(decision, 0);
         assertEq(evidenceHash, 0x7b0e03f362114d38006adca7fa449448ffcd363b1d15502877e293c971e21e2e);
         assertTrue(received);
@@ -222,6 +222,70 @@ contract CREIntentRiskConsumerTest is Test {
     function testFuzzInvalidDecisionEvidence(uint8 count) public {
         count = uint8(bound(count, 1, type(uint8).max));
         _expectInconsistent(_verdict(0, count, true, false));
+    }
+
+    function testOnlyGateAdminCanConfigureGate() public {
+        vm.prank(address(0xBAD));
+        vm.expectPartialRevert(CREIntentRiskConsumer.UnauthorizedGateAdmin.selector);
+        consumer.setAuthorizedGate(address(this));
+    }
+
+    function testZeroGateRejected() public {
+        vm.expectRevert(CREIntentRiskConsumer.ZeroGate.selector);
+        consumer.setAuthorizedGate(address(0));
+    }
+
+    function testGateCanOnlyBeConfiguredOnce() public {
+        consumer.setAuthorizedGate(address(this));
+        vm.expectRevert(CREIntentRiskConsumer.GateAlreadyConfigured.selector);
+        consumer.setAuthorizedGate(address(1));
+    }
+
+    function testAuthorizedGateConsumesAllowExactlyOnce() public {
+        CREIntentRiskConsumer.RiskVerdict memory verdict = _verdict(0, 0, true, false);
+        _submit(verdict);
+        consumer.setAuthorizedGate(address(this));
+        (bytes32 key, bytes32 evidenceHash) = _consume(verdict);
+        assertEq(evidenceHash, verdict.evidenceHash);
+        (,,,,,,, bool consumed) = consumer.verdicts(key);
+        assertTrue(consumed);
+        vm.expectPartialRevert(CREIntentRiskConsumer.VerdictAlreadyConsumed.selector);
+        _consume(verdict);
+    }
+
+    function testUnauthorizedGateCannotConsume() public {
+        CREIntentRiskConsumer.RiskVerdict memory verdict = _verdict(0, 0, true, false);
+        _submit(verdict);
+        consumer.setAuthorizedGate(address(0xBEEF));
+        vm.expectPartialRevert(CREIntentRiskConsumer.UnauthorizedGate.selector);
+        _consume(verdict);
+    }
+
+    function testMissingVerdictCannotBeConsumed() public {
+        consumer.setAuthorizedGate(address(this));
+        vm.expectPartialRevert(CREIntentRiskConsumer.VerdictMissing.selector);
+        _consume(_verdict(0, 0, true, false));
+    }
+
+    function testExpiredAcceptedVerdictCannotBeConsumed() public {
+        CREIntentRiskConsumer.RiskVerdict memory verdict = _verdict(0, 0, true, false);
+        _submit(verdict);
+        consumer.setAuthorizedGate(address(this));
+        vm.warp(verdict.validUntil + 1);
+        vm.expectPartialRevert(CREIntentRiskConsumer.VerdictExpired.selector);
+        _consume(verdict);
+    }
+
+    function testEscalateCannotBeConsumed() public {
+        _assertDecisionCannotBeConsumed(_verdict(1, 1, true, false));
+    }
+
+    function testGenuineBlockCannotBeConsumed() public {
+        _assertDecisionCannotBeConsumed(_verdict(2, 3, true, true));
+    }
+
+    function testOperationalBlockCannotBeConsumed() public {
+        _assertDecisionCannotBeConsumed(_verdict(2, 0, false, false));
     }
 
     function _verdict(uint8 decision, uint8 count, bool usable, bool threshold)
@@ -310,6 +374,22 @@ contract CREIntentRiskConsumerTest is Test {
 
     function _expectInconsistent(CREIntentRiskConsumer.RiskVerdict memory verdict) internal {
         _expectInvalid(CREIntentRiskConsumer.InconsistentDecisionEvidence.selector, verdict);
+    }
+
+    function _consume(CREIntentRiskConsumer.RiskVerdict memory verdict)
+        internal
+        returns (bytes32 key, bytes32 evidenceHash)
+    {
+        return consumer.consumeVerdict(
+            verdict.account, verdict.chainId, verdict.agent, verdict.nonce, verdict.callsHash, verdict.policyHash
+        );
+    }
+
+    function _assertDecisionCannotBeConsumed(CREIntentRiskConsumer.RiskVerdict memory verdict) internal {
+        _submit(verdict);
+        consumer.setAuthorizedGate(address(this));
+        vm.expectPartialRevert(CREIntentRiskConsumer.VerdictNotAllow.selector);
+        _consume(verdict);
     }
 
     function _key(address account, address agent, uint256 nonce, bytes32 callsHash, bytes32 policyHash)

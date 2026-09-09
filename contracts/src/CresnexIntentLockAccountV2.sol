@@ -236,7 +236,7 @@ contract CresnexIntentLockAccountV2 is ICresnexIntentLockV2, EIP712, Ownable2Ste
         IntentTypesV2.ExecutionCall[] calldata calls,
         IntentTypesV2.Policy calldata policy,
         bytes calldata ownerSignature
-    ) external nonReentrant whenNotPaused returns (bool success, bytes32 evidenceHash) {
+    ) public virtual nonReentrant whenNotPaused returns (bool success, bytes32 evidenceHash) {
         bytes32 digest = _authenticate(manifest, calls, policy, ownerSignature);
         usedNonces[manifest.nonce] = true;
 
