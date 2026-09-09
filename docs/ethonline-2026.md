@@ -4,7 +4,7 @@
 
 This document records work performed on the `ethonline-2026` branch after continuity baseline commit `b5aaed21110a1836724d546b357af95bae23a325`. The V1 and V2 accounts, EIP-712 intent flow, policy modules, outcome containment, evidence, strikes, quarantine, tests, SDK, and dashboard pre-date ETHOnline 2026.
 
-ETHOnline work now includes a project-owned subgraph that indexes real V2 `IntentViolation` events, a successful live Graph Studio deployment and query, and a deterministic fail-closed evaluator. The account contracts remain unchanged. Graph-derived decisions are not yet enforced onchain, and no attestation or Chainlink CRE workflow has been implemented.
+ETHOnline work now includes a project-owned subgraph that indexes real V2 `IntentViolation` events, a successful live Graph Studio deployment and query, a deterministic fail-closed evaluator, a Chainlink CRE workflow, a versioned execution-bound `RiskVerdict`, a tested onchain report consumer, and a CRE-gated V3 account. CRE report generation and `writeReport` have succeeded in local simulation. The workflow, consumer, and V3 are not deployed, and real KeystoneForwarder delivery is not yet proven.
 
 ## Verified Base Sepolia deployment
 
@@ -27,6 +27,7 @@ The subgraph starts at the actual V2 creation block, `46426662`. It deliberately
 | --- | --- |
 | Graph Studio subgraph | `cresnex-intent-lock-agent-risk-base-sepolia` |
 | Studio version | `v0.1.0` |
+| Query endpoint | `https://api.studio.thegraph.com/query/1758760/cresnex-intent-lock-agent-risk-base-sepolia/v0.1.0` |
 | Indexed network | Base Sepolia |
 | Indexing health | `_meta.hasIndexingErrors = false` |
 | Observed freshness | Indexed near the contemporaneous Base Sepolia chain head |
@@ -78,6 +79,26 @@ The evaluator counts an exact agent's indexed `IntentViolation` events in the pr
 | 3 or more | `BLOCK` |
 
 `ESCALATE` never silently becomes `ALLOW`. The evaluator is implemented in `web/lib/graphRisk.ts` and unit-tested in `web/lib/graphRisk.test.ts`.
+
+The CRE implementation applies the same rule independently in `cre/intentlock-risk/`. The latest recorded live-data simulation saw zero violations inside the rolling window and therefore returned `ALLOW`; the previously proven violation had aged outside that window.
+
+## Chainlink CRE evidence
+
+| Field | Verified value |
+| --- | --- |
+| CRE CLI | `v1.32.0` |
+| CRE SDK | `@chainlink/cre-sdk@1.19.1` |
+| Base Sepolia chain selector | `10344971235874465080` |
+| Official KeystoneForwarder | `0xF8344CFd5c43616a4366C34E3EEE75af79a74482` |
+| Trigger | CRE HTTP capability with strict dynamic intent bindings |
+| Time source | `runtime.now()` |
+| Graph access | CRE `HTTPClient` POST |
+| Freshness reference | CRE EVM latest-block header read |
+| Report creation | `runtime.report(...)` succeeds in local simulation |
+| Delivery path | `EVMClient.writeReport(...)` succeeds in local simulation |
+| Live deployment | Pending CRE Deploy Access |
+
+The consumer accepts reports only from the immutable official Forwarder and, after one-time configuration, only for the expected workflow ID and owner encoded in the exact 64-byte Keystone metadata. V3 consumes a fresh `ALLOW` verdict bound to the same execution package. The simulator result proves the workflow path and simulated chain-write capability, not real DON-to-consumer delivery. This project does not claim confidential execution or Confidential Workflows access.
 
 ## Graph query
 
@@ -139,7 +160,7 @@ The account owner and existing signed policy remain trusted as described in the 
 
 Live validation observed the Studio deployment indexing near the contemporaneous Base Sepolia chain head. The earlier proposal of a permanent 100-block maximum lag remains unfinalized; the evaluator instead accepts an explicit maximum allowed lag from its caller so the policy can be selected from measured behavior.
 
-Missing, malformed, stale, future-block, or indexing-error Graph data fails closed to `BLOCK`. `_meta.hasIndexingErrors` must be false, `_meta.block` must be present, and violation timestamps must fall within the exact 24-hour window. The evaluator does not itself provide an onchain enforcement path.
+Missing, malformed, stale, future-block, or indexing-error Graph data fails closed to `BLOCK`. `_meta.hasIndexingErrors` must be false, `_meta.block` must be present, and violation timestamps must fall within the exact 24-hour window. V3 is the separately versioned enforcement design; the live V2 deployment remains unchanged and is not CRE-gated.
 
 ## Indexing limitations
 
@@ -161,4 +182,25 @@ False negatives can arise when an agent rotates addresses, acts outside indexed 
 
 ## Qualification boundary
 
-Hackathon qualification uses live Base Sepolia events returned by the deployed subgraph. Mocked or static Graph responses support unit tests, but they do not demonstrate the sponsor integration. Live subgraph deployment, live query validation, and deterministic evaluation are complete; attestation, Chainlink CRE, and onchain enforcement remain separate, unimplemented review gates. This is an unaudited research prototype for testnet use, not a production-ready reputation or enforcement system.
+Hackathon qualification uses live Base Sepolia events returned by the deployed subgraph. Mocked or static Graph responses support unit tests, but they do not demonstrate the sponsor integration. Live subgraph deployment and queries are complete. CRE-to-report delivery has been proven only in local simulation, while consumer and V3 behavior are proven by Foundry tests. Live CRE, consumer, V3, and KeystoneForwarder delivery remain pending. This is an unaudited testnet research prototype, not a production-ready reputation or enforcement system.
+
+## CRE/V3 security invariants
+
+- The owner-signed intent is authenticated before the risk gate.
+- The verdict binds `account`, `chainId`, `agent`, `nonce`, `callsHash`, and `policyHash`.
+- Only a fresh, usable `ALLOW` verdict may be consumed for autonomous execution.
+- CRE rejection does not consume the intent nonce, add a strike, quarantine an agent, or emit `IntentViolation`.
+- Report replay and verdict replay are rejected.
+- The immutable Forwarder and configured workflow ID and owner must all match.
+- Existing V2 policy enforcement still runs after the gate.
+- A downstream revert rolls back verdict consumption, allowing a valid retry.
+
+## Verified test evidence
+
+| Suite | Result |
+| --- | --- |
+| Full Foundry suite | 378 passed, 0 failed |
+| `CREIntentRiskConsumerTest` | 59 passed |
+| `CresnexIntentLockAccountV3Test` | 23 passed |
+| CRE Bun tests | 39 passed, 0 failed |
+| TypeScript | Passed |

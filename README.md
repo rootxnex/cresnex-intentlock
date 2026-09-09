@@ -22,7 +22,7 @@ The repository history before ETHOnline 2026 already includes:
 - a Next.js dashboard using wagmi and viem; and
 - the existing V2 research modules, TypeScript SDK/browser lab, academic baselines, and deployment tooling documented below.
 
-### Planned / Built during ETHOnline 2026
+### Built / pending during ETHOnline 2026
 
 Unchecked items are planned work and must not be described as implemented until executable evidence exists:
 
@@ -31,57 +31,69 @@ Unchecked items are planned work and must not be described as implemented until 
 - [x] Deploy and validate the subgraph against live Base Sepolia events
 - [x] Query live Graph-provider data for recent agent policy violations
 - [x] Implement deterministic context-aware agent risk evaluation
-- [ ] Add Chainlink CRE confidential risk-evaluation workflow
-- [ ] Feed Graph-derived risk context into the CRE workflow
-- [ ] Produce a risk verdict that can safely influence IntentLock enforcement
+- [x] Feed live Graph-derived risk context into a Chainlink CRE workflow
+- [x] Produce a versioned, execution-bound `RiskVerdict` and simulate report delivery
+- [x] Add a tested onchain CRE report consumer and CRE-gated V3 execution path
+- [x] Authenticate reports by immutable Forwarder plus one-time workflow ID and owner
 - [x] Implement fail-closed behavior for stale, malformed, missing, or errored Graph data
-- [ ] Add adversarial/security tests covering Graph and CRE failure cases
-- [ ] Update the ETHOnline frontend/demo to show ALLOW, BLOCK, and QUARANTINE decisions
-- [ ] Document reproducible end-to-end demo evidence
+- [x] Add adversarial/security tests covering Graph, CRE, report replay, and binding failures
+- [x] Update the ETHOnline frontend/demo with truthful live, simulated, and pending status
+- [x] Document reproducible demo and prize evidence
+- [ ] Deploy the CRE workflow, consumer, and V3 after CRE Deploy Access is enabled
+- [ ] Prove real KeystoneForwarder-to-consumer delivery on Base Sepolia
 
 ### ETHOnline architecture
 
-```text
-AI Agent
-   |
-   v
-Transaction Intent
-   |
-   v
-The Graph
-live IntentViolation history
-   |
-   v
-Behavioral risk context
-   |
-   v
-Chainlink CRE
-confidential risk evaluation
-   |
-   v
-Risk verdict
-   |
-   v
-Cresnex IntentLock
-owner-signed deterministic enforcement
-   |
-   +--> ALLOW
-   +--> BLOCK
-   +--> QUARANTINE
-   |
-   v
-Onchain evidence
+```mermaid
+flowchart TD
+  A[Agent + owner-signed intent] --> B[CRE HTTP trigger]
+  B --> C[The Graph: recent IntentViolation events]
+  C --> D[Base Sepolia head freshness check]
+  D --> E[Deterministic 24-hour evaluator]
+  E --> F[Execution-bound RiskVerdict]
+  F --> G[runtime.report]
+  G --> H[EVMClient.writeReport]
+  H --> I[KeystoneForwarder]
+  I --> J[CREIntentRiskConsumer]
+  J --> K[V3 consumes ALLOW]
+  K --> L[Existing IntentLock policy execution]
 ```
 
 - **The Graph** provides live indexed behavioral/onchain context.
-- **Chainlink CRE** performs confidential risk evaluation using protected thresholds, private parameters, or sensitive off-chain inputs.
+- **Chainlink CRE** independently queries the signal, checks chain freshness, derives the verdict, and constructs a report. Current evidence covers local CRE simulation; it does not claim Confidential Workflows.
 - **IntentLock** remains the final deterministic enforcement boundary for owner-signed transaction policies.
 
 Fundamental IntentLock safety invariants must not move entirely into Chainlink CRE. Spend limits, allowed recipients, approval limits, slippage and minimum-output requirements, nonce and deadline checks, and allowed operation/call constraints remain deterministically enforceable by IntentLock contracts or owner-signed policy.
 
-Chainlink CRE is planned for data or logic that benefits from confidentiality, such as proprietary risk scoring, private risk thresholds, protected API credentials, sensitive off-chain signals, internal fraud/risk parameters, and confidential intermediate evaluation. Until a CRE workflow has working code and reproducible evidence in this repository, it is planned—not integrated—and this project does not claim confidential execution, production-grade privacy, secure off-chain risk evaluation, or onchain CRE enforcement.
+CRE `ALLOW` is necessary but not sufficient: every existing signature, nonce, call, policy, isolation, and postcondition check still runs. CRE rejection does not consume the intent nonce, create a strike, quarantine the agent, or emit `IntentViolation`. The existing live V2 deployment is not retroactively CRE-gated.
+
+The repository contains the CRE workflow, report consumer, V3 gate, tests, and deployment tooling. `runtime.report()` and `EVMClient.writeReport()` have been demonstrated in local CRE simulation only. The workflow, consumer, and V3 are not yet deployed, and real KeystoneForwarder delivery has not yet been proven. No confidential-execution claim is made.
 
 The Graph qualification path requires live provider data; mocked, static, or local-only Graph responses do not demonstrate the sponsor integration. The signal is limited to recent indexed IntentLock `IntentViolation` events and is not universal agent reputation. Missing, stale, malformed, or indexing-error data must never silently produce `ALLOW`.
+
+### Current ETHOnline deployment status
+
+| Component | Status |
+| --- | --- |
+| Base Sepolia V2 | **LIVE** |
+| The Graph subgraph and live query | **LIVE** |
+| CRE local simulation | **WORKING** |
+| CRE live deployment | **PENDING DEPLOY ACCESS** |
+| CRE consumer | **TESTED / NOT DEPLOYED** |
+| CRE-gated V3 | **TESTED / NOT DEPLOYED** |
+| Real KeystoneForwarder delivery | **NOT YET PROVEN** |
+
+### Deterministic risk rule
+
+The narrow signal asks: **How many recent indexed IntentLock policy violations has this agent caused in the last 24 hours?**
+
+| Count | Decision |
+| ---: | --- |
+| 0 | `ALLOW` |
+| 1–2 | `ESCALATE` |
+| 3+ | `BLOCK` |
+
+Graph errors, malformed responses, indexing errors, and stale indexing produce a fail-closed operational `BLOCK`. This signal is only “recent indexed IntentLock policy violations,” not universal reputation or proof that an agent is safe.
 
 ### ETHOnline demo target
 
@@ -97,12 +109,14 @@ Scenario B — Risky agent action
 
 Signed policy        PASS
 Graph risk context   HIGH
-CRE risk verdict     DENY
-IntentLock           BLOCK / QUARANTINE
-Evidence             RECORDED
+CRE risk verdict     ESCALATE / BLOCK
+IntentLock V3        NO AUTONOMOUS EXECUTION
+V2 discipline state  UNCHANGED BY CRE REJECTION
 ```
 
 The demo target is to prove that external risk context materially changes the IntentLock outcome; The Graph and Chainlink are not presented only as dashboard data.
+
+See the [ETHOnline technical evidence](docs/ethonline-2026.md), [deployment runbook](docs/ethonline-2026-deployment.md), and [three-minute demo script](docs/ethonline-2026-demo.md).
 
 ## Why it exists
 
