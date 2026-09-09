@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import { parseGraphEvidence } from "./graph";
+import { parseIntentBindings } from "./input";
 import { decisionForCount, evaluateGraphRisk } from "./risk";
 import { buildRiskVerdict, encodeRiskVerdict, VERDICT_FIELD_ORDER } from "./verdict";
 
@@ -65,6 +66,43 @@ const ACCOUNT = "0x4423D32fE243D06D7F025Ef4855BC24185704168" as const;
 const AGENT = "0xEDa2435282D178a5A9c8c001793b1857Fef84E28" as const;
 const HASH_A = `0x${"11".repeat(32)}` as const;
 const HASH_B = `0x${"22".repeat(32)}` as const;
+
+describe("dynamic intent request bindings", () => {
+  const request = {
+    account: ACCOUNT, agent: AGENT, nonce: "7", callsHash: HASH_A, policyHash: HASH_B,
+  };
+
+  test("valid request is normalized", () => {
+    const parsed = parseIntentBindings(request);
+    expect(parsed.account).toBe(ACCOUNT);
+    expect(parsed.agent).toBe(AGENT);
+    expect(parsed.nonce).toBe(7n);
+    expect(parsed.callsHash).toBe(HASH_A);
+    expect(parsed.policyHash).toBe(HASH_B);
+  });
+
+  for (const [field, value] of [
+    ["account", "0x0000000000000000000000000000000000000000"],
+    ["agent", "not-an-address"],
+    ["nonce", "-1"],
+    ["nonce", (1n << 256n).toString()],
+    ["callsHash", `0x${"00".repeat(32)}`],
+    ["policyHash", "0x1234"],
+  ] as const) {
+    test(`invalid ${field} is rejected`, () => {
+      expect(() => parseIntentBindings({ ...request, [field]: value })).toThrow();
+    });
+  }
+
+  test("caller cannot supply chainId", () => {
+    expect(() => parseIntentBindings({ ...request, chainId: "1" })).toThrow();
+  });
+
+  test("missing and non-object requests are rejected", () => {
+    expect(() => parseIntentBindings({ ...request, agent: undefined })).toThrow();
+    expect(() => parseIntentBindings([])).toThrow();
+  });
+});
 
 function verdict(count: number, changes: Record<string, unknown> = {}) {
   const evaluation = evaluate(response(count));

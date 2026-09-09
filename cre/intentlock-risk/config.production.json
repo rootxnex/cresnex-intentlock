@@ -1,11 +1,7 @@
 {
-  "schedule": "*/30 * * * * *",
   "graphEndpoint": "https://api.studio.thegraph.com/query/1758760/cresnex-intent-lock-agent-risk-base-sepolia/v0.1.0",
-  "agent": "0xeda2435282d178a5a9c8c001793b1857fef84e28",
   "maxAllowedLag": "20",
-  "account": "0x4423D32fE243D06D7F025Ef4855BC24185704168",
-  "nonce": "0",
-  "callsHash": "0x1111111111111111111111111111111111111111111111111111111111111111",
-  "policyHash": "0x2222222222222222222222222222222222222222222222222222222222222222",
-  "validitySeconds": "300"
+  "validitySeconds": "300",
+  "receiverAddress": "0x0000000000000000000000000000000000000000",
+  "writeGasLimit": "500000"
 }
