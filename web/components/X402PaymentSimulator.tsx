@@ -4,6 +4,8 @@ import { useMemo, useState } from "react";
 import { buildPaymentIntent, parsePaymentRequired } from "@/lib/x402/adapter";
 import { hashX402Evidence } from "@/lib/x402/evidence";
 import { BASE_SEPOLIA_NETWORK, BASE_SEPOLIA_USDC } from "@/lib/x402/live/requirements";
+import { hashLiveX402Binding } from "@/lib/x402/live/binding";
+import { parsePaymentRequiredHeader } from "@/lib/x402/live/requirements";
 import { evaluateX402Policy } from "@/lib/x402/policy";
 import type { X402PaymentRequired, X402RiskInput } from "@/lib/x402/types";
 
@@ -12,6 +14,7 @@ const agent = "0xEDa2435282D178a5A9c8c001793b1857Fef84E28" as const;
 const token = "0x0929e7B83466A0BB6A3dBff58d3624A3C8b65368" as const;
 const recipient = "0xEDa2435282D178a5A9c8c001793b1857Fef84E28" as const;
 const alternativeRecipient = "0xf6F454F3c28559d4E06b5106EF1fd32921a834e0" as const;
+const zeroHash = `0x${"00".repeat(32)}` as const;
 
 type Scenario = "allow" | "amount" | "recipient" | "escalate" | "stale";
 
@@ -25,6 +28,9 @@ function requirement(scenario: Scenario): X402PaymentRequired {
 
 export function X402PaymentSimulator() {
   const [scenario, setScenario] = useState<Scenario>("allow");
+  const [capturedHeader, setCapturedHeader] = useState("");
+  const [captureError, setCaptureError] = useState<string | null>(null);
+  const [captured, setCaptured] = useState<ReturnType<typeof parsePaymentRequiredHeader> | null>(null);
   const result = useMemo(() => {
     const now = 1_789_000_000n;
     const intent = buildPaymentIntent(parsePaymentRequired(requirement(scenario)), "GET", 0, now);
@@ -57,9 +63,11 @@ export function X402PaymentSimulator() {
     <article className="x402-prep" aria-label="Real x402 flow preparation">
       <div className="panel-number">REAL FLOW PREP</div>
       <h3>Unsigned first-payment review</h3>
-      <p className="muted">No live requirement has been fetched. This preview is blocked until an unpaid request returns one verified Base Sepolia 402 requirement.</p>
-      <dl className="x402-details"><div><dt>Service / endpoint</dt><dd>Awaiting PAYMENT-REQUIRED</dd></div><div><dt>Network / token</dt><dd>{BASE_SEPOLIA_NETWORK} · {BASE_SEPOLIA_USDC}</dd></div><div><dt>Amount / recipient</dt><dd>Awaiting requirement</dd></div><div><dt>Requirement hash</dt><dd>Not available</dd></div><div><dt>IntentLock decision</dt><dd>BLOCK — no live requirement</dd></div><div><dt>Settlement</dt><dd>Disabled</dd></div></dl>
-      <button className="secondary" type="button" disabled title="A verified unpaid 402 requirement and explicit approval are required">PREPARE PAYMENT</button>
+      <p className="muted">Paste a captured unpaid `PAYMENT-REQUIRED` value from the local project-controlled resource. This parses only; it never signs, retries, or settles.</p>
+      <label>Captured PAYMENT-REQUIRED<textarea value={capturedHeader} onChange={(event) => setCapturedHeader(event.target.value.trim())} placeholder="base64 header from an unpaid 402 response" rows={3} /></label>
+      <button className="secondary" type="button" onClick={() => { try { setCaptured(parsePaymentRequiredHeader(capturedHeader, "GET", BigInt(Math.floor(Date.now() / 1000)))); setCaptureError(null); } catch (error) { setCaptured(null); setCaptureError(error instanceof Error ? error.message : "Invalid PAYMENT-REQUIRED"); } }}>PREPARE PAYMENT</button>
+      {captureError && <p className="demo-note">PAYMENT BLOCKED — {captureError}</p>}
+      <dl className="x402-details"><div><dt>Service / endpoint</dt><dd>{captured ? `${captured.intent.serviceDomain}${captured.intent.resourcePath}` : "Awaiting PAYMENT-REQUIRED"}</dd></div><div><dt>Network / token</dt><dd>{captured ? `${captured.required.accepts[0].network} · ${captured.intent.token}` : `${BASE_SEPOLIA_NETWORK} · ${BASE_SEPOLIA_USDC}`}</dd></div><div><dt>Amount / recipient</dt><dd>{captured ? `${captured.intent.amount} · ${captured.intent.recipient}` : "Awaiting requirement"}</dd></div><div><dt>Scheme / expiry</dt><dd>{captured ? `${captured.intent.paymentScheme} · ${captured.intent.validUntil}` : "Awaiting requirement"}</dd></div><div><dt>Requirement hash</dt><dd>{captured?.requirementHash ?? "Not available"}</dd></div><div><dt>IntentLock binding</dt><dd>{captured ? hashLiveX402Binding(captured.intent, { account, agent, nonce: 0n, callsHash: captured.intent.requestHash, policyHash: zeroHash, authorizationNonce: zeroHash }) : "Not available"}</dd></div><div><dt>Risk decision</dt><dd>ALLOW evidence required</dd></div><div><dt>IntentLock decision</dt><dd>PAYMENT BLOCKED — recipient allowlist not configured</dd></div><div><dt>Settlement</dt><dd>Disabled</dd></div></dl>
     </article>
   </section>;
 }
