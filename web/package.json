@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test:sdk": "node --experimental-strip-types --test lib/intentV2.test.ts",
-    "test:risk": "node --experimental-strip-types --test lib/graphRisk.test.ts"
+    "test:risk": "node --experimental-strip-types --test lib/graphRisk.test.ts",
+    "test:x402": "node --experimental-strip-types --test lib/x402/x402.test.ts"
   },
   "dependencies": {
     "@tanstack/react-query": "5.66.9",
