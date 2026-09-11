@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { buildPaymentIntent, parsePaymentRequired } from "@/lib/x402/adapter";
 import { hashX402Evidence } from "@/lib/x402/evidence";
+import { BASE_SEPOLIA_NETWORK, BASE_SEPOLIA_USDC } from "@/lib/x402/live/requirements";
 import { evaluateX402Policy } from "@/lib/x402/policy";
 import type { X402PaymentRequired, X402RiskInput } from "@/lib/x402/types";
 
@@ -53,5 +54,12 @@ export function X402PaymentSimulator() {
     <div className={`x402-verdict ${result.evaluation.decision.toLowerCase()}`}><span>IntentLock evaluation</span><strong>{result.evaluation.decision}</strong><p>{result.evaluation.reason}</p><small>Policy: {allowed ? "PASS" : "FAIL / REVIEW"} · Risk: {result.risk.evidenceUsable ? result.risk.decision : "UNUSABLE → BLOCK"}</small></div>
     <div className="hash"><span>Mock x402 evidence binding</span><code>{result.evidenceHash}</code></div>
     <p className="demo-note">{allowed ? "MOCK PAYMENT AUTHORIZATION ELIGIBLE — no authorization was produced." : "MOCK PAYMENT NOT AUTHORIZED — no authorization was produced."}</p>
+    <article className="x402-prep" aria-label="Real x402 flow preparation">
+      <div className="panel-number">REAL FLOW PREP</div>
+      <h3>Unsigned first-payment review</h3>
+      <p className="muted">No live requirement has been fetched. This preview is blocked until an unpaid request returns one verified Base Sepolia 402 requirement.</p>
+      <dl className="x402-details"><div><dt>Service / endpoint</dt><dd>Awaiting PAYMENT-REQUIRED</dd></div><div><dt>Network / token</dt><dd>{BASE_SEPOLIA_NETWORK} · {BASE_SEPOLIA_USDC}</dd></div><div><dt>Amount / recipient</dt><dd>Awaiting requirement</dd></div><div><dt>Requirement hash</dt><dd>Not available</dd></div><div><dt>IntentLock decision</dt><dd>BLOCK — no live requirement</dd></div><div><dt>Settlement</dt><dd>Disabled</dd></div></dl>
+      <button className="secondary" type="button" disabled title="A verified unpaid 402 requirement and explicit approval are required">PREPARE PAYMENT</button>
+    </article>
   </section>;
 }
