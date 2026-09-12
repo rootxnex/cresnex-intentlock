@@ -204,3 +204,7 @@ Hackathon qualification uses live Base Sepolia events returned by the deployed s
 | `CresnexIntentLockAccountV3Test` | 23 passed |
 | CRE Bun tests | 39 passed, 0 failed |
 | TypeScript | Passed |
+
+## x402 live Base Sepolia proof
+
+The standalone Express resource completed one official x402 v2 exact-EVM flow using MetaMask/viem EIP-712 authorization and facilitator settlement. Circle Base Sepolia USDC (`0x036CbD53842c5426634e7929541eC2318f3dCF7e`) transferred `1000` atomic units (`0.001 USDC`) from payer `0x0C8700bF8864f4B85b05CDF0BefD14f4b00e720B` to merchant `0x80AB2fEd3E5E1076CdEAE06749aAf183E98f0Cd6` in transaction `0x27aa742192f21bdebd4f60cbbbb05672504141d3de4e6a367ef23d192669c7b0` at block `46724208`. The sequence was HTTP `402` → `PAYMENT-SIGNATURE` → settlement → HTTP `200`. This proves payment flow only; IntentLock does not onchain-enforce HTTP domain/path semantics.

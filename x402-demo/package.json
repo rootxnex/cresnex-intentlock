@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "tsx src/server.ts",
+    "dev": "esbuild src/browser.ts --bundle --outfile=public/browser.js && tsx src/server.ts",
     "test": "tsx --test test/*.test.ts",
     "typecheck": "tsc --noEmit"
   },
@@ -12,10 +12,12 @@
     "@x402/core": "2.25.0",
     "@x402/evm": "2.25.0",
     "@x402/express": "2.25.0",
-    "express": "5.1.0"
+    "express": "5.1.0",
+    "viem": "^2.37.4"
   },
   "devDependencies": {
     "@types/express": "5.0.5",
+    "esbuild": "^0.25.12",
     "tsx": "4.21.0",
     "typescript": "5.7.3"
   }

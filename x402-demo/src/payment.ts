@@ -16,7 +16,8 @@ export function createDemoApp(config: DemoConfig): Express {
         payTo: config.recipient,
         // Explicit atomic units prevent accidental decimal conversion.
         price: { asset: BASE_SEPOLIA_USDC, amount: config.amountAtomic },
-        maxTimeoutSeconds: 60,
+        extra: { name: "USDC", version: "2" },
+        maxTimeoutSeconds: 300,
       },
       resource: config.resourceUrl,
       description: "IntentLock x402 protected demo resource",

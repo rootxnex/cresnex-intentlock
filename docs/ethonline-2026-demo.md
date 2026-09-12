@@ -30,6 +30,10 @@
 
 **Prize tracks:** The Graph and Chainlink.
 
+### x402 payment proof
+
+One real Base Sepolia proof transferred `1000` atomic units (`0.001 USDC`) of official Circle USDC from the dedicated payer to the merchant in transaction `0x27aa742192f21bdebd4f60cbbbb05672504141d3de4e6a367ef23d192669c7b0` (block `46724208`). The flow was HTTP `402` → MetaMask/viem EIP-712 authorization → facilitator settlement → HTTP `200`. This does not claim HTTP domain/path enforcement by IntentLock.
+
 ## Prize evidence checklist
 
 ### The Graph

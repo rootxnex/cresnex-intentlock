@@ -303,3 +303,7 @@ Compare unprotected, spend-only, path-only and outcome-bound systems using the r
 ## Disclaimer
 
 Educational research code only. No formal verification or external audit has been performed. Do not custody real value.
+
+## Verified x402 testnet proof
+
+The standalone x402 demo completed one official v2 exact-EVM Base Sepolia flow using MetaMask/viem EIP-712 authorization and facilitator settlement. `1000` atomic units (`0.001 USDC`) of official Circle USDC moved from the dedicated payer to the merchant in transaction `0x27aa742192f21bdebd4f60cbbbb05672504141d3de4e6a367ef23d192669c7b0` at block `46724208`; the observed flow was HTTP `402` → `PAYMENT-SIGNATURE` → settlement → HTTP `200`. This is not an IntentLock HTTP domain/path enforcement claim.

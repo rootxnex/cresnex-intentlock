@@ -2,6 +2,8 @@
 
 This runbook applies only after Chainlink CRE Deploy Access is enabled. It uses Base Sepolia, the official KeystoneForwarder `0xF8344CFd5c43616a4366C34E3EEE75af79a74482`, and the existing encrypted Foundry keystore. Never place signing material in source control.
 
+The separate x402 demo has one verified Base Sepolia payment proof (`0x27aa742192f21bdebd4f60cbbbb05672504141d3de4e6a367ef23d192669c7b0`, block `46724208`, `0.001` Circle USDC). This concerns HTTP payment authorization and settlement only, not IntentLock HTTP enforcement or CRE deployment.
+
 ## Preconditions
 
 1. Confirm the branch and clean working tree.
