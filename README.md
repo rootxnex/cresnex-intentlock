@@ -167,7 +167,7 @@ Phase 1 adds:
 - owner nonce cancellation and emergency agent revocation; and
 - non-punitive classification for ordinary target failures.
 
-See [the v2 EIP-712 schema](docs/eip712-schema.md), [policy definitions](docs/policies.md), and [known limitations](docs/known-limitations.md). The existing dashboard and published deployment flow remain v1 until the dedicated SDK/frontend and deployment phases; they must not be pointed at a v2 address yet.
+See [the v2 EIP-712 schema](docs/eip712-schema.md), [policy definitions](docs/policies.md), and [known limitations](docs/known-limitations.md). The dedicated V2 SDK/browser lab and Base Sepolia V2 deployment are now active. Legacy V1 controls remain available separately, while V3 remains a tested ETHOnline integration that is not yet deployed.
 
 Phase 2 additionally implements mock ERC-4626 deposit and withdrawal policies plus a controlled yield rebalance across signed mock vaults. It measures underlying/share deltas, caps final allowances and aggregate movement, and enforces a minimum portfolio value using a deterministic mock price source. This is research infrastructure—not a real yield optimizer, live-protocol integration, or production oracle design.
 

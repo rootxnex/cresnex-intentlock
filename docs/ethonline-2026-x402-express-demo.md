@@ -1,5 +1,7 @@
 # Project-controlled x402 Express demo
 
+> **Historical note:** This document records the earlier mock/pre-live x402 research stage. A later real Base Sepolia x402 payment was successfully completed during ETHOnline 2026. See `docs/ethonline-2026.md` for the verified transaction, block, amount, payer, merchant, and settlement evidence.
+
 This isolated `x402-demo/` service exists because the current official `@x402/next` package requires Next 16 while IntentLock's production frontend remains on Next 15.5.21. It uses the official V2 server components `@x402/express`, `@x402/core`, and `@x402/evm`: `paymentMiddleware`, `x402ResourceServer`, `HTTPFacilitatorClient`, and `ExactEvmScheme`.
 
 `GET /protected` is a project-controlled deterministic resource. With no payment header, the official middleware emits a V2 `402 Payment Required` response and `PAYMENT-REQUIRED`; it is configured for `exact`, `eip155:84532`, Circle Base Sepolia USDC (`0x036CbD53842c5426634e7929541eC2318f3dCF7e`, 6 decimals), and the x402.org test facilitator.

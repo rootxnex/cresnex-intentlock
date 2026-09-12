@@ -88,7 +88,7 @@ At the latest account check, `cre whoami` reports **Deploy Access: Not enabled**
 
 | Field | Verified value |
 | --- | --- |
-| CRE CLI | `v1.32.0` |
+| CRE CLI | `v1.33.0` |
 | CRE SDK | `@chainlink/cre-sdk@1.19.1` |
 | Base Sepolia chain selector | `10344971235874465080` |
 | Official KeystoneForwarder | `0xF8344CFd5c43616a4366C34E3EEE75af79a74482` |

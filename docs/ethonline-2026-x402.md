@@ -2,6 +2,8 @@
 
 ## Scope
 
+> **Historical note:** This document records the earlier mock/pre-live x402 research stage. A later real Base Sepolia x402 payment was successfully completed during ETHOnline 2026. See `docs/ethonline-2026.md` for the verified transaction, block, amount, payer, merchant, and settlement evidence.
+
 This ETHOnline research spike models how IntentLock can gate an autonomous agent's x402 payment authorization. It is a mock-only TypeScript adapter: it does not sign an x402 payload, contact a paid resource, invoke a facilitator, settle a payment, or change an IntentLock contract.
 
 ## Why x402 fits IntentLock
