@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   encodeAbiParameters,
   isAddress,
@@ -24,6 +24,7 @@ import {
   type PolicyV2,
   type SignedIntentPackageV2,
 } from "@/lib/intentV2";
+import { canUseSignedPackage, signedPackageSnapshot } from "@/lib/v2SignedPackageState";
 
 const zero = "0x0000000000000000000000000000000000000000" as Address;
 const asAddress = (value: string) => isAddress(value) ? value : zero;
@@ -85,6 +86,7 @@ export function V2IntentLab() {
   const [nftStandard, setNftStandard] = useState<1 | 2>(1);
   const [selector, setSelector] = useState("0x00000000");
   const [packageValue, setPackageValue] = useState<SignedIntentPackageV2 | null>(null);
+  const [signatureStale, setSignatureStale] = useState(false);
   const [status, setStatus] = useState("");
   const [nonce, setNonce] = useState(() => BigInt(Date.now()));
 
@@ -205,6 +207,32 @@ export function V2IntentLab() {
     secondCalldata, maximum, minimum, tokenId, nftStandard, selector, nonce,
   ]);
 
+  const invalidateSignedPackage = useCallback(() => {
+    if (!packageValue) return;
+    setPackageValue(null);
+    setSignatureStale(true);
+    setStatus("SIGNATURE STALE — RE-SIGN REQUIRED");
+  }, [packageValue]);
+
+  // Owner, chain, and configured account are signed manifest fields even though
+  // they are provided by the wallet/configuration rather than a text input.
+  useEffect(() => {
+    if (!packageValue) return;
+    if (
+      !wallet || !accountV2Address
+      || packageValue.manifest.owner.toLowerCase() !== wallet.toLowerCase()
+      || packageValue.manifest.account.toLowerCase() !== accountV2Address.toLowerCase()
+      || packageValue.manifest.chainId !== BigInt(chainId)
+    ) {
+      setPackageValue(null);
+      setSignatureStale(true);
+      setStatus("SIGNATURE STALE — RE-SIGN REQUIRED");
+    }
+  }, [chainId, packageValue, wallet]);
+
+  const packageUsable = canUseSignedPackage(packageValue, signatureStale);
+  const signedSnapshot = packageValue ? signedPackageSnapshot(packageValue) : null;
+
   async function sign() {
     if (!wallet || !accountV2Address || !isAddress(agent)) return;
     const now = Math.floor(Date.now() / 1000);
@@ -238,6 +266,7 @@ export function V2IntentLab() {
         ownerSignature,
       };
       setPackageValue(result);
+      setSignatureStale(false);
       setStatus("Owner signature created. Simulate before submission.");
     } catch (error) {
       setStatus(explainError(error));
@@ -245,7 +274,10 @@ export function V2IntentLab() {
   }
 
   async function simulate() {
-    if (!packageValue || !client || !accountV2Address) return;
+    if (!packageValue || !packageUsable || !client || !accountV2Address) {
+      setStatus("SIGNATURE STALE — RE-SIGN REQUIRED");
+      return;
+    }
     try {
       const [onchainCallsHash, onchainPolicyHash] = await Promise.all([
         client.readContract({
@@ -281,7 +313,10 @@ export function V2IntentLab() {
   }
 
   function execute() {
-    if (!packageValue || !accountV2Address) return;
+    if (!packageValue || !packageUsable || !accountV2Address) {
+      setStatus("SIGNATURE STALE — RE-SIGN REQUIRED");
+      return;
+    }
     writer.writeContract({
       address: accountV2Address,
       abi: accountV2Abi,
@@ -304,6 +339,7 @@ export function V2IntentLab() {
     if (!file) return;
     try {
       setPackageValue(parsePackageV2(await file.text()));
+      setSignatureStale(false);
       setStatus("Package imported and hashes verified locally.");
     } catch (error) {
       setStatus(`Import rejected: ${explainError(error)}`);
@@ -312,7 +348,9 @@ export function V2IntentLab() {
 
   const configured = Boolean(accountV2Address);
   const canSign = configured && wallet && isAddress(agent) && isAddress(callTarget) && calldata.startsWith("0x");
-  const canExecute = Boolean(packageValue && wallet?.toLowerCase() === packageValue.manifest.agent.toLowerCase());
+  const canExecute = Boolean(
+    packageUsable && packageValue && wallet?.toLowerCase() === packageValue.manifest.agent.toLowerCase(),
+  );
 
   return (
     <section className="panel builder" id="v2-builder">
@@ -322,46 +360,47 @@ export function V2IntentLab() {
       <p className="muted">Every package binds complete calls and policy bytes. Imported JSON is rejected if either canonical hash differs.</p>
       {!configured && <p className="error-note">Connect a verified V2 deployment before signing or submitting packages. See the deployment setup panel above for the required public configuration.</p>}
       <div className="form-grid">
-        <label>Policy module<select value={module} onChange={(event) => setModule(Number(event.target.value) as PolicyModule)}>
+        <label>Policy module<select value={module} onChange={(event) => { invalidateSignedPackage(); setModule(Number(event.target.value) as PolicyModule); }}>
           {policyModuleNames.map((name, index) => <option key={name} value={index}>{index} · {name}</option>)}
         </select></label>
-        <label>Signed agent<input value={agent} onChange={(event) => setAgent(event.target.value)} placeholder="0x…" /></label>
-        <label>Exact call target<input value={callTarget} onChange={(event) => setCallTarget(event.target.value)} placeholder="router, vault, marketplace, admin…" /></label>
-        <label>Primary asset / collection<input value={primary} onChange={(event) => setPrimary(event.target.value)} placeholder="0x…" /></label>
-        <label>Secondary asset / oracle / approved address<input value={secondary} onChange={(event) => setSecondary(event.target.value)} placeholder="0x…" /></label>
-        <label>Auxiliary vault / spender<input value={auxiliary} onChange={(event) => setAuxiliary(event.target.value)} placeholder="0x…" /></label>
-        <label>Recipient / beneficiary<input value={recipient} onChange={(event) => setRecipient(event.target.value)} placeholder="0x…" /></label>
-        <label>Maximum<input value={maximum} onChange={(event) => setMaximum(event.target.value)} inputMode="numeric" /></label>
-        <label>Minimum / exact boolean<input value={minimum} onChange={(event) => setMinimum(event.target.value)} inputMode="numeric" /></label>
+        <label>Signed agent<input value={agent} onChange={(event) => { invalidateSignedPackage(); setAgent(event.target.value); }} placeholder="0x…" /></label>
+        <label>Exact call target<input value={callTarget} onChange={(event) => { invalidateSignedPackage(); setCallTarget(event.target.value); }} placeholder="router, vault, marketplace, admin…" /></label>
+        <label>Primary asset / collection<input value={primary} onChange={(event) => { invalidateSignedPackage(); setPrimary(event.target.value); }} placeholder="0x…" /></label>
+        <label>Secondary asset / oracle / approved address<input value={secondary} onChange={(event) => { invalidateSignedPackage(); setSecondary(event.target.value); }} placeholder="0x…" /></label>
+        <label>Auxiliary vault / spender<input value={auxiliary} onChange={(event) => { invalidateSignedPackage(); setAuxiliary(event.target.value); }} placeholder="0x…" /></label>
+        <label>Recipient / beneficiary<input value={recipient} onChange={(event) => { invalidateSignedPackage(); setRecipient(event.target.value); }} placeholder="0x…" /></label>
+        <label>Maximum<input value={maximum} onChange={(event) => { invalidateSignedPackage(); setMaximum(event.target.value); }} inputMode="numeric" /></label>
+        <label>Minimum / exact boolean<input value={minimum} onChange={(event) => { invalidateSignedPackage(); setMinimum(event.target.value); }} inputMode="numeric" /></label>
         {module === PolicyModule.NftPurchase && <>
-          <label>Token ID<input value={tokenId} onChange={(event) => setTokenId(event.target.value)} /></label>
-          <label>NFT standard<select value={nftStandard} onChange={(event) => setNftStandard(Number(event.target.value) as 1 | 2)}>
+          <label>Token ID<input value={tokenId} onChange={(event) => { invalidateSignedPackage(); setTokenId(event.target.value); }} /></label>
+          <label>NFT standard<select value={nftStandard} onChange={(event) => { invalidateSignedPackage(); setNftStandard(Number(event.target.value) as 1 | 2); }}>
             <option value={1}>ERC-721</option><option value={2}>ERC-1155</option>
           </select></label>
         </>}
-        {module === PolicyModule.Administration && <label>Admin selector<input value={selector} onChange={(event) => setSelector(event.target.value)} placeholder="0x…" /></label>}
-        <label className="wide">Complete calldata<input value={calldata} onChange={(event) => setCalldata(event.target.value)} /></label>
+        {module === PolicyModule.Administration && <label>Admin selector<input value={selector} onChange={(event) => { invalidateSignedPackage(); setSelector(event.target.value); }} placeholder="0x…" /></label>}
+        <label className="wide">Complete calldata<input value={calldata} onChange={(event) => { invalidateSignedPackage(); setCalldata(event.target.value); }} /></label>
         {module === PolicyModule.Batch && <>
-          <label>Second target<input value={secondTarget} onChange={(event) => setSecondTarget(event.target.value)} /></label>
-          <label>Second calldata<input value={secondCalldata} onChange={(event) => setSecondCalldata(event.target.value)} /></label>
+          <label>Second target<input value={secondTarget} onChange={(event) => { invalidateSignedPackage(); setSecondTarget(event.target.value); }} /></label>
+          <label>Second calldata<input value={secondCalldata} onChange={(event) => { invalidateSignedPackage(); setSecondCalldata(event.target.value); }} /></label>
         </>}
       </div>
       <div className="policy">
-        <span>Calls hash <strong>{hashCallsV2(draft.calls).slice(0, 12)}…</strong></span>
-        <span>Policy hash <strong>{hashPolicyV2(draft.policy).slice(0, 12)}…</strong></span>
-        <span>Module <strong>{policyModuleNames[module]}</strong></span>
+        <span>{signedSnapshot ? "Signed calls hash" : "Draft calls hash"} <strong>{(signedSnapshot?.callsHash ?? hashCallsV2(draft.calls)).slice(0, 12)}…</strong></span>
+        <span>{signedSnapshot ? "Signed policy hash" : "Draft policy hash"} <strong>{(signedSnapshot?.policyHash ?? hashPolicyV2(draft.policy)).slice(0, 12)}…</strong></span>
+        <span>{signedSnapshot ? "Signed module" : "Draft module"} <strong>{signedSnapshot?.moduleName ?? policyModuleNames[module]}</strong></span>
       </div>
       <div className="control-row">
-        <button onClick={() => { setNonce(BigInt(Date.now())); setPackageValue(null); setStatus("Fresh draft nonce created."); }}>New draft nonce</button>
+        <button onClick={() => { const wasSigned = Boolean(packageValue); invalidateSignedPackage(); setNonce(BigInt(Date.now())); setStatus(wasSigned ? "SIGNATURE STALE — RE-SIGN REQUIRED. Fresh draft nonce created." : "Fresh draft nonce created."); }}>New draft nonce</button>
         <button className="primary" disabled={!canSign || signer.isPending} onClick={sign}>Sign v2 package</button>
-        <button disabled={!packageValue} onClick={simulate}>Simulate</button>
+        <button disabled={!packageUsable} onClick={simulate}>Simulate</button>
         <button disabled={!canExecute || writer.isPending} onClick={execute}>Submit as agent</button>
         <button disabled={!packageValue} onClick={download}>Export JSON</button>
         <button onClick={() => fileRef.current?.click()}>Import JSON</button>
         <input ref={fileRef} hidden type="file" accept="application/json" onChange={(event) => importFile(event.target.files?.[0])} />
       </div>
-      {packageValue && <div className="hash success"><span>Verified package · {packageValue.moduleName}</span><code>{packageValue.ownerSignature}</code></div>}
-      {(status || writer.error) && <p className={status.includes("blocked") || status.includes("rejected") || status.includes("containment") || writer.error ? "error-note" : "success-note"}>
+      {signatureStale && <p className="error-note">SIGNATURE STALE — RE-SIGN REQUIRED</p>}
+      {signedSnapshot && <div className="hash success"><span>SIGNED PACKAGE READY · {signedSnapshot.moduleName}</span><code>Agent {signedSnapshot.agent} · Nonce {signedSnapshot.nonce.toString()} · Calls {signedSnapshot.callsHash} · Policy {signedSnapshot.policyHash} · Target {signedSnapshot.callTarget} · Value {signedSnapshot.callValue.toString()} · Calldata {signedSnapshot.calldata} · Recipient {signedSnapshot.recipient ?? "not applicable"} · Valid {signedSnapshot.validAfter}–{signedSnapshot.validUntil}</code></div>}
+      {(status || writer.error) && <p className={status.includes("blocked") || status.includes("rejected") || status.includes("containment") || status.includes("STALE") || writer.error ? "error-note" : "success-note"}>
         {writer.error ? explainError(writer.error) : status}
       </p>}
       <p className="demo-note">Violation codes are decoded as: {violationNames.slice(1).join(" · ")}. Simulation cannot predict state changes between simulation and mining.</p>
