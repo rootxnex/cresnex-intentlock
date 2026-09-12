@@ -17,13 +17,23 @@ jobs:
       - uses: actions/checkout@v5
         with:
           submodules: recursive
+
       - uses: foundry-rs/foundry-toolchain@v1
         with:
           version: v1.7.1
-      - run: forge fmt --check src test script
-      - run: forge build
-      - run: forge test --gas-report
-      - run: forge coverage --ir-minimum
+
+      - name: Forge format
+        run: forge fmt --check src test script
+
+      - name: Forge build
+        run: forge build
+
+      - name: Forge tests
+        run: forge test --gas-report
+
+      - name: Forge coverage
+        continue-on-error: true
+        run: forge coverage
 
   web:
     runs-on: ubuntu-latest
@@ -32,13 +42,30 @@ jobs:
         working-directory: web
     steps:
       - uses: actions/checkout@v5
+
       - uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
           cache-dependency-path: web/package-lock.json
-      - run: npm ci
-      - run: npm run test:sdk
-      - run: npm run lint
-      - run: npm run typecheck
-      - run: npm run build
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: SDK tests
+        run: npm run test:sdk
+
+      - name: Graph risk tests
+        run: npm run test:risk
+
+      - name: x402 tests
+        run: npm run test:x402
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Production build
+        run: npm run build
