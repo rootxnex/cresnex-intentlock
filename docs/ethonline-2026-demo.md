@@ -28,6 +28,8 @@
 
 **Continuity disclosure:** V1/V2, owner-signed intents, isolation, policy enforcement, evidence, strikes, quarantine, tests, and the dashboard pre-date ETHOnline 2026. The subgraph, live Graph proof, risk evaluator, CRE workflow/report, report consumer, workflow authentication, V3 gate, and related deployment tooling were built during ETHOnline 2026.
 
+**CRE access status:** `cre whoami` currently reports **Deploy Access: Not enabled**. CRE is complete in local simulation and Consumer/V3 integration is tested; live deployment and KeystoneForwarder delivery are not yet proven.
+
 **Prize tracks:** The Graph and Chainlink.
 
 ### x402 payment proof

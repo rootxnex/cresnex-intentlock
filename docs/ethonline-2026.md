@@ -84,6 +84,8 @@ The CRE implementation applies the same rule independently in `cre/intentlock-ri
 
 ## Chainlink CRE evidence
 
+At the latest account check, `cre whoami` reports **Deploy Access: Not enabled**. Local simulation and Consumer/V3 integration are complete/tested; live workflow deployment and KeystoneForwarder delivery remain blocked on that account permission.
+
 | Field | Verified value |
 | --- | --- |
 | CRE CLI | `v1.32.0` |

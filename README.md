@@ -61,6 +61,7 @@ flowchart TD
 
 - **The Graph** provides live indexed behavioral/onchain context.
 - **Chainlink CRE** independently queries the signal, checks chain freshness, derives the verdict, and constructs a report. Current evidence covers local CRE simulation; it does not claim Confidential Workflows.
+- Current `cre whoami` status reports **Deploy Access: Not enabled**. Live CRE deployment and KeystoneForwarder delivery therefore remain pending account permission.
 - **IntentLock** remains the final deterministic enforcement boundary for owner-signed transaction policies.
 
 Fundamental IntentLock safety invariants must not move entirely into Chainlink CRE. Spend limits, allowed recipients, approval limits, slippage and minimum-output requirements, nonce and deadline checks, and allowed operation/call constraints remain deterministically enforceable by IntentLock contracts or owner-signed policy.
