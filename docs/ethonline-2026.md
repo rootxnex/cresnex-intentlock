@@ -84,7 +84,7 @@ The CRE implementation applies the same rule independently in `cre/intentlock-ri
 
 ## Chainlink CRE evidence
 
-At the latest account check, `cre whoami` reports **Deploy Access: Not enabled**. Local simulation and Consumer/V3 integration are complete/tested; live workflow deployment and KeystoneForwarder delivery remain blocked on that account permission.
+The `cre account access` request was submitted successfully. At the latest account check, `cre whoami` still reports **Deploy Access: Not enabled**. Local simulation and Consumer/V3 integration are complete/tested; live workflow deployment and KeystoneForwarder delivery remain pending Chainlink approval.
 
 | Field | Verified value |
 | --- | --- |
@@ -98,7 +98,7 @@ At the latest account check, `cre whoami` reports **Deploy Access: Not enabled**
 | Freshness reference | CRE EVM latest-block header read |
 | Report creation | `runtime.report(...)` succeeds in local simulation |
 | Delivery path | `EVMClient.writeReport(...)` succeeds in local simulation |
-| Live deployment | Pending CRE Deploy Access |
+| Live deployment | Deploy Access requested / not yet enabled |
 
 The consumer accepts reports only from the immutable official Forwarder and, after one-time configuration, only for the expected workflow ID and owner encoded in the exact 64-byte Keystone metadata. V3 consumes a fresh `ALLOW` verdict bound to the same execution package. The simulator result proves the workflow path and simulated chain-write capability, not real DON-to-consumer delivery. This project does not claim confidential execution or Confidential Workflows access.
 

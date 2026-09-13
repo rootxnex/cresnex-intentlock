@@ -1,5 +1,7 @@
 # Seven-minute demonstration
 
+> **Legacy/general demo:** This seven-minute script predates the ETHOnline 2026 submission flow. For the current hackathon demo, use `docs/ethonline-2026-demo.md`.
+
 1. Explain that an AI agent may submit a syntactically allowed action whose financial outcome is harmful.
 2. Show the owner funding the local IntentLock account with mock USDC.
 3. Open the dashboard, enter the agent address, choose **Valid swap** and sign its EIP-712 manifest as the owner.

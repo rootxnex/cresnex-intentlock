@@ -79,7 +79,7 @@ The Graph qualification path requires live provider data; mocked, static, or loc
 | Base Sepolia V2 | **LIVE** |
 | The Graph subgraph and live query | **LIVE** |
 | CRE local simulation | **WORKING** |
-| CRE live deployment | **PENDING DEPLOY ACCESS** |
+| CRE live deployment | **DEPLOY ACCESS REQUESTED / NOT YET ENABLED** |
 | CRE consumer | **TESTED / NOT DEPLOYED** |
 | CRE-gated V3 | **TESTED / NOT DEPLOYED** |
 | Real KeystoneForwarder delivery | **NOT YET PROVEN** |
@@ -177,7 +177,7 @@ Phase 4 adds fixed-interface mock ERC-721/ERC-1155 purchases and carefully bound
 
 Phase 5 adds an explicitly versioned TypeScript v2 SDK and browser lab. It builds all twelve policy encodings, mirrors Solidity's canonical hashes, signs v2 EIP-712 manifests, simulates exact packages, exports bigint-safe JSON, rejects tampered imports, submits from the bound agent, and decodes v2 evidence separately from v1. See [SDK packages](docs/sdk.md) and the [frontend demonstration](docs/frontend-demo.md).
 
-Phase 6 adds three explicitly unsafe academic baselines, 30-run comparative gas/outcome measurements, a complete local/testnet research-stack deployment script, public deployment manifests, chain-state smoke checks, and a measured dashboard section. See [experiments](docs/experiments.md) and [deployment](docs/base-sepolia-deployment.md). No Base Sepolia address is published until an actual broadcast and smoke check occur.
+Phase 6 adds three explicitly unsafe academic baselines, 30-run comparative gas/outcome measurements, a complete local/testnet research-stack deployment script, public deployment manifests, chain-state smoke checks, and a measured dashboard section. See [experiments](docs/experiments.md) and [deployment](docs/base-sepolia-deployment.md). Base Sepolia addresses are published only after an actual broadcast and smoke check; the verified V2 deployment is documented in the ETHOnline evidence.
 
 ## Repository
 
@@ -287,7 +287,7 @@ Do not upload `web/.env.local`; it contains local Anvil addresses that public vi
 
 ## Attack demonstrations
 
-The dashboard includes valid swap, overspend, insufficient-output, wrong-recipient, unlimited-approval, hidden-malicious-batch and expired-intent templates. Submit an already successful stored package a second time to demonstrate replay rejection. The mock router exposes explicit valid, overspend, insufficient-output, wrong-recipient and partial-failure behaviors. Tests also demonstrate excessive approval and reentrancy. Follow [demo-script.md](docs/demo-script.md).
+The dashboard includes valid swap, overspend, insufficient-output, wrong-recipient, unlimited-approval, hidden-malicious-batch and expired-intent templates. Submit an already successful stored package a second time to demonstrate replay rejection. The mock router exposes explicit valid, overspend, insufficient-output, wrong-recipient and partial-failure behaviors. Tests also demonstrate excessive approval and reentrancy. For the current ETHOnline flow, follow [ethonline-2026-demo.md](docs/ethonline-2026-demo.md); the [legacy/general demo script](docs/demo-script.md) remains available as reference.
 
 ## Security assumptions and limitations
 

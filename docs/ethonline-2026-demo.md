@@ -10,11 +10,11 @@
 
 **1:15–1:45 — Chainlink CRE.** Run local workflow simulation with a specific intent binding. Show CRE's Graph HTTP request, Base Sepolia head check, `runtime.now()`, deterministic decision, evidence hash, `runtime.report()`, and simulated `EVMClient.writeReport()`.
 
-**1:45–2:15 — V3 enforcement.** Show tests proving only a fresh, correctly bound `ALLOW` can be consumed. State plainly that the consumer, V3, and workflow await live deployment access; do not present simulator addresses as deployments.
+**1:45–2:10 — V3 enforcement.** Show tests proving only a fresh, correctly bound `ALLOW` can be consumed. State plainly that the consumer, V3, and workflow await live deployment access; do not present simulator addresses as deployments.
 
-**2:15–2:40 — Security.** Demonstrate tests for wrong binding, stale/malformed/indexing-error evidence, wrong workflow identity, replay, and downstream rollback. CRE `ALLOW` is necessary but all original IntentLock policy checks still run.
+**2:10–2:35 — x402 live proof.** Show the verified Base Sepolia settlement: transaction `0x27aa742192f21bdebd4f60cbbbb05672504141d3de4e6a367ef23d192669c7b0`, block `46724208`, and `0.001 USDC`. Do not send another payment.
 
-**2:40–3:00 — Continuity.** Show the baseline commit and branch disclosure, summarize what existed before ETHOnline, and list the Graph/CRE/V3 work built during the event.
+**2:35–3:00 — Continuity + status.** Show the baseline commit and branch disclosure, summarize what existed before ETHOnline, and state that Deploy Access is requested but not yet enabled; TEE is not implemented.
 
 ## ETHGlobal draft
 
@@ -65,13 +65,13 @@ One real Base Sepolia proof transferred `1000` atomic units (`0.001 USDC`) of of
 
 ## Evidence capture checklist
 
-- [ ] Final repository commit and public branch
+- [x] Final repository commit and public branch
 - [ ] Demo video URL
-- [ ] Live app URL
-- [ ] Graph endpoint and query response
-- [ ] V2 violation transaction and block
-- [ ] CRE simulation output and hashes
-- [ ] Foundry, Bun, TypeScript, lint, and build results
+- [x] Live app URL
+- [x] Graph endpoint and query response
+- [x] V2 violation transaction and block
+- [x] CRE simulation output and hashes
+- [x] Foundry, Bun, TypeScript, lint, and build results
 - [ ] Consumer/V3 deployment addresses and receipts, when deployed
 - [ ] Workflow identity and deployment evidence, when deployed
 - [ ] First report and V3 execution receipts, when deployed
