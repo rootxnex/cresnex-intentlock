@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useBlockNumber, usePublicClient } from "wagmi";
+import { usePublicClient } from "wagmi";
 import { accountV2Abi, accountV2Address, deploymentV2Block } from "@/lib/contracts";
 import { policyModuleNames } from "@/lib/intentV2";
 
@@ -30,22 +30,28 @@ const short = (value?: string) => value ? `${value.slice(0, 10)}…${value.slice
 
 export function V2EvidenceTimeline({ limit = 30, title = "V2 security timeline", compact = false, detailed = false }: { limit?: number; title?: string; compact?: boolean; detailed?: boolean }) {
   const client = usePublicClient();
-  const { data: latestBlock } = useBlockNumber({ watch: true });
   const [items, setItems] = useState<Item[]>([]);
   const [error, setError] = useState("");
+  const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
-    if (!client || !accountV2Address || latestBlock === undefined) return;
+    if (!client || !accountV2Address) return;
     let active = true;
     type Log = { args: Record<string, unknown>; blockNumber: bigint; transactionHash: string; logIndex: number };
     const loadRange = async (fromBlock: bigint, toBlock: bigint, depth = 0): Promise<[Log[], Log[], Log[]]> => {
       try {
-        return await Promise.all([
-            client.getContractEvents({ address: accountV2Address, abi: accountV2Abi, eventName: "IntentExecuted", fromBlock, toBlock }),
-            client.getContractEvents({ address: accountV2Address, abi: accountV2Abi, eventName: "IntentViolation", fromBlock, toBlock }),
-            client.getContractEvents({ address: accountV2Address, abi: accountV2Abi, eventName: "ExecutionFailed", fromBlock, toBlock }),
-        ]) as [Log[], Log[], Log[]];
+        const executed = await client.getContractEvents({ address: accountV2Address, abi: accountV2Abi, eventName: "IntentExecuted", fromBlock, toBlock });
+        const violated = await client.getContractEvents({ address: accountV2Address, abi: accountV2Abi, eventName: "IntentViolation", fromBlock, toBlock });
+        const failed = await client.getContractEvents({ address: accountV2Address, abi: accountV2Abi, eventName: "ExecutionFailed", fromBlock, toBlock });
+        return [executed, violated, failed] as [Log[], Log[], Log[]];
       } catch (reason) {
+        const message = reason instanceof Error ? reason.message : String(reason);
+        const rangeError = /range|too many|log.*limit|result.*limit|block.*limit/i.test(message);
+        if (!rangeError) {
+          if (depth >= 3) throw reason;
+          await new Promise((resolve) => setTimeout(resolve, 250 * 2 ** depth));
+          return loadRange(fromBlock, toBlock, depth + 1);
+        }
         if (fromBlock >= toBlock || depth >= 8) throw reason;
         const midpoint = fromBlock + (toBlock - fromBlock) / 2n;
         const left = await loadRange(fromBlock, midpoint, depth + 1);
@@ -54,6 +60,7 @@ export function V2EvidenceTimeline({ limit = 30, title = "V2 security timeline",
       }
     };
     const load = async () => {
+      const latestBlock = await client.getBlockNumber();
       const startBlock = deploymentV2Block > 0n ? deploymentV2Block : latestBlock > 20_000n ? latestBlock - 20_000n : 0n;
       const executed: Log[] = [];
       const violated: Log[] = [];
@@ -125,13 +132,14 @@ export function V2EvidenceTimeline({ limit = 30, title = "V2 security timeline",
       if (active) setError(reason instanceof Error ? reason.message.split("\n")[0] : "Event query failed");
     });
     return () => { active = false; };
-  }, [client, latestBlock, limit]);
+  }, [client, limit, refreshKey]);
 
   return (
     <section className={`panel events${compact ? " compact-events" : ""}${detailed ? " forensic-events" : ""}`} id="v2-events">
       <div className="panel-number">V2 / EVIDENCE</div>
       <div className="eyebrow">Decoded persistent outcomes</div>
       <h2>{title}</h2>
+      <button className="text-button" type="button" onClick={() => setRefreshKey((value) => value + 1)}>Refresh evidence</button>
       {!accountV2Address && <div className="empty">Connect a verified V2 deployment to load live evidence. The deployment setup panel lists the required public configuration.</div>}
       {accountV2Address && items.length === 0 && !error && <div className="empty">No v2 events in the configured scan window.</div>}
       {error && <p className="error-note">{error}</p>}
