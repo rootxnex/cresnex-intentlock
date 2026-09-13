@@ -37,33 +37,37 @@ export function V2EvidenceTimeline({ limit = 30, title = "V2 security timeline",
   useEffect(() => {
     if (!client || !accountV2Address || latestBlock === undefined) return;
     let active = true;
+    type Log = { args: Record<string, unknown>; blockNumber: bigint; transactionHash: string; logIndex: number };
+    const loadRange = async (fromBlock: bigint, toBlock: bigint, depth = 0): Promise<[Log[], Log[], Log[]]> => {
+      try {
+        return await Promise.all([
+            client.getContractEvents({ address: accountV2Address, abi: accountV2Abi, eventName: "IntentExecuted", fromBlock, toBlock }),
+            client.getContractEvents({ address: accountV2Address, abi: accountV2Abi, eventName: "IntentViolation", fromBlock, toBlock }),
+            client.getContractEvents({ address: accountV2Address, abi: accountV2Abi, eventName: "ExecutionFailed", fromBlock, toBlock }),
+        ]) as [Log[], Log[], Log[]];
+      } catch (reason) {
+        if (fromBlock >= toBlock || depth >= 8) throw reason;
+        const midpoint = fromBlock + (toBlock - fromBlock) / 2n;
+        const left = await loadRange(fromBlock, midpoint, depth + 1);
+        const right = await loadRange(midpoint + 1n, toBlock, depth + 1);
+        return [ [...left[0], ...right[0]], [...left[1], ...right[1]], [...left[2], ...right[2]] ];
+      }
+    };
     const load = async () => {
-      const fromBlock = deploymentV2Block > 0n
-        ? deploymentV2Block
-        : latestBlock > 20_000n ? latestBlock - 20_000n : 0n;
-      const [executed, violated, failed] = await Promise.all([
-        client.getContractEvents({
-          address: accountV2Address,
-          abi: accountV2Abi,
-          eventName: "IntentExecuted",
-          fromBlock,
-          toBlock: "latest",
-        }),
-        client.getContractEvents({
-          address: accountV2Address,
-          abi: accountV2Abi,
-          eventName: "IntentViolation",
-          fromBlock,
-          toBlock: "latest",
-        }),
-        client.getContractEvents({
-          address: accountV2Address,
-          abi: accountV2Abi,
-          eventName: "ExecutionFailed",
-          fromBlock,
-          toBlock: "latest",
-        }),
-      ]);
+      const startBlock = deploymentV2Block > 0n ? deploymentV2Block : latestBlock > 20_000n ? latestBlock - 20_000n : 0n;
+      const executed: Log[] = [];
+      const violated: Log[] = [];
+      const failed: Log[] = [];
+      let toBlock = latestBlock;
+      while (toBlock >= startBlock && executed.length + violated.length + failed.length < limit) {
+        const fromBlock = toBlock > startBlock + 4_999n ? toBlock - 4_999n : startBlock;
+        const [rangeExecuted, rangeViolated, rangeFailed] = await loadRange(fromBlock, toBlock);
+        executed.push(...rangeExecuted);
+        violated.push(...rangeViolated);
+        failed.push(...rangeFailed);
+        if (fromBlock === startBlock) break;
+        toBlock = fromBlock - 1n;
+      }
       if (!active) return;
       const next: Item[] = [
         ...executed.map((log) => {
@@ -112,7 +116,8 @@ export function V2EvidenceTimeline({ limit = 30, title = "V2 security timeline",
             transactionHash: log.transactionHash,
           };
         }),
-      ].sort((a, b) => a.block === b.block ? 0 : a.block > b.block ? -1 : 1);
+      ].sort((a, b) => a.block === b.block ? a.key.localeCompare(b.key) : a.block > b.block ? -1 : 1)
+        .filter((item, index, all) => all.findIndex((candidate) => candidate.key === item.key) === index);
       setItems(next.slice(0, limit));
       setError("");
     };
