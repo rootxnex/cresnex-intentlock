@@ -94,3 +94,40 @@ Deployment, fixture construction, signing, prerequisites, snapshots, post-state 
 ## Analysis gate
 
 The final benchmark, security metrics, statistics, publication tables and figures remain **MISSING** until this package is reviewed and assigned a final experiment commit. `analysis-plan.md` applies only after valid raw observations exist. Preliminary Phase 6 Forge gas, UI examples, hash vectors, pilot rows and Base Sepolia validation are excluded from final results.
+
+## Pilot scenario concept freeze — pre-execution amendment 1
+
+The pilot scenario selection was frozen before creation of the pilot runner and
+before any pilot observations existed.
+
+The frozen pilot definition was committed as:
+
+`13deb340fcf2ff393092552fe0c16c585b2c7acb`
+
+Frozen pilot specification:
+
+`paper-artifacts/reproducibility/pilot-scenarios.json`
+
+Frozen pilot specification SHA-256:
+
+`5d48f229feb25712091bc83f857c9a3fe5624fb186bfedf8e4511692f38dc734`
+
+Its definition parent is:
+
+`69f6d10a71270f4d186b598ea3493c89f727e72f`
+
+The preregistered pilot contains exactly 10 scenario concepts evaluated across
+implemented baselines A/B/C/D with one repetition, producing 40 enrolled rows:
+27 attempted executions and 13 `NOT_APPLICABLE` rows if infrastructure
+completes.
+
+The applicability matrix, expected verdicts, reason classes, reason codes and
+security properties were validated against the frozen corpus-generation rules
+before any pilot execution.
+
+Pilot observations must carry `dataset_role=PILOT_ONLY` and remain excluded
+from final security, gas, latency, statistical and publication denominators.
+
+Expected labels and applicability must not be changed after pilot observations
+exist. A harness defect requires preservation of the failed run and a complete
+new pilot run under the protocol retry rules.
