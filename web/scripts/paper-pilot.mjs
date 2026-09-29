@@ -11,6 +11,7 @@ import {
 import { fileURLToPath } from "node:url";
 import { runFixturePreflight } from "./paper-fixture-preflight.mjs";
 import { runSigningPreflight } from "./paper-signing-preflight.mjs";
+import { runScenarioPlanPreflight } from "./paper-scenario-plan.mjs";
 
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(SCRIPT_DIR, "../..");
@@ -70,6 +71,7 @@ function usage() {
     "  node --experimental-strip-types web/scripts/paper-pilot.mjs --help",
     "  node --experimental-strip-types web/scripts/paper-pilot.mjs --fixture-preflight",
     "  node --experimental-strip-types web/scripts/paper-pilot.mjs --signing-preflight",
+    "  node --experimental-strip-types web/scripts/paper-pilot.mjs --scenario-plan-preflight",
     "  node --experimental-strip-types web/scripts/paper-pilot.mjs --output <new-directory>",
     "  node --experimental-strip-types web/scripts/paper-pilot.mjs --validate <existing-directory>",
   ].join("\n");
@@ -614,6 +616,14 @@ async function main() {
     && args[0] === "--signing-preflight"
   ) {
     await runSigningPreflight();
+    return 0;
+  }
+
+  if (
+    args.length === 1
+    && args[0] === "--scenario-plan-preflight"
+  ) {
+    runScenarioPlanPreflight();
     return 0;
   }
 
