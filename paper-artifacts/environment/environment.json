@@ -1,0 +1,113 @@
+{
+  "timestamp_utc": "2026-09-28T13:20:21.976645+00:00",
+  "platform": "Linux-7.2.5-200.fc44.x86_64-x86_64-with-glibc2.43",
+  "architecture": "x86_64",
+  "cpu": {
+    "command": [
+      "lscpu"
+    ],
+    "exit_code": 0,
+    "output": "Architecture:                            x86_64\nCPU op-mode(s):                          32-bit, 64-bit\nAddress sizes:                           39 bits physical, 48 bits virtual\nByte Order:                              Little Endian\nCPU(s):                                  16\nOn-line CPU(s) list:                     0-15\nVendor ID:                               GenuineIntel\nModel name:                              12th Gen Intel(R) Core(TM) i5-1240P\nCPU family:                              6\nModel:                                   154\nThread(s) per core:                      2\nCore(s) per socket:                      12\nSocket(s):                               1\nStepping:                                3\nCPU(s) scaling MHz:                      25%\nCPU max MHz:                             4400.0000\nCPU min MHz:                             400.0000\nBogoMIPS:                                4224.00\nFlags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb intel_pt sha_ni xsaveopt xsavec xgetbv1 xsaves split_lock_detect user_shstk avx_vnni dtherm ida arat pln pts hwp hwp_notify hwp_act_window hwp_epp hwp_pkg_req hfi vnmi umip pku ospke waitpkg gfni vaes vpclmulqdq rdpid movdiri movdir64b fsrm md_clear serialize arch_lbr ibt flush_l1d arch_capabilities\nVirtualization:                          VT-x\nL1d cache:                               448 KiB (12 instances)\nL1i cache:                               640 KiB (12 instances)\nL2 cache:                                9 MiB (6 instances)\nL3 cache:                                12 MiB (1 instance)\nNUMA node(s):                            1\nNUMA node0 CPU(s):                       0-15\nVulnerability Gather data sampling:      Not affected\nVulnerability Ghostwrite:                Not affected\nVulnerability Indirect target selection: Not affected\nVulnerability Itlb multihit:             Not affected\nVulnerability L1tf:                      Not affected\nVulnerability Mds:                       Not affected\nVulnerability Meltdown:                  Not affected\nVulnerability Mmio stale data:           Not affected\nVulnerability Old microcode:             Not affected\nVulnerability Reg file data sampling:    Mitigation; Clear Register File\nVulnerability Retbleed:                  Not affected\nVulnerability Spec rstack overflow:      Not affected\nVulnerability Spec store bypass:         Mitigation; Speculative Store Bypass disabled via prctl\nVulnerability Spectre v1:                Mitigation; usercopy/swapgs barriers and __user pointer sanitization\nVulnerability Spectre v2:                Mitigation; Enhanced / Automatic IBRS; IBPB conditional; PBRSB-eIBRS SW sequence; BHI BHI_DIS_S\nVulnerability Srbds:                     Not affected\nVulnerability Tsa:                       Not affected\nVulnerability Tsx async abort:           Not affected\nVulnerability Vmscape:                   Mitigation; IBPB before exit to userspace\n"
+  },
+  "memory": "MemTotal:       16056900 kB\nMemFree:          171304 kB\nMemAvailable:    5516312 kB\nBuffers:            1708 kB\nCached:          5650908 kB\nSwapCached:            0 kB\nActive:          4597176 kB\nInactive:        8980784 kB\nActive(anon):    3887760 kB\nInactive(anon):  4635268 kB\nActive(file):     709416 kB\nInactive(file):  4345516 kB\nUnevictable:      330104 kB\nMlocked:            6172 kB\nSwapTotal:       8388604 kB\nSwapFree:        8368948 kB\nZswap:                 0 kB\nZswapped:              0 kB\nDirty:              2344 kB\nWriteback:             0 kB\nAnonPages:       8255716 kB\nMapped:          1805128 kB\nShmem:            772660 kB\nKReclaimable:     634908 kB\nSlab:            1032356 kB\nSReclaimable:     634908 kB\nSUnreclaim:       397448 kB\nKernelStack:       39432 kB\nPageTables:       131804 kB\nSecPageTables:      2092 kB\nNFS_Unstable:          0 kB\nBounce:                0 kB\nWritebackTmp:          0 kB\nCommitLimit:    16417052 kB\nCommitted_AS:   40517508 kB\nVmallocTotal:   34359738367 kB\nVmallocUsed:      166536 kB\nVmallocChunk:          0 kB\nPercpu:            22464 kB\nHardwareCorrupted:     0 kB\nAnonHugePages:         0 kB\nShmemHugePages:   589824 kB\nShmemPmdMapped:        0 kB\nFileHugePages:         0 kB\nFilePmdMapped:         0 kB\nCmaTotal:              0 kB\nCmaFree:               0 kB\nUnaccepted:            0 kB\nBalloon:               0 kB\nGPUActive:             0 kB\nGPUReclaim:            0 kB\nHugePages_Total:       0\nHugePages_Free:        0\nHugePages_Rsvd:        0\nHugePages_Surp:        0\nHugepagesize:       2048 kB\nHugetlb:               0 kB\nDirectMap4k:     1020352 kB\nDirectMap2M:    15454208 kB\nDirectMap1G:           0 kB\n",
+  "git": {
+    "branch": {
+      "command": [
+        "git",
+        "branch",
+        "--show-current"
+      ],
+      "exit_code": 0,
+      "output": "paper-experiments-2026\n"
+    },
+    "commit": {
+      "command": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "output": "361743f6d7d595caa4cf20ecc1c4d916856a353f\n"
+    },
+    "status": {
+      "command": [
+        "git",
+        "status",
+        "--porcelain"
+      ],
+      "exit_code": 0,
+      "output": "?? scripts/paper-evidence.py\n?? scripts/reproduce-paper.sh\n"
+    },
+    "log": {
+      "command": [
+        "git",
+        "log",
+        "-1",
+        "--format=fuller"
+      ],
+      "exit_code": 0,
+      "output": "commit 361743f6d7d595caa4cf20ecc1c4d916856a353f\nAuthor:     rootxnex <156939443+rootxnex@users.noreply.github.com>\nAuthorDate: Sun Sep 13 18:11:43 2026 +0530\nCommit:     rootxnex <156939443+rootxnex@users.noreply.github.com>\nCommitDate: Sun Sep 13 18:11:43 2026 +0530\n\n    docs: finalize ETHOnline submission evidence\n"
+    }
+  },
+  "versions": {
+    "forge": {
+      "command": [
+        "forge",
+        "--version"
+      ],
+      "exit_code": 0,
+      "output": "forge Version: 1.7.1\nCommit SHA: 4072e48705af9d93e3c0f6e29e93b5e9a40caed8\nBuild Timestamp: 2026-05-08T07:50:55.527285345Z (1778226655)\nBuild Profile: dist\n"
+    },
+    "cast": {
+      "command": [
+        "cast",
+        "--version"
+      ],
+      "exit_code": 0,
+      "output": "cast Version: 1.7.1\nCommit SHA: 4072e48705af9d93e3c0f6e29e93b5e9a40caed8\nBuild Timestamp: 2026-05-08T07:50:55.527285345Z (1778226655)\nBuild Profile: dist\n"
+    },
+    "anvil": {
+      "command": [
+        "anvil",
+        "--version"
+      ],
+      "exit_code": 0,
+      "output": "anvil Version: 1.7.1\nCommit SHA: 4072e48705af9d93e3c0f6e29e93b5e9a40caed8\nBuild Timestamp: 2026-05-08T07:50:55.527285345Z (1778226655)\nBuild Profile: dist\n"
+    },
+    "node": {
+      "command": [
+        "node",
+        "--version"
+      ],
+      "exit_code": 0,
+      "output": "v22.22.2\n"
+    },
+    "npm": {
+      "command": [
+        "npm",
+        "--version"
+      ],
+      "exit_code": 0,
+      "output": "10.9.7\n"
+    },
+    "bun": {
+      "command": [
+        "bun",
+        "--version"
+      ],
+      "exit_code": 0,
+      "output": "1.4.2\n"
+    },
+    "solc": {
+      "command": [
+        "solc",
+        "--version"
+      ],
+      "exit_code": 127,
+      "output": "[Errno 2] No such file or directory: 'solc'"
+    }
+  },
+  "local_chain_id": null,
+  "anvil_startup_options": null,
+  "measurement_status": "CORRECTNESS_GATE_ONLY"
+}

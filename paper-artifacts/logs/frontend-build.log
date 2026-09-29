@@ -1,0 +1,31 @@
+
+> cresnex-intentlock-web@0.1.0 build
+> next build
+
+   ▲ Next.js 15.5.21
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 32.3s
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/6) ...
+   Generating static pages (1/6) 
+   Generating static pages (2/6) 
+   Generating static pages (4/6) 
+ ✓ Generating static pages (6/6)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ○ /                                      804 B         122 kB
+├ ○ /_not-found                          1.01 kB         105 kB
+└ ○ /app                                 92.9 kB         235 kB
++ First Load JS shared by all             104 kB
+  ├ chunks/1255-f5767ca0d1da046a.js      46.2 kB
+  ├ chunks/4bd1b696-100b9d70ed4e49c1.js  54.4 kB
+  └ other shared chunks (total)          3.22 kB
+
+
+○  (Static)  prerendered as static content
+

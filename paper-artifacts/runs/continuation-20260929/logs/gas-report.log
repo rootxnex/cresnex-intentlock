@@ -1,0 +1,1791 @@
+No files changed, compilation skipped
+
+Ran 18 tests for test/unit/CresnexIntentLockAccount.t.sol:CresnexIntentLockAccountTest
+[PASS] testCallsHashMismatchAndBatchPermissionRejected() (gas: 188275)
+[PASS] testExcessiveAllowanceRollsBack() (gas: 355528)
+[PASS] testFutureAndExpiredIntentsRejected() (gas: 166148)
+[PASS] testInsufficientOutputAndWrongRecipientRollBack() (gas: 927330)
+[PASS] testLargeTargetRevertIsContainedWithBoundedEvidence() (gas: 638902)
+[PASS] testNonOwnerCannotRegisterAgent() (gas: 35083)
+[PASS] testNonceReplayRejected() (gas: 243684)
+[PASS] testOnlySelfAndReentrancyFailSafely() (gas: 516119)
+[PASS] testOverspendRollsBackAndPersistsEvidence() (gas: 500348)
+[PASS] testOwnerCanRegisterAgent() (gas: 68924)
+[PASS] testPausedAccountRejectsExecution() (gas: 136390)
+[PASS] testRegisteredAgentCanExecuteValidSingleIntent() (gas: 192963)
+[PASS] testThresholdQuarantinesAndOwnerRecoversAgent() (gas: 1156704)
+[PASS] testUnregisteredAgentRejectedWithoutStrike() (gas: 99545)
+[PASS] testValidBatchSwapSucceeds() (gas: 242201)
+[PASS] testWrongAccountRejected() (gas: 90883)
+[PASS] testWrongChainRejected() (gas: 88686)
+[PASS] testWrongSignatureRejectedWithoutStrike() (gas: 111440)
+Suite result: ok. 18 passed; 0 failed; 0 skipped; finished in 46.14ms (40.03ms CPU time)
+
+Ran 21 tests for test/GasBenchmarks.t.sol:GasBenchmarksTest
+[PASS] testCallsHashMismatchAndBatchPermissionRejected() (gas: 188341)
+[PASS] testExcessiveAllowanceRollsBack() (gas: 355528)
+[PASS] testFutureAndExpiredIntentsRejected() (gas: 166192)
+[PASS] testGas_FailedOutcomeAndEvidence() (gas: 430097)
+[PASS] testGas_ValidBatchIntent() (gas: 210463)
+[PASS] testGas_ValidSingleIntent() (gas: 182278)
+[PASS] testInsufficientOutputAndWrongRecipientRollBack() (gas: 927374)
+[PASS] testLargeTargetRevertIsContainedWithBoundedEvidence() (gas: 638946)
+[PASS] testNonOwnerCannotRegisterAgent() (gas: 35083)
+[PASS] testNonceReplayRejected() (gas: 243706)
+[PASS] testOnlySelfAndReentrancyFailSafely() (gas: 516163)
+[PASS] testOverspendRollsBackAndPersistsEvidence() (gas: 500392)
+[PASS] testOwnerCanRegisterAgent() (gas: 68968)
+[PASS] testPausedAccountRejectsExecution() (gas: 136390)
+[PASS] testRegisteredAgentCanExecuteValidSingleIntent() (gas: 193007)
+[PASS] testThresholdQuarantinesAndOwnerRecoversAgent() (gas: 1156726)
+[PASS] testUnregisteredAgentRejectedWithoutStrike() (gas: 99589)
+[PASS] testValidBatchSwapSucceeds() (gas: 242245)
+[PASS] testWrongAccountRejected() (gas: 90927)
+[PASS] testWrongChainRejected() (gas: 88708)
+[PASS] testWrongSignatureRejectedWithoutStrike() (gas: 111506)
+Suite result: ok. 21 passed; 0 failed; 0 skipped; finished in 64.10ms (55.76ms CPU time)
+
+Ran 12 tests for test/unit/CresnexIntentLockAccountV2.t.sol:CresnexIntentLockAccountV2Test
+[PASS] testApprovalAllowsBoundedValueAndBlocksWrongSpenderOrExcess() (gas: 782375)
+[PASS] testAuthenticationAndMalformedPolicyFailuresDoNotStrikeOrConsumeNonce() (gas: 215067)
+[PASS] testBatchBindsOrderAndAggregateOutcome() (gas: 473389)
+[PASS] testNativeTransferEnforcesSpendAndFinalBalance() (gas: 475246)
+[PASS] testOrdinaryTargetFailureConsumesNonceWithoutStrike() (gas: 178824)
+[PASS] testRemovingAgentPreservesStrikeHistoryAndOnlySelfIsEnforced() (gas: 390128)
+[PASS] testReplayExpiryQuarantineAndOwnerControls() (gas: 506813)
+[PASS] testSwapBlocksOverspendInsufficientOutputWrongRecipientAndUnlimitedApproval() (gas: 1818564)
+[PASS] testSwapUsesMeasuredDeltasAndAllowanceCap() (gas: 287153)
+[PASS] testTransferBlocksExcessWrongRecipientDifferentTokenAndHiddenBatch() (gas: 1337186)
+[PASS] testTransferPolicyAllowsBoundedTransfer() (gas: 196266)
+[PASS] testUnsupportedEvidenceModeAndMisboundPolicyAreStructuralFailures() (gas: 218748)
+Suite result: ok. 12 passed; 0 failed; 0 skipped; finished in 66.14ms (62.14ms CPU time)
+
+Ran 15 tests for test/GasBenchmarksV2.t.sol:GasBenchmarksV2Test
+[PASS] testApprovalAllowsBoundedValueAndBlocksWrongSpenderOrExcess() (gas: 782419)
+[PASS] testAuthenticationAndMalformedPolicyFailuresDoNotStrikeOrConsumeNonce() (gas: 215133)
+[PASS] testBatchBindsOrderAndAggregateOutcome() (gas: 473700)
+[PASS] testGas_V2BatchViolationEvidence() (gas: 311409)
+[PASS] testGas_V2Swap() (gas: 261742)
+[PASS] testGas_V2Transfer() (gas: 185597)
+[PASS] testNativeTransferEnforcesSpendAndFinalBalance() (gas: 475312)
+[PASS] testOrdinaryTargetFailureConsumesNonceWithoutStrike() (gas: 178846)
+[PASS] testRemovingAgentPreservesStrikeHistoryAndOnlySelfIsEnforced() (gas: 390150)
+[PASS] testReplayExpiryQuarantineAndOwnerControls() (gas: 506879)
+[PASS] testSwapBlocksOverspendInsufficientOutputWrongRecipientAndUnlimitedApproval() (gas: 1818586)
+[PASS] testSwapUsesMeasuredDeltasAndAllowanceCap() (gas: 287234)
+[PASS] testTransferBlocksExcessWrongRecipientDifferentTokenAndHiddenBatch() (gas: 1337252)
+[PASS] testTransferPolicyAllowsBoundedTransfer() (gas: 196288)
+[PASS] testUnsupportedEvidenceModeAndMisboundPolicyAreStructuralFailures() (gas: 218748)
+Suite result: ok. 15 passed; 0 failed; 0 skipped; finished in 68.43ms (63.97ms CPU time)
+
+Ran 21 tests for test/unit/IntentLockV2DeFi.t.sol:IntentLockV2DeFiTest
+[PASS] testApprovalAllowsBoundedValueAndBlocksWrongSpenderOrExcess() (gas: 782463)
+[PASS] testAuthenticationAndMalformedPolicyFailuresDoNotStrikeOrConsumeNonce() (gas: 215265)
+[PASS] testBatchBindsOrderAndAggregateOutcome() (gas: 473433)
+[PASS] testDepositBlocksExcessWrongBeneficiaryTooFewSharesAndResidualAllowance() (gas: 1629444)
+[PASS] testDepositRejectsHiddenAssetCallEvenWhenAggregateSpendFits() (gas: 369438)
+[PASS] testDepositValid() (gas: 278340)
+[PASS] testMaliciousVaultExcessivePullRollsBack() (gas: 393388)
+[PASS] testNativeTransferEnforcesSpendAndFinalBalance() (gas: 475422)
+[PASS] testOrdinaryTargetFailureConsumesNonceWithoutStrike() (gas: 178868)
+[PASS] testRemovingAgentPreservesStrikeHistoryAndOnlySelfIsEnforced() (gas: 390194)
+[PASS] testReplayExpiryQuarantineAndOwnerControls() (gas: 506989)
+[PASS] testSwapBlocksOverspendInsufficientOutputWrongRecipientAndUnlimitedApproval() (gas: 1818886)
+[PASS] testSwapUsesMeasuredDeltasAndAllowanceCap() (gas: 287286)
+[PASS] testTransferBlocksExcessWrongRecipientDifferentTokenAndHiddenBatch() (gas: 1337361)
+[PASS] testTransferPolicyAllowsBoundedTransfer() (gas: 196278)
+[PASS] testUnsupportedEvidenceModeAndMisboundPolicyAreStructuralFailures() (gas: 218748)
+[PASS] testWithdrawalBlocksExcessBurnInsufficientAssetsWrongRecipientAndUnexpectedLoss() (gas: 1936557)
+[PASS] testWithdrawalValid() (gas: 410877)
+[PASS] testYieldBlocksMovementLimitValueLossAndUnapprovedVault() (gas: 2537127)
+[PASS] testYieldRebalanceBetweenApprovedVaults() (gas: 554801)
+[PASS] testYieldRejectsArbitraryApprovedVaultCallAndDuplicateVaultPolicy() (gas: 799917)
+Suite result: ok. 21 passed; 0 failed; 0 skipped; finished in 121.71ms (116.19ms CPU time)
+
+Ran 24 tests for test/GasBenchmarksV2DeFi.t.sol:GasBenchmarksV2DeFiTest
+[PASS] testApprovalAllowsBoundedValueAndBlocksWrongSpenderOrExcess() (gas: 782507)
+[PASS] testAuthenticationAndMalformedPolicyFailuresDoNotStrikeOrConsumeNonce() (gas: 215331)
+[PASS] testBatchBindsOrderAndAggregateOutcome() (gas: 473455)
+[PASS] testDepositBlocksExcessWrongBeneficiaryTooFewSharesAndResidualAllowance() (gas: 1629488)
+[PASS] testDepositRejectsHiddenAssetCallEvenWhenAggregateSpendFits() (gas: 369504)
+[PASS] testDepositValid() (gas: 278362)
+[PASS] testGas_V2Deposit() (gas: 258984)
+[PASS] testGas_V2Withdrawal() (gas: 387333)
+[PASS] testGas_V2YieldRebalance() (gas: 535056)
+[PASS] testMaliciousVaultExcessivePullRollsBack() (gas: 393432)
+[PASS] testNativeTransferEnforcesSpendAndFinalBalance() (gas: 475488)
+[PASS] testOrdinaryTargetFailureConsumesNonceWithoutStrike() (gas: 178890)
+[PASS] testRemovingAgentPreservesStrikeHistoryAndOnlySelfIsEnforced() (gas: 390216)
+[PASS] testReplayExpiryQuarantineAndOwnerControls() (gas: 507055)
+[PASS] testSwapBlocksOverspendInsufficientOutputWrongRecipientAndUnlimitedApproval() (gas: 1818908)
+[PASS] testSwapUsesMeasuredDeltasAndAllowanceCap() (gas: 287286)
+[PASS] testTransferBlocksExcessWrongRecipientDifferentTokenAndHiddenBatch() (gas: 1337427)
+[PASS] testTransferPolicyAllowsBoundedTransfer() (gas: 196278)
+[PASS] testUnsupportedEvidenceModeAndMisboundPolicyAreStructuralFailures() (gas: 218748)
+[PASS] testWithdrawalBlocksExcessBurnInsufficientAssetsWrongRecipientAndUnexpectedLoss() (gas: 1936623)
+[PASS] testWithdrawalValid() (gas: 410877)
+[PASS] testYieldBlocksMovementLimitValueLossAndUnapprovedVault() (gas: 2537193)
+[PASS] testYieldRebalanceBetweenApprovedVaults() (gas: 554801)
+[PASS] testYieldRejectsArbitraryApprovedVaultCallAndDuplicateVaultPolicy() (gas: 799961)
+Suite result: ok. 24 passed; 0 failed; 0 skipped; finished in 128.99ms (123.72ms CPU time)
+
+Ran 17 tests for test/unit/IntentLockV2Payments.t.sol:IntentLockV2PaymentsTest
+[PASS] testApprovalAllowsBoundedValueAndBlocksWrongSpenderOrExcess() (gas: 782441)
+[PASS] testAuthenticationAndMalformedPolicyFailuresDoNotStrikeOrConsumeNonce() (gas: 215177)
+[PASS] testBatchBindsOrderAndAggregateOutcome() (gas: 473433)
+[PASS] testNativeTransferEnforcesSpendAndFinalBalance() (gas: 475356)
+[PASS] testOrdinaryTargetFailureConsumesNonceWithoutStrike() (gas: 178868)
+[PASS] testPayrollValidAndBlocksDuplicateEarlyLateExcessAndWrongEmployee() (gas: 2264633)
+[PASS] testRemovingAgentPreservesStrikeHistoryAndOnlySelfIsEnforced() (gas: 390168)
+[PASS] testReplayExpiryQuarantineAndOwnerControls() (gas: 506923)
+[PASS] testSubscriptionBlocksExcessWrongMerchantExpiryAndNonOwnerCancellation() (gas: 1041121)
+[PASS] testSubscriptionRecurringPeriodsCountAndOwnerCancellation() (gas: 1544635)
+[PASS] testSwapBlocksOverspendInsufficientOutputWrongRecipientAndUnlimitedApproval() (gas: 1818608)
+[PASS] testSwapUsesMeasuredDeltasAndAllowanceCap() (gas: 287175)
+[PASS] testTransferBlocksExcessWrongRecipientDifferentTokenAndHiddenBatch() (gas: 1337296)
+[PASS] testTransferPolicyAllowsBoundedTransfer() (gas: 196288)
+[PASS] testTreasuryBlocksExcessWrongRecipientDuplicateReferenceBudgetAndHiddenCall() (gas: 1890533)
+[PASS] testTreasuryPaymentValidAndRecordsReferenceAndBudget() (gas: 264497)
+[PASS] testUnsupportedEvidenceModeAndMisboundPolicyAreStructuralFailures() (gas: 218748)
+Suite result: ok. 17 passed; 0 failed; 0 skipped; finished in 175.60ms (171.00ms CPU time)
+
+Ran 20 tests for test/GasBenchmarksV2Payments.t.sol:GasBenchmarksV2PaymentsTest
+[PASS] testApprovalAllowsBoundedValueAndBlocksWrongSpenderOrExcess() (gas: 782463)
+[PASS] testAuthenticationAndMalformedPolicyFailuresDoNotStrikeOrConsumeNonce() (gas: 215243)
+[PASS] testBatchBindsOrderAndAggregateOutcome() (gas: 473433)
+[PASS] testGas_V2PayrollPayment() (gas: 236064)
+[PASS] testGas_V2SubscriptionPayment() (gas: 239229)
+[PASS] testGas_V2TreasuryPayment() (gas: 236124)
+[PASS] testNativeTransferEnforcesSpendAndFinalBalance() (gas: 475422)
+[PASS] testOrdinaryTargetFailureConsumesNonceWithoutStrike() (gas: 178868)
+[PASS] testPayrollValidAndBlocksDuplicateEarlyLateExcessAndWrongEmployee() (gas: 2264633)
+[PASS] testRemovingAgentPreservesStrikeHistoryAndOnlySelfIsEnforced() (gas: 390168)
+[PASS] testReplayExpiryQuarantineAndOwnerControls() (gas: 506989)
+[PASS] testSubscriptionBlocksExcessWrongMerchantExpiryAndNonOwnerCancellation() (gas: 1041121)
+[PASS] testSubscriptionRecurringPeriodsCountAndOwnerCancellation() (gas: 1544693)
+[PASS] testSwapBlocksOverspendInsufficientOutputWrongRecipientAndUnlimitedApproval() (gas: 1818608)
+[PASS] testSwapUsesMeasuredDeltasAndAllowanceCap() (gas: 287175)
+[PASS] testTransferBlocksExcessWrongRecipientDifferentTokenAndHiddenBatch() (gas: 1337362)
+[PASS] testTransferPolicyAllowsBoundedTransfer() (gas: 196288)
+[PASS] testTreasuryBlocksExcessWrongRecipientDuplicateReferenceBudgetAndHiddenCall() (gas: 1890533)
+[PASS] testTreasuryPaymentValidAndRecordsReferenceAndBudget() (gas: 264519)
+[PASS] testUnsupportedEvidenceModeAndMisboundPolicyAreStructuralFailures() (gas: 218748)
+Suite result: ok. 20 passed; 0 failed; 0 skipped; finished in 64.01ms (61.46ms CPU time)
+
+Ran 59 tests for test/unit/CREIntentRiskConsumer.t.sol:CREIntentRiskConsumerTest
+[PASS] testAllowWithNonzeroCountRejected() (gas: 47866)
+[PASS] testAllowWithUnusableEvidenceRejected() (gas: 46968)
+[PASS] testAuthorizedGateConsumesAllowExactlyOnce() (gas: 305524)
+[PASS] testChangingAccountChangesKey() (gas: 16809)
+[PASS] testChangingAgentChangesKey() (gas: 15907)
+[PASS] testChangingCallsHashChangesKey() (gas: 16379)
+[PASS] testChangingNonceChangesKey() (gas: 17011)
+[PASS] testChangingPolicyHashChangesKey() (gas: 16181)
+[PASS] testCorrectMetadataWrongForwarderRejected() (gas: 40104)
+[PASS] testCorrectWorkflowMetadataAccepted() (gas: 166959)
+[PASS] testDecisionOverflowRejected() (gas: 46697)
+[PASS] testEscalateCannotBeConsumed() (gas: 266376)
+[PASS] testEscalateWithThreeRejected() (gas: 47810)
+[PASS] testEscalateWithZeroRejected() (gas: 47175)
+[PASS] testEvidenceHashMismatchRejected() (gas: 49331)
+[PASS] testExactDuplicateReplayRejected() (gas: 208988)
+[PASS] testExpiredAcceptedVerdictCannotBeConsumed() (gas: 243748)
+[PASS] testExpiredVerdictRejected() (gas: 48096)
+[PASS] testForwarderWithWrongWorkflowRejected() (gas: 44668)
+[PASS] testFutureVerdictRejected() (gas: 48716)
+[PASS] testFuzzBindingChangesKey(uint256,bytes32,bytes32) (runs: 256, μ: 19395, ~: 19395)
+[PASS] testFuzzInvalidDecisionEvidence(uint8) (runs: 256, μ: 51106, ~: 51084)
+Logs:
+  Bound result 9
+
+[PASS] testFuzzValidExpiryAccepted(uint32,uint32) (runs: 256, μ: 175116, ~: 175023)
+Logs:
+  Bound result 10417
+  Bound result 4294956915
+
+[PASS] testGateCanOnlyBeConfiguredOnce() (gas: 77847)
+[PASS] testGenuineBlockCannotBeConsumed() (gas: 266101)
+[PASS] testInvalidValidityWindowRejected() (gas: 48268)
+[PASS] testKeystoneMetadataFixtureUsesExactLayout() (gas: 180911)
+[PASS] testLongMetadataRejected() (gas: 41041)
+[PASS] testMissingVerdictCannotBeConsumed() (gas: 84845)
+[PASS] testOnlyGateAdminCanConfigureGate() (gas: 31572)
+[PASS] testOnlyGateAdminCanConfigureWorkflow() (gas: 1127376)
+[PASS] testOperationalBlockCannotBeConsumed() (gas: 245584)
+[PASS] testOperationalBlockWithThresholdRejected() (gas: 47813)
+[PASS] testShortMetadataRejected() (gas: 40592)
+[PASS] testTypeScriptSolidityAbiVector() (gas: 188236)
+[PASS] testUnauthorizedGateCannotConsume() (gas: 238880)
+[PASS] testUsableBlockBelowThresholdRejected() (gas: 47384)
+[PASS] testUsableBlockWithoutThresholdRejected() (gas: 47467)
+[PASS] testValidAllowAccepted() (gas: 166431)
+[PASS] testValidEscalateOneAccepted() (gas: 186109)
+[PASS] testValidEscalateTwoAccepted() (gas: 186248)
+[PASS] testValidFailClosedBlockAccepted() (gas: 166813)
+[PASS] testValidGenuineBlockAccepted() (gas: 185922)
+[PASS] testWorkflowAuthorizationCanOnlyBeConfiguredOnce() (gas: 33670)
+[PASS] testWorkflowAuthorizationMustBeConfigured() (gas: 1139164)
+[PASS] testWrongCallerRejected() (gas: 40808)
+[PASS] testWrongChainIdRejected() (gas: 47129)
+[PASS] testWrongRuleIdRejected() (gas: 46142)
+[PASS] testWrongVersionRejected() (gas: 46439)
+[PASS] testWrongWorkflowIdRejected() (gas: 45238)
+[PASS] testWrongWorkflowOwnerRejected() (gas: 45481)
+[PASS] testZeroAccountRejected() (gas: 47417)
+[PASS] testZeroAgentRejected() (gas: 47815)
+[PASS] testZeroCallsHashRejected() (gas: 46849)
+[PASS] testZeroForwarderRejected() (gas: 165825)
+[PASS] testZeroGateRejected() (gas: 30901)
+[PASS] testZeroPolicyHashRejected() (gas: 47625)
+[PASS] testZeroWorkflowIdConfigurationRejected() (gas: 1126239)
+[PASS] testZeroWorkflowOwnerConfigurationRejected() (gas: 1126770)
+Suite result: ok. 59 passed; 0 failed; 0 skipped; finished in 225.06ms (223.19ms CPU time)
+
+Ran 19 tests for test/fuzz/IntentLockV2PaymentsFuzz.t.sol:IntentLockV2PaymentsFuzzTest
+[PASS] testApprovalAllowsBoundedValueAndBlocksWrongSpenderOrExcess() (gas: 782463)
+[PASS] testAuthenticationAndMalformedPolicyFailuresDoNotStrikeOrConsumeNonce() (gas: 215221)
+[PASS] testBatchBindsOrderAndAggregateOutcome() (gas: 473455)
+[PASS] testFuzz_PayrollWindow(uint48,uint64) (runs: 256, μ: 267646, ~: 273414)
+Logs:
+  Bound result 49041
+
+[PASS] testFuzz_TreasuryAmountBoundary(uint96,uint96,uint64) (runs: 256, μ: 246824, ~: 271555)
+Logs:
+  Bound result 268515738570
+  Bound result 14
+
+[PASS] testNativeTransferEnforcesSpendAndFinalBalance() (gas: 475400)
+[PASS] testOrdinaryTargetFailureConsumesNonceWithoutStrike() (gas: 178890)
+[PASS] testPayrollValidAndBlocksDuplicateEarlyLateExcessAndWrongEmployee() (gas: 2264655)
+[PASS] testRemovingAgentPreservesStrikeHistoryAndOnlySelfIsEnforced() (gas: 390190)
+[PASS] testReplayExpiryQuarantineAndOwnerControls() (gas: 506967)
+[PASS] testSubscriptionBlocksExcessWrongMerchantExpiryAndNonOwnerCancellation() (gas: 1041143)
+[PASS] testSubscriptionRecurringPeriodsCountAndOwnerCancellation() (gas: 1544657)
+[PASS] testSwapBlocksOverspendInsufficientOutputWrongRecipientAndUnlimitedApproval() (gas: 1818630)
+[PASS] testSwapUsesMeasuredDeltasAndAllowanceCap() (gas: 287197)
+[PASS] testTransferBlocksExcessWrongRecipientDifferentTokenAndHiddenBatch() (gas: 1337340)
+[PASS] testTransferPolicyAllowsBoundedTransfer() (gas: 196310)
+[PASS] testTreasuryBlocksExcessWrongRecipientDuplicateReferenceBudgetAndHiddenCall() (gas: 1890555)
+[PASS] testTreasuryPaymentValidAndRecordsReferenceAndBudget() (gas: 264519)
+[PASS] testUnsupportedEvidenceModeAndMisboundPolicyAreStructuralFailures() (gas: 218748)
+Suite result: ok. 19 passed; 0 failed; 0 skipped; finished in 884.82ms (877.82ms CPU time)
+
+Ran 23 tests for test/unit/CresnexIntentLockAccountV3.t.sol:CresnexIntentLockAccountV3Test
+[PASS] testDifferentCallPackageCannotUseVerdict() (gas: 315912)
+[PASS] testDifferentNonceCannotUseVerdict() (gas: 313903)
+[PASS] testDifferentPolicyCannotUseVerdict() (gas: 315689)
+[PASS] testDownstreamRevertRollsBackVerdictConsumptionThenRetrySucceeds() (gas: 611545)
+[PASS] testEscalateRejects() (gas: 319192)
+[PASS] testExecuteIsolatedCannotBypassGate() (gas: 37264)
+[PASS] testExpiredAllowRejects() (gas: 297585)
+[PASS] testFuzzBindingMutationCannotUseVerdict(uint256) (runs: 256, μ: 303940, ~: 303761)
+Logs:
+  Bound result 1200001
+
+[PASS] testFuzzNonAllowNeverExecutes(uint8) (runs: 256, μ: 315412, ~: 315413)
+Logs:
+  Bound result 1
+
+[PASS] testGenuineBlockRejects() (gas: 319632)
+[PASS] testInvalidOwnerSignatureRejectedBeforeVerdictConsumption() (gas: 286604)
+[PASS] testMatchingAllowAndValidIntentSucceeds() (gas: 377504)
+[PASS] testNoVerdictRejectsWithoutSecuritySideEffects() (gas: 130807)
+[PASS] testOperationalBlockRejects() (gas: 299582)
+[PASS] testOrdinaryExecutionFailurePreservesV2Semantics() (gas: 377090)
+[PASS] testOutcomeChecksRemainEnforcedAfterAllow() (gas: 506252)
+[PASS] testPolicyViolationAfterAllowPreservesV2Semantics() (gas: 501427)
+[PASS] testSuccessConsumesVerdictAndIntentNonce() (gas: 407780)
+[PASS] testVerdictReplayRejected() (gas: 416688)
+[PASS] testWrongAccountManifestRejectedBeforeGate() (gas: 92232)
+[PASS] testWrongAgentManifestRejectedBeforeGate() (gas: 92417)
+[PASS] testWrongChainManifestRejectedBeforeGate() (gas: 94838)
+[PASS] testWrongNonceVerdictRejected() (gas: 296656)
+Suite result: ok. 23 passed; 0 failed; 0 skipped; finished in 818.79ms (813.82ms CPU time)
+
+Ran 23 tests for test/fuzz/IntentLockV2DeFiFuzz.t.sol:IntentLockV2DeFiFuzzTest
+[PASS] testApprovalAllowsBoundedValueAndBlocksWrongSpenderOrExcess() (gas: 782507)
+[PASS] testAuthenticationAndMalformedPolicyFailuresDoNotStrikeOrConsumeNonce() (gas: 215309)
+[PASS] testBatchBindsOrderAndAggregateOutcome() (gas: 473455)
+[PASS] testDepositBlocksExcessWrongBeneficiaryTooFewSharesAndResidualAllowance() (gas: 1629466)
+[PASS] testDepositRejectsHiddenAssetCallEvenWhenAggregateSpendFits() (gas: 369482)
+[PASS] testDepositValid() (gas: 278362)
+[PASS] testFuzz_DepositAmountBoundary(uint96,uint96,uint64) (runs: 256, μ: 282348, ~: 295408)
+Logs:
+  Bound result 93543950332
+  Bound result 14
+
+[PASS] testFuzz_MinimumShares(uint96,uint96,uint64) (runs: 256, μ: 338446, ~: 267375)
+Logs:
+  Bound result 93543950332
+  Bound result 14
+
+[PASS] testMaliciousVaultExcessivePullRollsBack() (gas: 393432)
+[PASS] testNativeTransferEnforcesSpendAndFinalBalance() (gas: 475466)
+[PASS] testOrdinaryTargetFailureConsumesNonceWithoutStrike() (gas: 178890)
+[PASS] testRemovingAgentPreservesStrikeHistoryAndOnlySelfIsEnforced() (gas: 390216)
+[PASS] testReplayExpiryQuarantineAndOwnerControls() (gas: 507033)
+[PASS] testSwapBlocksOverspendInsufficientOutputWrongRecipientAndUnlimitedApproval() (gas: 1818908)
+[PASS] testSwapUsesMeasuredDeltasAndAllowanceCap() (gas: 287308)
+[PASS] testTransferBlocksExcessWrongRecipientDifferentTokenAndHiddenBatch() (gas: 1337405)
+[PASS] testTransferPolicyAllowsBoundedTransfer() (gas: 196300)
+[PASS] testUnsupportedEvidenceModeAndMisboundPolicyAreStructuralFailures() (gas: 218748)
+[PASS] testWithdrawalBlocksExcessBurnInsufficientAssetsWrongRecipientAndUnexpectedLoss() (gas: 1936601)
+[PASS] testWithdrawalValid() (gas: 410877)
+[PASS] testYieldBlocksMovementLimitValueLossAndUnapprovedVault() (gas: 2537171)
+[PASS] testYieldRebalanceBetweenApprovedVaults() (gas: 554823)
+[PASS] testYieldRejectsArbitraryApprovedVaultCallAndDuplicateVaultPolicy() (gas: 799961)
+Suite result: ok. 23 passed; 0 failed; 0 skipped; finished in 885.56ms (919.84ms CPU time)
+
+Ran 21 tests for test/fuzz/IntentLockFuzz.t.sol:IntentLockFuzzTest
+[PASS] testCallsHashMismatchAndBatchPermissionRejected() (gas: 188645)
+[PASS] testExcessiveAllowanceRollsBack() (gas: 355708)
+[PASS] testFutureAndExpiredIntentsRejected() (gas: 166412)
+[PASS] testFuzz_BatchLengthRejectedAboveLimit(uint8) (runs: 256, μ: 272094, ~: 257955)
+Logs:
+  Bound result 57
+
+[PASS] testFuzz_InputLimit(uint96,uint96,uint64) (runs: 256, μ: 333644, ~: 438149)
+Logs:
+  Bound result 93543950332
+  Bound result 14
+
+[PASS] testFuzz_MinimumOutput(uint96,uint96,uint64) (runs: 256, μ: 276137, ~: 190995)
+Logs:
+  Bound result 514264337593464722170
+  Bound result 14
+
+[PASS] testInsufficientOutputAndWrongRecipientRollBack() (gas: 927858)
+[PASS] testLargeTargetRevertIsContainedWithBoundedEvidence() (gas: 639154)
+[PASS] testNonOwnerCannotRegisterAgent() (gas: 35131)
+[PASS] testNonceReplayRejected() (gas: 243900)
+[PASS] testOnlySelfAndReentrancyFailSafely() (gas: 516422)
+[PASS] testOverspendRollsBackAndPersistsEvidence() (gas: 500672)
+[PASS] testOwnerCanRegisterAgent() (gas: 68972)
+[PASS] testPausedAccountRejectsExecution() (gas: 136570)
+[PASS] testRegisteredAgentCanExecuteValidSingleIntent() (gas: 193143)
+[PASS] testThresholdQuarantinesAndOwnerRecoversAgent() (gas: 1157532)
+[PASS] testUnregisteredAgentRejectedWithoutStrike() (gas: 99725)
+[PASS] testValidBatchSwapSucceeds() (gas: 242465)
+[PASS] testWrongAccountRejected() (gas: 91039)
+[PASS] testWrongChainRejected() (gas: 88842)
+[PASS] testWrongSignatureRejectedWithoutStrike() (gas: 111664)
+Suite result: ok. 21 passed; 0 failed; 0 skipped; finished in 1.27s (1.27s CPU time)
+
+Ran 16 tests for test/fuzz/IntentLockV2Fuzz.t.sol:IntentLockV2FuzzTest
+[PASS] testApprovalAllowsBoundedValueAndBlocksWrongSpenderOrExcess() (gas: 782489)
+[PASS] testAuthenticationAndMalformedPolicyFailuresDoNotStrikeOrConsumeNonce() (gas: 215203)
+[PASS] testBatchBindsOrderAndAggregateOutcome() (gas: 473455)
+[PASS] testFuzz_AllowanceArrayBound(uint8) (runs: 256, μ: 141841, ~: 139564)
+Logs:
+  Bound result 9
+
+[PASS] testFuzz_AssetArrayBound(uint8) (runs: 256, μ: 145242, ~: 142744)
+Logs:
+  Bound result 9
+
+[PASS] testFuzz_NativeSpendBoundary(uint96,uint96,uint64) (runs: 256, μ: 221186, ~: 259245)
+Logs:
+  Bound result 14264337592751668707
+  Bound result 14
+
+[PASS] testFuzz_TransferAmountBoundary(uint96,uint96,uint64) (runs: 256, μ: 234256, ~: 270928)
+Logs:
+  Bound result 268515738570
+  Bound result 14
+
+[PASS] testNativeTransferEnforcesSpendAndFinalBalance() (gas: 475334)
+[PASS] testOrdinaryTargetFailureConsumesNonceWithoutStrike() (gas: 178938)
+[PASS] testRemovingAgentPreservesStrikeHistoryAndOnlySelfIsEnforced() (gas: 390242)
+[PASS] testReplayExpiryQuarantineAndOwnerControls() (gas: 506949)
+[PASS] testSwapBlocksOverspendInsufficientOutputWrongRecipientAndUnlimitedApproval() (gas: 1818779)
+[PASS] testSwapUsesMeasuredDeltasAndAllowanceCap() (gas: 287260)
+[PASS] testTransferBlocksExcessWrongRecipientDifferentTokenAndHiddenBatch() (gas: 1337322)
+[PASS] testTransferPolicyAllowsBoundedTransfer() (gas: 196358)
+[PASS] testUnsupportedEvidenceModeAndMisboundPolicyAreStructuralFailures() (gas: 218796)
+Suite result: ok. 16 passed; 0 failed; 0 skipped; finished in 1.12s (1.54s CPU time)
+
+Ran 35 tests for test/unit/IntentLockV2Phase4.t.sol:IntentLockV2Phase4Test
+[PASS] testAdminAllowsBoundedNumericAddressPauseAndRoleChanges() (gas: 685658)
+[PASS] testAdminRejectsOutOfRangeWrongTargetSelectorArgumentAndBatch() (gas: 2579375)
+[PASS] testAdminTimelockAndDangerousSelectorsAreRejected() (gas: 514352)
+[PASS] testApprovalAllowsBoundedValueAndBlocksWrongSpenderOrExcess() (gas: 782749)
+[PASS] testAuthenticationAndMalformedPolicyFailuresDoNotStrikeOrConsumeNonce() (gas: 215618)
+[PASS] testBatchBindsOrderAndAggregateOutcome() (gas: 473543)
+[PASS] testFuzzAdminNumericBounds(uint256) (runs: 256, μ: 175759, ~: 175787)
+Logs:
+  Bound result 11
+
+[PASS] testFuzzAdminRoleIdentifier(bytes32) (runs: 256, μ: 26425, ~: 26425)
+[PASS] testFuzzAdminTimestamp(uint48) (runs: 256, μ: 23183, ~: 23091)
+Logs:
+  Bound result 12318
+
+[PASS] testFuzzBatchLength(uint8) (runs: 256, μ: 30987, ~: 29900)
+Logs:
+  Bound result 9
+
+[PASS] testFuzzERC1155MinimumQuantity(uint8) (runs: 256, μ: 255816, ~: 255796)
+Logs:
+  Bound result 9
+
+[PASS] testFuzzNftPriceAndTokenId(uint96,uint256) (runs: 256, μ: 279941, ~: 279984)
+Logs:
+  Bound result 1097137
+
+[PASS] testFuzzUnsupportedModuleIdentifier(uint8) (runs: 256, μ: 39475, ~: 39364)
+Logs:
+  Bound result 253
+
+[PASS] testImmutableValidatorOnlyValidatesAndCannotMutateOrExecute() (gas: 95770)
+[PASS] testNativeTransferEnforcesSpendAndFinalBalance() (gas: 475660)
+[PASS] testNftExcessivePullFailsAtomicallyWithoutPolicyStrike() (gas: 292785)
+[PASS] testNftLargeReturnDataIsBoundedAndLargeRevertDataIsNonPunitive() (gas: 640825)
+[PASS] testNftNativePaymentIsBoundedAndDelivered() (gas: 235047)
+[PASS] testNftPostconditionsRollbackWrongOrMissingDelivery() (gas: 971499)
+[PASS] testNftPurchaseDeliversExactERC721AndClearsAllowance() (gas: 297223)
+[PASS] testNftPurchaseDeliversMinimumERC1155Quantity() (gas: 264827)
+[PASS] testNftPurchaseRejectsHiddenCallAndOversizedApproval() (gas: 679378)
+[PASS] testNftPurchaseRejectsWrongCollectionTokenRecipientPriceAndMarketplace() (gas: 3010925)
+[PASS] testNftResidualAllowanceIsAContainedPolicyViolation() (gas: 487951)
+[PASS] testOrdinaryTargetFailureConsumesNonceWithoutStrike() (gas: 179000)
+[PASS] testReentrantERC1155ReceiverIsContained() (gas: 2370922)
+[PASS] testReentrantERC721ReceiverIsContained() (gas: 2368025)
+[PASS] testRemovingAgentPreservesStrikeHistoryAndOnlySelfIsEnforced() (gas: 390370)
+[PASS] testReplayExpiryQuarantineAndOwnerControls() (gas: 507253)
+[PASS] testSwapBlocksOverspendInsufficientOutputWrongRecipientAndUnlimitedApproval() (gas: 1818926)
+[PASS] testSwapUsesMeasuredDeltasAndAllowanceCap() (gas: 287336)
+[PASS] testTransferBlocksExcessWrongRecipientDifferentTokenAndHiddenBatch() (gas: 1337626)
+[PASS] testTransferPolicyAllowsBoundedTransfer() (gas: 196344)
+[PASS] testUnsupportedEvidenceModeAndMisboundPolicyAreStructuralFailures() (gas: 218748)
+[PASS] testValidatorRejectsModuleImpersonation() (gas: 25521)
+Suite result: ok. 35 passed; 0 failed; 0 skipped; finished in 2.32s (2.30s CPU time)
+
+Ran 2 tests for test/invariant/IntentLockV2PaymentsInvariant.t.sol:IntentLockV2PaymentsInvariantTest
+[PASS] invariant_OnlyOneChargePerSubscriptionPeriod() (runs: 128, calls: 4096, reverts: 0)
+
+╭-----------------------------+----------+-------+---------+----------╮
+| Contract                    | Selector | Calls | Reverts | Discards |
++=====================================================================+
+| IntentLockV2PaymentsHandler | charge   | 4096  | 0       | 0        |
+╰-----------------------------+----------+-------+---------+----------╯
+
+Logs:
+  Bound result 57
+  Bound result 6618
+  Bound result 7125
+  Bound result 8364
+  Bound result 1
+  Bound result 3
+  Bound result 75689074
+  Bound result 10916
+  Bound result 35468552
+  Bound result 118
+  Bound result 3182
+  Bound result 8904061
+  Bound result 4685
+  Bound result 73892893
+  Bound result 33699842
+  Bound result 71421029
+  Bound result 22
+  Bound result 7
+  Bound result 43950335
+  Bound result 17271678
+  Bound result 1469
+  Bound result 1050
+  Bound result 4973
+  Bound result 9197
+  Bound result 10606
+  Bound result 11162
+  Bound result 8701210
+  Bound result 67692033
+  Bound result 70715020
+  Bound result 44851773
+  Bound result 22870736
+  Bound result 14506
+
+[PASS] invariant_SubscriptionCountMatchesCommittedPayment() (runs: 128, calls: 4096, reverts: 0)
+
+╭-----------------------------+----------+-------+---------+----------╮
+| Contract                    | Selector | Calls | Reverts | Discards |
++=====================================================================+
+| IntentLockV2PaymentsHandler | charge   | 4096  | 0       | 0        |
+╰-----------------------------+----------+-------+---------+----------╯
+
+Logs:
+  Bound result 57
+  Bound result 6618
+  Bound result 7125
+  Bound result 8364
+  Bound result 1
+  Bound result 3
+  Bound result 75689074
+  Bound result 10916
+  Bound result 35468552
+  Bound result 118
+  Bound result 3182
+  Bound result 8904061
+  Bound result 4685
+  Bound result 73892893
+  Bound result 33699842
+  Bound result 71421029
+  Bound result 22
+  Bound result 7
+  Bound result 43950335
+  Bound result 17271678
+  Bound result 1469
+  Bound result 1050
+  Bound result 4973
+  Bound result 9197
+  Bound result 10606
+  Bound result 11162
+  Bound result 8701210
+  Bound result 67692033
+  Bound result 70715020
+  Bound result 44851773
+  Bound result 22870736
+  Bound result 14506
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 12.77s (23.07s CPU time)
+
+Ran 3 tests for test/invariant/IntentLockV2Phase4Invariant.t.sol:IntentLockV2Phase4InvariantTest
+[PASS] invariant_DangerousOrStructuralFailuresDoNotChangeAccountState() (runs: 128, calls: 4096, reverts: 0)
+
+╭---------------------------+---------------------------------+-------+---------+----------╮
+| Contract                  | Selector                        | Calls | Reverts | Discards |
++==========================================================================================+
+| IntentLockV2Phase4Handler | administrationAboveBound        | 1304  | 0       | 0        |
+|---------------------------+---------------------------------+-------+---------+----------|
+| IntentLockV2Phase4Handler | dangerousAdministrationSelector | 1401  | 0       | 0        |
+|---------------------------+---------------------------------+-------+---------+----------|
+| IntentLockV2Phase4Handler | paymentWithoutNft               | 1391  | 0       | 0        |
+╰---------------------------+---------------------------------+-------+---------+----------╯
+
+Logs:
+  Bound result 4366
+  Bound result 70592735781849875718262018039
+  Bound result 486894085
+  Bound result 2890200
+  Bound result 194307889892943
+  Bound result 363718570
+  Bound result 5387
+  Bound result 8798
+  Bound result 3356899372
+  Bound result 16
+  Bound result 13278
+  Bound result 1601
+  Bound result 655672629
+  Bound result 31
+  Bound result 17578816
+  Bound result 417529954
+  Bound result 13220
+  Bound result 34737293912473352
+  Bound result 1421
+  Bound result 131778270
+  Bound result 24807286186544616073938042379
+  Bound result 5429
+  Bound result 1484353219396739523
+  Bound result 3
+  Bound result 1826567
+  Bound result 7640510209470017
+  Bound result 11716
+  Bound result 117609367121058068249465
+  Bound result 2713034270672770628300
+  Bound result 7329
+  Bound result 51268751
+  Bound result 1694
+
+[PASS] invariant_NftAndAdministrationEffectsRemainBounded() (runs: 128, calls: 4096, reverts: 0)
+
+╭---------------------------+---------------------------------+-------+---------+----------╮
+| Contract                  | Selector                        | Calls | Reverts | Discards |
++==========================================================================================+
+| IntentLockV2Phase4Handler | administrationAboveBound        | 1304  | 0       | 0        |
+|---------------------------+---------------------------------+-------+---------+----------|
+| IntentLockV2Phase4Handler | dangerousAdministrationSelector | 1401  | 0       | 0        |
+|---------------------------+---------------------------------+-------+---------+----------|
+| IntentLockV2Phase4Handler | paymentWithoutNft               | 1391  | 0       | 0        |
+╰---------------------------+---------------------------------+-------+---------+----------╯
+
+Logs:
+  Bound result 4366
+  Bound result 70592735781849875718262018039
+  Bound result 486894085
+  Bound result 2890200
+  Bound result 194307889892943
+  Bound result 363718570
+  Bound result 5387
+  Bound result 8798
+  Bound result 3356899372
+  Bound result 16
+  Bound result 13278
+  Bound result 1601
+  Bound result 655672629
+  Bound result 31
+  Bound result 17578816
+  Bound result 417529954
+  Bound result 13220
+  Bound result 34737293912473352
+  Bound result 1421
+  Bound result 131778270
+  Bound result 24807286186544616073938042379
+  Bound result 5429
+  Bound result 1484353219396739523
+  Bound result 3
+  Bound result 1826567
+  Bound result 7640510209470017
+  Bound result 11716
+  Bound result 117609367121058068249465
+  Bound result 2713034270672770628300
+  Bound result 7329
+  Bound result 51268751
+  Bound result 1694
+
+[PASS] invariant_Phase4ViolationsStrikeOnceAndPersistEvidence() (runs: 128, calls: 4096, reverts: 0)
+
+╭---------------------------+---------------------------------+-------+---------+----------╮
+| Contract                  | Selector                        | Calls | Reverts | Discards |
++==========================================================================================+
+| IntentLockV2Phase4Handler | administrationAboveBound        | 1304  | 0       | 0        |
+|---------------------------+---------------------------------+-------+---------+----------|
+| IntentLockV2Phase4Handler | dangerousAdministrationSelector | 1401  | 0       | 0        |
+|---------------------------+---------------------------------+-------+---------+----------|
+| IntentLockV2Phase4Handler | paymentWithoutNft               | 1391  | 0       | 0        |
+╰---------------------------+---------------------------------+-------+---------+----------╯
+
+Logs:
+  Bound result 4366
+  Bound result 70592735781849875718262018039
+  Bound result 486894085
+  Bound result 2890200
+  Bound result 194307889892943
+  Bound result 363718570
+  Bound result 5387
+  Bound result 8798
+  Bound result 3356899372
+  Bound result 16
+  Bound result 13278
+  Bound result 1601
+  Bound result 655672629
+  Bound result 31
+  Bound result 17578816
+  Bound result 417529954
+  Bound result 13220
+  Bound result 34737293912473352
+  Bound result 1421
+  Bound result 131778270
+  Bound result 24807286186544616073938042379
+  Bound result 5429
+  Bound result 1484353219396739523
+  Bound result 3
+  Bound result 1826567
+  Bound result 7640510209470017
+  Bound result 11716
+  Bound result 117609367121058068249465
+  Bound result 2713034270672770628300
+  Bound result 7329
+  Bound result 51268751
+  Bound result 1694
+
+Suite result: ok. 3 passed; 0 failed; 0 skipped; finished in 12.76s (33.17s CPU time)
+
+Ran 17 tests for test/AcademicBaselines.t.sol:AcademicBaselinesTest
+[PASS] testA_WrongRecipientHarmSurvivesWithoutEvidence() (gas: 114126)
+[PASS] testB_OverspendIsBlocked() (gas: 71529)
+[PASS] testB_WrongRecipientHarmSurvivesSpendLimit() (gas: 115175)
+[PASS] testC_WrongRecipientHarmSurvivesApprovedPath() (gas: 116915)
+[PASS] testD_WrongRecipientRollsBackAndPersistsEvidenceAndStrike() (gas: 288513)
+[PASS] testFuzzGas_A_Benign(uint64) (runs: 256, μ: 106185, ~: 106183)
+[PASS] testFuzzGas_A_WrongRecipient(uint64) (runs: 256, μ: 114191, ~: 114189)
+[PASS] testFuzzGas_B_Benign(uint64) (runs: 256, μ: 107372, ~: 107364)
+[PASS] testFuzzGas_B_WrongRecipient(uint64) (runs: 256, μ: 115862, ~: 115854)
+[PASS] testFuzzGas_C_Benign(uint64) (runs: 256, μ: 109121, ~: 109107)
+[PASS] testFuzzGas_C_WrongRecipient(uint64) (runs: 256, μ: 117545, ~: 117531)
+[PASS] testFuzzGas_D_Benign(uint64) (runs: 256, μ: 181380, ~: 181366)
+[PASS] testFuzzGas_D_WrongRecipient(uint64) (runs: 256, μ: 274593, ~: 274579)
+[PASS] testGas_A_SignatureOnlyTransfer() (gas: 105615)
+[PASS] testGas_B_SpendLimitTransfer() (gas: 107148)
+[PASS] testGas_C_PathAndSpendTransfer() (gas: 108866)
+[PASS] testGas_D_IntentLockTransfer() (gas: 181404)
+Suite result: ok. 17 passed; 0 failed; 0 skipped; finished in 13.40s (11.47s CPU time)
+
+Ran 4 tests for test/invariant/IntentLockV2Invariant.t.sol:IntentLockV2InvariantTest
+[PASS] invariant_ConsumedNonceCannotReplay() (runs: 128, calls: 4096, reverts: 0)
+
+╭---------------------+--------------+-------+---------+----------╮
+| Contract            | Selector     | Calls | Reverts | Discards |
++=================================================================+
+| IntentLockV2Handler | invalidChain | 2093  | 0       | 0        |
+|---------------------+--------------+-------+---------+----------|
+| IntentLockV2Handler | overspend    | 2003  | 0       | 0        |
+╰---------------------+--------------+-------+---------+----------╯
+
+Logs:
+  Bound result 6784
+  Bound result 7190
+  Bound result 3947368136
+  Bound result 1207
+  Bound result 3657081191
+  Bound result 5993336690
+  Bound result 5252001570
+  Bound result 261174
+  Bound result 3367596393
+  Bound result 3859552244
+  Bound result 2041
+  Bound result 1006
+  Bound result 8551
+  Bound result 3434064456
+  Bound result 8064
+  Bound result 13751
+  Bound result 5033482008
+  Bound result 3475
+  Bound result 12053
+  Bound result 6940
+  Bound result 7509489784
+  Bound result 13235
+  Bound result 7099706049
+  Bound result 10073229
+
+[PASS] invariant_InvalidAuthenticationNeverStrikes() (runs: 128, calls: 4096, reverts: 0)
+
+╭---------------------+--------------+-------+---------+----------╮
+| Contract            | Selector     | Calls | Reverts | Discards |
++=================================================================+
+| IntentLockV2Handler | invalidChain | 2093  | 0       | 0        |
+|---------------------+--------------+-------+---------+----------|
+| IntentLockV2Handler | overspend    | 2003  | 0       | 0        |
+╰---------------------+--------------+-------+---------+----------╯
+
+Logs:
+  Bound result 6784
+  Bound result 7190
+  Bound result 3947368136
+  Bound result 1207
+  Bound result 3657081191
+  Bound result 5993336690
+  Bound result 5252001570
+  Bound result 261174
+  Bound result 3367596393
+  Bound result 3859552244
+  Bound result 2041
+  Bound result 1006
+  Bound result 8551
+  Bound result 3434064456
+  Bound result 8064
+  Bound result 13751
+  Bound result 5033482008
+  Bound result 3475
+  Bound result 12053
+  Bound result 6940
+  Bound result 7509489784
+  Bound result 13235
+  Bound result 7099706049
+  Bound result 10073229
+
+[PASS] invariant_UnsafeInnerEffectsNeverSurvive() (runs: 128, calls: 4096, reverts: 0)
+
+╭---------------------+--------------+-------+---------+----------╮
+| Contract            | Selector     | Calls | Reverts | Discards |
++=================================================================+
+| IntentLockV2Handler | invalidChain | 2093  | 0       | 0        |
+|---------------------+--------------+-------+---------+----------|
+| IntentLockV2Handler | overspend    | 2003  | 0       | 0        |
+╰---------------------+--------------+-------+---------+----------╯
+
+Logs:
+  Bound result 6784
+  Bound result 7190
+  Bound result 3947368137
+  Bound result 1207
+  Bound result 3657081191
+  Bound result 5993336690
+  Bound result 5252001570
+  Bound result 261174
+  Bound result 3367596393
+  Bound result 3859552244
+  Bound result 2041
+  Bound result 1006
+  Bound result 8551
+  Bound result 3434064456
+  Bound result 8064
+  Bound result 13751
+  Bound result 5033482008
+  Bound result 3475
+  Bound result 12053
+  Bound result 6940
+  Bound result 7509489784
+  Bound result 13235
+  Bound result 7099706049
+  Bound result 10073229
+
+[PASS] invariant_ViolationsStrikeExactlyOnceAndPersistEvidence() (runs: 128, calls: 4096, reverts: 0)
+
+╭---------------------+--------------+-------+---------+----------╮
+| Contract            | Selector     | Calls | Reverts | Discards |
++=================================================================+
+| IntentLockV2Handler | invalidChain | 2093  | 0       | 0        |
+|---------------------+--------------+-------+---------+----------|
+| IntentLockV2Handler | overspend    | 2003  | 0       | 0        |
+╰---------------------+--------------+-------+---------+----------╯
+
+Logs:
+  Bound result 6784
+  Bound result 7190
+  Bound result 2828
+  Bound result 1207
+  Bound result 3657081191
+  Bound result 5993336690
+  Bound result 5252001570
+  Bound result 261174
+  Bound result 3367596393
+  Bound result 3859552244
+  Bound result 2041
+  Bound result 1006
+  Bound result 8552
+  Bound result 3434064456
+  Bound result 8064
+  Bound result 13752
+  Bound result 5033482008
+  Bound result 3475
+  Bound result 12051
+  Bound result 6940
+  Bound result 7509489782
+  Bound result 13235
+  Bound result 7099706049
+  Bound result 10073229
+
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 13.40s (35.26s CPU time)
+
+Ran 6 tests for test/invariant/IntentLockInvariant.t.sol:IntentLockInvariantTest
+[PASS] invariant_ConsumedNonceCannotExecuteAgain() (runs: 128, calls: 4096, reverts: 0)
+
+╭------------------------+-----------------------------+-------+---------+----------╮
+| Contract               | Selector                    | Calls | Reverts | Discards |
++===================================================================================+
+| UnsafeExecutionHandler | attemptQuarantinedExecution | 1028  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unauthorizedRecovery        | 1000  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeAllowance             | 1009  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeSwap                  | 1059  | 0       | 0        |
+╰------------------------+-----------------------------+-------+---------+----------╯
+
+Logs:
+  Bound result 2169990
+  Bound result 1
+  Bound result 2389664221660634
+  Bound result 3963891462
+  Bound result 137315
+  Bound result 3543950332
+  Bound result 11260279258368782769
+  Bound result 3
+  Bound result 17096998909542366086118317916
+  Bound result 8064
+  Bound result 1677
+  Bound result 10446
+  Bound result 3946
+  Bound result 6153160288
+  Bound result 1
+  Bound result 8400806806
+  Bound result 1134139
+  Bound result 4053924949022819845095473879
+  Bound result 3672
+  Bound result 1910
+  Bound result 6738648623
+  Bound result 251195045
+  Bound result 3560466303
+  Bound result 2989
+  Bound result 8640960770
+  Bound result 752110276
+  Bound result 349622959
+  Bound result 4654316800679082337986
+  Bound result 7303
+  Bound result 1325
+  Bound result 7194134422574217560913
+  Bound result 1
+
+[PASS] invariant_OnlyOwnerCanClearQuarantine() (runs: 128, calls: 4096, reverts: 0)
+
+╭------------------------+-----------------------------+-------+---------+----------╮
+| Contract               | Selector                    | Calls | Reverts | Discards |
++===================================================================================+
+| UnsafeExecutionHandler | attemptQuarantinedExecution | 1028  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unauthorizedRecovery        | 1000  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeAllowance             | 1009  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeSwap                  | 1059  | 0       | 0        |
+╰------------------------+-----------------------------+-------+---------+----------╯
+
+Logs:
+  Bound result 2169990
+  Bound result 1
+  Bound result 2389664221660634
+  Bound result 3963891462
+  Bound result 137315
+  Bound result 3543950332
+  Bound result 11260279258368782769
+  Bound result 3
+  Bound result 17096998909542366086118317916
+  Bound result 8064
+  Bound result 1677
+  Bound result 10446
+  Bound result 3946
+  Bound result 6153160288
+  Bound result 1
+  Bound result 8400806806
+  Bound result 1134139
+  Bound result 4053924949022819845095473879
+  Bound result 3672
+  Bound result 1910
+  Bound result 6738648623
+  Bound result 251195045
+  Bound result 5806280658
+  Bound result 2989
+  Bound result 7849579981
+  Bound result 752110276
+  Bound result 349622959
+  Bound result 4654316800679082337986
+  Bound result 7303
+  Bound result 1325
+  Bound result 7194134422574217560913
+  Bound result 1
+
+[PASS] invariant_QuarantinedAgentCannotExecute() (runs: 128, calls: 4096, reverts: 0)
+
+╭------------------------+-----------------------------+-------+---------+----------╮
+| Contract               | Selector                    | Calls | Reverts | Discards |
++===================================================================================+
+| UnsafeExecutionHandler | attemptQuarantinedExecution | 1028  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unauthorizedRecovery        | 1000  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeAllowance             | 1009  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeSwap                  | 1059  | 0       | 0        |
+╰------------------------+-----------------------------+-------+---------+----------╯
+
+Logs:
+  Bound result 2169990
+  Bound result 1
+  Bound result 2389664221660634
+  Bound result 3963891462
+  Bound result 137315
+  Bound result 3543950332
+  Bound result 11260279258368782769
+  Bound result 3
+  Bound result 17096998909542366086118317916
+  Bound result 8064
+  Bound result 1677
+  Bound result 10446
+  Bound result 3946
+  Bound result 6153160288
+  Bound result 1
+  Bound result 8400806806
+  Bound result 1134139
+  Bound result 4053924949022819845095473879
+  Bound result 3672
+  Bound result 1910
+  Bound result 6738648623
+  Bound result 251195045
+  Bound result 5806280658
+  Bound result 2989
+  Bound result 7849579988
+  Bound result 752110276
+  Bound result 349622959
+  Bound result 4654316800679082337986
+  Bound result 7303
+  Bound result 1325
+  Bound result 7194134422574217560913
+  Bound result 1
+
+[PASS] invariant_UnsafeExecutionCannotLeaveExcessiveAllowance() (runs: 128, calls: 4096, reverts: 0)
+
+╭------------------------+-----------------------------+-------+---------+----------╮
+| Contract               | Selector                    | Calls | Reverts | Discards |
++===================================================================================+
+| UnsafeExecutionHandler | attemptQuarantinedExecution | 1028  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unauthorizedRecovery        | 1000  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeAllowance             | 1009  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeSwap                  | 1059  | 0       | 0        |
+╰------------------------+-----------------------------+-------+---------+----------╯
+
+Logs:
+  Bound result 2169990
+  Bound result 1
+  Bound result 2389664221660634
+  Bound result 3963891462
+  Bound result 137315
+  Bound result 3543950332
+  Bound result 11260279258368782769
+  Bound result 3
+  Bound result 17096998909542366086118317916
+  Bound result 8064
+  Bound result 1677
+  Bound result 10446
+  Bound result 3946
+  Bound result 6153160288
+  Bound result 1
+  Bound result 8400806806
+  Bound result 1134139
+  Bound result 4053924949022819845095473879
+  Bound result 3672
+  Bound result 1910
+  Bound result 6738648623
+  Bound result 251195045
+  Bound result 271688949
+  Bound result 2989
+  Bound result 7849579981
+  Bound result 752110276
+  Bound result 349622959
+  Bound result 4654316800679082337986
+  Bound result 7303
+  Bound result 1325
+  Bound result 7194134422574217560913
+  Bound result 1
+
+[PASS] invariant_UnsafeExecutionCannotReduceProtectedBalance() (runs: 128, calls: 4096, reverts: 0)
+
+╭------------------------+-----------------------------+-------+---------+----------╮
+| Contract               | Selector                    | Calls | Reverts | Discards |
++===================================================================================+
+| UnsafeExecutionHandler | attemptQuarantinedExecution | 1028  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unauthorizedRecovery        | 1000  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeAllowance             | 1009  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeSwap                  | 1059  | 0       | 0        |
+╰------------------------+-----------------------------+-------+---------+----------╯
+
+Logs:
+  Bound result 2169990
+  Bound result 1
+  Bound result 2389664221660634
+  Bound result 3963891462
+  Bound result 137315
+  Bound result 3543950332
+  Bound result 11260279258368782769
+  Bound result 3
+  Bound result 17096998909542366086118317916
+  Bound result 8064
+  Bound result 1677
+  Bound result 10446
+  Bound result 3946
+  Bound result 6153160288
+  Bound result 1
+  Bound result 8400806806
+  Bound result 1134139
+  Bound result 4053924949022819845095473879
+  Bound result 3672
+  Bound result 1910
+  Bound result 6738648623
+  Bound result 251195045
+  Bound result 3560466300
+  Bound result 2989
+  Bound result 7849579983
+  Bound result 752110276
+  Bound result 349622959
+  Bound result 4654316800679082337986
+  Bound result 7303
+  Bound result 1325
+  Bound result 7194134422574217560913
+  Bound result 1
+
+[PASS] invariant_ViolationEvidencePersistsAfterRollback() (runs: 128, calls: 4096, reverts: 0)
+
+╭------------------------+-----------------------------+-------+---------+----------╮
+| Contract               | Selector                    | Calls | Reverts | Discards |
++===================================================================================+
+| UnsafeExecutionHandler | attemptQuarantinedExecution | 1028  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unauthorizedRecovery        | 1000  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeAllowance             | 1009  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeSwap                  | 1059  | 0       | 0        |
+╰------------------------+-----------------------------+-------+---------+----------╯
+
+Logs:
+  Bound result 2169990
+  Bound result 1
+  Bound result 2389664221660634
+  Bound result 3963891462
+  Bound result 137315
+  Bound result 3543950332
+  Bound result 11260279258368782769
+  Bound result 3
+  Bound result 17096998909542366086118317916
+  Bound result 8064
+  Bound result 1677
+  Bound result 10446
+  Bound result 3946
+  Bound result 6153160288
+  Bound result 1
+  Bound result 8400806806
+  Bound result 1134139
+  Bound result 4053924949022819845095473879
+  Bound result 3672
+  Bound result 1910
+  Bound result 6738648623
+  Bound result 251195045
+  Bound result 271688949
+  Bound result 2989
+  Bound result 7849579986
+  Bound result 752110276
+  Bound result 349622959
+  Bound result 4654316800679082337986
+  Bound result 7303
+  Bound result 1325
+  Bound result 7194134422574217560913
+  Bound result 1
+
+Suite result: ok. 6 passed; 0 failed; 0 skipped; finished in 13.40s (45.09s CPU time)
+
+Ran 2 tests for test/invariant/IntentLockV2DeFiInvariant.t.sol:IntentLockV2DeFiInvariantTest
+[PASS] invariant_DeFiEvidenceAndStrikesPersist() (runs: 128, calls: 4096, reverts: 0)
+
+╭-------------------------+------------------+-------+---------+----------╮
+| Contract                | Selector         | Calls | Reverts | Discards |
++=========================================================================+
+| IntentLockV2DeFiHandler | excessiveDeposit | 4096  | 0       | 0        |
+╰-------------------------+------------------+-------+---------+----------╯
+
+Logs:
+  Bound result 587
+  Bound result 3620
+  Bound result 2882780143
+  Bound result 2955767462
+  Bound result 7443280834
+  Bound result 1535
+  Bound result 1820285307
+  Bound result 3543950334
+  Bound result 7919
+  Bound result 332
+  Bound result 5087
+  Bound result 13436
+  Bound result 211
+  Bound result 4835384080
+  Bound result 3
+  Bound result 6282420050
+  Bound result 639
+  Bound result 13124
+  Bound result 2
+  Bound result 8409793727
+  Bound result 11
+  Bound result 3543950334
+  Bound result 9497
+  Bound result 5293
+  Bound result 7068
+  Bound result 11579
+  Bound result 1981
+  Bound result 3686
+  Bound result 9737
+  Bound result 2239
+  Bound result 4243065542
+  Bound result 1023315201
+  Bound result 2050
+  Bound result 1114
+  Bound result 6793574121
+  Bound result 4762038271
+  Bound result 3898387908
+  Bound result 6602388900
+  Bound result 65536
+  Bound result 5665
+  Bound result 3686728405
+  Bound result 9912763806
+  Bound result 222940499
+  Bound result 1395733402
+  Bound result 4694067875
+  Bound result 105588
+  Bound result 1
+  Bound result 3
+  Bound result 5851418332
+  Bound result 6881470351
+  Bound result 1
+  Bound result 32565654
+  Bound result 9368805782
+  Bound result 2618340658
+  Bound result 1580
+  Bound result 3766
+  Bound result 10
+  Bound result 4786372075
+  Bound result 598318557
+  Bound result 11325
+  Bound result 0
+  Bound result 8800323974
+  Bound result 771
+  Bound result 3253
+
+[PASS] invariant_UnsafeVaultEffectsNeverSurvive() (runs: 128, calls: 4096, reverts: 0)
+
+╭-------------------------+------------------+-------+---------+----------╮
+| Contract                | Selector         | Calls | Reverts | Discards |
++=========================================================================+
+| IntentLockV2DeFiHandler | excessiveDeposit | 4096  | 0       | 0        |
+╰-------------------------+------------------+-------+---------+----------╯
+
+Logs:
+  Bound result 587
+  Bound result 3620
+  Bound result 2882780143
+  Bound result 2955767462
+  Bound result 7443280834
+  Bound result 1535
+  Bound result 1820285307
+  Bound result 3543950334
+  Bound result 7919
+  Bound result 332
+  Bound result 5087
+  Bound result 13436
+  Bound result 211
+  Bound result 4835384080
+  Bound result 3
+  Bound result 6282420050
+  Bound result 639
+  Bound result 13124
+  Bound result 2
+  Bound result 8409793727
+  Bound result 11
+  Bound result 3543950334
+  Bound result 9497
+  Bound result 5293
+  Bound result 7068
+  Bound result 11579
+  Bound result 1981
+  Bound result 3686
+  Bound result 9737
+  Bound result 2239
+  Bound result 4243065542
+  Bound result 1023315201
+  Bound result 2050
+  Bound result 1114
+  Bound result 6793574121
+  Bound result 4762038271
+  Bound result 3898387908
+  Bound result 6602388900
+  Bound result 65536
+  Bound result 5665
+  Bound result 3686728405
+  Bound result 9912763806
+  Bound result 222940499
+  Bound result 1395733402
+  Bound result 4694067875
+  Bound result 105588
+  Bound result 1
+  Bound result 3
+  Bound result 5851418332
+  Bound result 6881470351
+  Bound result 1
+  Bound result 32565654
+  Bound result 9368805782
+  Bound result 2618340658
+  Bound result 1580
+  Bound result 3766
+  Bound result 10
+  Bound result 4786372075
+  Bound result 598318557
+  Bound result 11325
+  Bound result 0
+  Bound result 8800323974
+  Bound result 771
+  Bound result 3253
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 14.09s (23.68s CPU time)
+
+╭--------------------------------------------------------------------+-----------------+--------+--------+--------+---------╮
+| src/CresnexIntentLockAccount.sol:CresnexIntentLockAccount Contract |                 |        |        |        |         |
++===========================================================================================================================+
+| Deployment Cost                                                    | Deployment Size |        |        |        |         |
+|--------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+|                                                            2118931 |           10421 |        |        |        |         |
+|--------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+|                                                                    |                 |        |        |        |         |
+|--------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| Function Name                                                      | Min             | Avg    | Median | Max    | # Calls |
+|--------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| agents                                                             |            5163 |   5163 |   5163 |   5163 |      24 |
+|--------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| executeIntent                                                      |           36309 | 156630 |  46241 | 386154 |   32118 |
+|--------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| executeIsolated                                                    |           23824 |  23824 |  23824 |  23824 |       3 |
+|--------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| hashCalls                                                          |            2548 |   3642 |   2560 |  84258 |   19581 |
+|--------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| hashIntent                                                         |            2356 |   2356 |   2356 |   2356 |   19584 |
+|--------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| pause                                                              |           46938 |  46938 |  46938 |  46938 |       3 |
+|--------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| registerAgent                                                      |           23659 |  46296 |  47211 |  47211 |      78 |
+|--------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| resetAgentStrikes                                                  |           25750 |  25750 |  25750 |  25750 |       3 |
+|--------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| setQuarantineThreshold                                             |           29578 |  29726 |  29578 |  29950 |      15 |
+|--------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| unquarantineAgent                                                  |           23919 |  23922 |  23919 |  30135 |    6033 |
+|--------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| usedNonces                                                         |            2479 |   2479 |   2479 |   2479 |       3 |
+|--------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| violations                                                         |           17715 |  17715 |  17715 |  17715 |   12541 |
+╰--------------------------------------------------------------------+-----------------+--------+--------+--------+---------╯
+
+╭------------------------------------------------------------------------+-----------------+--------+--------+--------+---------╮
+| src/CresnexIntentLockAccountV2.sol:CresnexIntentLockAccountV2 Contract |                 |        |        |        |         |
++===============================================================================================================================+
+| Deployment Cost                                                        | Deployment Size |        |        |        |         |
+|------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+|                                                                6625162 |           31220 |        |        |        |         |
+|------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+|                                                                        |                 |        |        |        |         |
+|------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| Function Name                                                          | Min             | Avg    | Median | Max    | # Calls |
+|------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| MAX_CALLS                                                              |             796 |    796 |    796 |    796 |     257 |
+|------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| agents                                                                 |            3476 |   3476 |   3476 |   3476 |   25913 |
+|------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| cancelNonce                                                            |           47789 |  47789 |  47789 |  47789 |      10 |
+|------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| cancelSubscription                                                     |           24693 |  36355 |  36355 |  48017 |       6 |
+|------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| cancelledSubscriptions                                                 |            2536 |   2536 |   2536 |   2536 |       3 |
+|------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| emergencyRevokeAgent                                                   |           29916 |  29916 |  29916 |  29916 |      10 |
+|------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| executeIntent                                                          |           41443 | 162882 | 215679 | 442891 |   57234 |
+|------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| executeIsolated                                                        |           23789 |  23789 |  23789 |  23789 |      10 |
+|------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| hashCalls                                                              |            3197 |   3614 |   3233 |   7340 |   49174 |
+|------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| hashIntent                                                             |            1962 |   1962 |   1962 |   1962 |   49174 |
+|------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| hashPolicy                                                             |            4167 |   5812 |   5329 |  32148 |   49174 |
+|------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| owner                                                                  |            2791 |   2791 |   2791 |   2791 |   45410 |
+|------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| pause                                                                  |           47149 |  47149 |  47149 |  47149 |      10 |
+|------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| paused                                                                 |            2565 |   2565 |   2565 |   2565 |      10 |
+|------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| phase4Validator                                                        |             399 |    399 |    399 |    399 |    1031 |
+|------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| quarantineThreshold                                                    |            2613 |   2613 |   2613 |   2613 |     243 |
+|------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| registerAgent                                                          |           47074 |  47074 |  47074 |  47074 |     230 |
+|------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| removeAgent                                                            |           30350 |  30350 |  30350 |  30350 |      10 |
+|------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| resetAgentStrikes                                                      |           30727 |  30727 |  30727 |  30727 |      48 |
+|------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| setQuarantineThreshold                                                 |           29752 |  29752 |  29752 |  29752 |      11 |
+|------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| subscriptionPaymentCount                                               |            2948 |   2948 |   2948 |   2948 |    8264 |
+|------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| treasuryEpochSpend                                                     |            2962 |   2962 |   2962 |   2962 |       3 |
+|------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| unquarantineAgent                                                      |           30086 |  30086 |  30086 |  30086 |      48 |
+|------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| usedNonces                                                             |            2668 |   2668 |   2668 |   2668 |    4300 |
+|------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| usedPayrollPayments                                                    |            3156 |   3156 |   3156 |   3156 |       3 |
+|------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| usedTreasuryReferences                                                 |            2580 |   2580 |   2580 |   2580 |       3 |
+╰------------------------------------------------------------------------+-----------------+--------+--------+--------+---------╯
+
+╭------------------------------------------------------------------------+-----------------+-------+--------+--------+---------╮
+| src/CresnexIntentLockAccountV3.sol:CresnexIntentLockAccountV3 Contract |                 |       |        |        |         |
++==============================================================================================================================+
+| Deployment Cost                                                        | Deployment Size |       |        |        |         |
+|------------------------------------------------------------------------+-----------------+-------+--------+--------+---------|
+|                                                                6881383 |           32508 |       |        |        |         |
+|------------------------------------------------------------------------+-----------------+-------+--------+--------+---------|
+|                                                                        |                 |       |        |        |         |
+|------------------------------------------------------------------------+-----------------+-------+--------+--------+---------|
+| Function Name                                                          | Min             | Avg   | Median | Max    | # Calls |
+|------------------------------------------------------------------------+-----------------+-------+--------+--------+---------|
+| agents                                                                 |            3498 |  3498 |   3498 |   3498 |      15 |
+|------------------------------------------------------------------------+-----------------+-------+--------+--------+---------|
+| executeIntent                                                          |           32164 | 72609 |  72249 | 292580 |     536 |
+|------------------------------------------------------------------------+-----------------+-------+--------+--------+---------|
+| executeIsolated                                                        |           25707 | 25707 |  25707 |  25707 |       1 |
+|------------------------------------------------------------------------+-----------------+-------+--------+--------+---------|
+| hashCalls                                                              |            3219 |  3219 |   3219 |   3255 |     794 |
+|------------------------------------------------------------------------+-----------------+-------+--------+--------+---------|
+| hashIntent                                                             |            1984 |  1984 |   1984 |   1984 |     534 |
+|------------------------------------------------------------------------+-----------------+-------+--------+--------+---------|
+| hashPolicy                                                             |            4167 |  4168 |   4167 |   5329 |     794 |
+|------------------------------------------------------------------------+-----------------+-------+--------+--------+---------|
+| pause                                                                  |           47149 | 47149 |  47149 |  47149 |       1 |
+|------------------------------------------------------------------------+-----------------+-------+--------+--------+---------|
+| registerAgent                                                          |           47074 | 47074 |  47074 |  47074 |      23 |
+|------------------------------------------------------------------------+-----------------+-------+--------+--------+---------|
+| unpause                                                                |           24805 | 24805 |  24805 |  24805 |       1 |
+|------------------------------------------------------------------------+-----------------+-------+--------+--------+---------|
+| usedNonces                                                             |            2668 |  2668 |   2668 |   2668 |     529 |
+╰------------------------------------------------------------------------+-----------------+-------+--------+--------+---------╯
+
+╭------------------------------------------------------------------------------+-----------------+-------+--------+-------+---------╮
+| src/baselines/PathAndSpendGuardAccount.sol:PathAndSpendGuardAccount Contract |                 |       |        |       |         |
++===================================================================================================================================+
+| Deployment Cost                                                              | Deployment Size |       |        |       |         |
+|------------------------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+|                                                                       420572 |            1759 |       |        |       |         |
+|------------------------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+|                                                                              |                 |       |        |       |         |
+|------------------------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| Function Name                                                                | Min             | Avg   | Median | Max   | # Calls |
+|------------------------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| authorizationHash                                                            |             949 |   949 |    949 |   949 |     516 |
+|------------------------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| execute                                                                      |           87055 | 87105 |  87091 | 87163 |     516 |
+╰------------------------------------------------------------------------------+-----------------+-------+--------+-------+---------╯
+
+╭----------------------------------------------------------------------+-----------------+-------+--------+-------+---------╮
+| src/baselines/SignatureOnlyAccount.sol:SignatureOnlyAccount Contract |                 |       |        |       |         |
++===========================================================================================================================+
+| Deployment Cost                                                      | Deployment Size |       |        |       |         |
+|----------------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+|                                                               374574 |            1546 |       |        |       |         |
+|----------------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+|                                                                      |                 |       |        |       |         |
+|----------------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| Function Name                                                        | Min             | Avg   | Median | Max   | # Calls |
+|----------------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| authorizationHash                                                    |             702 |   702 |    702 |   702 |     516 |
+|----------------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| execute                                                              |           86361 | 86399 |  86397 | 86457 |     516 |
+╰----------------------------------------------------------------------+-----------------+-------+--------+-------+---------╯
+
+╭--------------------------------------------------------------------------+-----------------+-------+--------+-------+---------╮
+| src/baselines/SpendLimitGuardAccount.sol:SpendLimitGuardAccount Contract |                 |       |        |       |         |
++===============================================================================================================================+
+| Deployment Cost                                                          | Deployment Size |       |        |       |         |
+|--------------------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+|                                                                   381084 |            1576 |       |        |       |         |
+|--------------------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+|                                                                          |                 |       |        |       |         |
+|--------------------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| Function Name                                                            | Min             | Avg   | Median | Max   | # Calls |
+|--------------------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| authorizationHash                                                        |             836 |   836 |    836 |   836 |     517 |
+|--------------------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| transfer                                                                 |           35891 | 85882 |  85965 | 86037 |     517 |
+╰--------------------------------------------------------------------------+-----------------+-------+--------+-------+---------╯
+
+╭------------------------------------------------------------------+-----------------+--------+--------+--------+---------╮
+| src/cre/CREIntentRiskConsumer.sol:CREIntentRiskConsumer Contract |                 |        |        |        |         |
++=========================================================================================================================+
+| Deployment Cost                                                  | Deployment Size |        |        |        |         |
+|------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+|                                                          1067125 |            4897 |        |        |        |         |
+|------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+|                                                                  |                 |        |        |        |         |
+|------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| Function Name                                                    | Min             | Avg    | Median | Max    | # Calls |
+|------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| consumeVerdict                                                   |           25249 |  31047 |  31072 |  40980 |       8 |
+|------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| expectedWorkflowId                                               |            2590 |   2590 |   2590 |   2590 |       1 |
+|------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| expectedWorkflowOwner                                            |            2636 |   2636 |   2636 |   2636 |       1 |
+|------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| onReport                                                         |           26874 | 127282 | 153513 | 173981 |    1087 |
+|------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| setAuthorizedGate                                                |           21642 |  43154 |  45167 |  45167 |      34 |
+|------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| setExpectedWorkflow                                              |           21925 |  65983 |  68098 |  68098 |      86 |
+|------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| verdictKey                                                       |             968 |    968 |    968 |    968 |     530 |
+|------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| verdicts                                                         |           13128 |  13128 |  13128 |  13128 |       7 |
+╰------------------------------------------------------------------+-----------------+--------+--------+--------+---------╯
+
+╭------------------------------------------------------------+-----------------+------+--------+------+---------╮
+| src/mocks/MockAdminProtocol.sol:MockAdminProtocol Contract |                 |      |        |      |         |
++===============================================================================================================+
+| Deployment Cost                                            | Deployment Size |      |        |      |         |
+|------------------------------------------------------------+-----------------+------+--------+------+---------|
+|                                                     252969 |             951 |      |        |      |         |
+|------------------------------------------------------------+-----------------+------+--------+------+---------|
+|                                                            |                 |      |        |      |         |
+|------------------------------------------------------------+-----------------+------+--------+------+---------|
+| Function Name                                              | Min             | Avg  | Median | Max  | # Calls |
+|------------------------------------------------------------+-----------------+------+--------+------+---------|
+| approvedAddress                                            |            2316 | 2316 |   2316 | 2316 |       1 |
+|------------------------------------------------------------+-----------------+------+--------+------+---------|
+| dangerousCallCount                                         |            2468 | 2468 |   2468 | 2468 |    4233 |
+|------------------------------------------------------------+-----------------+------+--------+------+---------|
+| parameter                                                  |            2401 | 2401 |   2401 | 2401 |    8142 |
+|------------------------------------------------------------+-----------------+------+--------+------+---------|
+| paused                                                     |            2354 | 2354 |   2354 | 2354 |       1 |
+|------------------------------------------------------------+-----------------+------+--------+------+---------|
+| roles                                                      |            2738 | 2738 |   2738 | 2738 |       1 |
+╰------------------------------------------------------------+-----------------+------+--------+------+---------╯
+
+╭------------------------------------------------+-----------------+------+--------+------+---------╮
+| src/mocks/MockERC1155.sol:MockERC1155 Contract |                 |      |        |      |         |
++===================================================================================================+
+| Deployment Cost                                | Deployment Size |      |        |      |         |
+|------------------------------------------------+-----------------+------+--------+------+---------|
+|                                         928510 |            4182 |      |        |      |         |
+|------------------------------------------------+-----------------+------+--------+------+---------|
+|                                                |                 |      |        |      |         |
+|------------------------------------------------+-----------------+------+--------+------+---------|
+| Function Name                                  | Min             | Avg  | Median | Max  | # Calls |
+|------------------------------------------------+-----------------+------+--------+------+---------|
+| balanceOf                                      |             479 | 1479 |   1479 | 2479 |     518 |
+╰------------------------------------------------+-----------------+------+--------+------+---------╯
+
+╭--------------------------------------------+-----------------+-------+--------+-------+---------╮
+| src/mocks/MockERC20.sol:MockERC20 Contract |                 |       |        |       |         |
++=================================================================================================+
+| Deployment Cost                            | Deployment Size |       |        |       |         |
+|--------------------------------------------+-----------------+-------+--------+-------+---------|
+|                                     488630 |            2894 |       |        |       |         |
+|--------------------------------------------+-----------------+-------+--------+-------+---------|
+|                                            |                 |       |        |       |         |
+|--------------------------------------------+-----------------+-------+--------+-------+---------|
+| Function Name                              | Min             | Avg   | Median | Max   | # Calls |
+|--------------------------------------------+-----------------+-------+--------+-------+---------|
+| allowance                                  |             768 |  2374 |   2768 |  2768 |   57317 |
+|--------------------------------------------+-----------------+-------+--------+-------+---------|
+| approve                                    |           45921 | 45921 |  45921 | 45921 |      17 |
+|--------------------------------------------+-----------------+-------+--------+-------+---------|
+| balanceOf                                  |             537 |  2089 |   2537 |  2537 |  194465 |
+|--------------------------------------------+-----------------+-------+--------+-------+---------|
+| mint                                       |           50961 | 64663 |  68073 | 68217 |     370 |
+╰--------------------------------------------+-----------------+-------+--------+-------+---------╯
+
+╭----------------------------------------------------------+-----------------+-------+--------+-------+---------╮
+| src/mocks/MockERC4626Vault.sol:MockERC4626Vault Contract |                 |       |        |       |         |
++===============================================================================================================+
+| Deployment Cost                                          | Deployment Size |       |        |       |         |
+|----------------------------------------------------------+-----------------+-------+--------+-------+---------|
+|                                                   687331 |            3826 |       |        |       |         |
+|----------------------------------------------------------+-----------------+-------+--------+-------+---------|
+|                                                          |                 |       |        |       |         |
+|----------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| Function Name                                            | Min             | Avg   | Median | Max   | # Calls |
+|----------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| balanceOf                                                |             559 |  2306 |   2559 |  2559 |    9991 |
+|----------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| behavior                                                 |            2463 |  2463 |   2463 |  2463 |       3 |
+|----------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| deposit                                                  |           98807 | 98807 |  98807 | 98807 |      17 |
+|----------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| setBehavior                                              |           21827 | 32592 |  26639 | 43739 |      21 |
+╰----------------------------------------------------------+-----------------+-------+--------+-------+---------╯
+
+╭----------------------------------------------+-----------------+------+--------+------+---------╮
+| src/mocks/MockERC721.sol:MockERC721 Contract |                 |      |        |      |         |
++=================================================================================================+
+| Deployment Cost                              | Deployment Size |      |        |      |         |
+|----------------------------------------------+-----------------+------+--------+------+---------|
+|                                       820648 |            4070 |      |        |      |         |
+|----------------------------------------------+-----------------+------+--------+------+---------|
+|                                              |                 |      |        |      |         |
+|----------------------------------------------+-----------------+------+--------+------+---------|
+| Function Name                                | Min             | Avg  | Median | Max  | # Calls |
+|----------------------------------------------+-----------------+------+--------+------+---------|
+| ownerOf                                      |             577 | 2439 |   2547 | 2577 |    4733 |
+╰----------------------------------------------+-----------------+------+--------+------+---------╯
+
+╭--------------------------------------------------------------+-----------------+-------+--------+-------+---------╮
+| src/mocks/MockNftMarketplace.sol:MockNftMarketplace Contract |                 |       |        |       |         |
++===================================================================================================================+
+| Deployment Cost                                              | Deployment Size |       |        |       |         |
+|--------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+|                                                       361418 |            1369 |       |        |       |         |
+|--------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+|                                                              |                 |       |        |       |         |
+|--------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| Function Name                                                | Min             | Avg   | Median | Max   | # Calls |
+|--------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| setBehavior                                                  |           23658 | 23918 |  23658 | 26458 |    4214 |
+╰--------------------------------------------------------------+-----------------+-------+--------+-------+---------╯
+
+╭--------------------------------------------------------------------------+-----------------+---------+---------+---------+---------╮
+| src/mocks/MockReentrantNftReceiver.sol:MockReentrantNftReceiver Contract |                 |         |         |         |         |
++====================================================================================================================================+
+| Deployment Cost                                                          | Deployment Size |         |         |         |         |
+|--------------------------------------------------------------------------+-----------------+---------+---------+---------+---------|
+|                                                                   461445 |            2048 |         |         |         |         |
+|--------------------------------------------------------------------------+-----------------+---------+---------+---------+---------|
+|                                                                          |                 |         |         |         |         |
+|--------------------------------------------------------------------------+-----------------+---------+---------+---------+---------|
+| Function Name                                                            | Min             | Avg     | Median  | Max     | # Calls |
+|--------------------------------------------------------------------------+-----------------+---------+---------+---------+---------|
+| attempted                                                                |            2356 |    2356 |    2356 |    2356 |       2 |
+|--------------------------------------------------------------------------+-----------------+---------+---------+---------+---------|
+| reentrySucceeded                                                         |            2318 |    2318 |    2318 |    2318 |       2 |
+|--------------------------------------------------------------------------+-----------------+---------+---------+---------+---------|
+| setPayload                                                               |         1396316 | 1407465 | 1407465 | 1418615 |       2 |
+╰--------------------------------------------------------------------------+-----------------+---------+---------+---------+---------╯
+
+╭------------------------------------------------------------------+-----------------+-------+--------+-------+---------╮
+| src/mocks/MockVaultPriceOracle.sol:MockVaultPriceOracle Contract |                 |       |        |       |         |
++=======================================================================================================================+
+| Deployment Cost                                                  | Deployment Size |       |        |       |         |
+|------------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+|                                                           103381 |             256 |       |        |       |         |
+|------------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+|                                                                  |                 |       |        |       |         |
+|------------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| Function Name                                                    | Min             | Avg   | Median | Max   | # Calls |
+|------------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| price                                                            |            2419 |  2419 |   2419 |  2419 |      14 |
+|------------------------------------------------------------------+-----------------+-------+--------+-------+---------|
+| setPrice                                                         |           26892 | 43275 |  43992 | 44004 |     142 |
+╰------------------------------------------------------------------+-----------------+-------+--------+-------+---------╯
+
+╭-----------------------------------------------------------------------+-----------------+------+--------+-------+---------╮
+| src/policies/Phase4PolicyValidator.sol:Phase4PolicyValidator Contract |                 |      |        |       |         |
++===========================================================================================================================+
+| Deployment Cost                                                       | Deployment Size |      |        |       |         |
+|-----------------------------------------------------------------------+-----------------+------+--------+-------+---------|
+|                                                                     0 |           14438 |      |        |       |         |
+|-----------------------------------------------------------------------+-----------------+------+--------+-------+---------|
+|                                                                       |                 |      |        |       |         |
+|-----------------------------------------------------------------------+-----------------+------+--------+-------+---------|
+| Function Name                                                         | Min             | Avg  | Median | Max   | # Calls |
+|-----------------------------------------------------------------------+-----------------+------+--------+-------+---------|
+| validateCalls                                                         |             572 | 3749 |   3279 | 14515 |   36679 |
+|-----------------------------------------------------------------------+-----------------+------+--------+-------+---------|
+| validateOutcome                                                       |            2270 | 6382 |   6863 | 18119 |    4738 |
+|-----------------------------------------------------------------------+-----------------+------+--------+-------+---------|
+| validateShape                                                         |             561 | 5031 |   4278 | 23102 |   41480 |
+╰-----------------------------------------------------------------------+-----------------+------+--------+-------+---------╯
+
+╭--------------------------------------------------------------------------+-----------------+--------+--------+--------+---------╮
+| test/invariant/IntentLockInvariant.t.sol:UnsafeExecutionHandler Contract |                 |        |        |        |         |
++=================================================================================================================================+
+| Deployment Cost                                                          | Deployment Size |        |        |        |         |
+|--------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+|                                                                  2620169 |           12365 |        |        |        |         |
+|--------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+|                                                                          |                 |        |        |        |         |
+|--------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| Function Name                                                            | Min             | Avg    | Median | Max    | # Calls |
+|--------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| allowanceCapBroken                                                       |            2854 |   2854 |   2854 |   2854 |       1 |
+|--------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| attemptQuarantinedExecution                                              |           63197 |  63243 |  63233 |  63293 |    6204 |
+|--------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| balanceRollbackBroken                                                    |            2265 |   2265 |   2265 |   2265 |       1 |
+|--------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| evidenceMissing                                                          |            2480 |   2480 |   2480 |   2480 |       1 |
+|--------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| lastEvidence                                                             |            2726 |   2726 |   2726 |   2726 |       2 |
+|--------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| quarantinedExecutionSucceeded                                            |            2898 |   2898 |   2898 |   2898 |       1 |
+|--------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| replaySucceeded                                                          |            2766 |   2766 |   2766 |   2766 |       1 |
+|--------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| unauthorizedRecovery                                                     |           30122 |  30122 |  30122 |  30122 |    6030 |
+|--------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| unsafeAllowance                                                          |          431394 | 434556 | 431514 | 483006 |    6114 |
+|--------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| unsafeSwap                                                               |          482002 | 525038 | 522423 | 574669 |    6420 |
+|--------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| violationCount                                                           |            2506 |   2506 |   2506 |   2506 |       1 |
+╰--------------------------------------------------------------------------+-----------------+--------+--------+--------+---------╯
+
+╭---------------------------------------------------------------------------------+-----------------+--------+--------+--------+---------╮
+| test/invariant/IntentLockV2DeFiInvariant.t.sol:IntentLockV2DeFiHandler Contract |                 |        |        |        |         |
++========================================================================================================================================+
+| Deployment Cost                                                                 | Deployment Size |        |        |        |         |
+|---------------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+|                                                                         1905049 |            8715 |        |        |        |         |
+|---------------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+|                                                                                 |                 |        |        |        |         |
+|---------------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| Function Name                                                                   | Min             | Avg    | Median | Max    | # Calls |
+|---------------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| evidenceMissing                                                                 |            2406 |   2406 |   2406 |   2406 |       1 |
+|---------------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| excessiveDeposit                                                                |          316289 | 317426 | 316979 | 334601 |    8256 |
+|---------------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| rollbackBroken                                                                  |            2488 |   2488 |   2488 |   2488 |       1 |
+|---------------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| violationCount                                                                  |            2410 |   2410 |   2410 |   2410 |       1 |
+╰---------------------------------------------------------------------------------+-----------------+--------+--------+--------+---------╯
+
+╭-------------------------------------------------------------------------+-----------------+--------+--------+--------+---------╮
+| test/invariant/IntentLockV2Invariant.t.sol:IntentLockV2Handler Contract |                 |        |        |        |         |
++================================================================================================================================+
+| Deployment Cost                                                         | Deployment Size |        |        |        |         |
+|-------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+|                                                                 2180839 |           10050 |        |        |        |         |
+|-------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+|                                                                         |                 |        |        |        |         |
+|-------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| Function Name                                                           | Min             | Avg    | Median | Max    | # Calls |
+|-------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| authenticatedViolations                                                 |            2765 |   2765 |   2765 |   2765 |       1 |
+|-------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| authenticationAddedStrike                                               |            2565 |   2565 |   2565 |   2565 |       1 |
+|-------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| evidenceMissing                                                         |            2367 |   2367 |   2367 |   2367 |       1 |
+|-------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| invalidChain                                                            |           95707 |  95753 |  95743 |  95803 |    8452 |
+|-------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| overspend                                                               |          336025 | 337738 | 336703 | 354457 |    8060 |
+|-------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| replaySucceeded                                                         |            2634 |   2634 |   2634 |   2634 |       1 |
+|-------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| rollbackBroken                                                          |            2449 |   2449 |   2449 |   2449 |       1 |
+╰-------------------------------------------------------------------------+-----------------+--------+--------+--------+---------╯
+
+╭-----------------------------------------------------------------------------------------+-----------------+--------+--------+--------+---------╮
+| test/invariant/IntentLockV2PaymentsInvariant.t.sol:IntentLockV2PaymentsHandler Contract |                 |        |        |        |         |
++================================================================================================================================================+
+| Deployment Cost                                                                         | Deployment Size |        |        |        |         |
+|-----------------------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+|                                                                                 1759199 |            8043 |        |        |        |         |
+|-----------------------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+|                                                                                         |                 |        |        |        |         |
+|-----------------------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| Function Name                                                                           | Min             | Avg    | Median | Max    | # Calls |
+|-----------------------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| SUBSCRIPTION_ID                                                                         |             153 |    153 |    153 |    153 |       2 |
+|-----------------------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| charge                                                                                  |          254051 | 287366 | 288324 | 288578 |    8256 |
+|-----------------------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| countMismatch                                                                           |            2345 |   2345 |   2345 |   2345 |       1 |
+|-----------------------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| doubleChargeSucceeded                                                                   |            2295 |   2295 |   2295 |   2295 |       1 |
+╰-----------------------------------------------------------------------------------------+-----------------+--------+--------+--------+---------╯
+
+╭-------------------------------------------------------------------------------------+-----------------+--------+--------+--------+---------╮
+| test/invariant/IntentLockV2Phase4Invariant.t.sol:IntentLockV2Phase4Handler Contract |                 |        |        |        |         |
++============================================================================================================================================+
+| Deployment Cost                                                                     | Deployment Size |        |        |        |         |
+|-------------------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+|                                                                             2483074 |           11591 |        |        |        |         |
+|-------------------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+|                                                                                     |                 |        |        |        |         |
+|-------------------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| Function Name                                                                       | Min             | Avg    | Median | Max    | # Calls |
+|-------------------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| administrationAboveBound                                                            |          275261 | 276132 | 275393 | 292919 |    3942 |
+|-------------------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| authenticatedViolations                                                             |            2809 |   2809 |   2809 |   2809 |       1 |
+|-------------------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| authenticationChangedState                                                          |            2744 |   2744 |   2744 |   2744 |       1 |
+|-------------------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| dangerousAdministrationSelector                                                     |          117814 | 118202 | 118282 | 118294 |    4233 |
+|-------------------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| evidenceMissing                                                                     |            2389 |   2389 |   2389 |   2389 |       1 |
+|-------------------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| paymentWithoutNft                                                                   |          425246 | 426851 | 425840 | 446124 |    4209 |
+|-------------------------------------------------------------------------------------+-----------------+--------+--------+--------+---------|
+| unsafeEffectSurvived                                                                |            2584 |   2584 |   2584 |   2584 |       1 |
+╰-------------------------------------------------------------------------------------+-----------------+--------+--------+--------+---------╯
+
+
+Ran 21 test suites in 18.94s (88.09s CPU time): 378 tests passed, 0 failed, 0 skipped (378 total tests)

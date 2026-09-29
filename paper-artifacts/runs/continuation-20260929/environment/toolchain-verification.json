@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "mismatches": [],
+  "lock": {
+    "tools": {
+      "forge": "forge Version: 1.7.1",
+      "cast": "cast Version: 1.7.1",
+      "anvil": "anvil Version: 1.7.1",
+      "node": "v22.22.2",
+      "npm": "10.9.7"
+    },
+    "foundry_commit": "4072e48705af9d93e3c0f6e29e93b5e9a40caed8",
+    "dependencies": {
+      "openzeppelin-contracts": "e4f70216d759d8e6a64144a9e1f7bbeed78e7079",
+      "forge-std": "77041d2ce690e692d6e03cc812b57d1ddaa4d505"
+    },
+    "web_package_lock_sha256": "11dc5ee25db2c290686ea761bf8d3d446d7c84426a32b7b687fe5a127a41219f",
+    "solc_metadata_version": "0.8.26+commit.8a97fa7a",
+    "provenance": "Captured paper-artifacts/environment/versions.txt and dependencies.json; solc from actual V2 build metadata. Python uses standard library; Bun is not used by this collector."
+  }
+}

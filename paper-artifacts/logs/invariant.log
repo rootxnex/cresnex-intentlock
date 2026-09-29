@@ -1,0 +1,211 @@
+No files changed, compilation skipped
+
+Ran 4 tests for test/invariant/IntentLockV2Invariant.t.sol:IntentLockV2InvariantTest
+[PASS] invariant_ConsumedNonceCannotReplay() (runs: 128, calls: 4096, reverts: 0)
+
+╭---------------------+--------------+-------+---------+----------╮
+| Contract            | Selector     | Calls | Reverts | Discards |
++=================================================================+
+| IntentLockV2Handler | invalidChain | 2045  | 0       | 0        |
+|---------------------+--------------+-------+---------+----------|
+| IntentLockV2Handler | overspend    | 2051  | 0       | 0        |
+╰---------------------+--------------+-------+---------+----------╯
+
+[PASS] invariant_InvalidAuthenticationNeverStrikes() (runs: 128, calls: 4096, reverts: 0)
+
+╭---------------------+--------------+-------+---------+----------╮
+| Contract            | Selector     | Calls | Reverts | Discards |
++=================================================================+
+| IntentLockV2Handler | invalidChain | 2045  | 0       | 0        |
+|---------------------+--------------+-------+---------+----------|
+| IntentLockV2Handler | overspend    | 2051  | 0       | 0        |
+╰---------------------+--------------+-------+---------+----------╯
+
+[PASS] invariant_UnsafeInnerEffectsNeverSurvive() (runs: 128, calls: 4096, reverts: 0)
+
+╭---------------------+--------------+-------+---------+----------╮
+| Contract            | Selector     | Calls | Reverts | Discards |
++=================================================================+
+| IntentLockV2Handler | invalidChain | 2045  | 0       | 0        |
+|---------------------+--------------+-------+---------+----------|
+| IntentLockV2Handler | overspend    | 2051  | 0       | 0        |
+╰---------------------+--------------+-------+---------+----------╯
+
+[PASS] invariant_ViolationsStrikeExactlyOnceAndPersistEvidence() (runs: 128, calls: 4096, reverts: 0)
+
+╭---------------------+--------------+-------+---------+----------╮
+| Contract            | Selector     | Calls | Reverts | Discards |
++=================================================================+
+| IntentLockV2Handler | invalidChain | 2045  | 0       | 0        |
+|---------------------+--------------+-------+---------+----------|
+| IntentLockV2Handler | overspend    | 2051  | 0       | 0        |
+╰---------------------+--------------+-------+---------+----------╯
+
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 4.93s (18.86s CPU time)
+
+Ran 2 tests for test/invariant/IntentLockV2PaymentsInvariant.t.sol:IntentLockV2PaymentsInvariantTest
+[PASS] invariant_OnlyOneChargePerSubscriptionPeriod() (runs: 128, calls: 4096, reverts: 0)
+
+╭-----------------------------+----------+-------+---------+----------╮
+| Contract                    | Selector | Calls | Reverts | Discards |
++=====================================================================+
+| IntentLockV2PaymentsHandler | charge   | 4096  | 0       | 0        |
+╰-----------------------------+----------+-------+---------+----------╯
+
+[PASS] invariant_SubscriptionCountMatchesCommittedPayment() (runs: 128, calls: 4096, reverts: 0)
+
+╭-----------------------------+----------+-------+---------+----------╮
+| Contract                    | Selector | Calls | Reverts | Discards |
++=====================================================================+
+| IntentLockV2PaymentsHandler | charge   | 4096  | 0       | 0        |
+╰-----------------------------+----------+-------+---------+----------╯
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 5.70s (11.30s CPU time)
+
+Ran 3 tests for test/invariant/IntentLockV2Phase4Invariant.t.sol:IntentLockV2Phase4InvariantTest
+[PASS] invariant_DangerousOrStructuralFailuresDoNotChangeAccountState() (runs: 128, calls: 4096, reverts: 0)
+
+╭---------------------------+---------------------------------+-------+---------+----------╮
+| Contract                  | Selector                        | Calls | Reverts | Discards |
++==========================================================================================+
+| IntentLockV2Phase4Handler | administrationAboveBound        | 1415  | 0       | 0        |
+|---------------------------+---------------------------------+-------+---------+----------|
+| IntentLockV2Phase4Handler | dangerousAdministrationSelector | 1361  | 0       | 0        |
+|---------------------------+---------------------------------+-------+---------+----------|
+| IntentLockV2Phase4Handler | paymentWithoutNft               | 1320  | 0       | 0        |
+╰---------------------------+---------------------------------+-------+---------+----------╯
+
+[PASS] invariant_NftAndAdministrationEffectsRemainBounded() (runs: 128, calls: 4096, reverts: 0)
+
+╭---------------------------+---------------------------------+-------+---------+----------╮
+| Contract                  | Selector                        | Calls | Reverts | Discards |
++==========================================================================================+
+| IntentLockV2Phase4Handler | administrationAboveBound        | 1415  | 0       | 0        |
+|---------------------------+---------------------------------+-------+---------+----------|
+| IntentLockV2Phase4Handler | dangerousAdministrationSelector | 1361  | 0       | 0        |
+|---------------------------+---------------------------------+-------+---------+----------|
+| IntentLockV2Phase4Handler | paymentWithoutNft               | 1320  | 0       | 0        |
+╰---------------------------+---------------------------------+-------+---------+----------╯
+
+[PASS] invariant_Phase4ViolationsStrikeOnceAndPersistEvidence() (runs: 128, calls: 4096, reverts: 0)
+
+╭---------------------------+---------------------------------+-------+---------+----------╮
+| Contract                  | Selector                        | Calls | Reverts | Discards |
++==========================================================================================+
+| IntentLockV2Phase4Handler | administrationAboveBound        | 1415  | 0       | 0        |
+|---------------------------+---------------------------------+-------+---------+----------|
+| IntentLockV2Phase4Handler | dangerousAdministrationSelector | 1361  | 0       | 0        |
+|---------------------------+---------------------------------+-------+---------+----------|
+| IntentLockV2Phase4Handler | paymentWithoutNft               | 1320  | 0       | 0        |
+╰---------------------------+---------------------------------+-------+---------+----------╯
+
+Suite result: ok. 3 passed; 0 failed; 0 skipped; finished in 5.81s (16.77s CPU time)
+
+Ran 2 tests for test/invariant/IntentLockV2DeFiInvariant.t.sol:IntentLockV2DeFiInvariantTest
+[PASS] invariant_DeFiEvidenceAndStrikesPersist() (runs: 128, calls: 4096, reverts: 0)
+
+╭-------------------------+------------------+-------+---------+----------╮
+| Contract                | Selector         | Calls | Reverts | Discards |
++=========================================================================+
+| IntentLockV2DeFiHandler | excessiveDeposit | 4096  | 0       | 0        |
+╰-------------------------+------------------+-------+---------+----------╯
+
+[PASS] invariant_UnsafeVaultEffectsNeverSurvive() (runs: 128, calls: 4096, reverts: 0)
+
+╭-------------------------+------------------+-------+---------+----------╮
+| Contract                | Selector         | Calls | Reverts | Discards |
++=========================================================================+
+| IntentLockV2DeFiHandler | excessiveDeposit | 4096  | 0       | 0        |
+╰-------------------------+------------------+-------+---------+----------╯
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 5.92s (11.50s CPU time)
+
+Ran 6 tests for test/invariant/IntentLockInvariant.t.sol:IntentLockInvariantTest
+[PASS] invariant_ConsumedNonceCannotExecuteAgain() (runs: 128, calls: 4096, reverts: 0)
+
+╭------------------------+-----------------------------+-------+---------+----------╮
+| Contract               | Selector                    | Calls | Reverts | Discards |
++===================================================================================+
+| UnsafeExecutionHandler | attemptQuarantinedExecution | 1042  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unauthorizedRecovery        | 1024  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeAllowance             | 978   | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeSwap                  | 1052  | 0       | 0        |
+╰------------------------+-----------------------------+-------+---------+----------╯
+
+[PASS] invariant_OnlyOwnerCanClearQuarantine() (runs: 128, calls: 4096, reverts: 0)
+
+╭------------------------+-----------------------------+-------+---------+----------╮
+| Contract               | Selector                    | Calls | Reverts | Discards |
++===================================================================================+
+| UnsafeExecutionHandler | attemptQuarantinedExecution | 1042  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unauthorizedRecovery        | 1024  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeAllowance             | 978   | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeSwap                  | 1052  | 0       | 0        |
+╰------------------------+-----------------------------+-------+---------+----------╯
+
+[PASS] invariant_QuarantinedAgentCannotExecute() (runs: 128, calls: 4096, reverts: 0)
+
+╭------------------------+-----------------------------+-------+---------+----------╮
+| Contract               | Selector                    | Calls | Reverts | Discards |
++===================================================================================+
+| UnsafeExecutionHandler | attemptQuarantinedExecution | 1042  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unauthorizedRecovery        | 1024  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeAllowance             | 978   | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeSwap                  | 1052  | 0       | 0        |
+╰------------------------+-----------------------------+-------+---------+----------╯
+
+[PASS] invariant_UnsafeExecutionCannotLeaveExcessiveAllowance() (runs: 128, calls: 4096, reverts: 0)
+
+╭------------------------+-----------------------------+-------+---------+----------╮
+| Contract               | Selector                    | Calls | Reverts | Discards |
++===================================================================================+
+| UnsafeExecutionHandler | attemptQuarantinedExecution | 1042  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unauthorizedRecovery        | 1024  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeAllowance             | 978   | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeSwap                  | 1052  | 0       | 0        |
+╰------------------------+-----------------------------+-------+---------+----------╯
+
+[PASS] invariant_UnsafeExecutionCannotReduceProtectedBalance() (runs: 128, calls: 4096, reverts: 0)
+
+╭------------------------+-----------------------------+-------+---------+----------╮
+| Contract               | Selector                    | Calls | Reverts | Discards |
++===================================================================================+
+| UnsafeExecutionHandler | attemptQuarantinedExecution | 1042  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unauthorizedRecovery        | 1024  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeAllowance             | 978   | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeSwap                  | 1052  | 0       | 0        |
+╰------------------------+-----------------------------+-------+---------+----------╯
+
+[PASS] invariant_ViolationEvidencePersistsAfterRollback() (runs: 128, calls: 4096, reverts: 0)
+
+╭------------------------+-----------------------------+-------+---------+----------╮
+| Contract               | Selector                    | Calls | Reverts | Discards |
++===================================================================================+
+| UnsafeExecutionHandler | attemptQuarantinedExecution | 1042  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unauthorizedRecovery        | 1024  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeAllowance             | 978   | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeSwap                  | 1052  | 0       | 0        |
+╰------------------------+-----------------------------+-------+---------+----------╯
+
+Suite result: ok. 6 passed; 0 failed; 0 skipped; finished in 6.30s (22.77s CPU time)
+
+Ran 5 test suites in 6.30s (28.66s CPU time): 17 tests passed, 0 failed, 0 skipped (17 total tests)
+2026-09-28T13:20:36.847648Z  WARN evm::traces: failed to flush signature cache err=failed to create file "/home/rootx/.foundry/cache/signatures": Read-only file system (os error 30)

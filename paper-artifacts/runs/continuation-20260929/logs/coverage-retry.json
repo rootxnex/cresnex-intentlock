@@ -1,0 +1,9 @@
+{
+  "command": [
+    "forge",
+    "coverage",
+    "--ir-minimum"
+  ],
+  "exit_code": 1,
+  "note": "Separate coverage workaround; never changes production settings or hides original failure."
+}

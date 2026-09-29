@@ -1,0 +1,11 @@
+{
+  "endpoint": "https://sepolia.base.org",
+  "error": "HTTP Error 403: Forbidden",
+  "request": {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "method": "eth_chainId",
+    "params": []
+  },
+  "timestamp": "2026-09-29T03:40:57.584427+00:00"
+}

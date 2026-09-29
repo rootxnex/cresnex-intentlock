@@ -1,0 +1,58 @@
+{
+  "forge": {
+    "command": [
+      "forge",
+      "--version"
+    ],
+    "exit_code": 0,
+    "output": "forge Version: 1.7.1\nCommit SHA: 4072e48705af9d93e3c0f6e29e93b5e9a40caed8\nBuild Timestamp: 2026-05-08T07:50:55.527285345Z (1778226655)\nBuild Profile: dist\n"
+  },
+  "cast": {
+    "command": [
+      "cast",
+      "--version"
+    ],
+    "exit_code": 0,
+    "output": "cast Version: 1.7.1\nCommit SHA: 4072e48705af9d93e3c0f6e29e93b5e9a40caed8\nBuild Timestamp: 2026-05-08T07:50:55.527285345Z (1778226655)\nBuild Profile: dist\n"
+  },
+  "anvil": {
+    "command": [
+      "anvil",
+      "--version"
+    ],
+    "exit_code": 0,
+    "output": "anvil Version: 1.7.1\nCommit SHA: 4072e48705af9d93e3c0f6e29e93b5e9a40caed8\nBuild Timestamp: 2026-05-08T07:50:55.527285345Z (1778226655)\nBuild Profile: dist\n"
+  },
+  "node": {
+    "command": [
+      "node",
+      "--version"
+    ],
+    "exit_code": 0,
+    "output": "v22.22.2\n"
+  },
+  "npm": {
+    "command": [
+      "npm",
+      "--version"
+    ],
+    "exit_code": 0,
+    "output": "10.9.7\n"
+  },
+  "bun": {
+    "command": [
+      "bun",
+      "--version"
+    ],
+    "exit_code": 0,
+    "output": "1.4.2\n"
+  },
+  "solc": {
+    "command": [
+      "solc",
+      "--version"
+    ],
+    "exit_code": 127,
+    "output": "[Errno 2] No such file or directory: 'solc'"
+  }
+}

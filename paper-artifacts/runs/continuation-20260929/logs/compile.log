@@ -1,0 +1,154 @@
+No files changed, compilation skipped
+2026-09-29T03:40:18.293391Z  WARN evm::traces: failed to flush signature cache err=failed to create file "/home/rootx/.foundry/cache/signatures": Read-only file system (os error 30)
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+   ╭▸ src/baselines/SignatureOnlyAccount.sol:38:41
+   │
+38 │             msg.sender == address(0) || block.timestamp > validUntil || usedNonces[nonce]
+   │                                         ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+    ╭▸ src/cre/CREIntentRiskConsumer.sol:177:13
+    │
+177 │         if (block.timestamp > stored.validUntil) revert VerdictExpired(key);
+    │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+    ╭▸ src/cre/CREIntentRiskConsumer.sol:199:60
+    │
+199 │         return stored.received && stored.evidenceUsable && block.timestamp <= stored.validUntil;
+    │                                                            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+    ╭▸ src/CresnexIntentLockAccount.sol:235:13
+    │
+235 │         if (block.timestamp < m.validAfter) revert IntentNotYetValid();
+    │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+    ╭▸ src/CresnexIntentLockAccount.sol:236:13
+    │
+236 │         if (block.timestamp > m.validUntil) revert IntentExpired();
+    │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+   ╭▸ src/baselines/SpendLimitGuardAccount.sol:43:13
+   │
+43 │             block.timestamp > validUntil || usedNonces[nonce]
+   │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+    ╭▸ src/cre/CREIntentRiskConsumer.sol:274:13
+    │
+274 │         if (block.timestamp < verdict.issuedAt) revert FutureVerdict(verdict.issuedAt);
+    │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+    ╭▸ src/cre/CREIntentRiskConsumer.sol:275:13
+    │
+275 │         if (block.timestamp > verdict.validUntil) revert ExpiredVerdict(verdict.validUntil);
+    │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+    ╭▸ src/policies/Phase4PolicyValidator.sol:688:13
+    │
+688 │         if (block.timestamp < validAfter) {
+    │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+   ╭▸ test/fuzz/IntentLockV2PaymentsFuzz.t.sol:28:22
+   │
+28 │         assertEq(ok, block.timestamp >= earliest && block.timestamp <= latest);
+   │                      ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+   ╭▸ test/fuzz/IntentLockV2PaymentsFuzz.t.sol:28:53
+   │
+28 │         assertEq(ok, block.timestamp >= earliest && block.timestamp <= latest);
+   │                                                     ━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+    ╭▸ test/unit/IntentLockV2Phase4.t.sol:341:13
+    │
+341 │         if (validAfter > block.timestamp) vm.expectRevert();
+    │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+    ╭▸ src/CresnexIntentLockAccountV2.sol:335:13
+    │
+335 │         if (block.timestamp < m.validAfter) revert IntentNotYetValid();
+    │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+    ╭▸ src/CresnexIntentLockAccountV2.sol:336:13
+    │
+336 │         if (block.timestamp > m.validUntil) revert IntentExpired();
+    │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+   ╭▸ src/baselines/PathAndSpendGuardAccount.sol:46:13
+   │
+46 │             block.timestamp > validUntil || usedNonces[nonce]
+   │             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   │
+   ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+    ╭▸ src/CresnexIntentLockAccountV2.sol:626:13
+    │
+626 │             block.timestamp < earliest || block.timestamp > latest || usedPayrollPayments[paymentId]
+    │             ━━━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+    ╭▸ src/CresnexIntentLockAccountV2.sol:626:43
+    │
+626 │             block.timestamp < earliest || block.timestamp > latest || usedPayrollPayments[paymentId]
+    │                                           ━━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+    ╭▸ src/CresnexIntentLockAccountV2.sol:654:55
+    │
+654 │             cancelledSubscriptions[subscriptionId] || block.timestamp < start || block.timestamp > end
+    │                                                       ━━━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+
+warning[block-timestamp]: usage of `block.timestamp` in a comparison may be manipulated by validators
+    ╭▸ src/CresnexIntentLockAccountV2.sol:654:82
+    │
+654 │             cancelledSubscriptions[subscriptionId] || block.timestamp < start || block.timestamp > end
+    │                                                                                  ━━━━━━━━━━━━━━━━━━━━━
+    │
+    ╰ help: https://book.getfoundry.sh/reference/forge/forge-lint#block-timestamp
+

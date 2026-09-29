@@ -1,0 +1,8 @@
+parameter,value,provenance
+source_commit,361743f6d7d595caa4cf20ecc1c4d916856a353f,git rev-parse HEAD
+solidity,0.8.26+commit.8a97fa7a,contracts/out/CresnexIntentLockAccountV2.sol/CresnexIntentLockAccountV2.json
+benchmark_execution_count,0,No benchmark dataset produced
+measurement_status,MISSING,Coverage gate and final experiment protocol unresolved
+optimizer,"{""enabled"": true, ""runs"": 200}",contracts/out/CresnexIntentLockAccountV2.sol/CresnexIntentLockAccountV2.json
+viaIR,true,contracts/out/CresnexIntentLockAccountV2.sol/CresnexIntentLockAccountV2.json
+evmVersion,"""cancun""",contracts/out/CresnexIntentLockAccountV2.sol/CresnexIntentLockAccountV2.json

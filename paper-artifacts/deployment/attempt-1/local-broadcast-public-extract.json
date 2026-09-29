@@ -1,0 +1,262 @@
+[
+  {
+    "chain": 84532,
+    "creation_mapping_mismatches": [
+      {
+        "hash": "0xb6f649f528206152b2604606ccf8fde67bced5ba1d23da5e37f7b427356548d8",
+        "receipt_address": "0xf6f454f3c28559d4e06b5106ef1fd32921a834e0",
+        "transaction_address": "0x4423d32fe243d06d7f025ef4855bc24185704168"
+      },
+      {
+        "hash": "0xf9dbe4f917cee02a40a8aca313ae99cd36c382ab52c7354f7f0f6c304fd136fe",
+        "receipt_address": null,
+        "transaction_address": "0x0929e7b83466a0bb6a3dbff58d3624a3c8b65368"
+      },
+      {
+        "hash": "0x2c903ee545a3c7e83e13f0d549b872f9f9439d183cad71bff8669e2ef69749d2",
+        "receipt_address": "0x785fb182499cd17f6466f42426de15dba3d3f90e",
+        "transaction_address": "0xf6f454f3c28559d4e06b5106ef1fd32921a834e0"
+      },
+      {
+        "hash": "0xda7c32e982d32b7057bc6bf256ed671601e46e45fe7c05a21ee4724661aee967",
+        "receipt_address": "0xcad96f819895d517f762fb27af41ab52b59c7cb4",
+        "transaction_address": "0x93eced67407c097eafc2dce92c4a2441343de8bf"
+      },
+      {
+        "hash": "0xd7d6c6f58f6d75986bede7e6c77fb3b593fe32f3941cef22059af66ae453b5ae",
+        "receipt_address": "0x4fe780423975ac4b3d564e6746be523ceaa3ca92",
+        "transaction_address": "0x0bdeca92fcc8c7081d2427a559603ca2ce7dd011"
+      },
+      {
+        "hash": "0x90a5a695782e91aed6f9fcca6c20b56022fbda92dbf64a60e11209b8e87341d7",
+        "receipt_address": "0x0a98f317a2f8ab87582a9207a3d8c2d84699ece8",
+        "transaction_address": "0xcad96f819895d517f762fb27af41ab52b59c7cb4"
+      },
+      {
+        "hash": "0x6d12d765a291a2fcde2036e6bcdef134689e90a667fbe9c09746fd77d9d22644",
+        "receipt_address": "0x0117eb293b468c84d793da0152066e888555307b",
+        "transaction_address": "0x785fb182499cd17f6466f42426de15dba3d3f90e"
+      },
+      {
+        "hash": "0x749e12758185281375bdccade106848b4e8824f9b821751e937a7d1169b604e5",
+        "receipt_address": null,
+        "transaction_address": "0x80ac14a2fc050bf3b15a0c1b909be394edbe00ca"
+      },
+      {
+        "hash": "0x8d254408d0887fde05c697eaeeae6160dc757d4f686159e7b0f734d8005599e3",
+        "receipt_address": null,
+        "transaction_address": "0x0a98f317a2f8ab87582a9207a3d8c2d84699ece8"
+      },
+      {
+        "hash": "0x887fabfded8106299609baced16e02c12e0ab4ff13c405648bf519511b5e75a7",
+        "receipt_address": "0x80ac14a2fc050bf3b15a0c1b909be394edbe00ca",
+        "transaction_address": "0x0117eb293b468c84d793da0152066e888555307b"
+      },
+      {
+        "hash": "0xf1a59956465a50188d416372747d1075417dea008b6c49171f303c3c1e09403e",
+        "receipt_address": null,
+        "transaction_address": "0x4fe780423975ac4b3d564e6746be523ceaa3ca92"
+      }
+    ],
+    "git_tracked": false,
+    "path": "contracts/broadcast/DeployResearchStack.s.sol/84532/run-1788621611679.json",
+    "receipts": [
+      {
+        "blockNumber": "0x2c46a25",
+        "contractAddress": "0x906c9ca1e7a21e6869b8ad43207fb27fd737957b",
+        "status": "0x1",
+        "transactionHash": "0xd967558b49e0d30e30577d625454e25f3b07904a955bc1918ba03e72ad838045"
+      },
+      {
+        "blockNumber": "0x2c46a26",
+        "contractAddress": "0x4423d32fe243d06d7f025ef4855bc24185704168",
+        "status": "0x1",
+        "transactionHash": "0x2debc6e7773f4890e4492ae27bc404ef0d9f9dbe4f91b796e1703c84c860ef29"
+      },
+      {
+        "blockNumber": "0x2c46a26",
+        "contractAddress": "0x0929e7b83466a0bb6a3dbff58d3624a3c8b65368",
+        "status": "0x1",
+        "transactionHash": "0x0904f095c525f017497dd3ca52fce6b0d7cdc2a6bd77589f614cb439406a67ed"
+      },
+      {
+        "blockNumber": "0x2c46a26",
+        "contractAddress": "0xf6f454f3c28559d4e06b5106ef1fd32921a834e0",
+        "status": "0x1",
+        "transactionHash": "0xb6f649f528206152b2604606ccf8fde67bced5ba1d23da5e37f7b427356548d8"
+      },
+      {
+        "blockNumber": "0x2c46a26",
+        "contractAddress": "0x93eced67407c097eafc2dce92c4a2441343de8bf",
+        "status": "0x1",
+        "transactionHash": "0x7913d18eaeb482b87f64a5b5ca1968bcdfe93a2d686c7ba2b2cc56f8e06a8a03"
+      },
+      {
+        "blockNumber": "0x2c46a26",
+        "contractAddress": "0x0bdeca92fcc8c7081d2427a559603ca2ce7dd011",
+        "status": "0x1",
+        "transactionHash": "0xebf51b7a87895acad89488a30896f8b500002c6a32fed7b3f67695571f9bdc6b"
+      },
+      {
+        "blockNumber": "0x2c46a26",
+        "contractAddress": "0xcad96f819895d517f762fb27af41ab52b59c7cb4",
+        "status": "0x1",
+        "transactionHash": "0xda7c32e982d32b7057bc6bf256ed671601e46e45fe7c05a21ee4724661aee967"
+      },
+      {
+        "blockNumber": "0x2c46a26",
+        "contractAddress": "0x785fb182499cd17f6466f42426de15dba3d3f90e",
+        "status": "0x1",
+        "transactionHash": "0x2c903ee545a3c7e83e13f0d549b872f9f9439d183cad71bff8669e2ef69749d2"
+      },
+      {
+        "blockNumber": "0x2c46a26",
+        "contractAddress": "0x80ac14a2fc050bf3b15a0c1b909be394edbe00ca",
+        "status": "0x1",
+        "transactionHash": "0x887fabfded8106299609baced16e02c12e0ab4ff13c405648bf519511b5e75a7"
+      },
+      {
+        "blockNumber": "0x2c46a26",
+        "contractAddress": "0x0a98f317a2f8ab87582a9207a3d8c2d84699ece8",
+        "status": "0x1",
+        "transactionHash": "0x90a5a695782e91aed6f9fcca6c20b56022fbda92dbf64a60e11209b8e87341d7"
+      },
+      {
+        "blockNumber": "0x2c46a26",
+        "contractAddress": "0x0117eb293b468c84d793da0152066e888555307b",
+        "status": "0x1",
+        "transactionHash": "0x6d12d765a291a2fcde2036e6bcdef134689e90a667fbe9c09746fd77d9d22644"
+      },
+      {
+        "blockNumber": "0x2c46a26",
+        "contractAddress": "0x4fe780423975ac4b3d564e6746be523ceaa3ca92",
+        "status": "0x1",
+        "transactionHash": "0xd7d6c6f58f6d75986bede7e6c77fb3b593fe32f3941cef22059af66ae453b5ae"
+      },
+      {
+        "blockNumber": "0x2c46a26",
+        "contractAddress": null,
+        "status": "0x1",
+        "transactionHash": "0x749e12758185281375bdccade106848b4e8824f9b821751e937a7d1169b604e5"
+      },
+      {
+        "blockNumber": "0x2c46a26",
+        "contractAddress": null,
+        "status": "0x1",
+        "transactionHash": "0xf1a59956465a50188d416372747d1075417dea008b6c49171f303c3c1e09403e"
+      },
+      {
+        "blockNumber": "0x2c46a26",
+        "contractAddress": null,
+        "status": "0x1",
+        "transactionHash": "0x8d254408d0887fde05c697eaeeae6160dc757d4f686159e7b0f734d8005599e3"
+      },
+      {
+        "blockNumber": "0x2c46a26",
+        "contractAddress": null,
+        "status": "0x1",
+        "transactionHash": "0xf9dbe4f917cee02a40a8aca313ae99cd36c382ab52c7354f7f0f6c304fd136fe"
+      }
+    ],
+    "sha256": "6753c4a76005bdee30186e186433dab8c1535271a0e32405f6f71d994789458f",
+    "timestamp": 1788621611679,
+    "transactions": [
+      {
+        "contractAddress": "0x906c9ca1e7a21e6869b8ad43207fb27fd737957b",
+        "contractName": "CresnexIntentLockAccount",
+        "hash": "0xd967558b49e0d30e30577d625454e25f3b07904a955bc1918ba03e72ad838045",
+        "transactionType": "CREATE"
+      },
+      {
+        "contractAddress": "0x4423d32fe243d06d7f025ef4855bc24185704168",
+        "contractName": "CresnexIntentLockAccountV2",
+        "hash": "0xb6f649f528206152b2604606ccf8fde67bced5ba1d23da5e37f7b427356548d8",
+        "transactionType": "CREATE"
+      },
+      {
+        "contractAddress": "0x0929e7b83466a0bb6a3dbff58d3624a3c8b65368",
+        "contractName": "MockERC20",
+        "hash": "0xf9dbe4f917cee02a40a8aca313ae99cd36c382ab52c7354f7f0f6c304fd136fe",
+        "transactionType": "CREATE"
+      },
+      {
+        "contractAddress": "0xf6f454f3c28559d4e06b5106ef1fd32921a834e0",
+        "contractName": "MockERC20",
+        "hash": "0x2c903ee545a3c7e83e13f0d549b872f9f9439d183cad71bff8669e2ef69749d2",
+        "transactionType": "CREATE"
+      },
+      {
+        "contractAddress": "0x93eced67407c097eafc2dce92c4a2441343de8bf",
+        "contractName": "MockDexRouter",
+        "hash": "0xda7c32e982d32b7057bc6bf256ed671601e46e45fe7c05a21ee4724661aee967",
+        "transactionType": "CREATE"
+      },
+      {
+        "contractAddress": "0x0bdeca92fcc8c7081d2427a559603ca2ce7dd011",
+        "contractName": "MockERC4626Vault",
+        "hash": "0xd7d6c6f58f6d75986bede7e6c77fb3b593fe32f3941cef22059af66ae453b5ae",
+        "transactionType": "CREATE"
+      },
+      {
+        "contractAddress": "0xcad96f819895d517f762fb27af41ab52b59c7cb4",
+        "contractName": "MockERC4626Vault",
+        "hash": "0x90a5a695782e91aed6f9fcca6c20b56022fbda92dbf64a60e11209b8e87341d7",
+        "transactionType": "CREATE"
+      },
+      {
+        "contractAddress": "0x785fb182499cd17f6466f42426de15dba3d3f90e",
+        "contractName": "MockVaultPriceOracle",
+        "hash": "0x6d12d765a291a2fcde2036e6bcdef134689e90a667fbe9c09746fd77d9d22644",
+        "transactionType": "CREATE"
+      },
+      {
+        "contractAddress": "0x80ac14a2fc050bf3b15a0c1b909be394edbe00ca",
+        "contractName": "MockERC721",
+        "hash": "0x749e12758185281375bdccade106848b4e8824f9b821751e937a7d1169b604e5",
+        "transactionType": "CREATE"
+      },
+      {
+        "contractAddress": "0x0a98f317a2f8ab87582a9207a3d8c2d84699ece8",
+        "contractName": "MockERC1155",
+        "hash": "0x8d254408d0887fde05c697eaeeae6160dc757d4f686159e7b0f734d8005599e3",
+        "transactionType": "CREATE"
+      },
+      {
+        "contractAddress": "0x0117eb293b468c84d793da0152066e888555307b",
+        "contractName": "MockNftMarketplace",
+        "hash": "0x887fabfded8106299609baced16e02c12e0ab4ff13c405648bf519511b5e75a7",
+        "transactionType": "CREATE"
+      },
+      {
+        "contractAddress": "0x4fe780423975ac4b3d564e6746be523ceaa3ca92",
+        "contractName": "MockAdminProtocol",
+        "hash": "0xf1a59956465a50188d416372747d1075417dea008b6c49171f303c3c1e09403e",
+        "transactionType": "CREATE"
+      },
+      {
+        "contractAddress": "0x0929e7b83466a0bb6a3dbff58d3624a3c8b65368",
+        "contractName": "MockERC20",
+        "hash": "0x7913d18eaeb482b87f64a5b5ca1968bcdfe93a2d686c7ba2b2cc56f8e06a8a03",
+        "transactionType": "CALL"
+      },
+      {
+        "contractAddress": "0x0929e7b83466a0bb6a3dbff58d3624a3c8b65368",
+        "contractName": "MockERC20",
+        "hash": "0xebf51b7a87895acad89488a30896f8b500002c6a32fed7b3f67695571f9bdc6b",
+        "transactionType": "CALL"
+      },
+      {
+        "contractAddress": "0x785fb182499cd17f6466f42426de15dba3d3f90e",
+        "contractName": "MockVaultPriceOracle",
+        "hash": "0x2debc6e7773f4890e4492ae27bc404ef0d9f9dbe4f91b796e1703c84c860ef29",
+        "transactionType": "CALL"
+      },
+      {
+        "contractAddress": "0x785fb182499cd17f6466f42426de15dba3d3f90e",
+        "contractName": "MockVaultPriceOracle",
+        "hash": "0x0904f095c525f017497dd3ca52fce6b0d7cdc2a6bd77589f614cb439406a67ed",
+        "transactionType": "CALL"
+      }
+    ]
+  }
+]

@@ -1,0 +1,11 @@
+{
+  "endpoint": "https://sepolia.base.org",
+  "error": "<urlopen error [Errno -3] Temporary failure in name resolution>",
+  "request": {
+    "id": 1,
+    "jsonrpc": "2.0",
+    "method": "eth_chainId",
+    "params": []
+  },
+  "timestamp": "2026-09-29T03:40:48.534829+00:00"
+}

@@ -1,0 +1,530 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "IntentLock raw execution row, prospective schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_id",
+    "scenario_id",
+    "seed",
+    "git_commit",
+    "timestamp",
+    "baseline",
+    "workload",
+    "mutation_class",
+    "legitimate_or_attack",
+    "expected_security_property",
+    "expected_verdict",
+    "actual_verdict",
+    "reason_code",
+    "failure_class",
+    "owner",
+    "agent",
+    "submitter",
+    "account",
+    "chain_id",
+    "target",
+    "token",
+    "recipient",
+    "spender",
+    "selector",
+    "amount",
+    "max_spend",
+    "msg_value",
+    "allowance_requested",
+    "allowance_limit",
+    "min_out",
+    "actual_out",
+    "nonce",
+    "valid_after",
+    "valid_until",
+    "calls_hash",
+    "policy_hash",
+    "batch_size",
+    "pre_owner_balance",
+    "post_owner_balance",
+    "pre_recipient_balance",
+    "post_recipient_balance",
+    "pre_allowance",
+    "post_allowance",
+    "harmful_state_survived",
+    "rollback_success",
+    "evidence_created",
+    "evidence_hash",
+    "strike_before",
+    "strike_after",
+    "quarantined_before",
+    "quarantined_after",
+    "gas_used",
+    "execution_time_ns",
+    "execution_time_ms",
+    "transaction_hash",
+    "block_number",
+    "error_selector",
+    "revert_hash",
+    "applicability",
+    "authentication_passed",
+    "validation_stage",
+    "pre_account_balance",
+    "post_account_balance",
+    "outer_receipt_status",
+    "nonce_used_before",
+    "nonce_used_after",
+    "failure_provenance",
+    "dataset_role",
+    "repetition",
+    "observation_source"
+  ],
+  "properties": {
+    "run_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "scenario_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "seed": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^(0|[1-9][0-9]*)$"
+    },
+    "git_commit": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "timestamp": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "baseline": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "workload": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "mutation_class": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "legitimate_or_attack": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "expected_security_property": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "expected_verdict": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "actual_verdict": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "reason_code": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "failure_class": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "owner": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "agent": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "submitter": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "account": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "chain_id": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "target": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "token": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "recipient": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "spender": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "selector": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "amount": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^(0|[1-9][0-9]*)$"
+    },
+    "max_spend": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^(0|[1-9][0-9]*)$"
+    },
+    "msg_value": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^(0|[1-9][0-9]*)$"
+    },
+    "allowance_requested": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^(0|[1-9][0-9]*)$"
+    },
+    "allowance_limit": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^(0|[1-9][0-9]*)$"
+    },
+    "min_out": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^(0|[1-9][0-9]*)$"
+    },
+    "actual_out": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^(0|[1-9][0-9]*)$"
+    },
+    "nonce": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^(0|[1-9][0-9]*)$"
+    },
+    "valid_after": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "valid_until": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "calls_hash": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "policy_hash": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "batch_size": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "pre_owner_balance": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^(0|[1-9][0-9]*)$"
+    },
+    "post_owner_balance": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^(0|[1-9][0-9]*)$"
+    },
+    "pre_recipient_balance": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^(0|[1-9][0-9]*)$"
+    },
+    "post_recipient_balance": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^(0|[1-9][0-9]*)$"
+    },
+    "pre_allowance": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^(0|[1-9][0-9]*)$"
+    },
+    "post_allowance": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^(0|[1-9][0-9]*)$"
+    },
+    "harmful_state_survived": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "rollback_success": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "evidence_created": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "evidence_hash": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "strike_before": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^(0|[1-9][0-9]*)$"
+    },
+    "strike_after": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^(0|[1-9][0-9]*)$"
+    },
+    "quarantined_before": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "quarantined_after": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "gas_used": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "execution_time_ns": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^(0|[1-9][0-9]*)$"
+    },
+    "execution_time_ms": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "transaction_hash": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "block_number": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "error_selector": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "revert_hash": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "applicability": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "authentication_passed": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "validation_stage": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "pre_account_balance": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^(0|[1-9][0-9]*)$"
+    },
+    "post_account_balance": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^(0|[1-9][0-9]*)$"
+    },
+    "outer_receipt_status": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "nonce_used_before": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "nonce_used_after": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "failure_provenance": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "dataset_role": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "repetition": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "observation_source": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "$comment": "All absent JSON fields are explicit null; CSV uses NA. Uint256/token amounts use decimal strings, never float. Owner balance and account balance are distinct. NOT_APPLICABLE denotes no execution. Schema existence is not a dataset."
+}

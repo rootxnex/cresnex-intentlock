@@ -1,0 +1,10 @@
+{
+  "command": ["forge", "coverage", "--ir-minimum"],
+  "working_directory": "contracts",
+  "exit_code": 1,
+  "log": "coverage-ir-minimum.log",
+  "status": "COMPILER_FAILURE",
+  "reason": "Yul stack-depth exception during coverage instrumentation",
+  "original_failure_preserved": "coverage.log",
+  "publication_measurements_allowed": false
+}

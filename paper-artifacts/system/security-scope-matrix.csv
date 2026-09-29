@@ -1,0 +1,28 @@
+topic,classification,evidence_and_limits
+agent authentication,IMPLEMENTED_PARTIALLY,_authenticate binds registered msg.sender; dedicated V2 actor-negative test missing.
+relayer behavior,NOT_APPLICABLE,No independent relayer API; submitting caller must be the agent.
+front-running/MEV,NOT_TESTED,Call/domain/nonce commitments do not establish MEV resistance or stable external prices.
+reentrancy,IMPLEMENTED_PARTIALLY,nonReentrant on execution; Phase4 receiver tests show nested calls fail but do not decode guard selector. Receivers also lack agent authorization; guard causality not isolated.
+delegatecall,IMPLEMENTED_PARTIALLY,Operation enum only contains Call; invalid ABI enum may fail decoder before UnsupportedOperation. No V2 dedicated operation-negative test identified.
+malicious target,IMPLEMENTED_AND_TESTED,Selected router/vault/marketplace mocks only; rollback bounded by synchronous EVM and declared constraints.
+malicious token behavior,NOT_TESTED,Core tests use conventional MockERC20; truthful balanceOf/allowance is assumed.
+callback-heavy token,IMPLEMENTED_PARTIALLY,NFT receiver callbacks tested; no general ERC777/ERC20 callback corpus.
+fee-on-transfer token,NOT_TESTED,No dedicated token fixture or compatibility measurement identified.
+rebasing token,NOT_TESTED,No dedicated token fixture or compatibility measurement identified.
+gas griefing,IMPLEMENTED_PARTIALLY,Bounded revert copy; no gas reserve guarantee for outer persistence and no comprehensive exhaustion study.
+returndata griefing,IMPLEMENTED_AND_TESTED,"_boundedCall copies at most 256 failed-target bytes, ignores successful return bytes; Phase4 large-data tests."
+nested batches,NOT_TESTED,Top-level array bounded to 16; no recursive batch API or generic nested-target semantic guarantee.
+self-calls,IMPLEMENTED_PARTIALLY,executeIsolated onlySelf tested; signed target=self rejection is source-only with no dedicated regression identified. External self-call implements isolation.
+state drift between signing/execution,IMPLEMENTED_PARTIALLY,Execution-time observations and bounds; no binding of full pre-state.
+ERC-1271 signatures,EXPLICITLY_OUT_OF_SCOPE,V2 directly calls ECDSA.recover; no isValidSignature integration.
+ERC-4337 integration,EXPLICITLY_OUT_OF_SCOPE,No EntryPoint or validateUserOp integration established.
+ERC-7579 integration,EXPLICITLY_OUT_OF_SCOPE,Immutable validator and module enum do not establish standard compatibility.
+ERC-6900 integration,EXPLICITLY_OUT_OF_SCOPE,No modular-account standard integration established.
+malicious modules/hooks,NOT_APPLICABLE,No user-installable validator/hook architecture; immutable internally deployed validator.
+oracle manipulation,NOT_TESTED,Secondary YieldRebalance trusts supplied mock oracle; no manipulation robustness study.
+cross-chain/asynchronous effects,EXPLICITLY_OUT_OF_SCOPE,EVM rollback is synchronous and local to the transaction.
+evidence spoofing,IMPLEMENTED_PARTIALLY,Execution-target errors wrapped by _boundedCall/TargetCallFailed. Separate token balance/allowance reads rely on truthful-read assumption; no complete spoofing study.
+strike farming,IMPLEMENTED_PARTIALLY,Authentication precedes inner policy enforcement; signed violating intents can legitimately strike. Dedicated campaign analysis absent.
+quarantine evasion,IMPLEMENTED_PARTIALLY,State per agent; removal preserves strikes. Owner can register another identity. Dedicated evasion study absent.
+unquarantine/recovery governance,IMPLEMENTED_PARTIALLY,Owner-only recovery and two-step ownership; no timelock/multisig requirement or dedicated V2 non-owner recovery test.
+owner compromise,EXPLICITLY_OUT_OF_SCOPE,Owner signs policies and can recover tokens/change containment; owner is trusted.

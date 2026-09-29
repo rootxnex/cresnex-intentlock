@@ -1,0 +1,337 @@
+{
+  "status": "DECLARATIONS_NOT_EXECUTION_RESULTS",
+  "files": [
+    {
+      "file": "contracts/test/AcademicBaselines.t.sol",
+      "sha256": "09f2cba62bcb6efb4c65824efa4f951cc5a6d890206970ec13b34a616b2280ab",
+      "test_functions": [
+        "testA_WrongRecipientHarmSurvivesWithoutEvidence",
+        "testB_WrongRecipientHarmSurvivesSpendLimit",
+        "testB_OverspendIsBlocked",
+        "testC_WrongRecipientHarmSurvivesApprovedPath",
+        "testD_WrongRecipientRollsBackAndPersistsEvidenceAndStrike",
+        "testGas_A_SignatureOnlyTransfer",
+        "testGas_B_SpendLimitTransfer",
+        "testGas_C_PathAndSpendTransfer",
+        "testGas_D_IntentLockTransfer",
+        "testFuzzGas_A_Benign",
+        "testFuzzGas_B_Benign",
+        "testFuzzGas_C_Benign",
+        "testFuzzGas_D_Benign",
+        "testFuzzGas_A_WrongRecipient",
+        "testFuzzGas_B_WrongRecipient",
+        "testFuzzGas_C_WrongRecipient",
+        "testFuzzGas_D_WrongRecipient"
+      ]
+    },
+    {
+      "file": "contracts/test/GasBenchmarks.t.sol",
+      "sha256": "cea628127705294cc0abcac93608dca3bf9d2648c965bc430fd8e48c0e909b9b",
+      "test_functions": [
+        "testGas_ValidSingleIntent",
+        "testGas_ValidBatchIntent",
+        "testGas_FailedOutcomeAndEvidence"
+      ]
+    },
+    {
+      "file": "contracts/test/GasBenchmarksV2.t.sol",
+      "sha256": "49efc13e433d21b9bef60ab3e74b088d0b04b1a3456d907edc4af308285e4d15",
+      "test_functions": [
+        "testGas_V2Transfer",
+        "testGas_V2Swap",
+        "testGas_V2BatchViolationEvidence"
+      ]
+    },
+    {
+      "file": "contracts/test/GasBenchmarksV2DeFi.t.sol",
+      "sha256": "6b3d193f92aa04932ddce57dbcd27daab7e9d45e1df945313a252a094324d2fd",
+      "test_functions": [
+        "testGas_V2Deposit",
+        "testGas_V2Withdrawal",
+        "testGas_V2YieldRebalance"
+      ]
+    },
+    {
+      "file": "contracts/test/GasBenchmarksV2Payments.t.sol",
+      "sha256": "b0b0f06ba3cee21a6a525dcb1eee3159c1a5036caee5889098321a5ce2ab6e3a",
+      "test_functions": [
+        "testGas_V2TreasuryPayment",
+        "testGas_V2PayrollPayment",
+        "testGas_V2SubscriptionPayment"
+      ]
+    },
+    {
+      "file": "contracts/test/fuzz/IntentLockFuzz.t.sol",
+      "sha256": "d96b76dea9caf024ad4ca5deb142195d02f48bbbd1db4eaa57d0131d80bd999c",
+      "test_functions": [
+        "testFuzz_InputLimit",
+        "testFuzz_MinimumOutput",
+        "testFuzz_BatchLengthRejectedAboveLimit"
+      ]
+    },
+    {
+      "file": "contracts/test/fuzz/IntentLockV2DeFiFuzz.t.sol",
+      "sha256": "01b2fff7444c5b081653c7c58a002db4792d148a3c2ce74b6d6ab590e4679eb5",
+      "test_functions": [
+        "testFuzz_DepositAmountBoundary",
+        "testFuzz_MinimumShares"
+      ]
+    },
+    {
+      "file": "contracts/test/fuzz/IntentLockV2Fuzz.t.sol",
+      "sha256": "440e6fcecf5311ce1cab4b540542ba8a6518397de64598e25064391f9eef7fca",
+      "test_functions": [
+        "testFuzz_TransferAmountBoundary",
+        "testFuzz_NativeSpendBoundary",
+        "testFuzz_AssetArrayBound",
+        "testFuzz_AllowanceArrayBound"
+      ]
+    },
+    {
+      "file": "contracts/test/fuzz/IntentLockV2PaymentsFuzz.t.sol",
+      "sha256": "6e70c3dcec4819fbe53122967a432eb92186772601024867f0cf1e6cea507ec0",
+      "test_functions": [
+        "testFuzz_TreasuryAmountBoundary",
+        "testFuzz_PayrollWindow"
+      ]
+    },
+    {
+      "file": "contracts/test/invariant/IntentLockInvariant.t.sol",
+      "sha256": "a60c2236a60673e350b115fa36fbb637534224a04422d92ec9547a1fb1e53399",
+      "test_functions": [
+        "invariant_UnsafeExecutionCannotReduceProtectedBalance",
+        "invariant_UnsafeExecutionCannotLeaveExcessiveAllowance",
+        "invariant_ConsumedNonceCannotExecuteAgain",
+        "invariant_QuarantinedAgentCannotExecute",
+        "invariant_OnlyOwnerCanClearQuarantine",
+        "invariant_ViolationEvidencePersistsAfterRollback"
+      ]
+    },
+    {
+      "file": "contracts/test/invariant/IntentLockV2DeFiInvariant.t.sol",
+      "sha256": "18270ebc7b1077ccfd3ab20ca3810f9b3b37e7b86b981dcd5662c647a0185a85",
+      "test_functions": [
+        "invariant_UnsafeVaultEffectsNeverSurvive",
+        "invariant_DeFiEvidenceAndStrikesPersist"
+      ]
+    },
+    {
+      "file": "contracts/test/invariant/IntentLockV2Invariant.t.sol",
+      "sha256": "4236b81d9c693cfe271982e533966e5f35a27f9256f0442750b14a18633c6ef3",
+      "test_functions": [
+        "invariant_UnsafeInnerEffectsNeverSurvive",
+        "invariant_ConsumedNonceCannotReplay",
+        "invariant_InvalidAuthenticationNeverStrikes",
+        "invariant_ViolationsStrikeExactlyOnceAndPersistEvidence"
+      ]
+    },
+    {
+      "file": "contracts/test/invariant/IntentLockV2PaymentsInvariant.t.sol",
+      "sha256": "aca1b54bc1513259082220aac88936763967d41b451fcd698a1c6b2d9d1fa11b",
+      "test_functions": [
+        "invariant_OnlyOneChargePerSubscriptionPeriod",
+        "invariant_SubscriptionCountMatchesCommittedPayment"
+      ]
+    },
+    {
+      "file": "contracts/test/invariant/IntentLockV2Phase4Invariant.t.sol",
+      "sha256": "b97cca568d5de89496efc73b2963ab1c77407d1b39b4bb793232ba2138cf553a",
+      "test_functions": [
+        "invariant_NftAndAdministrationEffectsRemainBounded",
+        "invariant_Phase4ViolationsStrikeOnceAndPersistEvidence",
+        "invariant_DangerousOrStructuralFailuresDoNotChangeAccountState"
+      ]
+    },
+    {
+      "file": "contracts/test/unit/CREIntentRiskConsumer.t.sol",
+      "sha256": "4c9a82d1bfb8f9d67958a01739b844ecae7660ff5f2bef311b32acff0c6f446e",
+      "test_functions": [
+        "testValidAllowAccepted",
+        "testValidEscalateOneAccepted",
+        "testValidEscalateTwoAccepted",
+        "testValidGenuineBlockAccepted",
+        "testValidFailClosedBlockAccepted",
+        "testWrongCallerRejected",
+        "testZeroForwarderRejected",
+        "testWrongVersionRejected",
+        "testWrongChainIdRejected",
+        "testWrongRuleIdRejected",
+        "testZeroAccountRejected",
+        "testZeroAgentRejected",
+        "testZeroCallsHashRejected",
+        "testZeroPolicyHashRejected",
+        "testInvalidValidityWindowRejected",
+        "testExpiredVerdictRejected",
+        "testFutureVerdictRejected",
+        "testDecisionOverflowRejected",
+        "testAllowWithUnusableEvidenceRejected",
+        "testAllowWithNonzeroCountRejected",
+        "testEscalateWithZeroRejected",
+        "testEscalateWithThreeRejected",
+        "testUsableBlockWithoutThresholdRejected",
+        "testUsableBlockBelowThresholdRejected",
+        "testOperationalBlockWithThresholdRejected",
+        "testEvidenceHashMismatchRejected",
+        "testExactDuplicateReplayRejected",
+        "testChangingNonceChangesKey",
+        "testChangingCallsHashChangesKey",
+        "testChangingPolicyHashChangesKey",
+        "testChangingAccountChangesKey",
+        "testChangingAgentChangesKey",
+        "testTypeScriptSolidityAbiVector",
+        "testFuzzBindingChangesKey",
+        "testFuzzValidExpiryAccepted",
+        "testFuzzInvalidDecisionEvidence",
+        "testOnlyGateAdminCanConfigureGate",
+        "testCorrectWorkflowMetadataAccepted",
+        "testWorkflowAuthorizationMustBeConfigured",
+        "testWrongWorkflowIdRejected",
+        "testWrongWorkflowOwnerRejected",
+        "testShortMetadataRejected",
+        "testLongMetadataRejected",
+        "testZeroWorkflowIdConfigurationRejected",
+        "testZeroWorkflowOwnerConfigurationRejected",
+        "testOnlyGateAdminCanConfigureWorkflow",
+        "testWorkflowAuthorizationCanOnlyBeConfiguredOnce",
+        "testCorrectMetadataWrongForwarderRejected",
+        "testForwarderWithWrongWorkflowRejected",
+        "testKeystoneMetadataFixtureUsesExactLayout",
+        "testZeroGateRejected",
+        "testGateCanOnlyBeConfiguredOnce",
+        "testAuthorizedGateConsumesAllowExactlyOnce",
+        "testUnauthorizedGateCannotConsume",
+        "testMissingVerdictCannotBeConsumed",
+        "testExpiredAcceptedVerdictCannotBeConsumed",
+        "testEscalateCannotBeConsumed",
+        "testGenuineBlockCannotBeConsumed",
+        "testOperationalBlockCannotBeConsumed"
+      ]
+    },
+    {
+      "file": "contracts/test/unit/CresnexIntentLockAccount.t.sol",
+      "sha256": "1d99af00587726b234e0aae87fcfe1f761098cfaa61f1d3e3b590d2df3385fb5",
+      "test_functions": [
+        "testOwnerCanRegisterAgent",
+        "testNonOwnerCannotRegisterAgent",
+        "testRegisteredAgentCanExecuteValidSingleIntent",
+        "testValidBatchSwapSucceeds",
+        "testUnregisteredAgentRejectedWithoutStrike",
+        "testWrongSignatureRejectedWithoutStrike",
+        "testWrongAccountRejected",
+        "testWrongChainRejected",
+        "testFutureAndExpiredIntentsRejected",
+        "testNonceReplayRejected",
+        "testCallsHashMismatchAndBatchPermissionRejected",
+        "testOverspendRollsBackAndPersistsEvidence",
+        "testInsufficientOutputAndWrongRecipientRollBack",
+        "testExcessiveAllowanceRollsBack",
+        "testThresholdQuarantinesAndOwnerRecoversAgent",
+        "testOnlySelfAndReentrancyFailSafely",
+        "testLargeTargetRevertIsContainedWithBoundedEvidence",
+        "testPausedAccountRejectsExecution"
+      ]
+    },
+    {
+      "file": "contracts/test/unit/CresnexIntentLockAccountV2.t.sol",
+      "sha256": "57054fd03cdcc3ebe0ca0199eedc8cd6aecb1bf7203b14b60e808687cf35f5ea",
+      "test_functions": [
+        "testTransferPolicyAllowsBoundedTransfer",
+        "testTransferBlocksExcessWrongRecipientDifferentTokenAndHiddenBatch",
+        "testNativeTransferEnforcesSpendAndFinalBalance",
+        "testSwapUsesMeasuredDeltasAndAllowanceCap",
+        "testSwapBlocksOverspendInsufficientOutputWrongRecipientAndUnlimitedApproval",
+        "testApprovalAllowsBoundedValueAndBlocksWrongSpenderOrExcess",
+        "testBatchBindsOrderAndAggregateOutcome",
+        "testOrdinaryTargetFailureConsumesNonceWithoutStrike",
+        "testAuthenticationAndMalformedPolicyFailuresDoNotStrikeOrConsumeNonce",
+        "testUnsupportedEvidenceModeAndMisboundPolicyAreStructuralFailures",
+        "testReplayExpiryQuarantineAndOwnerControls",
+        "testRemovingAgentPreservesStrikeHistoryAndOnlySelfIsEnforced"
+      ]
+    },
+    {
+      "file": "contracts/test/unit/CresnexIntentLockAccountV3.t.sol",
+      "sha256": "2c8c999a9248d0900b6da986a75dd0acb51b023fa1ef99e54ca6ca548dbfcee7",
+      "test_functions": [
+        "testMatchingAllowAndValidIntentSucceeds",
+        "testNoVerdictRejectsWithoutSecuritySideEffects",
+        "testEscalateRejects",
+        "testGenuineBlockRejects",
+        "testOperationalBlockRejects",
+        "testExpiredAllowRejects",
+        "testWrongAccountManifestRejectedBeforeGate",
+        "testWrongAgentManifestRejectedBeforeGate",
+        "testWrongChainManifestRejectedBeforeGate",
+        "testWrongNonceVerdictRejected",
+        "testDifferentCallPackageCannotUseVerdict",
+        "testDifferentPolicyCannotUseVerdict",
+        "testDifferentNonceCannotUseVerdict",
+        "testInvalidOwnerSignatureRejectedBeforeVerdictConsumption",
+        "testPolicyViolationAfterAllowPreservesV2Semantics",
+        "testOrdinaryExecutionFailurePreservesV2Semantics",
+        "testOutcomeChecksRemainEnforcedAfterAllow",
+        "testSuccessConsumesVerdictAndIntentNonce",
+        "testDownstreamRevertRollsBackVerdictConsumptionThenRetrySucceeds",
+        "testVerdictReplayRejected",
+        "testExecuteIsolatedCannotBypassGate",
+        "testFuzzBindingMutationCannotUseVerdict",
+        "testFuzzNonAllowNeverExecutes"
+      ]
+    },
+    {
+      "file": "contracts/test/unit/IntentLockV2DeFi.t.sol",
+      "sha256": "ea98c1ba081df50eb44626ce408f9e2447c607688fc0f1c08a9dbefc6313aae6",
+      "test_functions": [
+        "testDepositValid",
+        "testDepositBlocksExcessWrongBeneficiaryTooFewSharesAndResidualAllowance",
+        "testMaliciousVaultExcessivePullRollsBack",
+        "testDepositRejectsHiddenAssetCallEvenWhenAggregateSpendFits",
+        "testWithdrawalValid",
+        "testWithdrawalBlocksExcessBurnInsufficientAssetsWrongRecipientAndUnexpectedLoss",
+        "testYieldRebalanceBetweenApprovedVaults",
+        "testYieldBlocksMovementLimitValueLossAndUnapprovedVault",
+        "testYieldRejectsArbitraryApprovedVaultCallAndDuplicateVaultPolicy"
+      ]
+    },
+    {
+      "file": "contracts/test/unit/IntentLockV2Payments.t.sol",
+      "sha256": "b8b05c0dc7f81bafe38a3a89f9d337e673900b1b97199fbb36fbd44c600802ae",
+      "test_functions": [
+        "testTreasuryPaymentValidAndRecordsReferenceAndBudget",
+        "testTreasuryBlocksExcessWrongRecipientDuplicateReferenceBudgetAndHiddenCall",
+        "testPayrollValidAndBlocksDuplicateEarlyLateExcessAndWrongEmployee",
+        "testSubscriptionRecurringPeriodsCountAndOwnerCancellation",
+        "testSubscriptionBlocksExcessWrongMerchantExpiryAndNonOwnerCancellation"
+      ]
+    },
+    {
+      "file": "contracts/test/unit/IntentLockV2Phase4.t.sol",
+      "sha256": "87ff714dbcd26ec5632c69b8f71adaa66f8fd72759f5b07fb1e555cc2575823a",
+      "test_functions": [
+        "testNftPurchaseDeliversExactERC721AndClearsAllowance",
+        "testNftPurchaseDeliversMinimumERC1155Quantity",
+        "testNftPurchaseRejectsWrongCollectionTokenRecipientPriceAndMarketplace",
+        "testNftPostconditionsRollbackWrongOrMissingDelivery",
+        "testNftExcessivePullFailsAtomicallyWithoutPolicyStrike",
+        "testNftPurchaseRejectsHiddenCallAndOversizedApproval",
+        "testNftNativePaymentIsBoundedAndDelivered",
+        "testNftResidualAllowanceIsAContainedPolicyViolation",
+        "testNftLargeReturnDataIsBoundedAndLargeRevertDataIsNonPunitive",
+        "testReentrantERC721ReceiverIsContained",
+        "testReentrantERC1155ReceiverIsContained",
+        "testImmutableValidatorOnlyValidatesAndCannotMutateOrExecute",
+        "testValidatorRejectsModuleImpersonation",
+        "testAdminAllowsBoundedNumericAddressPauseAndRoleChanges",
+        "testAdminRejectsOutOfRangeWrongTargetSelectorArgumentAndBatch",
+        "testAdminTimelockAndDangerousSelectorsAreRejected",
+        "testFuzzAdminNumericBounds",
+        "testFuzzERC1155MinimumQuantity",
+        "testFuzzNftPriceAndTokenId",
+        "testFuzzAdminRoleIdentifier",
+        "testFuzzAdminTimestamp",
+        "testFuzzBatchLength",
+        "testFuzzUnsupportedModuleIdentifier"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+!logs/*.log
+!runs/**/logs/*.log

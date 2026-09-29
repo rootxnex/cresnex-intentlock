@@ -1,0 +1,57 @@
+[
+  {
+    "table": 1,
+    "status": "SOURCE_OR_ENVIRONMENT_ONLY",
+    "reason": "Source/configuration table; not measured effectiveness"
+  },
+  {
+    "table": 2,
+    "status": "SOURCE_OR_ENVIRONMENT_ONLY",
+    "reason": "Source/configuration table; not measured effectiveness"
+  },
+  {
+    "table": 3,
+    "status": "MISSING",
+    "reason": "No validated per-execution dataset"
+  },
+  {
+    "table": 4,
+    "status": "MISSING",
+    "reason": "No validated per-execution dataset"
+  },
+  {
+    "table": 5,
+    "status": "MISSING",
+    "reason": "No validated per-execution dataset"
+  },
+  {
+    "table": 6,
+    "status": "MISSING",
+    "reason": "No validated per-execution dataset"
+  },
+  {
+    "table": 7,
+    "status": "MISSING",
+    "reason": "No validated per-execution dataset"
+  },
+  {
+    "table": 8,
+    "status": "MISSING",
+    "reason": "No validated per-execution dataset"
+  },
+  {
+    "table": 9,
+    "status": "MISSING",
+    "reason": "No validated per-execution dataset"
+  },
+  {
+    "table": 10,
+    "status": "MISSING",
+    "reason": "No validated per-execution dataset"
+  },
+  {
+    "table": 11,
+    "status": "SOURCE_OR_ENVIRONMENT_ONLY",
+    "reason": "Source/configuration table; not measured effectiveness"
+  }
+]

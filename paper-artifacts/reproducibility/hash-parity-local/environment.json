@@ -1,0 +1,28 @@
+{
+  "timestamp": "2026-09-28T21:45:30.683Z",
+  "purpose": "CORRECTNESS_HASH_PARITY_ONLY",
+  "anvil_options": [
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "44789",
+    "--chain-id",
+    "31337",
+    "--hardfork",
+    "cancun",
+    "--timestamp",
+    "1700000000",
+    "--silent"
+  ],
+  "chain_id": 31337,
+  "vector_seed": 20260928,
+  "vector_count": 16,
+  "transaction_benchmark": false,
+  "account": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+  "owner": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+  "deployment_transaction_hash": "0xb6e95b010532ae536b055d2e5b832a762098bc4fa1a10e02bf4ecae8bb18175f",
+  "runtime_bytecode_keccak256": "0xe506b0e4d7b0ccb350695d73fe7fb6880c8686ccf015a40d12f8630875139643",
+  "compiler": {
+    "version": "0.8.26+commit.8a97fa7a"
+  }
+}

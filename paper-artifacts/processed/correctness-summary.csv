@@ -1,0 +1,13 @@
+check,exit_code,passed,failed,skipped,count_unit,log,log_sha256,independent_scenario_count
+format,0,NA,NA,NA,command exit only,paper-artifacts/logs/format.log,e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855,NA
+compile,0,NA,NA,NA,command exit only,paper-artifacts/logs/compile.log,f3123f8ae39ab76efb9dcc7bdab0542220f01228f8eae650570ca1c696ec1169,NA
+tests,0,378,0,0,Forge test invocations,paper-artifacts/logs/tests.log,7558d78ddd2211b989584c0d6179d9bc98853efa528df8ef3386130441686f6c,NA
+fuzz,0,79,0,0,Forge test invocations,paper-artifacts/logs/fuzz.log,685dc2b1820a7f9b79012129debf1895c342c12ef842d510802aa0a463f7e7ed,NA
+invariant,0,17,0,0,Forge test invocations,paper-artifacts/logs/invariant.log,c4ed949f9166a38411f80b45f8b06f87a87ceddaeebb8a60783919b3fbda6022,NA
+gas-report,0,378,0,0,Forge test invocations,paper-artifacts/logs/gas-report.log,1e08f0a4e75fc736c1afb183e45f2f7c190339ba24317ab98d84cadbc5663a7d,NA
+coverage,1,NA,NA,NA,command exit only,paper-artifacts/logs/coverage.log,1d2ee2beb5b1e27f82aa651239f3dab73626a03030fdb04324bcaa53ad080b1b,NA
+snapshot,0,378,0,0,Forge test invocations,paper-artifacts/logs/snapshot.log,c7d6a7aa0f5cf830ba8bf6f744366c725e609be50feb44dc389fdb62c02053f8,NA
+sdk,0,2,0,NA,Node TAP reported units (may be test files),paper-artifacts/logs/sdk.log,efdc789c9fc0bc9a5e9dac06ae09be3de2adf495a439797f85e1e0eae78bfdf6,NA
+lint,0,NA,NA,NA,command exit only,paper-artifacts/logs/lint.log,b6ea64bb5df4229fda8a4d23e002e8826af7c0cc796c34bb00139a79e47cc7d9,NA
+typecheck,0,NA,NA,NA,command exit only,paper-artifacts/logs/typecheck.log,dc7a115073f33a811b93636c7535f0c306ef184d37ca5b51ed9bfe40c425b046,NA
+frontend-build,0,NA,NA,NA,command exit only,paper-artifacts/logs/frontend-build.log,c5bb994565262206bf1d5c945a1ef446254a8b16a9d2d7f3969f6d2de2d163d8,NA

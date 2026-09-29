@@ -1,0 +1,14 @@
+check,exit_code,passed,failed,skipped,count_unit,log,log_sha256,independent_scenario_count
+format,0,NA,NA,NA,command exit only,paper-artifacts/runs/continuation-20260929/logs/format.log,e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855,NA
+compile,0,NA,NA,NA,command exit only,paper-artifacts/runs/continuation-20260929/logs/compile.log,758040422bf7d05e9ca67699e044fc73668e4f5f0de02943c2e71ce19c461437,NA
+tests,0,378,0,0,Forge test invocations,paper-artifacts/runs/continuation-20260929/logs/tests.log,dea614d8e6030ad0b2f4f4fc28f83c498136c12d3323fe15a0ecd575c200c306,NA
+fuzz,0,79,0,0,Forge test invocations,paper-artifacts/runs/continuation-20260929/logs/fuzz.log,fb6cb6735357a95a93458b181bcfc87827614c133223d7cff87f2506a34697b1,NA
+invariant,0,17,0,0,Forge test invocations,paper-artifacts/runs/continuation-20260929/logs/invariant.log,fe2e88ba7c476d0c0afbef8969901cfb24af5f3fc1355b9d80de6af06c20b3d9,NA
+gas-report,0,378,0,0,Forge test invocations,paper-artifacts/runs/continuation-20260929/logs/gas-report.log,f508ae5f15847478c832ff25c8a88d833bfbf154ef3b2899f3a85029ed8ae88d,NA
+coverage,1,NA,NA,NA,command exit only,paper-artifacts/runs/continuation-20260929/logs/coverage.log,01cd0490d8ddfc4642ecd4b78d848552d1c7be8a6f967e122fa8d39e776e022a,NA
+snapshot,0,378,0,0,Forge test invocations,paper-artifacts/runs/continuation-20260929/logs/snapshot.log,a2f61e117de117d77c55156e7be5d98b5310f03a95248bc90572d38cb0c96d11,NA
+sdk,0,2,0,NA,Node TAP reported units (may be test files),paper-artifacts/runs/continuation-20260929/logs/sdk.log,d11d50baaed0cb83c6eab81322da57dcf786c82af5bd05a40a7973eb0cb101b9,NA
+lint,0,NA,NA,NA,command exit only,paper-artifacts/runs/continuation-20260929/logs/lint.log,b6ea64bb5df4229fda8a4d23e002e8826af7c0cc796c34bb00139a79e47cc7d9,NA
+typecheck,0,NA,NA,NA,command exit only,paper-artifacts/runs/continuation-20260929/logs/typecheck.log,dc7a115073f33a811b93636c7535f0c306ef184d37ca5b51ed9bfe40c425b046,NA
+frontend-build,0,NA,NA,NA,command exit only,paper-artifacts/runs/continuation-20260929/logs/frontend-build.log,532e0bfedd22ace58752b5ce694475418367ebbf65e1b4e95ff24287f729ab8b,NA
+source-inventory,0,NA,NA,NA,command exit only,paper-artifacts/runs/continuation-20260929/logs/source-inventory.log,e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855,NA

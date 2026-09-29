@@ -1,0 +1,158 @@
+{
+  "status": "PROSPECTIVE_CLASSIFICATION_RULES",
+  "categories": [
+    {
+      "category": "ALLOW_SUCCESS",
+      "error_names": [],
+      "classification_rule": "IntentExecuted and checked final state; status=1 alone insufficient."
+    },
+    {
+      "category": "SIGNATURE_FAILURE",
+      "error_names": [
+        "InvalidOwnerSignature",
+        "ECDSAInvalidSignature",
+        "ECDSAInvalidSignatureLength",
+        "ECDSAInvalidSignatureS",
+        "WrongOwner"
+      ],
+      "classification_rule": "Outer authentication failure."
+    },
+    {
+      "category": "AGENT_AUTH_FAILURE",
+      "error_names": [
+        "UnauthorizedAgent"
+      ],
+      "classification_rule": "Caller binding or registration failure."
+    },
+    {
+      "category": "ACCOUNT_BINDING_FAILURE",
+      "error_names": [
+        "WrongAccount"
+      ],
+      "classification_rule": "Explicit account mismatch."
+    },
+    {
+      "category": "CHAIN_BINDING_FAILURE",
+      "error_names": [
+        "WrongChain"
+      ],
+      "classification_rule": "Explicit chain mismatch; domain-only signature mismatch may be SIGNATURE_FAILURE."
+    },
+    {
+      "category": "NONCE_REPLAY",
+      "error_names": [
+        "NonceAlreadyUsed"
+      ],
+      "classification_rule": "Previously consumed or owner-cancelled nonce."
+    },
+    {
+      "category": "NOT_YET_VALID",
+      "error_names": [
+        "IntentNotYetValid"
+      ],
+      "classification_rule": "Before signed window."
+    },
+    {
+      "category": "EXPIRED_INTENT",
+      "error_names": [
+        "IntentExpired"
+      ],
+      "classification_rule": "After signed window."
+    },
+    {
+      "category": "CALL_HASH_MISMATCH",
+      "error_names": [
+        "CallsHashMismatch"
+      ],
+      "classification_rule": "Call commitment mismatch."
+    },
+    {
+      "category": "POLICY_HASH_MISMATCH",
+      "error_names": [
+        "PolicyHashMismatch"
+      ],
+      "classification_rule": "Policy commitment mismatch."
+    },
+    {
+      "category": "POLICY_VIOLATION",
+      "error_names": [
+        "PolicyViolation"
+      ],
+      "classification_rule": "Authenticated inner policy rejection plus durable record; cannot infer validation stage from code alone."
+    },
+    {
+      "category": "POSTCONDITION_VIOLATION",
+      "error_names": [],
+      "classification_rule": "Subset of PolicyViolation only when trace independently locates _validateOutcomes/validateOutcome; avoid counting twice."
+    },
+    {
+      "category": "TARGET_REVERT",
+      "error_names": [
+        "TargetCallFailed"
+      ],
+      "classification_rule": "Inner target failure established by trace; ExecutionFailed alone is insufficient."
+    },
+    {
+      "category": "REENTRANCY_REJECTED",
+      "error_names": [
+        "ReentrancyGuardReentrantCall"
+      ],
+      "classification_rule": "Proven guard failure; nested target wrapping may require trace."
+    },
+    {
+      "category": "OUT_OF_GAS_OR_RESOURCE",
+      "error_names": [],
+      "classification_rule": "Observed resource failure; never infer intent enforcement from a failed receipt."
+    },
+    {
+      "category": "QUARANTINE_REJECTION",
+      "error_names": [
+        "AgentQuarantinedError"
+      ],
+      "classification_rule": "Registered submitting agent rejected by quarantine flag before signature verification."
+    },
+    {
+      "category": "STRUCTURAL_REJECTION",
+      "error_names": [
+        "WrongVersion",
+        "InvalidPolicy",
+        "InvalidValidityWindow",
+        "InvalidCallCount",
+        "BatchNotAllowed",
+        "InvalidCallTarget",
+        "UnsupportedOperation"
+      ],
+      "classification_rule": "Malformed package, not authenticated policy evidence."
+    },
+    {
+      "category": "OWNER_AUTH_FAILURE",
+      "error_names": [
+        "OwnableUnauthorizedAccount"
+      ],
+      "classification_rule": "Access-control failure on owner-only method."
+    },
+    {
+      "category": "PAUSE_REJECTION",
+      "error_names": [
+        "EnforcedPause"
+      ],
+      "classification_rule": "Administrative pause; does not prove scenario-specific security enforcement."
+    },
+    {
+      "category": "INFRASTRUCTURE_FAILURE",
+      "error_names": [],
+      "classification_rule": "RPC, fixture, decoder, tooling or setup failure."
+    },
+    {
+      "category": "UNKNOWN_FAILURE",
+      "error_names": [],
+      "classification_rule": "Insufficient evidence; do not count as a blocked violation."
+    },
+    {
+      "category": "NOT_APPLICABLE",
+      "error_names": [],
+      "classification_rule": "Unsupported interface/workload; no attempted execution and no gas observation."
+    }
+  ],
+  "warning": "Observed revert alone is never sufficient for security success; validation stage can require trace."
+}

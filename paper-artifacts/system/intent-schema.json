@@ -1,0 +1,144 @@
+{
+  "source": "contracts/src/IntentTypesV2.sol",
+  "sha256": "866321768ed74edbe4eca66ef35a024623fdb6cd4b8524bfb82a147b6887767b",
+  "git_commit": "361743f6d7d595caa4cf20ecc1c4d916856a353f",
+  "status": "SOURCE_DECLARATIONS_ONLY",
+  "structs": {
+    "IntentManifest": [
+      {
+        "type": "uint16",
+        "name": "version"
+      },
+      {
+        "type": "address",
+        "name": "account"
+      },
+      {
+        "type": "address",
+        "name": "owner"
+      },
+      {
+        "type": "address",
+        "name": "agent"
+      },
+      {
+        "type": "uint256",
+        "name": "chainId"
+      },
+      {
+        "type": "bytes32",
+        "name": "callsHash"
+      },
+      {
+        "type": "bytes32",
+        "name": "policyHash"
+      },
+      {
+        "type": "uint256",
+        "name": "nonce"
+      },
+      {
+        "type": "uint48",
+        "name": "validAfter"
+      },
+      {
+        "type": "uint48",
+        "name": "validUntil"
+      },
+      {
+        "type": "bool",
+        "name": "allowBatch"
+      },
+      {
+        "type": "uint8",
+        "name": "evidenceMode"
+      }
+    ],
+    "ExecutionCall": [
+      {
+        "type": "address",
+        "name": "target"
+      },
+      {
+        "type": "uint256",
+        "name": "value"
+      },
+      {
+        "type": "bytes",
+        "name": "data"
+      },
+      {
+        "type": "Operation",
+        "name": "operation"
+      }
+    ],
+    "AssetConstraint": [
+      {
+        "type": "address",
+        "name": "token"
+      },
+      {
+        "type": "uint256",
+        "name": "maxSpend"
+      },
+      {
+        "type": "address",
+        "name": "recipient"
+      },
+      {
+        "type": "uint256",
+        "name": "minReceive"
+      },
+      {
+        "type": "uint256",
+        "name": "minFinalBalance"
+      }
+    ],
+    "AllowanceConstraint": [
+      {
+        "type": "address",
+        "name": "token"
+      },
+      {
+        "type": "address",
+        "name": "spender"
+      },
+      {
+        "type": "uint256",
+        "name": "maxFinalAllowance"
+      }
+    ],
+    "NativeConstraint": [
+      {
+        "type": "uint256",
+        "name": "maxSpend"
+      },
+      {
+        "type": "uint256",
+        "name": "minFinalBalance"
+      }
+    ],
+    "Policy": [
+      {
+        "type": "PolicyModule",
+        "name": "module"
+      },
+      {
+        "type": "AssetConstraint[]",
+        "name": "assets"
+      },
+      {
+        "type": "AllowanceConstraint[]",
+        "name": "allowances"
+      },
+      {
+        "type": "NativeConstraint",
+        "name": "nativeConstraint"
+      },
+      {
+        "type": "bytes",
+        "name": "moduleData"
+      }
+    ]
+  }
+}

@@ -1,0 +1,620 @@
+No files changed, compilation skipped
+
+Ran 18 tests for test/unit/CresnexIntentLockAccount.t.sol:CresnexIntentLockAccountTest
+[PASS] testCallsHashMismatchAndBatchPermissionRejected() (gas: 83023)
+[PASS] testExcessiveAllowanceRollsBack() (gas: 308016)
+[PASS] testFutureAndExpiredIntentsRejected() (gas: 71188)
+[PASS] testInsufficientOutputAndWrongRecipientRollBack() (gas: 720006)
+[PASS] testLargeTargetRevertIsContainedWithBoundedEvidence() (gas: 496078)
+[PASS] testNonOwnerCannotRegisterAgent() (gas: 13867)
+[PASS] testNonceReplayRejected() (gas: 154084)
+[PASS] testOnlySelfAndReentrancyFailSafely() (gas: 388801)
+[PASS] testOverspendRollsBackAndPersistsEvidence() (gas: 396568)
+[PASS] testOwnerCanRegisterAgent() (gas: 43208)
+[PASS] testPausedAccountRejectsExecution() (gas: 67602)
+[PASS] testRegisteredAgentCanExecuteValidSingleIntent() (gas: 143919)
+[PASS] testThresholdQuarantinesAndOwnerRecoversAgent() (gas: 757788)
+[PASS] testUnregisteredAgentRejectedWithoutStrike() (gas: 54037)
+[PASS] testValidBatchSwapSucceeds() (gas: 188357)
+[PASS] testWrongAccountRejected() (gas: 47875)
+[PASS] testWrongChainRejected() (gas: 45462)
+[PASS] testWrongSignatureRejectedWithoutStrike() (gas: 65716)
+Suite result: ok. 18 passed; 0 failed; 0 skipped; finished in 36.06ms (33.63ms CPU time)
+
+Ran 21 tests for test/GasBenchmarks.t.sol:GasBenchmarksTest
+[PASS] testCallsHashMismatchAndBatchPermissionRejected() (gas: 83089)
+[PASS] testExcessiveAllowanceRollsBack() (gas: 308016)
+[PASS] testFutureAndExpiredIntentsRejected() (gas: 71232)
+[PASS] testGas_FailedOutcomeAndEvidence() (gas: 382817)
+[PASS] testGas_ValidBatchIntent() (gas: 183095)
+[PASS] testGas_ValidSingleIntent() (gas: 141746)
+[PASS] testInsufficientOutputAndWrongRecipientRollBack() (gas: 720050)
+[PASS] testLargeTargetRevertIsContainedWithBoundedEvidence() (gas: 496122)
+[PASS] testNonOwnerCannotRegisterAgent() (gas: 13867)
+[PASS] testNonceReplayRejected() (gas: 154106)
+[PASS] testOnlySelfAndReentrancyFailSafely() (gas: 388845)
+[PASS] testOverspendRollsBackAndPersistsEvidence() (gas: 396612)
+[PASS] testOwnerCanRegisterAgent() (gas: 43252)
+[PASS] testPausedAccountRejectsExecution() (gas: 67602)
+[PASS] testRegisteredAgentCanExecuteValidSingleIntent() (gas: 143963)
+[PASS] testThresholdQuarantinesAndOwnerRecoversAgent() (gas: 757810)
+[PASS] testUnregisteredAgentRejectedWithoutStrike() (gas: 54081)
+[PASS] testValidBatchSwapSucceeds() (gas: 188401)
+[PASS] testWrongAccountRejected() (gas: 47919)
+[PASS] testWrongChainRejected() (gas: 45484)
+[PASS] testWrongSignatureRejectedWithoutStrike() (gas: 65782)
+Suite result: ok. 21 passed; 0 failed; 0 skipped; finished in 36.99ms (34.30ms CPU time)
+
+Ran 12 tests for test/unit/CresnexIntentLockAccountV2.t.sol:CresnexIntentLockAccountV2Test
+[PASS] testApprovalAllowsBoundedValueAndBlocksWrongSpenderOrExcess() (gas: 539623)
+[PASS] testAuthenticationAndMalformedPolicyFailuresDoNotStrikeOrConsumeNonce() (gas: 102459)
+[PASS] testBatchBindsOrderAndAggregateOutcome() (gas: 320741)
+[PASS] testNativeTransferEnforcesSpendAndFinalBalance() (gas: 333762)
+[PASS] testOrdinaryTargetFailureConsumesNonceWithoutStrike() (gas: 121712)
+[PASS] testRemovingAgentPreservesStrikeHistoryAndOnlySelfIsEnforced() (gas: 246840)
+[PASS] testReplayExpiryQuarantineAndOwnerControls() (gas: 253381)
+[PASS] testSwapBlocksOverspendInsufficientOutputWrongRecipientAndUnlimitedApproval() (gas: 1308416)
+[PASS] testSwapUsesMeasuredDeltasAndAllowanceCap() (gas: 239061)
+[PASS] testTransferBlocksExcessWrongRecipientDifferentTokenAndHiddenBatch() (gas: 859530)
+[PASS] testTransferPolicyAllowsBoundedTransfer() (gas: 146082)
+[PASS] testUnsupportedEvidenceModeAndMisboundPolicyAreStructuralFailures() (gas: 104936)
+Suite result: ok. 12 passed; 0 failed; 0 skipped; finished in 55.74ms (49.58ms CPU time)
+
+Ran 15 tests for test/GasBenchmarksV2.t.sol:GasBenchmarksV2Test
+[PASS] testApprovalAllowsBoundedValueAndBlocksWrongSpenderOrExcess() (gas: 539667)
+[PASS] testAuthenticationAndMalformedPolicyFailuresDoNotStrikeOrConsumeNonce() (gas: 102525)
+[PASS] testBatchBindsOrderAndAggregateOutcome() (gas: 321052)
+[PASS] testGas_V2BatchViolationEvidence() (gas: 269449)
+[PASS] testGas_V2Swap() (gas: 235126)
+[PASS] testGas_V2Transfer() (gas: 143889)
+[PASS] testNativeTransferEnforcesSpendAndFinalBalance() (gas: 333828)
+[PASS] testOrdinaryTargetFailureConsumesNonceWithoutStrike() (gas: 121734)
+[PASS] testRemovingAgentPreservesStrikeHistoryAndOnlySelfIsEnforced() (gas: 246862)
+[PASS] testReplayExpiryQuarantineAndOwnerControls() (gas: 253447)
+[PASS] testSwapBlocksOverspendInsufficientOutputWrongRecipientAndUnlimitedApproval() (gas: 1308438)
+[PASS] testSwapUsesMeasuredDeltasAndAllowanceCap() (gas: 239142)
+[PASS] testTransferBlocksExcessWrongRecipientDifferentTokenAndHiddenBatch() (gas: 859596)
+[PASS] testTransferPolicyAllowsBoundedTransfer() (gas: 146104)
+[PASS] testUnsupportedEvidenceModeAndMisboundPolicyAreStructuralFailures() (gas: 104936)
+Suite result: ok. 15 passed; 0 failed; 0 skipped; finished in 60.01ms (56.43ms CPU time)
+
+Ran 17 tests for test/unit/IntentLockV2Payments.t.sol:IntentLockV2PaymentsTest
+[PASS] testApprovalAllowsBoundedValueAndBlocksWrongSpenderOrExcess() (gas: 539689)
+[PASS] testAuthenticationAndMalformedPolicyFailuresDoNotStrikeOrConsumeNonce() (gas: 102569)
+[PASS] testBatchBindsOrderAndAggregateOutcome() (gas: 320785)
+[PASS] testNativeTransferEnforcesSpendAndFinalBalance() (gas: 333872)
+[PASS] testOrdinaryTargetFailureConsumesNonceWithoutStrike() (gas: 121756)
+[PASS] testPayrollValidAndBlocksDuplicateEarlyLateExcessAndWrongEmployee() (gas: 1436845)
+[PASS] testRemovingAgentPreservesStrikeHistoryAndOnlySelfIsEnforced() (gas: 246880)
+[PASS] testReplayExpiryQuarantineAndOwnerControls() (gas: 253491)
+[PASS] testSubscriptionBlocksExcessWrongMerchantExpiryAndNonOwnerCancellation() (gas: 656073)
+[PASS] testSubscriptionRecurringPeriodsCountAndOwnerCancellation() (gas: 962339)
+[PASS] testSwapBlocksOverspendInsufficientOutputWrongRecipientAndUnlimitedApproval() (gas: 1308460)
+[PASS] testSwapUsesMeasuredDeltasAndAllowanceCap() (gas: 239083)
+[PASS] testTransferBlocksExcessWrongRecipientDifferentTokenAndHiddenBatch() (gas: 859640)
+[PASS] testTransferPolicyAllowsBoundedTransfer() (gas: 146104)
+[PASS] testTreasuryBlocksExcessWrongRecipientDuplicateReferenceBudgetAndHiddenCall() (gas: 1232437)
+[PASS] testTreasuryPaymentValidAndRecordsReferenceAndBudget() (gas: 199621)
+[PASS] testUnsupportedEvidenceModeAndMisboundPolicyAreStructuralFailures() (gas: 104936)
+Suite result: ok. 17 passed; 0 failed; 0 skipped; finished in 93.06ms (88.52ms CPU time)
+
+Ran 24 tests for test/GasBenchmarksV2DeFi.t.sol:GasBenchmarksV2DeFiTest
+[PASS] testApprovalAllowsBoundedValueAndBlocksWrongSpenderOrExcess() (gas: 539755)
+[PASS] testAuthenticationAndMalformedPolicyFailuresDoNotStrikeOrConsumeNonce() (gas: 102723)
+[PASS] testBatchBindsOrderAndAggregateOutcome() (gas: 320807)
+[PASS] testDepositBlocksExcessWrongBeneficiaryTooFewSharesAndResidualAllowance() (gas: 1066656)
+[PASS] testDepositRejectsHiddenAssetCallEvenWhenAggregateSpendFits() (gas: 275280)
+[PASS] testDepositValid() (gas: 236610)
+[PASS] testGas_V2Deposit() (gas: 232720)
+[PASS] testGas_V2Withdrawal() (gas: 233180)
+[PASS] testGas_V2YieldRebalance() (gas: 364236)
+[PASS] testMaliciousVaultExcessivePullRollsBack() (gas: 286064)
+[PASS] testNativeTransferEnforcesSpendAndFinalBalance() (gas: 334004)
+[PASS] testOrdinaryTargetFailureConsumesNonceWithoutStrike() (gas: 121778)
+[PASS] testRemovingAgentPreservesStrikeHistoryAndOnlySelfIsEnforced() (gas: 246928)
+[PASS] testReplayExpiryQuarantineAndOwnerControls() (gas: 253623)
+[PASS] testSwapBlocksOverspendInsufficientOutputWrongRecipientAndUnlimitedApproval() (gas: 1308760)
+[PASS] testSwapUsesMeasuredDeltasAndAllowanceCap() (gas: 239194)
+[PASS] testTransferBlocksExcessWrongRecipientDifferentTokenAndHiddenBatch() (gas: 859771)
+[PASS] testTransferPolicyAllowsBoundedTransfer() (gas: 146094)
+[PASS] testUnsupportedEvidenceModeAndMisboundPolicyAreStructuralFailures() (gas: 104936)
+[PASS] testWithdrawalBlocksExcessBurnInsufficientAssetsWrongRecipientAndUnexpectedLoss() (gas: 1134731)
+[PASS] testWithdrawalValid() (gas: 236025)
+[PASS] testYieldBlocksMovementLimitValueLossAndUnapprovedVault() (gas: 1798081)
+[PASS] testYieldRebalanceBetweenApprovedVaults() (gas: 367241)
+[PASS] testYieldRejectsArbitraryApprovedVaultCallAndDuplicateVaultPolicy() (gas: 465521)
+Suite result: ok. 24 passed; 0 failed; 0 skipped; finished in 125.34ms (113.05ms CPU time)
+
+Ran 20 tests for test/GasBenchmarksV2Payments.t.sol:GasBenchmarksV2PaymentsTest
+[PASS] testApprovalAllowsBoundedValueAndBlocksWrongSpenderOrExcess() (gas: 539711)
+[PASS] testAuthenticationAndMalformedPolicyFailuresDoNotStrikeOrConsumeNonce() (gas: 102635)
+[PASS] testBatchBindsOrderAndAggregateOutcome() (gas: 320785)
+[PASS] testGas_V2PayrollPayment() (gas: 194024)
+[PASS] testGas_V2SubscriptionPayment() (gas: 197049)
+[PASS] testGas_V2TreasuryPayment() (gas: 193760)
+[PASS] testNativeTransferEnforcesSpendAndFinalBalance() (gas: 333938)
+[PASS] testOrdinaryTargetFailureConsumesNonceWithoutStrike() (gas: 121756)
+[PASS] testPayrollValidAndBlocksDuplicateEarlyLateExcessAndWrongEmployee() (gas: 1436845)
+[PASS] testRemovingAgentPreservesStrikeHistoryAndOnlySelfIsEnforced() (gas: 246880)
+[PASS] testReplayExpiryQuarantineAndOwnerControls() (gas: 253557)
+[PASS] testSubscriptionBlocksExcessWrongMerchantExpiryAndNonOwnerCancellation() (gas: 656073)
+[PASS] testSubscriptionRecurringPeriodsCountAndOwnerCancellation() (gas: 962397)
+[PASS] testSwapBlocksOverspendInsufficientOutputWrongRecipientAndUnlimitedApproval() (gas: 1308460)
+[PASS] testSwapUsesMeasuredDeltasAndAllowanceCap() (gas: 239083)
+[PASS] testTransferBlocksExcessWrongRecipientDifferentTokenAndHiddenBatch() (gas: 859706)
+[PASS] testTransferPolicyAllowsBoundedTransfer() (gas: 146104)
+[PASS] testTreasuryBlocksExcessWrongRecipientDuplicateReferenceBudgetAndHiddenCall() (gas: 1232437)
+[PASS] testTreasuryPaymentValidAndRecordsReferenceAndBudget() (gas: 199643)
+[PASS] testUnsupportedEvidenceModeAndMisboundPolicyAreStructuralFailures() (gas: 104936)
+Suite result: ok. 20 passed; 0 failed; 0 skipped; finished in 52.85ms (50.47ms CPU time)
+
+Ran 59 tests for test/unit/CREIntentRiskConsumer.t.sol:CREIntentRiskConsumerTest
+[PASS] testAllowWithNonzeroCountRejected() (gas: 21230)
+[PASS] testAllowWithUnusableEvidenceRejected() (gas: 20356)
+[PASS] testAuthorizedGateConsumesAllowExactlyOnce() (gas: 174852)
+[PASS] testChangingAccountChangesKey() (gas: 12309)
+[PASS] testChangingAgentChangesKey() (gas: 11407)
+[PASS] testChangingCallsHashChangesKey() (gas: 11879)
+[PASS] testChangingNonceChangesKey() (gas: 12511)
+[PASS] testChangingPolicyHashChangesKey() (gas: 11681)
+[PASS] testCorrectMetadataWrongForwarderRejected() (gas: 13480)
+[PASS] testCorrectWorkflowMetadataAccepted() (gas: 140335)
+[PASS] testDecisionOverflowRejected() (gas: 20061)
+[PASS] testEscalateCannotBeConsumed() (gas: 187888)
+[PASS] testEscalateWithThreeRejected() (gas: 21174)
+[PASS] testEscalateWithZeroRejected() (gas: 20539)
+[PASS] testEvidenceHashMismatchRejected() (gas: 22707)
+[PASS] testExactDuplicateReplayRejected() (gas: 149740)
+[PASS] testExpiredAcceptedVerdictCannotBeConsumed() (gas: 167284)
+[PASS] testExpiredVerdictRejected() (gas: 21472)
+[PASS] testForwarderWithWrongWorkflowRejected() (gas: 18416)
+[PASS] testFutureVerdictRejected() (gas: 22092)
+[PASS] testFuzzBindingChangesKey(uint256,bytes32,bytes32) (runs: 256, μ: 12395, ~: 12395)
+[PASS] testFuzzInvalidDecisionEvidence(uint8) (runs: 256, μ: 24475, ~: 24448)
+[PASS] testFuzzValidExpiryAccepted(uint32,uint32) (runs: 256, μ: 146016, ~: 145899)
+[PASS] testGateCanOnlyBeConfiguredOnce() (gas: 33211)
+[PASS] testGenuineBlockCannotBeConsumed() (gas: 187601)
+[PASS] testInvalidValidityWindowRejected() (gas: 21644)
+[PASS] testKeystoneMetadataFixtureUsesExactLayout() (gas: 142787)
+[PASS] testLongMetadataRejected() (gas: 14841)
+[PASS] testMissingVerdictCannotBeConsumed() (gas: 39005)
+[PASS] testOnlyGateAdminCanConfigureGate() (gas: 10140)
+[PASS] testOnlyGateAdminCanConfigureWorkflow() (gas: 976604)
+[PASS] testOperationalBlockCannotBeConsumed() (gas: 167144)
+[PASS] testOperationalBlockWithThresholdRejected() (gas: 21177)
+[PASS] testShortMetadataRejected() (gas: 14520)
+[PASS] testTypeScriptSolidityAbiVector() (gas: 141916)
+[PASS] testUnauthorizedGateCannotConsume() (gas: 166632)
+[PASS] testUsableBlockBelowThresholdRejected() (gas: 20724)
+[PASS] testUsableBlockWithoutThresholdRejected() (gas: 20819)
+[PASS] testValidAllowAccepted() (gas: 139807)
+[PASS] testValidEscalateOneAccepted() (gas: 159461)
+[PASS] testValidEscalateTwoAccepted() (gas: 159600)
+[PASS] testValidFailClosedBlockAccepted() (gas: 140213)
+[PASS] testValidGenuineBlockAccepted() (gas: 159262)
+[PASS] testWorkflowAuthorizationCanOnlyBeConfiguredOnce() (gas: 12326)
+[PASS] testWorkflowAuthorizationMustBeConfigured() (gas: 983508)
+[PASS] testWrongCallerRejected() (gas: 14184)
+[PASS] testWrongChainIdRejected() (gas: 20529)
+[PASS] testWrongRuleIdRejected() (gas: 19994)
+[PASS] testWrongVersionRejected() (gas: 19815)
+[PASS] testWrongWorkflowIdRejected() (gas: 18614)
+[PASS] testWrongWorkflowOwnerRejected() (gas: 18869)
+[PASS] testZeroAccountRejected() (gas: 21033)
+[PASS] testZeroAgentRejected() (gas: 21431)
+[PASS] testZeroCallsHashRejected() (gas: 20249)
+[PASS] testZeroForwarderRejected() (gas: 36805)
+[PASS] testZeroGateRejected() (gas: 9709)
+[PASS] testZeroPolicyHashRejected() (gas: 21025)
+[PASS] testZeroWorkflowIdConfigurationRejected() (gas: 975851)
+[PASS] testZeroWorkflowOwnerConfigurationRejected() (gas: 976034)
+Suite result: ok. 59 passed; 0 failed; 0 skipped; finished in 186.31ms (184.34ms CPU time)
+
+Ran 19 tests for test/fuzz/IntentLockV2PaymentsFuzz.t.sol:IntentLockV2PaymentsFuzzTest
+[PASS] testApprovalAllowsBoundedValueAndBlocksWrongSpenderOrExcess() (gas: 539711)
+[PASS] testAuthenticationAndMalformedPolicyFailuresDoNotStrikeOrConsumeNonce() (gas: 102613)
+[PASS] testBatchBindsOrderAndAggregateOutcome() (gas: 320807)
+[PASS] testFuzz_PayrollWindow(uint48,uint64) (runs: 256, μ: 222275, ~: 228922)
+[PASS] testFuzz_TreasuryAmountBoundary(uint96,uint96,uint64) (runs: 256, μ: 202386, ~: 227183)
+[PASS] testNativeTransferEnforcesSpendAndFinalBalance() (gas: 333916)
+[PASS] testOrdinaryTargetFailureConsumesNonceWithoutStrike() (gas: 121778)
+[PASS] testPayrollValidAndBlocksDuplicateEarlyLateExcessAndWrongEmployee() (gas: 1436867)
+[PASS] testRemovingAgentPreservesStrikeHistoryAndOnlySelfIsEnforced() (gas: 246902)
+[PASS] testReplayExpiryQuarantineAndOwnerControls() (gas: 253535)
+[PASS] testSubscriptionBlocksExcessWrongMerchantExpiryAndNonOwnerCancellation() (gas: 656095)
+[PASS] testSubscriptionRecurringPeriodsCountAndOwnerCancellation() (gas: 962361)
+[PASS] testSwapBlocksOverspendInsufficientOutputWrongRecipientAndUnlimitedApproval() (gas: 1308482)
+[PASS] testSwapUsesMeasuredDeltasAndAllowanceCap() (gas: 239105)
+[PASS] testTransferBlocksExcessWrongRecipientDifferentTokenAndHiddenBatch() (gas: 859684)
+[PASS] testTransferPolicyAllowsBoundedTransfer() (gas: 146126)
+[PASS] testTreasuryBlocksExcessWrongRecipientDuplicateReferenceBudgetAndHiddenCall() (gas: 1232459)
+[PASS] testTreasuryPaymentValidAndRecordsReferenceAndBudget() (gas: 199643)
+[PASS] testUnsupportedEvidenceModeAndMisboundPolicyAreStructuralFailures() (gas: 104936)
+Suite result: ok. 19 passed; 0 failed; 0 skipped; finished in 660.83ms (683.84ms CPU time)
+
+Ran 21 tests for test/unit/IntentLockV2DeFi.t.sol:IntentLockV2DeFiTest
+[PASS] testApprovalAllowsBoundedValueAndBlocksWrongSpenderOrExcess() (gas: 539711)
+[PASS] testAuthenticationAndMalformedPolicyFailuresDoNotStrikeOrConsumeNonce() (gas: 102657)
+[PASS] testBatchBindsOrderAndAggregateOutcome() (gas: 320785)
+[PASS] testDepositBlocksExcessWrongBeneficiaryTooFewSharesAndResidualAllowance() (gas: 1066612)
+[PASS] testDepositRejectsHiddenAssetCallEvenWhenAggregateSpendFits() (gas: 275214)
+[PASS] testDepositValid() (gas: 236588)
+[PASS] testMaliciousVaultExcessivePullRollsBack() (gas: 286020)
+[PASS] testNativeTransferEnforcesSpendAndFinalBalance() (gas: 333938)
+[PASS] testOrdinaryTargetFailureConsumesNonceWithoutStrike() (gas: 121756)
+[PASS] testRemovingAgentPreservesStrikeHistoryAndOnlySelfIsEnforced() (gas: 246906)
+[PASS] testReplayExpiryQuarantineAndOwnerControls() (gas: 253557)
+[PASS] testSwapBlocksOverspendInsufficientOutputWrongRecipientAndUnlimitedApproval() (gas: 1308738)
+[PASS] testSwapUsesMeasuredDeltasAndAllowanceCap() (gas: 239194)
+[PASS] testTransferBlocksExcessWrongRecipientDifferentTokenAndHiddenBatch() (gas: 859705)
+[PASS] testTransferPolicyAllowsBoundedTransfer() (gas: 146094)
+[PASS] testUnsupportedEvidenceModeAndMisboundPolicyAreStructuralFailures() (gas: 104936)
+[PASS] testWithdrawalBlocksExcessBurnInsufficientAssetsWrongRecipientAndUnexpectedLoss() (gas: 1134665)
+[PASS] testWithdrawalValid() (gas: 236025)
+[PASS] testYieldBlocksMovementLimitValueLossAndUnapprovedVault() (gas: 1798015)
+[PASS] testYieldRebalanceBetweenApprovedVaults() (gas: 367241)
+[PASS] testYieldRejectsArbitraryApprovedVaultCallAndDuplicateVaultPolicy() (gas: 465477)
+Suite result: ok. 21 passed; 0 failed; 0 skipped; finished in 728.10ms (93.86ms CPU time)
+
+Ran 23 tests for test/fuzz/IntentLockV2DeFiFuzz.t.sol:IntentLockV2DeFiFuzzTest
+[PASS] testApprovalAllowsBoundedValueAndBlocksWrongSpenderOrExcess() (gas: 539755)
+[PASS] testAuthenticationAndMalformedPolicyFailuresDoNotStrikeOrConsumeNonce() (gas: 102701)
+[PASS] testBatchBindsOrderAndAggregateOutcome() (gas: 320807)
+[PASS] testDepositBlocksExcessWrongBeneficiaryTooFewSharesAndResidualAllowance() (gas: 1066634)
+[PASS] testDepositRejectsHiddenAssetCallEvenWhenAggregateSpendFits() (gas: 275258)
+[PASS] testDepositValid() (gas: 236610)
+[PASS] testFuzz_DepositAmountBoundary(uint96,uint96,uint64) (runs: 256, μ: 242592, ~: 246828)
+[PASS] testFuzz_MinimumShares(uint96,uint96,uint64) (runs: 256, μ: 302696, ~: 238437)
+[PASS] testMaliciousVaultExcessivePullRollsBack() (gas: 286064)
+[PASS] testNativeTransferEnforcesSpendAndFinalBalance() (gas: 333982)
+[PASS] testOrdinaryTargetFailureConsumesNonceWithoutStrike() (gas: 121778)
+[PASS] testRemovingAgentPreservesStrikeHistoryAndOnlySelfIsEnforced() (gas: 246928)
+[PASS] testReplayExpiryQuarantineAndOwnerControls() (gas: 253601)
+[PASS] testSwapBlocksOverspendInsufficientOutputWrongRecipientAndUnlimitedApproval() (gas: 1308760)
+[PASS] testSwapUsesMeasuredDeltasAndAllowanceCap() (gas: 239216)
+[PASS] testTransferBlocksExcessWrongRecipientDifferentTokenAndHiddenBatch() (gas: 859749)
+[PASS] testTransferPolicyAllowsBoundedTransfer() (gas: 146116)
+[PASS] testUnsupportedEvidenceModeAndMisboundPolicyAreStructuralFailures() (gas: 104936)
+[PASS] testWithdrawalBlocksExcessBurnInsufficientAssetsWrongRecipientAndUnexpectedLoss() (gas: 1134709)
+[PASS] testWithdrawalValid() (gas: 236025)
+[PASS] testYieldBlocksMovementLimitValueLossAndUnapprovedVault() (gas: 1798059)
+[PASS] testYieldRebalanceBetweenApprovedVaults() (gas: 367259)
+[PASS] testYieldRejectsArbitraryApprovedVaultCallAndDuplicateVaultPolicy() (gas: 465521)
+Suite result: ok. 23 passed; 0 failed; 0 skipped; finished in 794.41ms (875.31ms CPU time)
+
+Ran 21 tests for test/fuzz/IntentLockFuzz.t.sol:IntentLockFuzzTest
+[PASS] testCallsHashMismatchAndBatchPermissionRejected() (gas: 83393)
+[PASS] testExcessiveAllowanceRollsBack() (gas: 308196)
+[PASS] testFutureAndExpiredIntentsRejected() (gas: 71452)
+[PASS] testFuzz_BatchLengthRejectedAboveLimit(uint8) (runs: 256, μ: 169755, ~: 147034)
+[PASS] testFuzz_InputLimit(uint96,uint96,uint64) (runs: 256, μ: 294880, ~: 388429)
+[PASS] testFuzz_MinimumOutput(uint96,uint96,uint64) (runs: 256, μ: 232484, ~: 148068)
+[PASS] testInsufficientOutputAndWrongRecipientRollBack() (gas: 720534)
+[PASS] testLargeTargetRevertIsContainedWithBoundedEvidence() (gas: 496330)
+[PASS] testNonOwnerCannotRegisterAgent() (gas: 13915)
+[PASS] testNonceReplayRejected() (gas: 154300)
+[PASS] testOnlySelfAndReentrancyFailSafely() (gas: 389104)
+[PASS] testOverspendRollsBackAndPersistsEvidence() (gas: 396892)
+[PASS] testOwnerCanRegisterAgent() (gas: 43256)
+[PASS] testPausedAccountRejectsExecution() (gas: 67782)
+[PASS] testRegisteredAgentCanExecuteValidSingleIntent() (gas: 144099)
+[PASS] testThresholdQuarantinesAndOwnerRecoversAgent() (gas: 758616)
+[PASS] testUnregisteredAgentRejectedWithoutStrike() (gas: 54217)
+[PASS] testValidBatchSwapSucceeds() (gas: 188621)
+[PASS] testWrongAccountRejected() (gas: 48031)
+[PASS] testWrongChainRejected() (gas: 45618)
+[PASS] testWrongSignatureRejectedWithoutStrike() (gas: 65940)
+Suite result: ok. 21 passed; 0 failed; 0 skipped; finished in 799.12ms (805.62ms CPU time)
+
+Ran 16 tests for test/fuzz/IntentLockV2Fuzz.t.sol:IntentLockV2FuzzTest
+[PASS] testApprovalAllowsBoundedValueAndBlocksWrongSpenderOrExcess() (gas: 539737)
+[PASS] testAuthenticationAndMalformedPolicyFailuresDoNotStrikeOrConsumeNonce() (gas: 102595)
+[PASS] testBatchBindsOrderAndAggregateOutcome() (gas: 320807)
+[PASS] testFuzz_AllowanceArrayBound(uint8) (runs: 256, μ: 84531, ~: 79829)
+[PASS] testFuzz_AssetArrayBound(uint8) (runs: 256, μ: 87118, ~: 81821)
+[PASS] testFuzz_NativeSpendBoundary(uint96,uint96,uint64) (runs: 256, μ: 174432, ~: 214701)
+[PASS] testFuzz_TransferAmountBoundary(uint96,uint96,uint64) (runs: 256, μ: 189345, ~: 226768)
+[PASS] testNativeTransferEnforcesSpendAndFinalBalance() (gas: 333850)
+[PASS] testOrdinaryTargetFailureConsumesNonceWithoutStrike() (gas: 121826)
+[PASS] testRemovingAgentPreservesStrikeHistoryAndOnlySelfIsEnforced() (gas: 246954)
+[PASS] testReplayExpiryQuarantineAndOwnerControls() (gas: 253517)
+[PASS] testSwapBlocksOverspendInsufficientOutputWrongRecipientAndUnlimitedApproval() (gas: 1308631)
+[PASS] testSwapUsesMeasuredDeltasAndAllowanceCap() (gas: 239168)
+[PASS] testTransferBlocksExcessWrongRecipientDifferentTokenAndHiddenBatch() (gas: 859666)
+[PASS] testTransferPolicyAllowsBoundedTransfer() (gas: 146174)
+[PASS] testUnsupportedEvidenceModeAndMisboundPolicyAreStructuralFailures() (gas: 104984)
+Suite result: ok. 16 passed; 0 failed; 0 skipped; finished in 1.15s (1.16s CPU time)
+
+Ran 35 tests for test/unit/IntentLockV2Phase4.t.sol:IntentLockV2Phase4Test
+[PASS] testAdminAllowsBoundedNumericAddressPauseAndRoleChanges() (gas: 400914)
+[PASS] testAdminRejectsOutOfRangeWrongTargetSelectorArgumentAndBatch() (gas: 1623631)
+[PASS] testAdminTimelockAndDangerousSelectorsAreRejected() (gas: 302260)
+[PASS] testApprovalAllowsBoundedValueAndBlocksWrongSpenderOrExcess() (gas: 539997)
+[PASS] testAuthenticationAndMalformedPolicyFailuresDoNotStrikeOrConsumeNonce() (gas: 103010)
+[PASS] testBatchBindsOrderAndAggregateOutcome() (gas: 320895)
+[PASS] testFuzzAdminNumericBounds(uint256) (runs: 256, μ: 128874, ~: 128903)
+[PASS] testFuzzAdminRoleIdentifier(bytes32) (runs: 256, μ: 23925, ~: 23925)
+[PASS] testFuzzAdminTimestamp(uint48) (runs: 256, μ: 21164, ~: 21091)
+[PASS] testFuzzBatchLength(uint8) (runs: 256, μ: 23519, ~: 22369)
+[PASS] testFuzzERC1155MinimumQuantity(uint8) (runs: 256, μ: 221562, ~: 221564)
+[PASS] testFuzzNftPriceAndTokenId(uint96,uint256) (runs: 256, μ: 243215, ~: 243022)
+[PASS] testFuzzUnsupportedModuleIdentifier(uint8) (runs: 256, μ: 16735, ~: 16592)
+[PASS] testImmutableValidatorOnlyValidatesAndCannotMutateOrExecute() (gas: 55270)
+[PASS] testNativeTransferEnforcesSpendAndFinalBalance() (gas: 334176)
+[PASS] testNftExcessivePullFailsAtomicallyWithoutPolicyStrike() (gas: 182077)
+[PASS] testNftLargeReturnDataIsBoundedAndLargeRevertDataIsNonPunitive() (gas: 436009)
+[PASS] testNftNativePaymentIsBoundedAndDelivered() (gas: 174023)
+[PASS] testNftPostconditionsRollbackWrongOrMissingDelivery() (gas: 687959)
+[PASS] testNftPurchaseDeliversExactERC721AndClearsAllowance() (gas: 243107)
+[PASS] testNftPurchaseDeliversMinimumERC1155Quantity() (gas: 219619)
+[PASS] testNftPurchaseRejectsHiddenCallAndOversizedApproval() (gas: 484022)
+[PASS] testNftPurchaseRejectsWrongCollectionTokenRecipientPriceAndMarketplace() (gas: 2103145)
+[PASS] testNftResidualAllowanceIsAContainedPolicyViolation() (gas: 388923)
+[PASS] testOrdinaryTargetFailureConsumesNonceWithoutStrike() (gas: 121888)
+[PASS] testReentrantERC1155ReceiverIsContained() (gas: 2049918)
+[PASS] testReentrantERC721ReceiverIsContained() (gas: 2049253)
+[PASS] testRemovingAgentPreservesStrikeHistoryAndOnlySelfIsEnforced() (gas: 247082)
+[PASS] testReplayExpiryQuarantineAndOwnerControls() (gas: 253821)
+[PASS] testSwapBlocksOverspendInsufficientOutputWrongRecipientAndUnlimitedApproval() (gas: 1308778)
+[PASS] testSwapUsesMeasuredDeltasAndAllowanceCap() (gas: 239244)
+[PASS] testTransferBlocksExcessWrongRecipientDifferentTokenAndHiddenBatch() (gas: 859970)
+[PASS] testTransferPolicyAllowsBoundedTransfer() (gas: 146160)
+[PASS] testUnsupportedEvidenceModeAndMisboundPolicyAreStructuralFailures() (gas: 104936)
+[PASS] testValidatorRejectsModuleImpersonation() (gas: 23521)
+Suite result: ok. 35 passed; 0 failed; 0 skipped; finished in 1.46s (1.50s CPU time)
+
+Ran 23 tests for test/unit/CresnexIntentLockAccountV3.t.sol:CresnexIntentLockAccountV3Test
+[PASS] testDifferentCallPackageCannotUseVerdict() (gas: 226856)
+[PASS] testDifferentNonceCannotUseVerdict() (gas: 224835)
+[PASS] testDifferentPolicyCannotUseVerdict() (gas: 226633)
+[PASS] testDownstreamRevertRollsBackVerdictConsumptionThenRetrySucceeds() (gas: 356985)
+[PASS] testEscalateRejects() (gas: 233112)
+[PASS] testExecuteIsolatedCannotBypassGate() (gas: 12708)
+[PASS] testExpiredAllowRejects() (gas: 213517)
+[PASS] testFuzzBindingMutationCannotUseVerdict(uint256) (runs: 256, μ: 219820, ~: 219687)
+[PASS] testFuzzNonAllowNeverExecutes(uint8) (runs: 256, μ: 231867, ~: 231845)
+[PASS] testGenuineBlockRejects() (gas: 233528)
+[PASS] testInvalidOwnerSignatureRejectedBeforeVerdictConsumption() (gas: 195036)
+[PASS] testMatchingAllowAndValidIntentSucceeds() (gas: 294948)
+[PASS] testNoVerdictRejectsWithoutSecuritySideEffects() (gas: 82819)
+[PASS] testOperationalBlockRejects() (gas: 213514)
+[PASS] testOrdinaryExecutionFailurePreservesV2Semantics() (gas: 288086)
+[PASS] testOutcomeChecksRemainEnforcedAfterAllow() (gas: 419112)
+[PASS] testPolicyViolationAfterAllowPreservesV2Semantics() (gas: 385871)
+[PASS] testSuccessConsumesVerdictAndIntentNonce() (gas: 299224)
+[PASS] testVerdictReplayRejected() (gas: 299132)
+[PASS] testWrongAccountManifestRejectedBeforeGate() (gas: 44472)
+[PASS] testWrongAgentManifestRejectedBeforeGate() (gas: 44441)
+[PASS] testWrongChainManifestRejectedBeforeGate() (gas: 46850)
+[PASS] testWrongNonceVerdictRejected() (gas: 216600)
+Suite result: ok. 23 passed; 0 failed; 0 skipped; finished in 6.90s (693.25ms CPU time)
+
+Ran 2 tests for test/invariant/IntentLockV2PaymentsInvariant.t.sol:IntentLockV2PaymentsInvariantTest
+[PASS] invariant_OnlyOneChargePerSubscriptionPeriod() (runs: 128, calls: 4096, reverts: 0)
+
+╭-----------------------------+----------+-------+---------+----------╮
+| Contract                    | Selector | Calls | Reverts | Discards |
++=====================================================================+
+| IntentLockV2PaymentsHandler | charge   | 4096  | 0       | 0        |
+╰-----------------------------+----------+-------+---------+----------╯
+
+[PASS] invariant_SubscriptionCountMatchesCommittedPayment() (runs: 128, calls: 4096, reverts: 0)
+
+╭-----------------------------+----------+-------+---------+----------╮
+| Contract                    | Selector | Calls | Reverts | Discards |
++=====================================================================+
+| IntentLockV2PaymentsHandler | charge   | 4096  | 0       | 0        |
+╰-----------------------------+----------+-------+---------+----------╯
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 9.51s (17.39s CPU time)
+
+Ran 3 tests for test/invariant/IntentLockV2Phase4Invariant.t.sol:IntentLockV2Phase4InvariantTest
+[PASS] invariant_DangerousOrStructuralFailuresDoNotChangeAccountState() (runs: 128, calls: 4096, reverts: 0)
+
+╭---------------------------+---------------------------------+-------+---------+----------╮
+| Contract                  | Selector                        | Calls | Reverts | Discards |
++==========================================================================================+
+| IntentLockV2Phase4Handler | administrationAboveBound        | 1338  | 0       | 0        |
+|---------------------------+---------------------------------+-------+---------+----------|
+| IntentLockV2Phase4Handler | dangerousAdministrationSelector | 1372  | 0       | 0        |
+|---------------------------+---------------------------------+-------+---------+----------|
+| IntentLockV2Phase4Handler | paymentWithoutNft               | 1386  | 0       | 0        |
+╰---------------------------+---------------------------------+-------+---------+----------╯
+
+[PASS] invariant_NftAndAdministrationEffectsRemainBounded() (runs: 128, calls: 4096, reverts: 0)
+
+╭---------------------------+---------------------------------+-------+---------+----------╮
+| Contract                  | Selector                        | Calls | Reverts | Discards |
++==========================================================================================+
+| IntentLockV2Phase4Handler | administrationAboveBound        | 1338  | 0       | 0        |
+|---------------------------+---------------------------------+-------+---------+----------|
+| IntentLockV2Phase4Handler | dangerousAdministrationSelector | 1372  | 0       | 0        |
+|---------------------------+---------------------------------+-------+---------+----------|
+| IntentLockV2Phase4Handler | paymentWithoutNft               | 1386  | 0       | 0        |
+╰---------------------------+---------------------------------+-------+---------+----------╯
+
+[PASS] invariant_Phase4ViolationsStrikeOnceAndPersistEvidence() (runs: 128, calls: 4096, reverts: 0)
+
+╭---------------------------+---------------------------------+-------+---------+----------╮
+| Contract                  | Selector                        | Calls | Reverts | Discards |
++==========================================================================================+
+| IntentLockV2Phase4Handler | administrationAboveBound        | 1338  | 0       | 0        |
+|---------------------------+---------------------------------+-------+---------+----------|
+| IntentLockV2Phase4Handler | dangerousAdministrationSelector | 1372  | 0       | 0        |
+|---------------------------+---------------------------------+-------+---------+----------|
+| IntentLockV2Phase4Handler | paymentWithoutNft               | 1386  | 0       | 0        |
+╰---------------------------+---------------------------------+-------+---------+----------╯
+
+Suite result: ok. 3 passed; 0 failed; 0 skipped; finished in 9.21s (25.41s CPU time)
+
+Ran 17 tests for test/AcademicBaselines.t.sol:AcademicBaselinesTest
+[PASS] testA_WrongRecipientHarmSurvivesWithoutEvidence() (gas: 81786)
+[PASS] testB_OverspendIsBlocked() (gas: 36773)
+[PASS] testB_WrongRecipientHarmSurvivesSpendLimit() (gas: 81231)
+[PASS] testC_WrongRecipientHarmSurvivesApprovedPath() (gas: 82327)
+[PASS] testD_WrongRecipientRollsBackAndPersistsEvidenceAndStrike() (gas: 233221)
+[PASS] testFuzzGas_A_Benign(uint64) (runs: 256, μ: 80319, ~: 80319)
+[PASS] testFuzzGas_A_WrongRecipient(uint64) (runs: 256, μ: 81825, ~: 81825)
+[PASS] testFuzzGas_B_Benign(uint64) (runs: 256, μ: 79902, ~: 79902)
+[PASS] testFuzzGas_B_WrongRecipient(uint64) (runs: 256, μ: 81892, ~: 81892)
+[PASS] testFuzzGas_C_Benign(uint64) (runs: 256, μ: 81007, ~: 81007)
+[PASS] testFuzzGas_C_WrongRecipient(uint64) (runs: 256, μ: 82931, ~: 82931)
+[PASS] testFuzzGas_D_Benign(uint64) (runs: 256, μ: 143574, ~: 143574)
+[PASS] testFuzzGas_D_WrongRecipient(uint64) (runs: 256, μ: 230275, ~: 230275)
+[PASS] testGas_A_SignatureOnlyTransfer() (gas: 79775)
+[PASS] testGas_B_SpendLimitTransfer() (gas: 79704)
+[PASS] testGas_C_PathAndSpendTransfer() (gas: 80778)
+[PASS] testGas_D_IntentLockTransfer() (gas: 143624)
+Suite result: ok. 17 passed; 0 failed; 0 skipped; finished in 9.84s (1.65s CPU time)
+
+Ran 2 tests for test/invariant/IntentLockV2DeFiInvariant.t.sol:IntentLockV2DeFiInvariantTest
+[PASS] invariant_DeFiEvidenceAndStrikesPersist() (runs: 128, calls: 4096, reverts: 0)
+
+╭-------------------------+------------------+-------+---------+----------╮
+| Contract                | Selector         | Calls | Reverts | Discards |
++=========================================================================+
+| IntentLockV2DeFiHandler | excessiveDeposit | 4096  | 0       | 0        |
+╰-------------------------+------------------+-------+---------+----------╯
+
+[PASS] invariant_UnsafeVaultEffectsNeverSurvive() (runs: 128, calls: 4096, reverts: 0)
+
+╭-------------------------+------------------+-------+---------+----------╮
+| Contract                | Selector         | Calls | Reverts | Discards |
++=========================================================================+
+| IntentLockV2DeFiHandler | excessiveDeposit | 4096  | 0       | 0        |
+╰-------------------------+------------------+-------+---------+----------╯
+
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 9.94s (19.30s CPU time)
+
+Ran 4 tests for test/invariant/IntentLockV2Invariant.t.sol:IntentLockV2InvariantTest
+[PASS] invariant_ConsumedNonceCannotReplay() (runs: 128, calls: 4096, reverts: 0)
+
+╭---------------------+--------------+-------+---------+----------╮
+| Contract            | Selector     | Calls | Reverts | Discards |
++=================================================================+
+| IntentLockV2Handler | invalidChain | 2093  | 0       | 0        |
+|---------------------+--------------+-------+---------+----------|
+| IntentLockV2Handler | overspend    | 2003  | 0       | 0        |
+╰---------------------+--------------+-------+---------+----------╯
+
+[PASS] invariant_InvalidAuthenticationNeverStrikes() (runs: 128, calls: 4096, reverts: 0)
+
+╭---------------------+--------------+-------+---------+----------╮
+| Contract            | Selector     | Calls | Reverts | Discards |
++=================================================================+
+| IntentLockV2Handler | invalidChain | 2093  | 0       | 0        |
+|---------------------+--------------+-------+---------+----------|
+| IntentLockV2Handler | overspend    | 2003  | 0       | 0        |
+╰---------------------+--------------+-------+---------+----------╯
+
+[PASS] invariant_UnsafeInnerEffectsNeverSurvive() (runs: 128, calls: 4096, reverts: 0)
+
+╭---------------------+--------------+-------+---------+----------╮
+| Contract            | Selector     | Calls | Reverts | Discards |
++=================================================================+
+| IntentLockV2Handler | invalidChain | 2093  | 0       | 0        |
+|---------------------+--------------+-------+---------+----------|
+| IntentLockV2Handler | overspend    | 2003  | 0       | 0        |
+╰---------------------+--------------+-------+---------+----------╯
+
+[PASS] invariant_ViolationsStrikeExactlyOnceAndPersistEvidence() (runs: 128, calls: 4096, reverts: 0)
+
+╭---------------------+--------------+-------+---------+----------╮
+| Contract            | Selector     | Calls | Reverts | Discards |
++=================================================================+
+| IntentLockV2Handler | invalidChain | 2093  | 0       | 0        |
+|---------------------+--------------+-------+---------+----------|
+| IntentLockV2Handler | overspend    | 2003  | 0       | 0        |
+╰---------------------+--------------+-------+---------+----------╯
+
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 10.35s (26.69s CPU time)
+
+Ran 6 tests for test/invariant/IntentLockInvariant.t.sol:IntentLockInvariantTest
+[PASS] invariant_ConsumedNonceCannotExecuteAgain() (runs: 128, calls: 4096, reverts: 0)
+
+╭------------------------+-----------------------------+-------+---------+----------╮
+| Contract               | Selector                    | Calls | Reverts | Discards |
++===================================================================================+
+| UnsafeExecutionHandler | attemptQuarantinedExecution | 1063  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unauthorizedRecovery        | 1072  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeAllowance             | 971   | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeSwap                  | 990   | 0       | 0        |
+╰------------------------+-----------------------------+-------+---------+----------╯
+
+[PASS] invariant_OnlyOwnerCanClearQuarantine() (runs: 128, calls: 4096, reverts: 0)
+
+╭------------------------+-----------------------------+-------+---------+----------╮
+| Contract               | Selector                    | Calls | Reverts | Discards |
++===================================================================================+
+| UnsafeExecutionHandler | attemptQuarantinedExecution | 1063  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unauthorizedRecovery        | 1072  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeAllowance             | 971   | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeSwap                  | 990   | 0       | 0        |
+╰------------------------+-----------------------------+-------+---------+----------╯
+
+[PASS] invariant_QuarantinedAgentCannotExecute() (runs: 128, calls: 4096, reverts: 0)
+
+╭------------------------+-----------------------------+-------+---------+----------╮
+| Contract               | Selector                    | Calls | Reverts | Discards |
++===================================================================================+
+| UnsafeExecutionHandler | attemptQuarantinedExecution | 1063  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unauthorizedRecovery        | 1072  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeAllowance             | 971   | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeSwap                  | 990   | 0       | 0        |
+╰------------------------+-----------------------------+-------+---------+----------╯
+
+[PASS] invariant_UnsafeExecutionCannotLeaveExcessiveAllowance() (runs: 128, calls: 4096, reverts: 0)
+
+╭------------------------+-----------------------------+-------+---------+----------╮
+| Contract               | Selector                    | Calls | Reverts | Discards |
++===================================================================================+
+| UnsafeExecutionHandler | attemptQuarantinedExecution | 1063  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unauthorizedRecovery        | 1072  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeAllowance             | 971   | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeSwap                  | 990   | 0       | 0        |
+╰------------------------+-----------------------------+-------+---------+----------╯
+
+[PASS] invariant_UnsafeExecutionCannotReduceProtectedBalance() (runs: 128, calls: 4096, reverts: 0)
+
+╭------------------------+-----------------------------+-------+---------+----------╮
+| Contract               | Selector                    | Calls | Reverts | Discards |
++===================================================================================+
+| UnsafeExecutionHandler | attemptQuarantinedExecution | 1063  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unauthorizedRecovery        | 1072  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeAllowance             | 971   | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeSwap                  | 990   | 0       | 0        |
+╰------------------------+-----------------------------+-------+---------+----------╯
+
+[PASS] invariant_ViolationEvidencePersistsAfterRollback() (runs: 128, calls: 4096, reverts: 0)
+
+╭------------------------+-----------------------------+-------+---------+----------╮
+| Contract               | Selector                    | Calls | Reverts | Discards |
++===================================================================================+
+| UnsafeExecutionHandler | attemptQuarantinedExecution | 1063  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unauthorizedRecovery        | 1072  | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeAllowance             | 971   | 0       | 0        |
+|------------------------+-----------------------------+-------+---------+----------|
+| UnsafeExecutionHandler | unsafeSwap                  | 990   | 0       | 0        |
+╰------------------------+-----------------------------+-------+---------+----------╯
+
+Suite result: ok. 6 passed; 0 failed; 0 skipped; finished in 10.35s (37.85s CPU time)
+
+Ran 21 test suites in 10.36s (72.35s CPU time): 378 tests passed, 0 failed, 0 skipped (378 total tests)
+2026-09-28T13:21:07.746974Z  WARN evm::traces: failed to flush signature cache err=failed to create file "/home/rootx/.foundry/cache/signatures": Read-only file system (os error 30)

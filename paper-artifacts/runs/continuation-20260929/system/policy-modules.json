@@ -1,0 +1,57 @@
+{
+  "source": "contracts/src/IntentTypesV2.sol",
+  "sha256": "866321768ed74edbe4eca66ef35a024623fdb6cd4b8524bfb82a147b6887767b",
+  "git_commit": "361743f6d7d595caa4cf20ecc1c4d916856a353f",
+  "status": "SOURCE_DECLARATIONS_ONLY",
+  "modules": [
+    {
+      "id": 0,
+      "name": "Transfer"
+    },
+    {
+      "id": 1,
+      "name": "Swap"
+    },
+    {
+      "id": 2,
+      "name": "Approval"
+    },
+    {
+      "id": 3,
+      "name": "Batch"
+    },
+    {
+      "id": 4,
+      "name": "DeFiDeposit"
+    },
+    {
+      "id": 5,
+      "name": "DeFiWithdrawal"
+    },
+    {
+      "id": 6,
+      "name": "YieldRebalance"
+    },
+    {
+      "id": 7,
+      "name": "TreasuryPayment"
+    },
+    {
+      "id": 8,
+      "name": "Payroll"
+    },
+    {
+      "id": 9,
+      "name": "Subscription"
+    },
+    {
+      "id": 10,
+      "name": "NftPurchase"
+    },
+    {
+      "id": 11,
+      "name": "Administration"
+    }
+  ],
+  "limitation": "Enum membership alone does not establish tested module functionality."
+}

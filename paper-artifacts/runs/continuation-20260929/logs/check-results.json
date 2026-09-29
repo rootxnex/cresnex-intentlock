@@ -1,0 +1,132 @@
+[
+  {
+    "name": "format",
+    "command": [
+      "forge",
+      "fmt",
+      "--check"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "compile",
+    "command": [
+      "forge",
+      "build"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "tests",
+    "command": [
+      "forge",
+      "test"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "fuzz",
+    "command": [
+      "forge",
+      "test",
+      "--match-path",
+      "test/fuzz/*"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "invariant",
+    "command": [
+      "forge",
+      "test",
+      "--match-path",
+      "test/invariant/*"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "gas-report",
+    "command": [
+      "forge",
+      "test",
+      "--gas-report"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "coverage",
+    "command": [
+      "forge",
+      "coverage"
+    ],
+    "exit_code": 1
+  },
+  {
+    "name": "snapshot",
+    "command": [
+      "forge",
+      "snapshot",
+      "--snap",
+      "/home/rootx/cresnex intentlock/paper-artifacts/runs/continuation-20260929/raw/forge.snapshot"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "sdk",
+    "command": [
+      "npm",
+      "run",
+      "test:sdk"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "lint",
+    "command": [
+      "npm",
+      "run",
+      "lint"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "typecheck",
+    "command": [
+      "npm",
+      "run",
+      "typecheck"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "frontend-build",
+    "command": [
+      "npm",
+      "run",
+      "build"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "source-inventory",
+    "command": [
+      "/usr/bin/python3",
+      "-B",
+      "scripts/paper-source-inventory.py",
+      "--output",
+      "/home/rootx/cresnex intentlock/paper-artifacts/runs/continuation-20260929/system"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "source-audit",
+    "command": [
+      "/usr/bin/python3",
+      "-B",
+      "scripts/paper/export_audit.py",
+      "--output",
+      "/home/rootx/cresnex intentlock/paper-artifacts/runs/continuation-20260929"
+    ],
+    "exit_code": 0
+  }
+]

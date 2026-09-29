@@ -1,0 +1,4 @@
+{
+  "fuzz_seed": "0x20260928",
+  "note": "Existing regression suite; seed does not create a new scenario corpus. Invariant engine uses Foundry configuration; retain generated runner output."
+}

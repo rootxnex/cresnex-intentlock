@@ -1,0 +1,39 @@
+{
+  "branch": {
+    "command": [
+      "git",
+      "branch",
+      "--show-current"
+    ],
+    "exit_code": 0,
+    "output": "paper-experiments-2026\n"
+  },
+  "commit": {
+    "command": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "exit_code": 0,
+    "output": "361743f6d7d595caa4cf20ecc1c4d916856a353f\n"
+  },
+  "status": {
+    "command": [
+      "git",
+      "status",
+      "--porcelain"
+    ],
+    "exit_code": 0,
+    "output": "?? paper-artifacts/\n?? scripts/.gitignore\n?? scripts/paper-evidence.py\n?? scripts/paper-source-inventory.py\n?? scripts/paper/\n?? scripts/reproduce-paper.sh\n?? web/scripts/\n"
+  },
+  "log": {
+    "command": [
+      "git",
+      "log",
+      "-1",
+      "--format=fuller"
+    ],
+    "exit_code": 0,
+    "output": "commit 361743f6d7d595caa4cf20ecc1c4d916856a353f\nAuthor:     rootxnex <156939443+rootxnex@users.noreply.github.com>\nAuthorDate: Sun Sep 13 18:11:43 2026 +0530\nCommit:     rootxnex <156939443+rootxnex@users.noreply.github.com>\nCommitDate: Sun Sep 13 18:11:43 2026 +0530\n\n    docs: finalize ETHOnline submission evidence\n"
+  }
+}

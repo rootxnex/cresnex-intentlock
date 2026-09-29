@@ -1,0 +1,6 @@
+baseline_id,name,status,signed_authorization,workload_applicability,limitations,benchmark_executions
+A,SignatureOnlyAccount,EXISTING_RESEARCH_CODE,"agent, nonce, validUntil; chain/account in personal-sign digest",Generic single CALL,"No target, calldata, value or outcome commitment; target failure reverts nonce.",0
+B,SpendLimitGuardAccount,EXISTING_RESEARCH_CODE,"agent, token, maximum, nonce, validUntil; chain/account in personal-sign digest",ERC20 transfer only,Recipient not signed; raw transfer true checked; no post-state. Token false return shares SpendExceeded classification.,0
+C,PathAndSpendGuardAccount,EXISTING_RESEARCH_CODE,"agent, target, selector, maximum, nonce, validUntil; chain/account in personal-sign digest","One 68-byte (address,uint256)-shaped call","First address argument not signed. No value parameter or batch; selector is signed, not hardcoded to transfer.",0
+D,CresnexIntentLockAccountV2,EXISTING_RESEARCH_CODE,Complete EIP-712 manifest; ordered calls and policy,V2 fixed policy modules and ordered calls,Listed outcome constraints only; successful outer receipt may contain rejected inner execution.,0
+E,SemanticGuardAccount,MISSING,NA,NA,No implemented semantic baseline. A fair shared method specification and workload scope are unresolved; no substitute results.,0

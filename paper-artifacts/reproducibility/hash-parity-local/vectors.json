@@ -1,0 +1,1502 @@
+[
+  {
+    "vector_id": "hash-00",
+    "seed": 20260928,
+    "calls": [],
+    "policy": {
+      "module": 0,
+      "assets": [],
+      "allowances": [],
+      "nativeConstraint": {
+        "maxSpend": "0",
+        "minFinalBalance": "0"
+      },
+      "moduleData": "0x"
+    },
+    "manifest": {
+      "version": 2,
+      "account": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+      "owner": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "agent": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+      "chainId": "31337",
+      "callsHash": "0xbc773c7d3e6e60a7ccaa29208f2ef3aa86fe273271dec70f60866a6c8c908762",
+      "policyHash": "0x58d02a2bde9728cacd3b5af2c51649d5fe30f6a6ac42b5b65a82b4198e54db87",
+      "nonce": "20260928",
+      "validAfter": 1700000000,
+      "validUntil": 1700003600,
+      "allowBatch": false,
+      "evidenceMode": 1
+    },
+    "note": "Hash-function input only; not a structurally valid executable policy claim."
+  },
+  {
+    "vector_id": "hash-01",
+    "seed": 20260928,
+    "calls": [
+      {
+        "target": "0x0000000000000000000000000000000000000100",
+        "value": "31",
+        "data": "0xab",
+        "operation": 0
+      }
+    ],
+    "policy": {
+      "module": 1,
+      "assets": [],
+      "allowances": [
+        {
+          "token": "0x0000000000000000000000000000000000000200",
+          "spender": "0x0000000000000000000000000000000000000800",
+          "maxFinalAllowance": "0"
+        }
+      ],
+      "nativeConstraint": {
+        "maxSpend": "1",
+        "minFinalBalance": "2"
+      },
+      "moduleData": "0xcafe"
+    },
+    "manifest": {
+      "version": 2,
+      "account": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+      "owner": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "agent": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+      "chainId": "31337",
+      "callsHash": "0x4ed3e400d4ba638a8988c878812c1fb61d7f42a756dc8b84e5183c8e8f33e8d7",
+      "policyHash": "0x64abae1869b0bac7a75d912c8085335bc04d30098d3857f428fd71349d1198b1",
+      "nonce": "20260929",
+      "validAfter": 1700000001,
+      "validUntil": 1700003601,
+      "allowBatch": false,
+      "evidenceMode": 1
+    },
+    "note": "Hash-function input only; not a structurally valid executable policy claim."
+  },
+  {
+    "vector_id": "hash-02",
+    "seed": 20260928,
+    "calls": [
+      {
+        "target": "0x0000000000000000000000000000000000000100",
+        "value": "62",
+        "data": "0xabab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000101",
+        "value": "63",
+        "data": "0xababab",
+        "operation": 0
+      }
+    ],
+    "policy": {
+      "module": 2,
+      "assets": [],
+      "allowances": [
+        {
+          "token": "0x0000000000000000000000000000000000000200",
+          "spender": "0x0000000000000000000000000000000000000800",
+          "maxFinalAllowance": "0"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000201",
+          "spender": "0x0000000000000000000000000000000000000801",
+          "maxFinalAllowance": "2"
+        }
+      ],
+      "nativeConstraint": {
+        "maxSpend": "2",
+        "minFinalBalance": "4"
+      },
+      "moduleData": "0xcafecafe"
+    },
+    "manifest": {
+      "version": 2,
+      "account": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+      "owner": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "agent": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+      "chainId": "31337",
+      "callsHash": "0xdd5121a22b888c2a5359cd5be34ad059a412393607bd91db9013001ad5a611f5",
+      "policyHash": "0x4034f5ecf477e5d4f436d2e3860a7c68f51cbd3c7d4edcb1643a8b8eab9e635a",
+      "nonce": "20260930",
+      "validAfter": 1700000002,
+      "validUntil": 1700003602,
+      "allowBatch": true,
+      "evidenceMode": 1
+    },
+    "note": "Hash-function input only; not a structurally valid executable policy claim."
+  },
+  {
+    "vector_id": "hash-03",
+    "seed": 20260928,
+    "calls": [
+      {
+        "target": "0x0000000000000000000000000000000000000100",
+        "value": "93",
+        "data": "0xababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000101",
+        "value": "94",
+        "data": "0xabababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000102",
+        "value": "95",
+        "data": "0xababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000103",
+        "value": "96",
+        "data": "0xabababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000104",
+        "value": "97",
+        "data": "0xababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000105",
+        "value": "98",
+        "data": "0xabababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000106",
+        "value": "99",
+        "data": "0xababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000107",
+        "value": "100",
+        "data": "0xabababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000108",
+        "value": "101",
+        "data": "0xababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000109",
+        "value": "102",
+        "data": "0xabababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x000000000000000000000000000000000000010a",
+        "value": "103",
+        "data": "0xababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x000000000000000000000000000000000000010b",
+        "value": "104",
+        "data": "0xabababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x000000000000000000000000000000000000010c",
+        "value": "105",
+        "data": "0xababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x000000000000000000000000000000000000010d",
+        "value": "106",
+        "data": "0xabababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x000000000000000000000000000000000000010e",
+        "value": "107",
+        "data": "0xababababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x000000000000000000000000000000000000010f",
+        "value": "108",
+        "data": "0xabababababababababababababababababab",
+        "operation": 0
+      }
+    ],
+    "policy": {
+      "module": 3,
+      "assets": [],
+      "allowances": [
+        {
+          "token": "0x0000000000000000000000000000000000000200",
+          "spender": "0x0000000000000000000000000000000000000800",
+          "maxFinalAllowance": "0"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000201",
+          "spender": "0x0000000000000000000000000000000000000801",
+          "maxFinalAllowance": "3"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000202",
+          "spender": "0x0000000000000000000000000000000000000802",
+          "maxFinalAllowance": "6"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000203",
+          "spender": "0x0000000000000000000000000000000000000803",
+          "maxFinalAllowance": "9"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000204",
+          "spender": "0x0000000000000000000000000000000000000804",
+          "maxFinalAllowance": "12"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000205",
+          "spender": "0x0000000000000000000000000000000000000805",
+          "maxFinalAllowance": "15"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000206",
+          "spender": "0x0000000000000000000000000000000000000806",
+          "maxFinalAllowance": "18"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000207",
+          "spender": "0x0000000000000000000000000000000000000807",
+          "maxFinalAllowance": "21"
+        }
+      ],
+      "nativeConstraint": {
+        "maxSpend": "3",
+        "minFinalBalance": "6"
+      },
+      "moduleData": "0xcafecafecafe"
+    },
+    "manifest": {
+      "version": 2,
+      "account": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+      "owner": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "agent": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+      "chainId": "31337",
+      "callsHash": "0x317c3b3a1e5580c63d3d6ae5d6f3b1d2899c3ba92414690bcaebf91e2043ef76",
+      "policyHash": "0x36f0d6999696064b8ebc77e99ac6b97643fcd09faff6e6c1e5e4d8fec797155a",
+      "nonce": "20260931",
+      "validAfter": 1700000003,
+      "validUntil": 1700003603,
+      "allowBatch": true,
+      "evidenceMode": 1
+    },
+    "note": "Hash-function input only; not a structurally valid executable policy claim."
+  },
+  {
+    "vector_id": "hash-04",
+    "seed": 20260928,
+    "calls": [],
+    "policy": {
+      "module": 4,
+      "assets": [
+        {
+          "token": "0x0000000000000000000000000000000000000200",
+          "maxSpend": "1004",
+          "recipient": "0x0000000000000000000000000000000000000400",
+          "minReceive": "0",
+          "minFinalBalance": "4"
+        }
+      ],
+      "allowances": [],
+      "nativeConstraint": {
+        "maxSpend": "4",
+        "minFinalBalance": "8"
+      },
+      "moduleData": "0xcafecafecafecafe"
+    },
+    "manifest": {
+      "version": 2,
+      "account": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+      "owner": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "agent": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+      "chainId": "31337",
+      "callsHash": "0xbc773c7d3e6e60a7ccaa29208f2ef3aa86fe273271dec70f60866a6c8c908762",
+      "policyHash": "0x2ee83721562dcd4949f8f491e9fcd9dec81f7308ac4364141df6d1eea211b73b",
+      "nonce": "20260932",
+      "validAfter": 1700000004,
+      "validUntil": 1700003604,
+      "allowBatch": false,
+      "evidenceMode": 1
+    },
+    "note": "Hash-function input only; not a structurally valid executable policy claim."
+  },
+  {
+    "vector_id": "hash-05",
+    "seed": 20260928,
+    "calls": [
+      {
+        "target": "0x0000000000000000000000000000000000000100",
+        "value": "155",
+        "data": "0xababababab",
+        "operation": 0
+      }
+    ],
+    "policy": {
+      "module": 5,
+      "assets": [
+        {
+          "token": "0x0000000000000000000000000000000000000200",
+          "maxSpend": "1005",
+          "recipient": "0x0000000000000000000000000000000000000400",
+          "minReceive": "0",
+          "minFinalBalance": "5"
+        }
+      ],
+      "allowances": [
+        {
+          "token": "0x0000000000000000000000000000000000000200",
+          "spender": "0x0000000000000000000000000000000000000800",
+          "maxFinalAllowance": "0"
+        }
+      ],
+      "nativeConstraint": {
+        "maxSpend": "5",
+        "minFinalBalance": "10"
+      },
+      "moduleData": "0xcafecafecafecafecafe"
+    },
+    "manifest": {
+      "version": 2,
+      "account": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+      "owner": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "agent": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+      "chainId": "31337",
+      "callsHash": "0x94c97ca2e63e2c89fccde98c3e8917b3c7951b930810ed728ce1e3e43703671f",
+      "policyHash": "0x0620d34d181cca03efef86c22f88de0b41af412465aa74451ac33e1d89b0c564",
+      "nonce": "20260933",
+      "validAfter": 1700000005,
+      "validUntil": 1700003605,
+      "allowBatch": false,
+      "evidenceMode": 1
+    },
+    "note": "Hash-function input only; not a structurally valid executable policy claim."
+  },
+  {
+    "vector_id": "hash-06",
+    "seed": 20260928,
+    "calls": [
+      {
+        "target": "0x0000000000000000000000000000000000000100",
+        "value": "186",
+        "data": "0xabababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000101",
+        "value": "187",
+        "data": "0xababababababab",
+        "operation": 0
+      }
+    ],
+    "policy": {
+      "module": 6,
+      "assets": [
+        {
+          "token": "0x0000000000000000000000000000000000000200",
+          "maxSpend": "1006",
+          "recipient": "0x0000000000000000000000000000000000000400",
+          "minReceive": "0",
+          "minFinalBalance": "6"
+        }
+      ],
+      "allowances": [
+        {
+          "token": "0x0000000000000000000000000000000000000200",
+          "spender": "0x0000000000000000000000000000000000000800",
+          "maxFinalAllowance": "0"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000201",
+          "spender": "0x0000000000000000000000000000000000000801",
+          "maxFinalAllowance": "6"
+        }
+      ],
+      "nativeConstraint": {
+        "maxSpend": "6",
+        "minFinalBalance": "12"
+      },
+      "moduleData": "0xcafecafecafecafecafecafe"
+    },
+    "manifest": {
+      "version": 2,
+      "account": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+      "owner": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "agent": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+      "chainId": "31337",
+      "callsHash": "0xe2ae4c2d7d2645d2bab98ad0e49a6f23645a2142b7c7738c86be3a927bc5fc32",
+      "policyHash": "0x85af6baa31b22a84592d0b6c41cd9fabbc5b26511d5d931b2048e9cf72b163bd",
+      "nonce": "20260934",
+      "validAfter": 1700000006,
+      "validUntil": 1700003606,
+      "allowBatch": true,
+      "evidenceMode": 1
+    },
+    "note": "Hash-function input only; not a structurally valid executable policy claim."
+  },
+  {
+    "vector_id": "hash-07",
+    "seed": 20260928,
+    "calls": [
+      {
+        "target": "0x0000000000000000000000000000000000000100",
+        "value": "217",
+        "data": "0xababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000101",
+        "value": "218",
+        "data": "0xabababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000102",
+        "value": "219",
+        "data": "0xababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000103",
+        "value": "220",
+        "data": "0xabababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000104",
+        "value": "221",
+        "data": "0xababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000105",
+        "value": "222",
+        "data": "0xabababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000106",
+        "value": "223",
+        "data": "0xababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000107",
+        "value": "224",
+        "data": "0xabababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000108",
+        "value": "225",
+        "data": "0xababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000109",
+        "value": "226",
+        "data": "0xabababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x000000000000000000000000000000000000010a",
+        "value": "227",
+        "data": "0xababababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x000000000000000000000000000000000000010b",
+        "value": "228",
+        "data": "0xabababababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x000000000000000000000000000000000000010c",
+        "value": "229",
+        "data": "0xababababababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x000000000000000000000000000000000000010d",
+        "value": "230",
+        "data": "0xabababababababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x000000000000000000000000000000000000010e",
+        "value": "231",
+        "data": "0xababababababababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x000000000000000000000000000000000000010f",
+        "value": "232",
+        "data": "0xabababababababababababababababababababababab",
+        "operation": 0
+      }
+    ],
+    "policy": {
+      "module": 7,
+      "assets": [
+        {
+          "token": "0x0000000000000000000000000000000000000200",
+          "maxSpend": "1007",
+          "recipient": "0x0000000000000000000000000000000000000400",
+          "minReceive": "0",
+          "minFinalBalance": "7"
+        }
+      ],
+      "allowances": [
+        {
+          "token": "0x0000000000000000000000000000000000000200",
+          "spender": "0x0000000000000000000000000000000000000800",
+          "maxFinalAllowance": "0"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000201",
+          "spender": "0x0000000000000000000000000000000000000801",
+          "maxFinalAllowance": "7"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000202",
+          "spender": "0x0000000000000000000000000000000000000802",
+          "maxFinalAllowance": "14"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000203",
+          "spender": "0x0000000000000000000000000000000000000803",
+          "maxFinalAllowance": "21"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000204",
+          "spender": "0x0000000000000000000000000000000000000804",
+          "maxFinalAllowance": "28"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000205",
+          "spender": "0x0000000000000000000000000000000000000805",
+          "maxFinalAllowance": "35"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000206",
+          "spender": "0x0000000000000000000000000000000000000806",
+          "maxFinalAllowance": "42"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000207",
+          "spender": "0x0000000000000000000000000000000000000807",
+          "maxFinalAllowance": "49"
+        }
+      ],
+      "nativeConstraint": {
+        "maxSpend": "7",
+        "minFinalBalance": "14"
+      },
+      "moduleData": "0xcafecafecafecafecafecafecafe"
+    },
+    "manifest": {
+      "version": 2,
+      "account": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+      "owner": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "agent": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+      "chainId": "31337",
+      "callsHash": "0x61305eae19f58fe76bde8d6285b6dfd17a8113ce1466f3f7c49441efa472982f",
+      "policyHash": "0x1cfc4a0355e020ffdce966ee8ee1e35778b758283818572388b8578cd1f4ca20",
+      "nonce": "20260935",
+      "validAfter": 1700000007,
+      "validUntil": 1700003607,
+      "allowBatch": true,
+      "evidenceMode": 1
+    },
+    "note": "Hash-function input only; not a structurally valid executable policy claim."
+  },
+  {
+    "vector_id": "hash-08",
+    "seed": 20260928,
+    "calls": [],
+    "policy": {
+      "module": 8,
+      "assets": [
+        {
+          "token": "0x0000000000000000000000000000000000000200",
+          "maxSpend": "1008",
+          "recipient": "0x0000000000000000000000000000000000000400",
+          "minReceive": "0",
+          "minFinalBalance": "8"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000201",
+          "maxSpend": "1009",
+          "recipient": "0x0000000000000000000000000000000000000401",
+          "minReceive": "1",
+          "minFinalBalance": "8"
+        }
+      ],
+      "allowances": [],
+      "nativeConstraint": {
+        "maxSpend": "8",
+        "minFinalBalance": "16"
+      },
+      "moduleData": "0xcafecafecafecafecafecafecafecafe"
+    },
+    "manifest": {
+      "version": 2,
+      "account": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+      "owner": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "agent": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+      "chainId": "31337",
+      "callsHash": "0xbc773c7d3e6e60a7ccaa29208f2ef3aa86fe273271dec70f60866a6c8c908762",
+      "policyHash": "0x1e75b912ac75ec08b9e4d4a7892a417aa67555d53a291ba39d4cbb57c36aad40",
+      "nonce": "20260936",
+      "validAfter": 1700000008,
+      "validUntil": 1700003608,
+      "allowBatch": false,
+      "evidenceMode": 1
+    },
+    "note": "Hash-function input only; not a structurally valid executable policy claim."
+  },
+  {
+    "vector_id": "hash-09",
+    "seed": 20260928,
+    "calls": [
+      {
+        "target": "0x0000000000000000000000000000000000000100",
+        "value": "279",
+        "data": "0xababababababababab",
+        "operation": 0
+      }
+    ],
+    "policy": {
+      "module": 9,
+      "assets": [
+        {
+          "token": "0x0000000000000000000000000000000000000200",
+          "maxSpend": "1009",
+          "recipient": "0x0000000000000000000000000000000000000400",
+          "minReceive": "0",
+          "minFinalBalance": "9"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000201",
+          "maxSpend": "1010",
+          "recipient": "0x0000000000000000000000000000000000000401",
+          "minReceive": "1",
+          "minFinalBalance": "9"
+        }
+      ],
+      "allowances": [
+        {
+          "token": "0x0000000000000000000000000000000000000200",
+          "spender": "0x0000000000000000000000000000000000000800",
+          "maxFinalAllowance": "0"
+        }
+      ],
+      "nativeConstraint": {
+        "maxSpend": "9",
+        "minFinalBalance": "18"
+      },
+      "moduleData": "0xcafecafecafecafecafecafecafecafecafe"
+    },
+    "manifest": {
+      "version": 2,
+      "account": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+      "owner": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "agent": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+      "chainId": "31337",
+      "callsHash": "0x9af1e05e0f26c9a100568cb1612c837224d3bd745ddf667ad167abb97fad395c",
+      "policyHash": "0x3cf199dc230d11ad83283ab5b06500906417909bb63b35a50b91c22bf45c3a53",
+      "nonce": "20260937",
+      "validAfter": 1700000009,
+      "validUntil": 1700003609,
+      "allowBatch": false,
+      "evidenceMode": 1
+    },
+    "note": "Hash-function input only; not a structurally valid executable policy claim."
+  },
+  {
+    "vector_id": "hash-10",
+    "seed": 20260928,
+    "calls": [
+      {
+        "target": "0x0000000000000000000000000000000000000100",
+        "value": "310",
+        "data": "0xabababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000101",
+        "value": "311",
+        "data": "0xababababababababababab",
+        "operation": 0
+      }
+    ],
+    "policy": {
+      "module": 10,
+      "assets": [
+        {
+          "token": "0x0000000000000000000000000000000000000200",
+          "maxSpend": "1010",
+          "recipient": "0x0000000000000000000000000000000000000400",
+          "minReceive": "0",
+          "minFinalBalance": "10"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000201",
+          "maxSpend": "1011",
+          "recipient": "0x0000000000000000000000000000000000000401",
+          "minReceive": "1",
+          "minFinalBalance": "10"
+        }
+      ],
+      "allowances": [
+        {
+          "token": "0x0000000000000000000000000000000000000200",
+          "spender": "0x0000000000000000000000000000000000000800",
+          "maxFinalAllowance": "0"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000201",
+          "spender": "0x0000000000000000000000000000000000000801",
+          "maxFinalAllowance": "10"
+        }
+      ],
+      "nativeConstraint": {
+        "maxSpend": "10",
+        "minFinalBalance": "20"
+      },
+      "moduleData": "0xcafecafecafecafecafecafecafecafecafecafe"
+    },
+    "manifest": {
+      "version": 2,
+      "account": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+      "owner": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "agent": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+      "chainId": "31337",
+      "callsHash": "0x8a3db1f06d29d4f41572be99ca5dcd1199fc8a59e7c5a2249e93c728f9afccdd",
+      "policyHash": "0x226f318634f04dbe0661a8cd1e5159e5d6af863b4fefadd16944f585a62dcce6",
+      "nonce": "20260938",
+      "validAfter": 1700000010,
+      "validUntil": 1700003610,
+      "allowBatch": true,
+      "evidenceMode": 1
+    },
+    "note": "Hash-function input only; not a structurally valid executable policy claim."
+  },
+  {
+    "vector_id": "hash-11",
+    "seed": 20260928,
+    "calls": [
+      {
+        "target": "0x0000000000000000000000000000000000000100",
+        "value": "341",
+        "data": "0xababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000101",
+        "value": "342",
+        "data": "0xabababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000102",
+        "value": "343",
+        "data": "0xababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000103",
+        "value": "344",
+        "data": "0xabababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000104",
+        "value": "345",
+        "data": "0xababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000105",
+        "value": "346",
+        "data": "0xabababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000106",
+        "value": "347",
+        "data": "0xababababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000107",
+        "value": "348",
+        "data": "0xabababababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000108",
+        "value": "349",
+        "data": "0xababababababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000109",
+        "value": "350",
+        "data": "0xabababababababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x000000000000000000000000000000000000010a",
+        "value": "351",
+        "data": "0xababababababababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x000000000000000000000000000000000000010b",
+        "value": "352",
+        "data": "0xabababababababababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x000000000000000000000000000000000000010c",
+        "value": "353",
+        "data": "0xababababababababababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x000000000000000000000000000000000000010d",
+        "value": "354",
+        "data": "0xabababababababababababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x000000000000000000000000000000000000010e",
+        "value": "355",
+        "data": "0xababababababababababababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x000000000000000000000000000000000000010f",
+        "value": "356",
+        "data": "0xabababababababababababababababababababababababababab",
+        "operation": 0
+      }
+    ],
+    "policy": {
+      "module": 11,
+      "assets": [
+        {
+          "token": "0x0000000000000000000000000000000000000200",
+          "maxSpend": "1011",
+          "recipient": "0x0000000000000000000000000000000000000400",
+          "minReceive": "0",
+          "minFinalBalance": "11"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000201",
+          "maxSpend": "1012",
+          "recipient": "0x0000000000000000000000000000000000000401",
+          "minReceive": "1",
+          "minFinalBalance": "11"
+        }
+      ],
+      "allowances": [
+        {
+          "token": "0x0000000000000000000000000000000000000200",
+          "spender": "0x0000000000000000000000000000000000000800",
+          "maxFinalAllowance": "0"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000201",
+          "spender": "0x0000000000000000000000000000000000000801",
+          "maxFinalAllowance": "11"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000202",
+          "spender": "0x0000000000000000000000000000000000000802",
+          "maxFinalAllowance": "22"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000203",
+          "spender": "0x0000000000000000000000000000000000000803",
+          "maxFinalAllowance": "33"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000204",
+          "spender": "0x0000000000000000000000000000000000000804",
+          "maxFinalAllowance": "44"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000205",
+          "spender": "0x0000000000000000000000000000000000000805",
+          "maxFinalAllowance": "55"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000206",
+          "spender": "0x0000000000000000000000000000000000000806",
+          "maxFinalAllowance": "66"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000207",
+          "spender": "0x0000000000000000000000000000000000000807",
+          "maxFinalAllowance": "77"
+        }
+      ],
+      "nativeConstraint": {
+        "maxSpend": "11",
+        "minFinalBalance": "22"
+      },
+      "moduleData": "0xcafecafecafecafecafecafecafecafecafecafecafe"
+    },
+    "manifest": {
+      "version": 2,
+      "account": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+      "owner": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "agent": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+      "chainId": "31337",
+      "callsHash": "0x5ecab1533a4b4ba5d99b801e10e87e17bad040d57ba236582db006e2b65d49f2",
+      "policyHash": "0x732751ebabdc9cdd9fe84b6eafa8004fe80280c660b56113cc1987aa668eda20",
+      "nonce": "20260939",
+      "validAfter": 1700000011,
+      "validUntil": 1700003611,
+      "allowBatch": true,
+      "evidenceMode": 1
+    },
+    "note": "Hash-function input only; not a structurally valid executable policy claim."
+  },
+  {
+    "vector_id": "hash-12",
+    "seed": 20260928,
+    "calls": [],
+    "policy": {
+      "module": 0,
+      "assets": [
+        {
+          "token": "0x0000000000000000000000000000000000000200",
+          "maxSpend": "1012",
+          "recipient": "0x0000000000000000000000000000000000000400",
+          "minReceive": "0",
+          "minFinalBalance": "12"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000201",
+          "maxSpend": "1013",
+          "recipient": "0x0000000000000000000000000000000000000401",
+          "minReceive": "1",
+          "minFinalBalance": "12"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000202",
+          "maxSpend": "1014",
+          "recipient": "0x0000000000000000000000000000000000000402",
+          "minReceive": "2",
+          "minFinalBalance": "12"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000203",
+          "maxSpend": "1015",
+          "recipient": "0x0000000000000000000000000000000000000403",
+          "minReceive": "3",
+          "minFinalBalance": "12"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000204",
+          "maxSpend": "1016",
+          "recipient": "0x0000000000000000000000000000000000000404",
+          "minReceive": "4",
+          "minFinalBalance": "12"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000205",
+          "maxSpend": "1017",
+          "recipient": "0x0000000000000000000000000000000000000405",
+          "minReceive": "5",
+          "minFinalBalance": "12"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000206",
+          "maxSpend": "1018",
+          "recipient": "0x0000000000000000000000000000000000000406",
+          "minReceive": "6",
+          "minFinalBalance": "12"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000207",
+          "maxSpend": "1019",
+          "recipient": "0x0000000000000000000000000000000000000407",
+          "minReceive": "7",
+          "minFinalBalance": "12"
+        }
+      ],
+      "allowances": [],
+      "nativeConstraint": {
+        "maxSpend": "12",
+        "minFinalBalance": "24"
+      },
+      "moduleData": "0xcafecafecafecafecafecafecafecafecafecafecafecafe"
+    },
+    "manifest": {
+      "version": 2,
+      "account": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+      "owner": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "agent": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+      "chainId": "31337",
+      "callsHash": "0xbc773c7d3e6e60a7ccaa29208f2ef3aa86fe273271dec70f60866a6c8c908762",
+      "policyHash": "0xee919e61f0d888e817259ebdfcefce609def0ce17b87f89503efabb8fdb04200",
+      "nonce": "20260940",
+      "validAfter": 1700000012,
+      "validUntil": 1700003612,
+      "allowBatch": false,
+      "evidenceMode": 1
+    },
+    "note": "Hash-function input only; not a structurally valid executable policy claim."
+  },
+  {
+    "vector_id": "hash-13",
+    "seed": 20260928,
+    "calls": [
+      {
+        "target": "0x0000000000000000000000000000000000000100",
+        "value": "403",
+        "data": "0xababababababababababababab",
+        "operation": 0
+      }
+    ],
+    "policy": {
+      "module": 1,
+      "assets": [
+        {
+          "token": "0x0000000000000000000000000000000000000200",
+          "maxSpend": "1013",
+          "recipient": "0x0000000000000000000000000000000000000400",
+          "minReceive": "0",
+          "minFinalBalance": "13"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000201",
+          "maxSpend": "1014",
+          "recipient": "0x0000000000000000000000000000000000000401",
+          "minReceive": "1",
+          "minFinalBalance": "13"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000202",
+          "maxSpend": "1015",
+          "recipient": "0x0000000000000000000000000000000000000402",
+          "minReceive": "2",
+          "minFinalBalance": "13"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000203",
+          "maxSpend": "1016",
+          "recipient": "0x0000000000000000000000000000000000000403",
+          "minReceive": "3",
+          "minFinalBalance": "13"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000204",
+          "maxSpend": "1017",
+          "recipient": "0x0000000000000000000000000000000000000404",
+          "minReceive": "4",
+          "minFinalBalance": "13"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000205",
+          "maxSpend": "1018",
+          "recipient": "0x0000000000000000000000000000000000000405",
+          "minReceive": "5",
+          "minFinalBalance": "13"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000206",
+          "maxSpend": "1019",
+          "recipient": "0x0000000000000000000000000000000000000406",
+          "minReceive": "6",
+          "minFinalBalance": "13"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000207",
+          "maxSpend": "1020",
+          "recipient": "0x0000000000000000000000000000000000000407",
+          "minReceive": "7",
+          "minFinalBalance": "13"
+        }
+      ],
+      "allowances": [
+        {
+          "token": "0x0000000000000000000000000000000000000200",
+          "spender": "0x0000000000000000000000000000000000000800",
+          "maxFinalAllowance": "0"
+        }
+      ],
+      "nativeConstraint": {
+        "maxSpend": "13",
+        "minFinalBalance": "26"
+      },
+      "moduleData": "0xcafecafecafecafecafecafecafecafecafecafecafecafecafe"
+    },
+    "manifest": {
+      "version": 2,
+      "account": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+      "owner": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "agent": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+      "chainId": "31337",
+      "callsHash": "0xca0b63f6b02576b373de7f437d34fa8c8208ca311f968c2e2dc535e116d01532",
+      "policyHash": "0x51ad2c8364e8258f3cb6e5823ea9c430bdc00df373b9eb1cd9573a853a26c95f",
+      "nonce": "20260941",
+      "validAfter": 1700000013,
+      "validUntil": 1700003613,
+      "allowBatch": false,
+      "evidenceMode": 1
+    },
+    "note": "Hash-function input only; not a structurally valid executable policy claim."
+  },
+  {
+    "vector_id": "hash-14",
+    "seed": 20260928,
+    "calls": [
+      {
+        "target": "0x0000000000000000000000000000000000000100",
+        "value": "434",
+        "data": "0xabababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000101",
+        "value": "435",
+        "data": "0xababababababababababababababab",
+        "operation": 0
+      }
+    ],
+    "policy": {
+      "module": 2,
+      "assets": [
+        {
+          "token": "0x0000000000000000000000000000000000000200",
+          "maxSpend": "1014",
+          "recipient": "0x0000000000000000000000000000000000000400",
+          "minReceive": "0",
+          "minFinalBalance": "14"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000201",
+          "maxSpend": "1015",
+          "recipient": "0x0000000000000000000000000000000000000401",
+          "minReceive": "1",
+          "minFinalBalance": "14"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000202",
+          "maxSpend": "1016",
+          "recipient": "0x0000000000000000000000000000000000000402",
+          "minReceive": "2",
+          "minFinalBalance": "14"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000203",
+          "maxSpend": "1017",
+          "recipient": "0x0000000000000000000000000000000000000403",
+          "minReceive": "3",
+          "minFinalBalance": "14"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000204",
+          "maxSpend": "1018",
+          "recipient": "0x0000000000000000000000000000000000000404",
+          "minReceive": "4",
+          "minFinalBalance": "14"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000205",
+          "maxSpend": "1019",
+          "recipient": "0x0000000000000000000000000000000000000405",
+          "minReceive": "5",
+          "minFinalBalance": "14"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000206",
+          "maxSpend": "1020",
+          "recipient": "0x0000000000000000000000000000000000000406",
+          "minReceive": "6",
+          "minFinalBalance": "14"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000207",
+          "maxSpend": "1021",
+          "recipient": "0x0000000000000000000000000000000000000407",
+          "minReceive": "7",
+          "minFinalBalance": "14"
+        }
+      ],
+      "allowances": [
+        {
+          "token": "0x0000000000000000000000000000000000000200",
+          "spender": "0x0000000000000000000000000000000000000800",
+          "maxFinalAllowance": "0"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000201",
+          "spender": "0x0000000000000000000000000000000000000801",
+          "maxFinalAllowance": "14"
+        }
+      ],
+      "nativeConstraint": {
+        "maxSpend": "14",
+        "minFinalBalance": "28"
+      },
+      "moduleData": "0xcafecafecafecafecafecafecafecafecafecafecafecafecafecafe"
+    },
+    "manifest": {
+      "version": 2,
+      "account": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+      "owner": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "agent": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+      "chainId": "31337",
+      "callsHash": "0x548b8ed8ea48e1fe8859f809b1fe886d94b4339d1aa49f6afe66aaf8ba1b3c19",
+      "policyHash": "0x8bff94bf5adc684f4bf8cbe302144e25e3652da9f7d93cf3361f47a371058efd",
+      "nonce": "20260942",
+      "validAfter": 1700000014,
+      "validUntil": 1700003614,
+      "allowBatch": true,
+      "evidenceMode": 1
+    },
+    "note": "Hash-function input only; not a structurally valid executable policy claim."
+  },
+  {
+    "vector_id": "hash-15",
+    "seed": 20260928,
+    "calls": [
+      {
+        "target": "0x0000000000000000000000000000000000000100",
+        "value": "465",
+        "data": "0xababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000101",
+        "value": "466",
+        "data": "0xabababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000102",
+        "value": "467",
+        "data": "0xababababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000103",
+        "value": "468",
+        "data": "0xabababababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000104",
+        "value": "469",
+        "data": "0xababababababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000105",
+        "value": "470",
+        "data": "0xabababababababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000106",
+        "value": "471",
+        "data": "0xababababababababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000107",
+        "value": "472",
+        "data": "0xabababababababababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000108",
+        "value": "473",
+        "data": "0xababababababababababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x0000000000000000000000000000000000000109",
+        "value": "474",
+        "data": "0xabababababababababababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x000000000000000000000000000000000000010a",
+        "value": "475",
+        "data": "0xababababababababababababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x000000000000000000000000000000000000010b",
+        "value": "476",
+        "data": "0xabababababababababababababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x000000000000000000000000000000000000010c",
+        "value": "477",
+        "data": "0xababababababababababababababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x000000000000000000000000000000000000010d",
+        "value": "478",
+        "data": "0xabababababababababababababababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x000000000000000000000000000000000000010e",
+        "value": "479",
+        "data": "0xababababababababababababababababababababababababababababab",
+        "operation": 0
+      },
+      {
+        "target": "0x000000000000000000000000000000000000010f",
+        "value": "480",
+        "data": "0xabababababababababababababababababababababababababababababab",
+        "operation": 0
+      }
+    ],
+    "policy": {
+      "module": 3,
+      "assets": [
+        {
+          "token": "0x0000000000000000000000000000000000000200",
+          "maxSpend": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+          "recipient": "0x0000000000000000000000000000000000000400",
+          "minReceive": "0",
+          "minFinalBalance": "15"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000201",
+          "maxSpend": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+          "recipient": "0x0000000000000000000000000000000000000401",
+          "minReceive": "1",
+          "minFinalBalance": "15"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000202",
+          "maxSpend": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+          "recipient": "0x0000000000000000000000000000000000000402",
+          "minReceive": "2",
+          "minFinalBalance": "15"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000203",
+          "maxSpend": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+          "recipient": "0x0000000000000000000000000000000000000403",
+          "minReceive": "3",
+          "minFinalBalance": "15"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000204",
+          "maxSpend": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+          "recipient": "0x0000000000000000000000000000000000000404",
+          "minReceive": "4",
+          "minFinalBalance": "15"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000205",
+          "maxSpend": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+          "recipient": "0x0000000000000000000000000000000000000405",
+          "minReceive": "5",
+          "minFinalBalance": "15"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000206",
+          "maxSpend": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+          "recipient": "0x0000000000000000000000000000000000000406",
+          "minReceive": "6",
+          "minFinalBalance": "15"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000207",
+          "maxSpend": "115792089237316195423570985008687907853269984665640564039457584007913129639935",
+          "recipient": "0x0000000000000000000000000000000000000407",
+          "minReceive": "7",
+          "minFinalBalance": "15"
+        }
+      ],
+      "allowances": [
+        {
+          "token": "0x0000000000000000000000000000000000000200",
+          "spender": "0x0000000000000000000000000000000000000800",
+          "maxFinalAllowance": "0"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000201",
+          "spender": "0x0000000000000000000000000000000000000801",
+          "maxFinalAllowance": "15"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000202",
+          "spender": "0x0000000000000000000000000000000000000802",
+          "maxFinalAllowance": "30"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000203",
+          "spender": "0x0000000000000000000000000000000000000803",
+          "maxFinalAllowance": "45"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000204",
+          "spender": "0x0000000000000000000000000000000000000804",
+          "maxFinalAllowance": "60"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000205",
+          "spender": "0x0000000000000000000000000000000000000805",
+          "maxFinalAllowance": "75"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000206",
+          "spender": "0x0000000000000000000000000000000000000806",
+          "maxFinalAllowance": "90"
+        },
+        {
+          "token": "0x0000000000000000000000000000000000000207",
+          "spender": "0x0000000000000000000000000000000000000807",
+          "maxFinalAllowance": "105"
+        }
+      ],
+      "nativeConstraint": {
+        "maxSpend": "15",
+        "minFinalBalance": "30"
+      },
+      "moduleData": "0xcafecafecafecafecafecafecafecafecafecafecafecafecafecafecafe"
+    },
+    "manifest": {
+      "version": 2,
+      "account": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
+      "owner": "0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266",
+      "agent": "0x70997970c51812dc3a010c7d01b50e0d17dc79c8",
+      "chainId": "31337",
+      "callsHash": "0xbe8294c288b6d2dba669ab52f528a1b2e4a7840018f1b292acb5e87ab8269935",
+      "policyHash": "0xf7321bad7e5cb7f56c943c739c46ad7f6846bf41787965d3740b16d0212eb1bc",
+      "nonce": "20260943",
+      "validAfter": 1700000015,
+      "validUntil": 1700003615,
+      "allowBatch": true,
+      "evidenceMode": 1
+    },
+    "note": "Hash-function input only; not a structurally valid executable policy claim."
+  }
+]

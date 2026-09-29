@@ -1,0 +1,657 @@
+{
+  "git_commit": "361743f6d7d595caa4cf20ecc1c4d916856a353f",
+  "properties": [
+    {
+      "property_id": "P1",
+      "description": "Signature authorization integrity",
+      "threat_addressed": "Unapproved authorization",
+      "precondition": "V2 account, uncompromised owner, standard EVM; supplied constraints and truthful asset reads. Outer transaction has sufficient resources to finish.",
+      "expected_invariant": "Recovered ECDSA signer equals current owner before consuming a nonce.",
+      "relevant_contract_functions": [
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "_authenticate",
+          "line": 320,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        },
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "hashIntent",
+          "line": 212,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        }
+      ],
+      "tests": [],
+      "known_limitations": "No dedicated V2 wrong-signature regression identified. V1 tests are not V2 evidence. ERC-1271 absent; compromised owner excluded.",
+      "status": "SOURCE_SPECIFICATION_NOT_BENCHMARK_RESULT"
+    },
+    {
+      "property_id": "P2",
+      "description": "Agent binding",
+      "threat_addressed": "Submission by another actor",
+      "precondition": "V2 account, uncompromised owner, standard EVM; supplied constraints and truthful asset reads. Outer transaction has sufficient resources to finish.",
+      "expected_invariant": "msg.sender equals manifest.agent, is registered, and is not quarantined.",
+      "relevant_contract_functions": [
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "_authenticate",
+          "line": 320,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        }
+      ],
+      "tests": [],
+      "known_limitations": "No dedicated V2 wrong-submitter test identified. No separate relayer identity.",
+      "status": "SOURCE_SPECIFICATION_NOT_BENCHMARK_RESULT"
+    },
+    {
+      "property_id": "P3",
+      "description": "Account binding",
+      "threat_addressed": "Authorization reused across accounts",
+      "precondition": "V2 account, uncompromised owner, standard EVM; supplied constraints and truthful asset reads. Outer transaction has sufficient resources to finish.",
+      "expected_invariant": "manifest.account equals this account; EIP-712 domain also binds verifyingContract.",
+      "relevant_contract_functions": [
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "_authenticate",
+          "line": 320,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        },
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "hashIntent",
+          "line": 212,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        }
+      ],
+      "tests": [],
+      "known_limitations": "No dedicated V2 cross-account execution regression identified.",
+      "status": "SOURCE_SPECIFICATION_NOT_BENCHMARK_RESULT"
+    },
+    {
+      "property_id": "P4",
+      "description": "Chain/domain separation",
+      "threat_addressed": "Authorization reused on another chain/domain",
+      "precondition": "V2 account, uncompromised owner, standard EVM; supplied constraints and truthful asset reads. Outer transaction has sufficient resources to finish.",
+      "expected_invariant": "manifest.chainId equals block.chainid; EIP-712 domain uses chain ID, account, name and version.",
+      "relevant_contract_functions": [
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "_authenticate",
+          "line": 320,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        },
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "hashIntent",
+          "line": 212,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        }
+      ],
+      "tests": [
+        {
+          "file": "contracts/test/unit/CresnexIntentLockAccountV2.t.sol",
+          "function": "testAuthenticationAndMalformedPolicyFailuresDoNotStrikeOrConsumeNonce",
+          "line": 139,
+          "file_sha256": "57054fd03cdcc3ebe0ca0199eedc8cd6aecb1bf7203b14b60e808687cf35f5ea"
+        }
+      ],
+      "known_limitations": "Existing test checks explicit chain mismatch, not every EIP-712 domain field. Chain IDs need not uniquely identify forks.",
+      "status": "SOURCE_SPECIFICATION_NOT_BENCHMARK_RESULT"
+    },
+    {
+      "property_id": "P5",
+      "description": "Nonce replay resistance",
+      "threat_addressed": "Reuse of consumed authorization",
+      "precondition": "V2 account, uncompromised owner, standard EVM; supplied constraints and truthful asset reads. Outer transaction has sufficient resources to finish.",
+      "expected_invariant": "Account-global usedNonces rejects reused or owner-cancelled nonce. Authenticated inner failure consumes nonce if outer call finishes.",
+      "relevant_contract_functions": [
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "_authenticate",
+          "line": 320,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        },
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "executeIntent",
+          "line": 234,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        },
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "cancelNonce",
+          "line": 143,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        }
+      ],
+      "tests": [
+        {
+          "file": "contracts/test/unit/CresnexIntentLockAccountV2.t.sol",
+          "function": "testReplayExpiryQuarantineAndOwnerControls",
+          "line": 183,
+          "file_sha256": "57054fd03cdcc3ebe0ca0199eedc8cd6aecb1bf7203b14b60e808687cf35f5ea"
+        },
+        {
+          "file": "contracts/test/invariant/IntentLockV2Invariant.t.sol",
+          "function": "invariant_ConsumedNonceCannotReplay",
+          "line": 145,
+          "file_sha256": "4236b81d9c693cfe271982e533966e5f35a27f9256f0442750b14a18633c6ef3"
+        }
+      ],
+      "known_limitations": "Outer revert rolls back nonce; map is not per-agent or sequential.",
+      "status": "SOURCE_SPECIFICATION_NOT_BENCHMARK_RESULT"
+    },
+    {
+      "property_id": "P6",
+      "description": "Deadline/freshness enforcement",
+      "threat_addressed": "Submission outside signed window",
+      "precondition": "V2 account, uncompromised owner, standard EVM; supplied constraints and truthful asset reads. Outer transaction has sufficient resources to finish.",
+      "expected_invariant": "validUntil > validAfter and validAfter <= block.timestamp <= validUntil.",
+      "relevant_contract_functions": [
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "_authenticate",
+          "line": 320,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        }
+      ],
+      "tests": [
+        {
+          "file": "contracts/test/unit/CresnexIntentLockAccountV2.t.sol",
+          "function": "testReplayExpiryQuarantineAndOwnerControls",
+          "line": 183,
+          "file_sha256": "57054fd03cdcc3ebe0ca0199eedc8cd6aecb1bf7203b14b60e808687cf35f5ea"
+        }
+      ],
+      "known_limitations": "V2 expiry covered; dedicated not-yet-valid and exact-endpoint tests not identified. Timestamp is chain time.",
+      "status": "SOURCE_SPECIFICATION_NOT_BENCHMARK_RESULT"
+    },
+    {
+      "property_id": "P7",
+      "description": "Exact call/package integrity",
+      "threat_addressed": "Package changed after signing",
+      "precondition": "V2 account, uncompromised owner, standard EVM; supplied constraints and truthful asset reads. Outer transaction has sufficient resources to finish.",
+      "expected_invariant": "Computed ordered callsHash and policyHash equal signed manifest fields.",
+      "relevant_contract_functions": [
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "hashCalls",
+          "line": 177,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        },
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "hashPolicy",
+          "line": 185,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        },
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "_authenticate",
+          "line": 320,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        }
+      ],
+      "tests": [
+        {
+          "file": "contracts/test/unit/CresnexIntentLockAccountV2.t.sol",
+          "function": "testBatchBindsOrderAndAggregateOutcome",
+          "line": 113,
+          "file_sha256": "57054fd03cdcc3ebe0ca0199eedc8cd6aecb1bf7203b14b60e808687cf35f5ea"
+        }
+      ],
+      "known_limitations": "Does not guarantee safe owner intent or unchanged external state; full field mutation matrix missing.",
+      "status": "SOURCE_SPECIFICATION_NOT_BENCHMARK_RESULT"
+    },
+    {
+      "property_id": "P8",
+      "description": "Target/selector integrity",
+      "threat_addressed": "Deviation from signed or module-authorized path",
+      "precondition": "V2 account, uncompromised owner, standard EVM; supplied constraints and truthful asset reads. Outer transaction has sufficient resources to finish.",
+      "expected_invariant": "Every call target and calldata byte is committed; supported semantic modules additionally restrict paths.",
+      "relevant_contract_functions": [
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "hashExecutionCall",
+          "line": 169,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        },
+        {
+          "file": "contracts/src/policies/Phase4PolicyValidator.sol",
+          "function": "validateCalls",
+          "line": 225,
+          "file_sha256": "91d2fcbf6bb440b3c24473fca89dcea6935e10385ea7deb3b5a40e02e0b77973"
+        }
+      ],
+      "tests": [
+        {
+          "file": "contracts/test/unit/CresnexIntentLockAccountV2.t.sol",
+          "function": "testTransferBlocksExcessWrongRecipientDifferentTokenAndHiddenBatch",
+          "line": 42,
+          "file_sha256": "57054fd03cdcc3ebe0ca0199eedc8cd6aecb1bf7203b14b60e808687cf35f5ea"
+        }
+      ],
+      "known_limitations": "Swap validates presence of router, not a universal router ABI allowlist; Batch enforces cardinality, not per-call semantic paths.",
+      "status": "SOURCE_SPECIFICATION_NOT_BENCHMARK_RESULT"
+    },
+    {
+      "property_id": "P9",
+      "description": "Spending-bound enforcement",
+      "threat_addressed": "Listed asset loss beyond owner bound",
+      "precondition": "V2 account, uncompromised owner, standard EVM; supplied constraints and truthful asset reads. Outer transaction has sufficient resources to finish.",
+      "expected_invariant": "Positive account balance loss for each listed asset and native loss do not exceed supplied maxima.",
+      "relevant_contract_functions": [
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "_validateOutcomes",
+          "line": 791,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        },
+        {
+          "file": "contracts/src/policies/Phase4PolicyValidator.sol",
+          "function": "_validateTransfer",
+          "line": 303,
+          "file_sha256": "91d2fcbf6bb440b3c24473fca89dcea6935e10385ea7deb3b5a40e02e0b77973"
+        }
+      ],
+      "tests": [
+        {
+          "file": "contracts/test/unit/CresnexIntentLockAccountV2.t.sol",
+          "function": "testNativeTransferEnforcesSpendAndFinalBalance",
+          "line": 56,
+          "file_sha256": "57054fd03cdcc3ebe0ca0199eedc8cd6aecb1bf7203b14b60e808687cf35f5ea"
+        },
+        {
+          "file": "contracts/test/unit/CresnexIntentLockAccountV2.t.sol",
+          "function": "testBatchBindsOrderAndAggregateOutcome",
+          "line": 113,
+          "file_sha256": "57054fd03cdcc3ebe0ca0199eedc8cd6aecb1bf7203b14b60e808687cf35f5ea"
+        }
+      ],
+      "known_limitations": "Net deltas, not gross flows; only listed assets. Missing/untruthful token accounting is outside guarantee.",
+      "status": "SOURCE_SPECIFICATION_NOT_BENCHMARK_RESULT"
+    },
+    {
+      "property_id": "P10",
+      "description": "Recipient-bound enforcement",
+      "threat_addressed": "Delivery deviates from owner constraints",
+      "precondition": "V2 account, uncompromised owner, standard EVM; supplied constraints and truthful asset reads. Outer transaction has sufficient resources to finish.",
+      "expected_invariant": "Transfer module checks recipient argument; listed recipient gain must meet minReceive.",
+      "relevant_contract_functions": [
+        {
+          "file": "contracts/src/policies/Phase4PolicyValidator.sol",
+          "function": "_validateTransfer",
+          "line": 303,
+          "file_sha256": "91d2fcbf6bb440b3c24473fca89dcea6935e10385ea7deb3b5a40e02e0b77973"
+        },
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "_validateOutcomes",
+          "line": 791,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        }
+      ],
+      "tests": [
+        {
+          "file": "contracts/test/unit/CresnexIntentLockAccountV2.t.sol",
+          "function": "testTransferBlocksExcessWrongRecipientDifferentTokenAndHiddenBatch",
+          "line": 42,
+          "file_sha256": "57054fd03cdcc3ebe0ca0199eedc8cd6aecb1bf7203b14b60e808687cf35f5ea"
+        },
+        {
+          "file": "contracts/test/unit/CresnexIntentLockAccountV2.t.sol",
+          "function": "testSwapBlocksOverspendInsufficientOutputWrongRecipientAndUnlimitedApproval",
+          "line": 78,
+          "file_sha256": "57054fd03cdcc3ebe0ca0199eedc8cd6aecb1bf7203b14b60e808687cf35f5ea"
+        }
+      ],
+      "known_limitations": "minReceive=0 is not a positive receipt guarantee; generic Batch/Swap arguments are not universally decoded.",
+      "status": "SOURCE_SPECIFICATION_NOT_BENCHMARK_RESULT"
+    },
+    {
+      "property_id": "P11",
+      "description": "Allowance-bound enforcement",
+      "threat_addressed": "Excess final allowance",
+      "precondition": "V2 account, uncompromised owner, standard EVM; supplied constraints and truthful asset reads. Outer transaction has sufficient resources to finish.",
+      "expected_invariant": "Listed token/spender final allowance <= maxFinalAllowance; Approval module also bounds requested amount.",
+      "relevant_contract_functions": [
+        {
+          "file": "contracts/src/policies/Phase4PolicyValidator.sol",
+          "function": "_validateApproval",
+          "line": 337,
+          "file_sha256": "91d2fcbf6bb440b3c24473fca89dcea6935e10385ea7deb3b5a40e02e0b77973"
+        },
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "_validateOutcomes",
+          "line": 791,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        }
+      ],
+      "tests": [
+        {
+          "file": "contracts/test/unit/CresnexIntentLockAccountV2.t.sol",
+          "function": "testApprovalAllowsBoundedValueAndBlocksWrongSpenderOrExcess",
+          "line": 102,
+          "file_sha256": "57054fd03cdcc3ebe0ca0199eedc8cd6aecb1bf7203b14b60e808687cf35f5ea"
+        },
+        {
+          "file": "contracts/test/unit/CresnexIntentLockAccountV2.t.sol",
+          "function": "testSwapBlocksOverspendInsufficientOutputWrongRecipientAndUnlimitedApproval",
+          "line": 78,
+          "file_sha256": "57054fd03cdcc3ebe0ca0199eedc8cd6aecb1bf7203b14b60e808687cf35f5ea"
+        }
+      ],
+      "known_limitations": "Final-state bound does not universally cap transient approval; unlisted spenders are not measured.",
+      "status": "SOURCE_SPECIFICATION_NOT_BENCHMARK_RESULT"
+    },
+    {
+      "property_id": "P12",
+      "description": "Minimum-output enforcement",
+      "threat_addressed": "Listed recipient receives too little",
+      "precondition": "V2 account, uncompromised owner, standard EVM; supplied constraints and truthful asset reads. Outer transaction has sufficient resources to finish.",
+      "expected_invariant": "max(recipientAfter-recipientBefore,0) >= minReceive for every asset constraint.",
+      "relevant_contract_functions": [
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "_validateOutcomes",
+          "line": 791,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        }
+      ],
+      "tests": [
+        {
+          "file": "contracts/test/unit/CresnexIntentLockAccountV2.t.sol",
+          "function": "testSwapBlocksOverspendInsufficientOutputWrongRecipientAndUnlimitedApproval",
+          "line": 78,
+          "file_sha256": "57054fd03cdcc3ebe0ca0199eedc8cd6aecb1bf7203b14b60e808687cf35f5ea"
+        }
+      ],
+      "known_limitations": "Measures declared token units; no independent price or slippage oracle for core swaps.",
+      "status": "SOURCE_SPECIFICATION_NOT_BENCHMARK_RESULT"
+    },
+    {
+      "property_id": "P13",
+      "description": "Ordered-batch integrity",
+      "threat_addressed": "Signed call order changes",
+      "precondition": "V2 account, uncompromised owner, standard EVM; supplied constraints and truthful asset reads. Outer transaction has sufficient resources to finish.",
+      "expected_invariant": "Hash includes array length and call hashes in order; multi-call also requires allowBatch.",
+      "relevant_contract_functions": [
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "hashCalls",
+          "line": 177,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        },
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "_authenticate",
+          "line": 320,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        }
+      ],
+      "tests": [
+        {
+          "file": "contracts/test/unit/CresnexIntentLockAccountV2.t.sol",
+          "function": "testBatchBindsOrderAndAggregateOutcome",
+          "line": 113,
+          "file_sha256": "57054fd03cdcc3ebe0ca0199eedc8cd6aecb1bf7203b14b60e808687cf35f5ea"
+        }
+      ],
+      "known_limitations": "A newly owner-signed order is authorized; target-internal call graphs are not individually signed.",
+      "status": "SOURCE_SPECIFICATION_NOT_BENCHMARK_RESULT"
+    },
+    {
+      "property_id": "P14",
+      "description": "Post-state acceptance enforcement",
+      "threat_addressed": "Execution completes with unacceptable listed state",
+      "precondition": "V2 account, uncompromised owner, standard EVM; supplied constraints and truthful asset reads. Outer transaction has sufficient resources to finish.",
+      "expected_invariant": "Isolated execution succeeds only after all configured outcome checks finish.",
+      "relevant_contract_functions": [
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "executeIsolated",
+          "line": 298,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        },
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "_validateOutcomes",
+          "line": 791,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        }
+      ],
+      "tests": [
+        {
+          "file": "contracts/test/unit/CresnexIntentLockAccountV2.t.sol",
+          "function": "testSwapUsesMeasuredDeltasAndAllowanceCap",
+          "line": 69,
+          "file_sha256": "57054fd03cdcc3ebe0ca0199eedc8cd6aecb1bf7203b14b60e808687cf35f5ea"
+        },
+        {
+          "file": "contracts/test/unit/CresnexIntentLockAccountV2.t.sol",
+          "function": "testSwapBlocksOverspendInsufficientOutputWrongRecipientAndUnlimitedApproval",
+          "line": 78,
+          "file_sha256": "57054fd03cdcc3ebe0ca0199eedc8cd6aecb1bf7203b14b60e808687cf35f5ea"
+        }
+      ],
+      "known_limitations": "ERC20 return value is not itself decoded by generic CALL. Success requires interpretation of intent event/result, not receipt status alone.",
+      "status": "SOURCE_SPECIFICATION_NOT_BENCHMARK_RESULT"
+    },
+    {
+      "property_id": "P15",
+      "description": "Atomic rollback of rejected inner execution",
+      "threat_addressed": "Nested effects survive rejection",
+      "precondition": "V2 account, uncompromised owner, standard EVM; supplied constraints and truthful asset reads. Outer transaction has sufficient resources to finish.",
+      "expected_invariant": "Inner failure reverts all synchronous nested EVM state changes.",
+      "relevant_contract_functions": [
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "executeIntent",
+          "line": 234,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        },
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "executeIsolated",
+          "line": 298,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        }
+      ],
+      "tests": [
+        {
+          "file": "contracts/test/unit/CresnexIntentLockAccountV2.t.sol",
+          "function": "testBatchBindsOrderAndAggregateOutcome",
+          "line": 113,
+          "file_sha256": "57054fd03cdcc3ebe0ca0199eedc8cd6aecb1bf7203b14b60e808687cf35f5ea"
+        },
+        {
+          "file": "contracts/test/invariant/IntentLockV2Invariant.t.sol",
+          "function": "invariant_UnsafeInnerEffectsNeverSurvive",
+          "line": 141,
+          "file_sha256": "4236b81d9c693cfe271982e533966e5f35a27f9256f0442750b14a18633c6ef3"
+        }
+      ],
+      "known_limitations": "Current invariant uses pre-call transfer validation and checks account balance; its name alone does not prove harmful writes occurred then rolled back. No asynchronous guarantee.",
+      "status": "SOURCE_SPECIFICATION_NOT_BENCHMARK_RESULT"
+    },
+    {
+      "property_id": "P16",
+      "description": "Persistence of authenticated violation evidence",
+      "threat_addressed": "Loss of containment record after inner revert",
+      "precondition": "V2 account, uncompromised owner, standard EVM; supplied constraints and truthful asset reads. Outer transaction has sufficient resources to finish.",
+      "expected_invariant": "Caught PolicyViolation stores violations[evidenceHash] and emits IntentViolation in outer call.",
+      "relevant_contract_functions": [
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "executeIntent",
+          "line": 234,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        },
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "_decodePolicyViolation",
+          "line": 990,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        }
+      ],
+      "tests": [
+        {
+          "file": "contracts/test/invariant/IntentLockV2Invariant.t.sol",
+          "function": "invariant_ViolationsStrikeExactlyOnceAndPersistEvidence",
+          "line": 153,
+          "file_sha256": "4236b81d9c693cfe271982e533966e5f35a27f9256f0442750b14a18633c6ef3"
+        }
+      ],
+      "known_limitations": "Invariant checks nonzero returned hash, not full stored-record equivalence. Outer revert/resource exhaustion can discard all evidence.",
+      "status": "SOURCE_SPECIFICATION_NOT_BENCHMARK_RESULT"
+    },
+    {
+      "property_id": "P17",
+      "description": "Strike accounting",
+      "threat_addressed": "Unauthenticated or ordinary failures unfairly count",
+      "precondition": "V2 account, uncompromised owner, standard EVM; supplied constraints and truthful asset reads. Outer transaction has sufficient resources to finish.",
+      "expected_invariant": "Caught PolicyViolation increments once; authentication failure and ordinary target failure do not increment.",
+      "relevant_contract_functions": [
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "executeIntent",
+          "line": 234,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        }
+      ],
+      "tests": [
+        {
+          "file": "contracts/test/unit/CresnexIntentLockAccountV2.t.sol",
+          "function": "testOrdinaryTargetFailureConsumesNonceWithoutStrike",
+          "line": 129,
+          "file_sha256": "57054fd03cdcc3ebe0ca0199eedc8cd6aecb1bf7203b14b60e808687cf35f5ea"
+        },
+        {
+          "file": "contracts/test/invariant/IntentLockV2Invariant.t.sol",
+          "function": "invariant_InvalidAuthenticationNeverStrikes",
+          "line": 149,
+          "file_sha256": "4236b81d9c693cfe271982e533966e5f35a27f9256f0442750b14a18633c6ef3"
+        },
+        {
+          "file": "contracts/test/invariant/IntentLockV2Invariant.t.sol",
+          "function": "invariant_ViolationsStrikeExactlyOnceAndPersistEvidence",
+          "line": 153,
+          "file_sha256": "4236b81d9c693cfe271982e533966e5f35a27f9256f0442750b14a18633c6ef3"
+        }
+      ],
+      "known_limitations": "uint64 unchecked increment; no exhaustive arithmetic proof. Owner can reset strikes.",
+      "status": "SOURCE_SPECIFICATION_NOT_BENCHMARK_RESULT"
+    },
+    {
+      "property_id": "P18",
+      "description": "Quarantine enforcement",
+      "threat_addressed": "Agent continues after threshold",
+      "precondition": "V2 account, uncompromised owner, standard EVM; supplied constraints and truthful asset reads. Outer transaction has sufficient resources to finish.",
+      "expected_invariant": "After a new strike, strikes >= current threshold sets quarantine; quarantine flag prevents authentication.",
+      "relevant_contract_functions": [
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "executeIntent",
+          "line": 234,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        },
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "_authenticate",
+          "line": 320,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        },
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "setQuarantineThreshold",
+          "line": 127,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        }
+      ],
+      "tests": [
+        {
+          "file": "contracts/test/unit/CresnexIntentLockAccountV2.t.sol",
+          "function": "testReplayExpiryQuarantineAndOwnerControls",
+          "line": 183,
+          "file_sha256": "57054fd03cdcc3ebe0ca0199eedc8cd6aecb1bf7203b14b60e808687cf35f5ea"
+        }
+      ],
+      "known_limitations": "Changing threshold does not reconcile existing strike state; unquarantine can clear flag without clearing strikes. Named V2 unit test covers emergency revocation, not threshold progression. Core invariant raises threshold to uint64 max; helper resets containment. Dedicated V2 threshold study missing.",
+      "status": "SOURCE_SPECIFICATION_NOT_BENCHMARK_RESULT"
+    },
+    {
+      "property_id": "P19",
+      "description": "Non-owner cannot clear containment",
+      "threat_addressed": "Unauthorized recovery",
+      "precondition": "V2 account, uncompromised owner, standard EVM; supplied constraints and truthful asset reads. Outer transaction has sufficient resources to finish.",
+      "expected_invariant": "onlyOwner guards unquarantineAgent, resetAgentStrikes and setQuarantineThreshold.",
+      "relevant_contract_functions": [
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "unquarantineAgent",
+          "line": 138,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        },
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "resetAgentStrikes",
+          "line": 133,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        },
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "setQuarantineThreshold",
+          "line": 127,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        }
+      ],
+      "tests": [],
+      "known_limitations": "Dedicated V2 non-owner recovery regression missing; inherited Ownable behavior is source evidence. Compromised owner excluded.",
+      "status": "SOURCE_SPECIFICATION_NOT_BENCHMARK_RESULT"
+    },
+    {
+      "property_id": "P20",
+      "description": "Ordinary failure classification",
+      "threat_addressed": "Target failure mistaken for policy violation",
+      "precondition": "V2 account, uncompromised owner, standard EVM; supplied constraints and truthful asset reads. Outer transaction has sufficient resources to finish.",
+      "expected_invariant": "Failed target CALL is wrapped as TargetCallFailed; outer emits ExecutionFailed without policy strike.",
+      "relevant_contract_functions": [
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "_boundedCall",
+          "line": 967,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        },
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "executeIsolated",
+          "line": 298,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        },
+        {
+          "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+          "function": "executeIntent",
+          "line": 234,
+          "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+        }
+      ],
+      "tests": [
+        {
+          "file": "contracts/test/unit/CresnexIntentLockAccountV2.t.sol",
+          "function": "testOrdinaryTargetFailureConsumesNonceWithoutStrike",
+          "line": 129,
+          "file_sha256": "57054fd03cdcc3ebe0ca0199eedc8cd6aecb1bf7203b14b60e808687cf35f5ea"
+        },
+        {
+          "file": "contracts/test/unit/IntentLockV2Phase4.t.sol",
+          "function": "testNftLargeReturnDataIsBoundedAndLargeRevertDataIsNonPunitive",
+          "line": 132,
+          "file_sha256": "87ff714dbcd26ec5632c69b8f71adaa66f8fd72759f5b07fb1e555cc2575823a"
+        }
+      ],
+      "known_limitations": "ExecutionFailed event alone does not prove TARGET_REVERT: other non-policy inner failures share event. Requires trace/known failure provenance. Failure hash is not stored policy evidence.",
+      "status": "SOURCE_SPECIFICATION_NOT_BENCHMARK_RESULT"
+    }
+  ]
+}

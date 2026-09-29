@@ -1,0 +1,9 @@
+{
+  "status": "INFRASTRUCTURE_FAILURE",
+  "stage": "localhost listener creation before Anvil startup",
+  "observed_error": "listen EPERM: operation not permitted 127.0.0.1",
+  "observation_source": "Initial terminal execution of web/scripts/paper-hash-check.mjs",
+  "retry_directory": "../hash-parity-local",
+  "retry_result": "PASS",
+  "benchmark_execution": false
+}

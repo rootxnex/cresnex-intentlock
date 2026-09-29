@@ -1,0 +1,45 @@
+{
+  "status": "SOURCE_OBSERVATIONS",
+  "git_commit": "361743f6d7d595caa4cf20ecc1c4d916856a353f",
+  "domain": {
+    "name": "Cresnex IntentLock",
+    "version": "2",
+    "chainId": "block.chainid",
+    "verifyingContract": "address(this)",
+    "source": "contracts/src/CresnexIntentLockAccountV2.sol:constructor"
+  },
+  "calls_hash": {
+    "source": {
+      "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+      "function": "hashCalls",
+      "line": 177,
+      "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+    },
+    "construction": "keccak256(abi.encode(calls.length, ordered array of hashExecutionCall(call))); each call commits typehash,target,value,keccak256(data),operation"
+  },
+  "policy_hash": {
+    "source": {
+      "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+      "function": "hashPolicy",
+      "line": 185,
+      "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+    },
+    "construction": "keccak256(abi.encode(POLICY_TYPEHASH,module,keccak256(abi.encode(asset count,ordered asset hashes)),keccak256(abi.encode(allowance count,ordered allowance hashes)),native maxSpend,native minFinalBalance,keccak256(moduleData)))"
+  },
+  "limits": {
+    "max_calls": 16,
+    "max_asset_constraints": 8,
+    "max_allowance_constraints": 8,
+    "max_target_revert_copy_bytes": 256,
+    "default_quarantine_threshold": 3,
+    "source": "contracts/src/CresnexIntentLockAccountV2.sol"
+  },
+  "nonce": "Account-global unordered uint256 map. Consumed after authentication before isolation; success/policy violation/ordinary inner failure retain it only if outer execution finishes. Owner can cancel.",
+  "validity": "validUntil > validAfter; inclusive endpoints; enforced by _authenticate.",
+  "operations": "Only enum Call; target zero/self rejected; ordinary CALL via _boundedCall. No delegatecall interface.",
+  "evidence": "evidenceMode must be 1. Policy violations store ViolationRecord at outer evidenceHash; record.evidenceHash contains INNER evidence. ExecutionFailed hash is not a stored violation.",
+  "state_reads": "Account native balance; each listed token account and recipient balance before/after; final listed token/spender allowance. No general pre-allowance snapshot. Supplemental NFT/Yield checks in validator.",
+  "rollback": "executeIntent external-self-calls onlySelf executeIsolated; inner revert rolls back synchronous inner effects; outer records evidence/strike/quarantine. Outer revert discards everything.",
+  "containment": "Owner-only recovery. Unquarantine and strike reset are separate. Threshold evaluated on new strike; changing threshold does not retroactively quarantine.",
+  "secondary_modules": "DeFi/payment/NFT/administration source present but not a measured baseline experiment."
+}

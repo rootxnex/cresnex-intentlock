@@ -1,0 +1,75 @@
+{
+  "status": "SOURCE_DEFINITIONS_NOT_BENCHMARK_RESULTS",
+  "baselines": [
+    {
+      "baseline_id": "A",
+      "name": "SignatureOnlyAccount",
+      "status": "EXISTING_RESEARCH_CODE",
+      "source": {
+        "file": "contracts/src/baselines/SignatureOnlyAccount.sol",
+        "function": "execute",
+        "line": 29,
+        "file_sha256": "ae5aabceee2916a51e7042f91ed527137246ac97f8391ccd89871b5e02b09903"
+      },
+      "signed_authorization": "agent, nonce, validUntil; chain/account in personal-sign digest",
+      "workload_applicability": "Generic single CALL",
+      "limitations": "No target, calldata, value or outcome commitment; target failure reverts nonce.",
+      "benchmark_executions": 0
+    },
+    {
+      "baseline_id": "B",
+      "name": "SpendLimitGuardAccount",
+      "status": "EXISTING_RESEARCH_CODE",
+      "source": {
+        "file": "contracts/src/baselines/SpendLimitGuardAccount.sol",
+        "function": "transfer",
+        "line": 33,
+        "file_sha256": "e88a4b05c9ccb544e4dcad276ab9bd6c69e05cd1ca5c316d3dc07e4e10e6d883"
+      },
+      "signed_authorization": "agent, token, maximum, nonce, validUntil; chain/account in personal-sign digest",
+      "workload_applicability": "ERC20 transfer only",
+      "limitations": "Recipient not signed; raw transfer true checked; no post-state. Token false return shares SpendExceeded classification.",
+      "benchmark_executions": 0
+    },
+    {
+      "baseline_id": "C",
+      "name": "PathAndSpendGuardAccount",
+      "status": "EXISTING_RESEARCH_CODE",
+      "source": {
+        "file": "contracts/src/baselines/PathAndSpendGuardAccount.sol",
+        "function": "execute",
+        "line": 36,
+        "file_sha256": "b104c10670f0046d6d61081908917d8a0f7a3677d0488cc4dfc861380426fe77"
+      },
+      "signed_authorization": "agent, target, selector, maximum, nonce, validUntil; chain/account in personal-sign digest",
+      "workload_applicability": "One 68-byte (address,uint256)-shaped call",
+      "limitations": "First address argument not signed. No value parameter or batch; selector is signed, not hardcoded to transfer.",
+      "benchmark_executions": 0
+    },
+    {
+      "baseline_id": "D",
+      "name": "CresnexIntentLockAccountV2",
+      "status": "EXISTING_RESEARCH_CODE",
+      "source": {
+        "file": "contracts/src/CresnexIntentLockAccountV2.sol",
+        "function": "executeIntent",
+        "line": 234,
+        "file_sha256": "b8394f7395240db204e36976110aecb4ffc1dcad7ef5f34e92a4de061cc231e7"
+      },
+      "signed_authorization": "Complete EIP-712 manifest; ordered calls and policy",
+      "workload_applicability": "V2 fixed policy modules and ordered calls",
+      "limitations": "Listed outcome constraints only; successful outer receipt may contain rejected inner execution.",
+      "benchmark_executions": 0
+    },
+    {
+      "baseline_id": "E",
+      "name": "SemanticGuardAccount",
+      "status": "MISSING",
+      "source": null,
+      "signed_authorization": null,
+      "workload_applicability": null,
+      "limitations": "No implemented semantic baseline. A fair shared method specification and workload scope are unresolved; no substitute results.",
+      "benchmark_executions": 0
+    }
+  ]
+}

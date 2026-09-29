@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "vectors": 16,
+  "comparisons": 48,
+  "mismatches": 0,
+  "source": "observations.jsonl",
+  "limitation": "Finite deterministic hashing vectors; not signature authorization tests or an execution benchmark."
+}

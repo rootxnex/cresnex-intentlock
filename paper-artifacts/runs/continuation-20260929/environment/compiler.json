@@ -1,0 +1,30 @@
+{
+  "status": "BUILD_ARTIFACT_METADATA",
+  "artifact": "contracts/out/CresnexIntentLockAccountV2.sol/CresnexIntentLockAccountV2.json",
+  "sha256": "639993ad2f5f6a6f973cac4d243161ad5ec31a4ebc3fa33d5b26e5ad48d89c91",
+  "compiler": {
+    "version": "0.8.26+commit.8a97fa7a"
+  },
+  "settings": {
+    "remappings": [
+      "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+      "erc4626-tests/=lib/openzeppelin-contracts/lib/erc4626-tests/",
+      "forge-std/=lib/forge-std/src/",
+      "halmos-cheatcodes/=lib/openzeppelin-contracts/lib/halmos-cheatcodes/src/",
+      "openzeppelin-contracts/=lib/openzeppelin-contracts/"
+    ],
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "metadata": {
+      "bytecodeHash": "ipfs"
+    },
+    "compilationTarget": {
+      "src/CresnexIntentLockAccountV2.sol": "CresnexIntentLockAccountV2"
+    },
+    "evmVersion": "cancun",
+    "libraries": {},
+    "viaIR": true
+  }
+}
