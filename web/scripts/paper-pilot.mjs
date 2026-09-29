@@ -14,6 +14,7 @@ import { runSigningPreflight } from "./paper-signing-preflight.mjs";
 import { runScenarioPlanPreflight } from "./paper-scenario-plan.mjs";
 import { runObservationPreflight } from "./paper-observation.mjs";
 import { runEvidencePreflight } from "./paper-evidence.mjs";
+import { runTraceProvenancePreflight } from "./paper-trace-provenance.mjs";
 
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(SCRIPT_DIR, "../..");
@@ -76,6 +77,7 @@ function usage() {
     "  node --experimental-strip-types web/scripts/paper-pilot.mjs --scenario-plan-preflight",
     "  node --experimental-strip-types web/scripts/paper-pilot.mjs --observation-preflight",
     "  node --experimental-strip-types web/scripts/paper-pilot.mjs --evidence-preflight",
+    "  node --experimental-strip-types web/scripts/paper-pilot.mjs --trace-preflight",
     "  node --experimental-strip-types web/scripts/paper-pilot.mjs --output <new-directory>",
     "  node --experimental-strip-types web/scripts/paper-pilot.mjs --validate <existing-directory>",
   ].join("\n");
@@ -644,6 +646,14 @@ async function main() {
     && args[0] === "--evidence-preflight"
   ) {
     await runEvidencePreflight();
+    return 0;
+  }
+
+  if (
+    args.length === 1
+    && args[0] === "--trace-preflight"
+  ) {
+    runTraceProvenancePreflight();
     return 0;
   }
 
