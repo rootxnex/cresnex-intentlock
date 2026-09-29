@@ -175,3 +175,39 @@ replaces snapshots according to the existing experiment reset protocol.
 A fixture-only preflight verified deterministic redeployment and generated no
 pilot scenario observations. Fixture deployment, funding, registration,
 snapshots and verification reads remain excluded from measured gas and latency.
+
+## Pilot prerequisite topology — pre-execution amendment 3
+
+Before any pilot scenario observations were created, prerequisite transaction
+topology was fixed to remove ambiguity between fixture setup and measured
+execution.
+
+PILOT-05 / baseline A requires one excluded setup transaction before the
+measured swap. At timestamp 1700000999, the frozen index-1 agent/submitter uses baseline A
+with setup nonce 790005 to execute mock USDC `approve(Mock Router, 1000000)`.
+This prerequisite is not a measured observation and its gas and latency are
+excluded. The measured PILOT-05/A transaction remains nonce 700005 at timestamp
+1700001000 and calls only the mock router swap. The mock router therefore pulls
+1000000 USDC successfully and, under `InsufficientOutput`, produces 1999999
+mock WETH for the allowed recipient.
+
+PILOT-05 / baseline D requires no excluded allowance setup. Its measured
+IntentLock call bundle contains the approval followed by the router swap, so
+the approval is part of the measured D execution.
+
+PILOT-07 uses the same signed nonce-700007 transaction for its successful
+prerequisite execution and measured replay, as already preregistered.
+
+PILOT-09 / baseline D uses prerequisite nonces 790091 and 790092 for the two
+authenticated policy violations at timestamps 1700000998 and 1700000999,
+respectively. The measured third violation remains nonce 700009 at timestamp
+1700001000.
+
+PILOT-10 / baseline D first sets the quarantine threshold to 1 as an excluded
+owner prerequisite, then uses prerequisite nonce 790101 for one authenticated
+policy violation at timestamp 1700000999. The measured post-quarantine attempt
+remains nonce 700010 at timestamp 1700001000.
+
+All prerequisite transactions are retained separately as setup provenance and
+are excluded from measured gas, latency and pilot row denominators. No silent
+retry is permitted.

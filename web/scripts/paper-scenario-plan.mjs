@@ -198,6 +198,13 @@ function prerequisiteKind(
   scenarioId,
   baseline,
 ) {
+  if (
+    scenarioId === "PILOT-05"
+    && baseline === "A"
+  ) {
+    return "A_ROUTER_ALLOWANCE_SETUP";
+  }
+
   if (scenarioId === "PILOT-07") {
     return "PRIOR_SUCCESSFUL_EXECUTION";
   }
@@ -217,6 +224,66 @@ function prerequisiteKind(
   }
 
   return "NONE";
+}
+
+function prerequisiteParameters(
+  scenarioId,
+  baseline,
+) {
+  if (
+    scenarioId === "PILOT-05"
+    && baseline === "A"
+  ) {
+    return {
+      timestamp: 1700000999,
+      nonce: "790005",
+      action: "USDC_APPROVE_ROUTER",
+      amount: "1000000",
+      measured: false,
+    };
+  }
+
+  if (scenarioId === "PILOT-07") {
+    return {
+      timestamp: 1700000999,
+      nonce: "700007",
+      action: "PRIOR_IDENTICAL_SUCCESS",
+      measured: false,
+    };
+  }
+
+  if (
+    scenarioId === "PILOT-09"
+    && baseline === "D"
+  ) {
+    return {
+      timestamps: [
+        1700000998,
+        1700000999,
+      ],
+      nonces: [
+        "790091",
+        "790092",
+      ],
+      action: "TWO_AUTHENTICATED_POLICY_VIOLATIONS",
+      measured: false,
+    };
+  }
+
+  if (
+    scenarioId === "PILOT-10"
+    && baseline === "D"
+  ) {
+    return {
+      threshold: 1,
+      timestamp: 1700000999,
+      nonce: "790101",
+      action: "ONE_AUTHENTICATED_POLICY_VIOLATION",
+      measured: false,
+    };
+  }
+
+  return null;
 }
 
 function validationProvenance(
@@ -469,6 +536,14 @@ export function buildPilotPlan() {
               )
             : null,
 
+        prerequisite_parameters:
+          applicable
+            ? prerequisiteParameters(
+                scenarioId,
+                baseline,
+              )
+            : null,
+
         validation_provenance:
           applicable
             ? validationProvenance(
@@ -553,6 +628,8 @@ export function validatePilotPlan(
         || row.execution_kind
           !== null
         || row.prerequisite_kind
+          !== null
+        || row.prerequisite_parameters
           !== null
         || row.validation_provenance
           !== null
