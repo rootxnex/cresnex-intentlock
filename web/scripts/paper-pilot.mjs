@@ -1,0 +1,641 @@
+import {
+  existsSync,
+  readFileSync,
+  statSync,
+} from "node:fs";
+import {
+  dirname,
+  join,
+  resolve,
+} from "node:path";
+import { fileURLToPath } from "node:url";
+
+const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
+const REPO_ROOT = resolve(SCRIPT_DIR, "../..");
+
+const PILOT_SPEC_PATH = join(
+  REPO_ROOT,
+  "paper-artifacts/reproducibility/pilot-scenarios.json",
+);
+
+const EXECUTION_SCHEMA_PATH = join(
+  REPO_ROOT,
+  "paper-artifacts/system/execution-row.schema.json",
+);
+
+/*
+ * Reserved for later execution phases.
+ * Phase 1 must not load, deploy, or execute these artifacts.
+ */
+const ARTIFACT_PATHS = Object.freeze({
+  A: join(
+    REPO_ROOT,
+    "contracts/out/SignatureOnlyAccount.sol/SignatureOnlyAccount.json",
+  ),
+  B: join(
+    REPO_ROOT,
+    "contracts/out/SpendLimitGuardAccount.sol/SpendLimitGuardAccount.json",
+  ),
+  C: join(
+    REPO_ROOT,
+    "contracts/out/PathAndSpendGuardAccount.sol/PathAndSpendGuardAccount.json",
+  ),
+  D: join(
+    REPO_ROOT,
+    "contracts/out/CresnexIntentLockAccountV2.sol/CresnexIntentLockAccountV2.json",
+  ),
+  mockErc20: join(
+    REPO_ROOT,
+    "contracts/out/MockERC20.sol/MockERC20.json",
+  ),
+  mockDexRouter: join(
+    REPO_ROOT,
+    "contracts/out/MockDexRouter.sol/MockDexRouter.json",
+  ),
+});
+
+const NOT_APPLICABLE_NULL_FIELDS = Object.freeze([
+  "gas_used",
+  "execution_time_ns",
+  "execution_time_ms",
+  "transaction_hash",
+  "block_number",
+]);
+
+function usage() {
+  return [
+    "Usage:",
+    "  node --experimental-strip-types web/scripts/paper-pilot.mjs --help",
+    "  node --experimental-strip-types web/scripts/paper-pilot.mjs --output <new-directory>",
+    "  node --experimental-strip-types web/scripts/paper-pilot.mjs --validate <existing-directory>",
+  ].join("\n");
+}
+
+function fail(message) {
+  throw new Error(message);
+}
+
+function readJson(path, label) {
+  if (!existsSync(path)) {
+    fail(`${label} does not exist: ${path}`);
+  }
+
+  try {
+    return JSON.parse(readFileSync(path, "utf8"));
+  } catch (error) {
+    fail(
+      `${label} is not valid JSON: ${
+        error instanceof Error ? error.message : String(error)
+      }`,
+    );
+  }
+}
+
+function actualType(value) {
+  if (value === null) return "null";
+  if (Array.isArray(value)) return "array";
+  if (Number.isInteger(value)) return "integer";
+  if (typeof value === "number") return "number";
+  return typeof value;
+}
+
+function typeMatches(value, expectedType) {
+  switch (expectedType) {
+    case "null":
+      return value === null;
+
+    case "string":
+      return typeof value === "string";
+
+    case "boolean":
+      return typeof value === "boolean";
+
+    case "integer":
+      return Number.isInteger(value);
+
+    case "number":
+      return typeof value === "number" && Number.isFinite(value);
+
+    case "array":
+      return Array.isArray(value);
+
+    case "object":
+      return (
+        value !== null
+        && typeof value === "object"
+        && !Array.isArray(value)
+      );
+
+    default:
+      fail(`Unsupported schema type: ${expectedType}`);
+  }
+}
+
+function validateSchemaValue(field, value, definition, rowNumber) {
+  const declaredTypes = Array.isArray(definition.type)
+    ? definition.type
+    : [definition.type];
+
+  if (
+    declaredTypes.length > 0
+    && !declaredTypes.some((type) => typeMatches(value, type))
+  ) {
+    fail(
+      `row ${rowNumber}: ${field} has type ${actualType(value)}; `
+      + `expected ${declaredTypes.join(" or ")}`,
+    );
+  }
+
+  if (
+    definition.minimum !== undefined
+    && value !== null
+    && typeof value === "number"
+    && value < definition.minimum
+  ) {
+    fail(
+      `row ${rowNumber}: ${field}=${value} is below minimum `
+      + `${definition.minimum}`,
+    );
+  }
+
+  if (
+    definition.pattern !== undefined
+    && value !== null
+    && typeof value === "string"
+  ) {
+    const pattern = new RegExp(definition.pattern);
+    if (!pattern.test(value)) {
+      fail(
+        `row ${rowNumber}: ${field} does not match pattern `
+        + `${definition.pattern}`,
+      );
+    }
+  }
+}
+
+function validateRowAgainstSchema(row, schema, rowNumber) {
+  if (
+    row === null
+    || typeof row !== "object"
+    || Array.isArray(row)
+  ) {
+    fail(`row ${rowNumber}: execution row must be a JSON object`);
+  }
+
+  const properties = schema.properties ?? {};
+  const required = schema.required ?? [];
+
+  for (const field of required) {
+    if (!Object.prototype.hasOwnProperty.call(row, field)) {
+      fail(`row ${rowNumber}: missing required field ${field}`);
+    }
+  }
+
+  if (schema.additionalProperties === false) {
+    for (const field of Object.keys(row)) {
+      if (!Object.prototype.hasOwnProperty.call(properties, field)) {
+        fail(`row ${rowNumber}: unexpected field ${field}`);
+      }
+    }
+  }
+
+  for (const [field, value] of Object.entries(row)) {
+    const definition = properties[field];
+
+    if (!definition) {
+      continue;
+    }
+
+    validateSchemaValue(field, value, definition, rowNumber);
+  }
+}
+
+function validatePilotSpecification(pilot) {
+  if (pilot.status !== "PREREGISTERED_UNEXECUTED_PILOT_DEFINITIONS") {
+    fail(`unexpected pilot status: ${pilot.status}`);
+  }
+
+  if (pilot.dataset_role !== "PILOT_ONLY") {
+    fail(`unexpected pilot dataset_role: ${pilot.dataset_role}`);
+  }
+
+  if (!Array.isArray(pilot.baseline_ids)) {
+    fail("pilot baseline_ids must be an array");
+  }
+
+  const expectedBaselines = ["A", "B", "C", "D"];
+
+  if (
+    pilot.baseline_ids.length !== expectedBaselines.length
+    || pilot.baseline_ids.some(
+      (baseline, index) => baseline !== expectedBaselines[index],
+    )
+  ) {
+    fail("pilot baseline_ids must be exactly A/B/C/D");
+  }
+
+  if (pilot.repetitions !== 1) {
+    fail(`pilot repetitions must be 1, got ${pilot.repetitions}`);
+  }
+
+  if (!Array.isArray(pilot.scenario_definitions)) {
+    fail("pilot scenario_definitions must be an array");
+  }
+
+  if (
+    pilot.scenario_definitions.length
+    !== pilot.scenario_concept_count
+  ) {
+    fail(
+      "pilot scenario_concept_count does not match "
+      + "scenario_definitions length",
+    );
+  }
+
+  const calculatedRows =
+    pilot.scenario_definitions.length
+    * pilot.baseline_ids.length
+    * pilot.repetitions;
+
+  if (calculatedRows !== pilot.expected_row_count) {
+    fail(
+      `pilot expected_row_count=${pilot.expected_row_count}; `
+      + `calculated=${calculatedRows}`,
+    );
+  }
+
+  let attempted = 0;
+  let notApplicable = 0;
+
+  for (const scenario of pilot.scenario_definitions) {
+    if (!scenario.baselines) {
+      fail(`${scenario.pilot_id}: baselines object is missing`);
+    }
+
+    for (const baseline of pilot.baseline_ids) {
+      const definition = scenario.baselines[baseline];
+
+      if (!definition) {
+        fail(`${scenario.pilot_id}: baseline ${baseline} is missing`);
+      }
+
+      if (definition.applicable === true) {
+        attempted += 1;
+      } else if (definition.applicable === false) {
+        notApplicable += 1;
+      } else {
+        fail(
+          `${scenario.pilot_id}/${baseline}: applicable must be boolean`,
+        );
+      }
+    }
+  }
+
+  if (attempted !== pilot.expected_attempted_execution_count) {
+    fail(
+      `pilot applicable count=${attempted}; expected `
+      + `${pilot.expected_attempted_execution_count}`,
+    );
+  }
+
+  if (notApplicable !== pilot.expected_not_applicable_count) {
+    fail(
+      `pilot NOT_APPLICABLE count=${notApplicable}; expected `
+      + `${pilot.expected_not_applicable_count}`,
+    );
+  }
+}
+
+function buildExpectedMatrix(pilot) {
+  const matrix = new Map();
+
+  for (const scenario of pilot.scenario_definitions) {
+    for (const baseline of pilot.baseline_ids) {
+      const baselineDefinition = scenario.baselines[baseline];
+
+      for (
+        let repetition = 1;
+        repetition <= pilot.repetitions;
+        repetition += 1
+      ) {
+        const key = [
+          scenario.pilot_id,
+          baseline,
+          repetition,
+        ].join("|");
+
+        if (matrix.has(key)) {
+          fail(`duplicate frozen pilot matrix key: ${key}`);
+        }
+
+        matrix.set(key, {
+          scenario_id: scenario.pilot_id,
+          baseline,
+          repetition,
+          workload: scenario.workload,
+          mutation_class: scenario.mutation_class,
+          legitimate_or_attack: scenario.legitimate_or_attack,
+          expected_security_property:
+            scenario.expected_security_property,
+          expected_verdict:
+            baselineDefinition.expected_verdict,
+          applicability:
+            baselineDefinition.applicable
+              ? "APPLICABLE"
+              : "NOT_APPLICABLE",
+        });
+      }
+    }
+  }
+
+  return matrix;
+}
+
+function parseJsonl(path) {
+  const lines = readFileSync(path, "utf8").split(/\r?\n/);
+  const rows = [];
+
+  for (let index = 0; index < lines.length; index += 1) {
+    const text = lines[index].trim();
+
+    if (text === "") {
+      continue;
+    }
+
+    try {
+      rows.push(JSON.parse(text));
+    } catch (error) {
+      fail(
+        `executions.jsonl line ${index + 1} is invalid JSON: ${
+          error instanceof Error ? error.message : String(error)
+        }`,
+      );
+    }
+  }
+
+  return rows;
+}
+
+function assertFrozenField(row, expected, field, rowNumber) {
+  if (row[field] !== expected[field]) {
+    fail(
+      `row ${rowNumber}: ${field}=${JSON.stringify(row[field])}; `
+      + `expected ${JSON.stringify(expected[field])}`,
+    );
+  }
+}
+
+function validatePilotDirectory(directory) {
+  if (!existsSync(directory)) {
+    fail(`validation directory does not exist: ${directory}`);
+  }
+
+  if (!statSync(directory).isDirectory()) {
+    fail(`validation path is not a directory: ${directory}`);
+  }
+
+  const executionsPath = join(directory, "executions.jsonl");
+
+  if (!existsSync(executionsPath)) {
+    fail(`missing pilot artifact: ${executionsPath}`);
+  }
+
+  const pilot = readJson(
+    PILOT_SPEC_PATH,
+    "frozen pilot specification",
+  );
+
+  const schema = readJson(
+    EXECUTION_SCHEMA_PATH,
+    "execution-row schema",
+  );
+
+  validatePilotSpecification(pilot);
+
+  const expectedMatrix = buildExpectedMatrix(pilot);
+  const rows = parseJsonl(executionsPath);
+
+  if (rows.length !== pilot.expected_row_count) {
+    fail(
+      `pilot has ${rows.length} rows; expected `
+      + `${pilot.expected_row_count}`,
+    );
+  }
+
+  const seen = new Set();
+  let applicableCount = 0;
+  let notApplicableCount = 0;
+
+  for (let index = 0; index < rows.length; index += 1) {
+    const rowNumber = index + 1;
+    const row = rows[index];
+
+    validateRowAgainstSchema(row, schema, rowNumber);
+
+    if (row.dataset_role !== "PILOT_ONLY") {
+      fail(
+        `row ${rowNumber}: dataset_role must be PILOT_ONLY`,
+      );
+    }
+
+    if (row.repetition !== 1) {
+      fail(
+        `row ${rowNumber}: repetition must be 1`,
+      );
+    }
+
+    const key = [
+      row.scenario_id,
+      row.baseline,
+      row.repetition,
+    ].join("|");
+
+    if (seen.has(key)) {
+      fail(`row ${rowNumber}: duplicate pilot key ${key}`);
+    }
+
+    const expected = expectedMatrix.get(key);
+
+    if (!expected) {
+      fail(
+        `row ${rowNumber}: row is not in frozen pilot matrix: ${key}`,
+      );
+    }
+
+    assertFrozenField(
+      row,
+      expected,
+      "scenario_id",
+      rowNumber,
+    );
+    assertFrozenField(
+      row,
+      expected,
+      "baseline",
+      rowNumber,
+    );
+    assertFrozenField(
+      row,
+      expected,
+      "workload",
+      rowNumber,
+    );
+    assertFrozenField(
+      row,
+      expected,
+      "mutation_class",
+      rowNumber,
+    );
+    assertFrozenField(
+      row,
+      expected,
+      "legitimate_or_attack",
+      rowNumber,
+    );
+    assertFrozenField(
+      row,
+      expected,
+      "expected_security_property",
+      rowNumber,
+    );
+    assertFrozenField(
+      row,
+      expected,
+      "expected_verdict",
+      rowNumber,
+    );
+    assertFrozenField(
+      row,
+      expected,
+      "applicability",
+      rowNumber,
+    );
+
+    if (row.applicability === "APPLICABLE") {
+      applicableCount += 1;
+    } else if (row.applicability === "NOT_APPLICABLE") {
+      notApplicableCount += 1;
+
+      for (const field of NOT_APPLICABLE_NULL_FIELDS) {
+        if (row[field] !== null) {
+          fail(
+            `row ${rowNumber}: NOT_APPLICABLE field `
+            + `${field} must be null`,
+          );
+        }
+      }
+    } else {
+      fail(
+        `row ${rowNumber}: invalid applicability `
+        + `${JSON.stringify(row.applicability)}`,
+      );
+    }
+
+    seen.add(key);
+  }
+
+  if (seen.size !== expectedMatrix.size) {
+    const missing = [...expectedMatrix.keys()]
+      .filter((key) => !seen.has(key));
+
+    fail(
+      `pilot matrix incomplete: ${missing.length} missing row(s): `
+      + `${missing.slice(0, 5).join(", ")}`,
+    );
+  }
+
+  if (
+    applicableCount
+    !== pilot.expected_attempted_execution_count
+  ) {
+    fail(
+      `applicable rows=${applicableCount}; expected `
+      + `${pilot.expected_attempted_execution_count}`,
+    );
+  }
+
+  if (
+    notApplicableCount
+    !== pilot.expected_not_applicable_count
+  ) {
+    fail(
+      `NOT_APPLICABLE rows=${notApplicableCount}; expected `
+      + `${pilot.expected_not_applicable_count}`,
+    );
+  }
+
+  console.log(
+    JSON.stringify(
+      {
+        status: "PASS",
+        dataset_role: "PILOT_ONLY",
+        concepts: pilot.scenario_concept_count,
+        rows: rows.length,
+        applicable: applicableCount,
+        not_applicable: notApplicableCount,
+      },
+      null,
+      2,
+    ),
+  );
+}
+
+function validateNewOutputPath(path) {
+  if (existsSync(path)) {
+    fail(`refusing to overwrite existing pilot output: ${path}`);
+  }
+}
+
+function main() {
+  const args = process.argv.slice(2);
+
+  if (
+    args.length === 1
+    && (args[0] === "--help" || args[0] === "-h")
+  ) {
+    console.log(usage());
+    return 0;
+  }
+
+  if (
+    args.length !== 2
+    || !["--output", "--validate"].includes(args[0])
+  ) {
+    console.error(usage());
+    return 2;
+  }
+
+  const [command, rawPath] = args;
+  const path = resolve(process.cwd(), rawPath);
+
+  /*
+   * Keep this reference explicit so later phases cannot silently change
+   * the frozen artifact set without editing this source.
+   */
+  void ARTIFACT_PATHS;
+
+  if (command === "--validate") {
+    validatePilotDirectory(path);
+    return 0;
+  }
+
+  validateNewOutputPath(path);
+
+  console.error(
+    "Pilot execution engine not implemented in Phase 1; "
+    + "no observations created.",
+  );
+
+  return 2;
+}
+
+try {
+  process.exitCode = main();
+} catch (error) {
+  console.error(
+    `pilot error: ${
+      error instanceof Error ? error.message : String(error)
+    }`,
+  );
+  process.exitCode = 1;
+}
