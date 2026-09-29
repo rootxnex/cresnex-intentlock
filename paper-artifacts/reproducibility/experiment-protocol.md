@@ -131,3 +131,47 @@ from final security, gas, latency, statistical and publication denominators.
 Expected labels and applicability must not be changed after pilot observations
 exist. A harness defect requires preservation of the failed run and a complete
 new pilot run under the protocol retry rules.
+
+## Deterministic pilot fixture topology — pre-execution amendment 2
+
+Before any pilot scenario observations were created, the deterministic local
+fixture topology was fixed as follows.
+
+The owner/deployer uses standard Anvil mnemonic account index 0. The registered
+IntentLock agent and measured transaction submitter use index 1. The allowed
+recipient uses index 2, the unauthorized recipient/thief uses index 3, the
+allowed spender uses index 4, and the unauthorized spender uses index 5.
+
+The complete fixture deployment order is fixed as:
+
+`A -> B -> C -> D -> Mock USDC -> Mock WETH -> Mock Router`
+
+where:
+
+- A is `SignatureOnlyAccount`;
+- B is `SpendLimitGuardAccount`;
+- C is `PathAndSpendGuardAccount`;
+- D is `CresnexIntentLockAccountV2`;
+- Mock USDC is `MockERC20("Mock USDC", "mUSDC", 6)`;
+- Mock WETH is `MockERC20("Mock WETH", "mWETH", 18)`;
+- Mock Router is `MockDexRouter`.
+
+After deployment, the index-1 agent is registered with D. No quarantine
+threshold override is applied during the base fixture, so D begins with its
+default threshold of 3, zero strikes and `quarantined=false`.
+
+Each A/B/C/D account receives exactly `1,000,000e6` mock USDC. Their mock WETH
+balances and USDC allowances to the mock router begin at zero. The allowed
+recipient and unauthorized recipient/thief begin with zero USDC and WETH. The
+mock router begins with zero USDC and WETH reserves.
+
+Pilot nonces `700001` through `700010` begin unused for every implemented
+baseline.
+
+The harness starts from a fresh Cancun Anvil chain with chain ID 31337 and
+genesis timestamp 1700000000, takes a blank-chain snapshot, and restores and
+replaces snapshots according to the existing experiment reset protocol.
+
+A fixture-only preflight verified deterministic redeployment and generated no
+pilot scenario observations. Fixture deployment, funding, registration,
+snapshots and verification reads remain excluded from measured gas and latency.
