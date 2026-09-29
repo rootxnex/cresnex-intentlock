@@ -24,11 +24,11 @@ const SCRIPT_DIR =
 const REPO_ROOT =
   resolve(SCRIPT_DIR, "../..");
 
-const MNEMONIC =
+export const MNEMONIC =
   "test test test test test test test test test test test junk";
 
-const CHAIN_ID = 31337;
-const GENESIS_TIMESTAMP = 1700000000n;
+export const CHAIN_ID = 31337;
+export const GENESIS_TIMESTAMP = 1700000000n;
 
 const INITIAL_USDC =
   1_000_000n * 10n ** 6n;
@@ -114,7 +114,7 @@ function loadArtifact(path, label) {
   };
 }
 
-function loadArtifacts() {
+export function loadArtifacts() {
   return {
     A: loadArtifact(
       ARTIFACT_PATHS.A,
@@ -143,7 +143,7 @@ function loadArtifacts() {
   };
 }
 
-function roles() {
+export function roles() {
   const accounts =
     Array.from(
       { length: 6 },
@@ -234,7 +234,7 @@ async function findFreePort() {
   );
 }
 
-async function stopAnvil(child) {
+export async function stopAnvil(child) {
   if (
     !child
     || child.exitCode !== null
@@ -290,7 +290,7 @@ async function rawRpc(
   return body.result;
 }
 
-async function startAnvil() {
+export async function startAnvil() {
   const port =
     await findFreePort();
 
@@ -395,7 +395,7 @@ async function startAnvil() {
   );
 }
 
-async function deployFixture({
+export async function deployFixture({
   walletClient,
   publicClient,
   artifacts,
@@ -555,7 +555,7 @@ async function deployFixture({
   };
 }
 
-async function verifyFixture({
+export async function verifyFixture({
   publicClient,
   artifacts,
   fixture,
