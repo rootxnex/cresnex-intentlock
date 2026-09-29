@@ -1,5 +1,17 @@
 {
-  "status": "SOURCE_DEFINITIONS_NOT_BENCHMARK_RESULTS",
+  "status": "FROZEN_FOR_PILOT_AND_CORPUS",
+  "freeze_parent_commit": "6c2ca5e31911625b36efdbfe15c029ecf446e7ba",
+  "frozen_baseline_ids": [
+    "A",
+    "B",
+    "C",
+    "D"
+  ],
+  "semantic_baseline_decision": {
+    "status": "MISSING",
+    "reason": "The repository has no SemanticGuardAccount and no neutral shared semantic-method specification across transfer, approval, swap, batch, freshness, and containment workloads. Adding one after inspecting the existing comparison would require new method and applicability choices that materially change the study design. It is excluded rather than filled with inferred or selectively weak behavior.",
+    "effect": "No execution rows, NOT_APPLICABLE substitutions, or performance/security claims are assigned to a semantic baseline. A separately preregistered future study may add it."
+  },
   "baselines": [
     {
       "baseline_id": "A",
