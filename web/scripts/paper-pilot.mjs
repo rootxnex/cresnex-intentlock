@@ -9,6 +9,7 @@ import {
   resolve,
 } from "node:path";
 import { fileURLToPath } from "node:url";
+import { runFixturePreflight } from "./paper-fixture-preflight.mjs";
 
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(SCRIPT_DIR, "../..");
@@ -66,6 +67,7 @@ function usage() {
   return [
     "Usage:",
     "  node --experimental-strip-types web/scripts/paper-pilot.mjs --help",
+    "  node --experimental-strip-types web/scripts/paper-pilot.mjs --fixture-preflight",
     "  node --experimental-strip-types web/scripts/paper-pilot.mjs --output <new-directory>",
     "  node --experimental-strip-types web/scripts/paper-pilot.mjs --validate <existing-directory>",
   ].join("\n");
@@ -586,7 +588,7 @@ function validateNewOutputPath(path) {
   }
 }
 
-function main() {
+async function main() {
   const args = process.argv.slice(2);
 
   if (
@@ -594,6 +596,14 @@ function main() {
     && (args[0] === "--help" || args[0] === "-h")
   ) {
     console.log(usage());
+    return 0;
+  }
+
+  if (
+    args.length === 1
+    && args[0] === "--fixture-preflight"
+  ) {
+    await runFixturePreflight();
     return 0;
   }
 
@@ -622,7 +632,7 @@ function main() {
   validateNewOutputPath(path);
 
   console.error(
-    "Pilot execution engine not implemented in Phase 1; "
+    "Pilot execution engine not implemented beyond fixture preflight; "
     + "no observations created.",
   );
 
@@ -630,7 +640,7 @@ function main() {
 }
 
 try {
-  process.exitCode = main();
+  process.exitCode = await main();
 } catch (error) {
   console.error(
     `pilot error: ${
