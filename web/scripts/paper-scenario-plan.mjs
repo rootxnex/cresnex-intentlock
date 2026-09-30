@@ -60,6 +60,32 @@ const EXPECTED_APPLICABILITY =
     "PILOT-10": "D",
   });
 
+/*
+ * Pre-execution Amendment 4.
+ *
+ * The original frozen PILOT-07 definition fixed replay
+ * semantics, nonce and timing but omitted the benign payload.
+ * Do not mutate pilot-scenarios.json because its SHA-256 is
+ * already frozen by Amendment 1.
+ */
+const PILOT_07_REPLAY_PAYLOAD =
+  Object.freeze({
+    amount:
+      "1000000",
+
+    max_spend:
+      "1000000",
+
+    recipient:
+      "RECIPIENT_ALLOWED",
+
+    msg_value:
+      "0",
+
+    selector:
+      "transfer(address,uint256)",
+  });
+
 function fail(message) {
   throw new Error(message);
 }
@@ -450,6 +476,23 @@ export function buildPilotPlan() {
       ],
     );
 
+    if (
+      scenarioId === "PILOT-07"
+    ) {
+      if (
+        parameters.amount
+          !== undefined
+        || parameters.max_spend
+          !== undefined
+        || parameters.recipient
+          !== undefined
+      ) {
+        fail(
+          "PILOT-07 original frozen definition unexpectedly contains Amendment 4 payload fields",
+        );
+      }
+    }
+
     for (
       const baseline
       of BASELINES
@@ -552,10 +595,19 @@ export function buildPilotPlan() {
               )
             : null,
 
-        parameters:
-          structuredClone(
+        parameters: {
+          ...structuredClone(
             parameters,
           ),
+
+          ...(
+            scenarioId === "PILOT-07"
+              ? structuredClone(
+                  PILOT_07_REPLAY_PAYLOAD,
+                )
+              : {}
+          ),
+        },
       });
     }
   }
