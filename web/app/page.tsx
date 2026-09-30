@@ -9,6 +9,7 @@ import { ResearchResults } from "@/components/ResearchResults";
 import { V2AccountConsole } from "@/components/V2AccountConsole";
 import { ProtectionStatus } from "@/components/ProtectionStatus";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { ReownWalletKitGateway } from "@/components/ReownWalletKitGateway";
 
 export default function Home() {
   return (
@@ -33,6 +34,7 @@ export default function Home() {
         <ExecutionSimulator />
       </section>
       <IntentBuilder />
+      <ReownWalletKitGateway />
       <V2IntentLab />
       <V2EvidenceTimeline />
       <ResearchResults />

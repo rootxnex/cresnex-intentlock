@@ -8,10 +8,14 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
-    "test:sdk": "node --experimental-strip-types --test lib/intentV2.test.ts"
+    "test:sdk": "node --experimental-strip-types --test lib/intentV2.test.ts",
+    "test:reown": "node --experimental-strip-types --test lib/reown/request.test.ts"
   },
   "dependencies": {
+    "@reown/walletkit": "1.6.0",
     "@tanstack/react-query": "5.66.9",
+    "@walletconnect/core": "2.25.0",
+    "@walletconnect/utils": "2.25.0",
     "next": "15.5.21",
     "react": "19.1.0",
     "react-dom": "19.1.0",
