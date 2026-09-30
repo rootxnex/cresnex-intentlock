@@ -82,6 +82,18 @@ const NOT_APPLICABLE_NULL_FIELDS = Object.freeze([
   "block_number",
 ]);
 
+const MEASURED_OBSERVATION_SOURCE =
+  "MEASURED_PILOT_EXECUTION";
+
+const NOT_APPLICABLE_OBSERVATION_SOURCE =
+  "PREREGISTERED_NOT_APPLICABLE";
+
+const GIT_COMMIT_PATTERN =
+  /^[0-9a-f]{40}$/;
+
+const TRANSACTION_HASH_PATTERN =
+  /^0x[0-9a-fA-F]{64}$/;
+
 function usage() {
   return [
     "Usage:",
@@ -464,6 +476,12 @@ function validatePilotDirectory(directory) {
   let applicableCount = 0;
   let notApplicableCount = 0;
 
+  let commonRunId =
+    null;
+
+  let commonGitCommit =
+    null;
+
   for (let index = 0; index < rows.length; index += 1) {
     const rowNumber = index + 1;
     const row = rows[index];
@@ -479,6 +497,62 @@ function validatePilotDirectory(directory) {
     if (row.repetition !== 1) {
       fail(
         `row ${rowNumber}: repetition must be 1`,
+      );
+    }
+
+    if (
+      typeof row.run_id !== "string"
+      || row.run_id.length === 0
+    ) {
+      fail(
+        `row ${rowNumber}: run_id must be a non-empty string`,
+      );
+    }
+
+    if (
+      row.run_id
+        === "DIAGNOSTIC_PREFLIGHT_NONPERSISTED"
+    ) {
+      fail(
+        `row ${rowNumber}: diagnostic run_id cannot be persisted`,
+      );
+    }
+
+    if (
+      commonRunId === null
+    ) {
+      commonRunId =
+        row.run_id;
+    } else if (
+      row.run_id !== commonRunId
+    ) {
+      fail(
+        `row ${rowNumber}: run_id differs from the measured run`,
+      );
+    }
+
+    if (
+      typeof row.git_commit !== "string"
+      || !GIT_COMMIT_PATTERN.test(
+        row.git_commit,
+      )
+    ) {
+      fail(
+        `row ${rowNumber}: git_commit must be a 40-character lowercase SHA`,
+      );
+    }
+
+    if (
+      commonGitCommit === null
+    ) {
+      commonGitCommit =
+        row.git_commit;
+    } else if (
+      row.git_commit
+        !== commonGitCommit
+    ) {
+      fail(
+        `row ${rowNumber}: git_commit differs from the measured run`,
       );
     }
 
@@ -551,8 +625,97 @@ function validatePilotDirectory(directory) {
 
     if (row.applicability === "APPLICABLE") {
       applicableCount += 1;
+
+      if (
+        row.observation_source
+          !== MEASURED_OBSERVATION_SOURCE
+      ) {
+        fail(
+          `row ${rowNumber}: applicable observation_source must be `
+          + `${MEASURED_OBSERVATION_SOURCE}`,
+        );
+      }
+
+      if (
+        !TRANSACTION_HASH_PATTERN.test(
+          row.transaction_hash ?? "",
+        )
+      ) {
+        fail(
+          `row ${rowNumber}: measured transaction_hash is missing or malformed`,
+        );
+      }
+
+      if (
+        !Number.isInteger(
+          row.gas_used,
+        )
+        || row.gas_used <= 0
+      ) {
+        fail(
+          `row ${rowNumber}: measured gas_used must be positive`,
+        );
+      }
+
+      if (
+        typeof row.execution_time_ns
+          !== "string"
+        || !/^(0|[1-9][0-9]*)$/.test(
+          row.execution_time_ns,
+        )
+        || BigInt(
+          row.execution_time_ns,
+        ) <= 0n
+      ) {
+        fail(
+          `row ${rowNumber}: measured execution_time_ns must be positive`,
+        );
+      }
+
+      if (
+        typeof row.execution_time_ms
+          !== "number"
+        || !Number.isFinite(
+          row.execution_time_ms,
+        )
+        || row.execution_time_ms <= 0
+      ) {
+        fail(
+          `row ${rowNumber}: measured execution_time_ms must be positive`,
+        );
+      }
+
+      if (
+        !Number.isInteger(
+          row.block_number,
+        )
+        || row.block_number <= 0
+      ) {
+        fail(
+          `row ${rowNumber}: measured block_number must be positive`,
+        );
+      }
+
+      if (
+        row.outer_receipt_status !== 0
+        && row.outer_receipt_status !== 1
+      ) {
+        fail(
+          `row ${rowNumber}: measured outer_receipt_status must be 0 or 1`,
+        );
+      }
     } else if (row.applicability === "NOT_APPLICABLE") {
       notApplicableCount += 1;
+
+      if (
+        row.observation_source
+          !== NOT_APPLICABLE_OBSERVATION_SOURCE
+      ) {
+        fail(
+          `row ${rowNumber}: NOT_APPLICABLE observation_source must remain `
+          + `${NOT_APPLICABLE_OBSERVATION_SOURCE}`,
+        );
+      }
 
       for (const field of NOT_APPLICABLE_NULL_FIELDS) {
         if (row[field] !== null) {
@@ -611,6 +774,10 @@ function validatePilotDirectory(directory) {
         rows: rows.length,
         applicable: applicableCount,
         not_applicable: notApplicableCount,
+        run_id: commonRunId,
+        git_commit: commonGitCommit,
+        observation_source:
+          MEASURED_OBSERVATION_SOURCE,
       },
       null,
       2,
