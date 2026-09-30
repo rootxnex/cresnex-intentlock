@@ -250,3 +250,134 @@ This omission was discovered during the builder-only Phase 2F.2A
 preflight. That preflight constructed packages only; it produced no
 pilot transaction and no pilot observation.
 
+## Advanced pilot payload topology — pre-execution amendment 5
+
+Before any pilot transaction or pilot observation was created, the
+remaining concrete payloads for PILOT-05, PILOT-06, PILOT-08,
+PILOT-09 and PILOT-10 were fixed so that transaction builders do not
+make post-freeze experimental choices.
+
+### PILOT-05 — insufficient received output
+
+The swap uses fixture Mock USDC as input, fixture Mock WETH as output,
+the fixture Mock Router as target, and the frozen allowed recipient.
+
+The swap input is `1000000` mock-USDC base units. The requested output
+is `2000000` mock-WETH base units. The router behavior is
+`InsufficientOutput`, which causes the successful target call to mint
+exactly `1999999` output units to the allowed recipient.
+
+For baseline A, the excluded prerequisite defined by amendment 3
+approves the router for exactly `1000000`. The measured transaction
+contains only the router swap.
+
+For baseline D, there is no excluded allowance prerequisite. The
+measured ordered call bundle is:
+
+1. Mock USDC `approve(Mock Router, 1000000)`;
+2. Mock Router `swap(Mock USDC, Mock WETH, 1000000, 2000000,
+   allowed recipient, InsufficientOutput)`.
+
+D uses the Swap policy module. The input asset maximum spend is
+`1000000`; the output asset minimum receive is `2000000`; and the
+final Mock-USDC allowance to the router is constrained to zero.
+
+### PILOT-06 — ordered batch reordering
+
+The signed D call order is:
+
+1. Mock USDC `transfer(allowed recipient, 400000)`;
+2. Mock USDC `transfer(allowed recipient, 600000)`.
+
+The measured execution presents those same two calls in the reverse
+order:
+
+1. `transfer(allowed recipient, 600000)`;
+2. `transfer(allowed recipient, 400000)`.
+
+The D Batch policy uses Mock USDC with maximum aggregate spend
+`1000000`, allowed recipient, minimum aggregate receive `1000000`,
+zero native spend, and empty module data.
+
+The original signed order is semantically valid. The reversed measured
+order preserves the same recipient, aggregate spend and aggregate
+receive. Therefore the intended measured mutation is the ordered-call
+commitment itself. The owner signature and manifest retain the
+`callsHash` of the original order.
+
+### PILOT-08 — unexpected residual allowance
+
+The constrained spender is the fixture Mock Router. The frozen final
+allowance limit is `1000000`, while the measured post-state allowance
+is `1000001`.
+
+For baseline A, the measured generic call is Mock USDC
+`approve(Mock Router, 1000001)`.
+
+For baseline C, the measured path is Mock USDC with selector
+`approve(address,uint256)`, signed path maximum `1000001`, and calldata
+`approve(Mock Router, 1000001)`.
+
+For baseline D, the measured Swap bundle is:
+
+1. Mock USDC `approve(Mock Router, 2000001)`;
+2. Mock Router `swap(Mock USDC, Mock WETH, 1000000, 1,
+   allowed recipient, Valid)`.
+
+The router consumes exactly `1000000` Mock USDC allowance, leaving a
+final allowance of exactly `1000001`.
+
+The D Swap policy permits maximum Mock-USDC spend `1000000`, requires
+the allowed recipient to receive at least `1` Mock-WETH base unit, and
+sets the final Mock-USDC allowance cap for the router to `1000000`.
+Thus the target calls succeed and the asset deltas satisfy their
+bounds; the residual allowance is the intended postcondition
+violation.
+
+### PILOT-09 — third authenticated policy violation
+
+Both excluded prerequisite violations and the measured third
+violation use the same violation shape:
+
+- target/token: fixture Mock USDC;
+- signed policy recipient: frozen allowed recipient;
+- executed recipient: frozen unauthorized recipient/thief;
+- amount: `1000000`;
+- policy maximum spend: `1000000`;
+- call value: zero;
+- policy module: Transfer.
+
+The prerequisite nonces remain `790091` and `790092`, and the measured
+nonce remains `700009`. Only the nonce and frozen timestamp differ
+between the three authenticated packages.
+
+The measured third violation therefore increments the existing strike
+count from two to three and reaches the already frozen quarantine
+threshold of three.
+
+### PILOT-10 — execution after quarantine
+
+The excluded prerequisite violation uses the same wrong-recipient
+Transfer violation shape fixed for PILOT-09, with prerequisite nonce
+`790101`, after the owner has set the quarantine threshold to one.
+
+The measured nonce-`700010` package is deliberately benign:
+
+- target/token: fixture Mock USDC;
+- signed and executed recipient: frozen allowed recipient;
+- amount: `1000000`;
+- policy maximum spend: `1000000`;
+- call value: zero;
+- policy module: Transfer.
+
+The measured package is correctly bound and owner-signed. Its intended
+rejection condition is therefore the already-quarantined agent
+pre-state rather than a malformed or policy-violating measured call.
+
+This amendment fixes only payload details that were previously
+underspecified. It does not change scenario applicability, expected
+verdicts, expected reason classes, expected reason codes, nonces,
+timestamps, security properties, or final-corpus definitions.
+
+This amendment was recorded before Phase 2F.2B advanced builders and
+before any pilot transaction or pilot observation was generated.
