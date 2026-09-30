@@ -343,6 +343,220 @@ async function assertRollbackState({
   );
 }
 
+export async function resolvePostconditionFailureEvidence({
+  rpc,
+  transactionHash,
+  scenarioId,
+}) {
+  const expected =
+    EXPECTED_CASES[
+      scenarioId
+    ];
+
+  assert(
+    expected,
+    `${scenarioId}/D is not a frozen postcondition-trace case`,
+  );
+
+  const traceContext =
+    loadTraceProvenanceContext();
+
+  const sourceBuffer =
+    readFileSync(
+      CONTRACT_SOURCE_PATH,
+    );
+
+  const trace =
+    await rawRpc(
+      rpc,
+      "debug_traceTransaction",
+      [
+        transactionHash,
+        {
+          disableStorage:
+            true,
+
+          disableMemory:
+            true,
+
+          disableStack:
+            false,
+        },
+      ],
+    );
+
+  assert(
+    trace
+    && Array.isArray(
+      trace.structLogs,
+    )
+    && trace.structLogs.length > 0,
+    `${scenarioId}/D trace missing`,
+  );
+
+  const traversal =
+    resolveTraceStage({
+      structLogs:
+        trace.structLogs,
+
+      context:
+        traceContext,
+
+      expectedDepth:
+        2,
+    });
+
+  assert(
+    traversal.traceStage
+      === "_validateOutcomes",
+    `${scenarioId}/D did not traverse _validateOutcomes`,
+  );
+
+  const depth2Reverts =
+    trace.structLogs
+      .map(
+        (entry, index) => ({
+          entry,
+          index,
+        }),
+      )
+      .filter(
+        ({ entry }) =>
+          Number(
+            entry.depth,
+          ) === 2
+          && entry.op
+            === "REVERT",
+      );
+
+  assert(
+    depth2Reverts.length >= 1,
+    `${scenarioId}/D has no depth-2 REVERT`,
+  );
+
+  const terminalRevert =
+    depth2Reverts[
+      depth2Reverts.length - 1
+    ];
+
+  const nearest =
+    nearestValidateOutcomesBeforeRevert({
+      structLogs:
+        trace.structLogs,
+
+      revertIndex:
+        terminalRevert.index,
+
+      context:
+        traceContext,
+    });
+
+  assert(
+    nearest,
+    `${scenarioId}/D has no failure-associated _validateOutcomes source match`,
+  );
+
+  const snippet =
+    sourceSnippet(
+      sourceBuffer,
+      nearest.sourceEntry,
+    );
+
+  assert(
+    nearest.pc
+      === expected
+        .frozenTrace
+        .pc,
+    `${scenarioId}/D failure PC=${nearest.pc}, expected ${expected.frozenTrace.pc}`,
+  );
+
+  assert(
+    nearest.op
+      === expected
+        .frozenTrace
+        .op,
+    `${scenarioId}/D failure op=${nearest.op}, expected ${expected.frozenTrace.op}`,
+  );
+
+  assert(
+    nearest.depth2StepsToRevert
+      === expected
+        .frozenTrace
+        .depth2StepsToRevert,
+    `${scenarioId}/D depth-2 steps-to-revert=${nearest.depth2StepsToRevert}, expected ${expected.frozenTrace.depth2StepsToRevert}`,
+  );
+
+  assert(
+    nearest.sourceEntry.start
+      === expected
+        .frozenTrace
+        .sourceStart,
+    `${scenarioId}/D source start=${nearest.sourceEntry.start}, expected ${expected.frozenTrace.sourceStart}`,
+  );
+
+  assert(
+    nearest.sourceEntry.length
+      === expected
+        .frozenTrace
+        .sourceLength,
+    `${scenarioId}/D source length=${nearest.sourceEntry.length}, expected ${expected.frozenTrace.sourceLength}`,
+  );
+
+  assert(
+    typeof snippet
+      === "string"
+    && snippet.includes(
+      expected
+        .frozenTrace
+        .sourceNeedle,
+    ),
+    `${scenarioId}/D frozen failure source snippet mismatch`,
+  );
+
+  return {
+    traceStage:
+      "_validateOutcomes",
+
+    postconditionFailureTrace:
+      true,
+
+    violationCode:
+      expected.violationCode,
+
+    violationName:
+      expected.violationName,
+
+    pc:
+      nearest.pc,
+
+    op:
+      nearest.op,
+
+    depth2StepsToRevert:
+      nearest
+        .depth2StepsToRevert,
+
+    sourceStart:
+      nearest
+        .sourceEntry
+        .start,
+
+    sourceLength:
+      nearest
+        .sourceEntry
+        .length,
+
+    sourceSnippet:
+      snippet,
+
+    validateOutcomesMatches:
+      traversal.matches.length,
+
+    depth2RevertCount:
+      depth2Reverts.length,
+  };
+}
+
 export async function runPostconditionTracePreflight() {
   const artifacts =
     loadArtifacts();
