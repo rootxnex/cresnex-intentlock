@@ -1153,4 +1153,6 @@ export async function runExecutionRowMaterializationPreflight() {
   console.log(
     "EXECUTION_ROW_MATERIALIZATION_PREFLIGHT_PASS",
   );
+
+  return executionRows;
 }
