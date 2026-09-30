@@ -821,6 +821,8 @@ export async function runObservationIntegrationPreflight() {
   let postconditionTraceCount =
     0;
 
+  const diagnosticRecords = [];
+
   try {
     const {
       publicClient,
@@ -1246,6 +1248,68 @@ export async function runObservationIntegrationPreflight() {
           );
         }
 
+        diagnosticRecords.push({
+          planRow:
+            row,
+
+          transaction,
+
+          fixture,
+
+          addresses: {
+            owner:
+              accountRoles.owner.address,
+
+            agent:
+              accountRoles.agent.address,
+
+            submitter:
+              accountRoles.agent.address,
+
+            recipientAllowed:
+              accountRoles
+                .recipientAllowed
+                .address,
+
+            thief:
+              accountRoles
+                .thief
+                .address,
+
+            spenderAllowed:
+              accountRoles
+                .spenderAllowed
+                .address,
+
+            spenderUnauthorized:
+              accountRoles
+                .spenderUnauthorized
+                .address,
+          },
+
+          pre,
+          post,
+          receiptMeta,
+          dSignals,
+          storedViolationResult,
+          rollbackVerified,
+          traceEvidence,
+          decoded,
+          finalStateOk,
+          classification,
+
+          result: {
+            transactionHash:
+              result.transactionHash,
+
+            executionTimeNs:
+              result.executionTimeNs,
+
+            executionTimeMs:
+              result.executionTimeMs,
+          },
+        });
+
         console.log(
           [
             label,
@@ -1392,6 +1456,8 @@ export async function runObservationIntegrationPreflight() {
     console.log(
       "OBSERVATION_INTEGRATION_PREFLIGHT_PASS",
     );
+
+    return diagnosticRecords;
   } finally {
     await stopAnvil(
       anvil.child,
