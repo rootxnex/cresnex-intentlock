@@ -768,7 +768,32 @@ function assertClassification({
   );
 }
 
-export async function runObservationIntegrationPreflight() {
+export const OBSERVATION_EXECUTION_ROLES =
+  Object.freeze({
+    DIAGNOSTIC:
+      "DIAGNOSTIC",
+
+    MEASURED_PILOT:
+      "MEASURED_PILOT",
+  });
+
+async function runObservationIntegration({
+  executionRole,
+}) {
+  assert(
+    Object.values(
+      OBSERVATION_EXECUTION_ROLES,
+    ).includes(
+      executionRole,
+    ),
+    `unsupported observation execution role ${executionRole}`,
+  );
+
+  const strictExpected =
+    executionRole
+      === OBSERVATION_EXECUTION_ROLES
+        .DIAGNOSTIC;
+
   const artifacts =
     loadArtifacts();
 
@@ -800,7 +825,7 @@ export async function runObservationIntegrationPreflight() {
         true,
     });
 
-  let diagnosticTransactions =
+  let observationTransactions =
     0;
 
   let prerequisiteTransactions =
@@ -812,6 +837,9 @@ export async function runObservationIntegrationPreflight() {
   let classifiedReject =
     0;
 
+  let unclassifiedCount =
+    0;
+
   let revertEvidenceCount =
     0;
 
@@ -821,7 +849,7 @@ export async function runObservationIntegrationPreflight() {
   let postconditionTraceCount =
     0;
 
-  const diagnosticRecords = [];
+  const observationRecords = [];
 
   try {
     const {
@@ -961,7 +989,7 @@ export async function runObservationIntegrationPreflight() {
             prepared,
           });
 
-        diagnosticTransactions += 1;
+        observationTransactions += 1;
 
         const post =
           await captureState({
@@ -1038,12 +1066,20 @@ export async function runObservationIntegrationPreflight() {
             storedViolationResult
               .storedViolation;
 
-          assert(
-            storedViolation === true,
-            `${label}: durable violation record missing or mismatched`,
-          );
+          if (
+            strictExpected
+          ) {
+            assert(
+              storedViolation === true,
+              `${label}: durable violation record missing or mismatched`,
+            );
+          }
 
-          storedViolationCount += 1;
+          if (
+            storedViolation
+          ) {
+            storedViolationCount += 1;
+          }
         }
 
         const rollbackVerified =
@@ -1056,6 +1092,7 @@ export async function runObservationIntegrationPreflight() {
         if (
           dSignals
             .intentViolation
+          && strictExpected
         ) {
           assert(
             rollbackVerified
@@ -1098,36 +1135,56 @@ export async function runObservationIntegrationPreflight() {
           row.validation_provenance
             === "TRACE_REQUIRED_FOR_POSTCONDITION"
         ) {
-          assert(
+          if (
             dSignals
               .intentViolation
-              === true,
-            `${label}: postcondition trace requested without IntentViolation`,
-          );
+              === true
+          ) {
+            const traceCandidate =
+              await resolvePostconditionFailureEvidence({
+                rpc,
 
-          traceEvidence =
-            await resolvePostconditionFailureEvidence({
-              rpc,
+                transactionHash:
+                  result
+                    .transactionHash,
 
-              transactionHash:
-                result
-                  .transactionHash,
+                scenarioId:
+                  row.scenario_id,
+              });
 
-              scenarioId:
-                row.scenario_id,
-            });
+            const traceMatchesEvent =
+              Number(
+                dSignals
+                  .intentViolationEvent
+                  .code,
+              )
+              === traceCandidate
+                .violationCode;
 
-          assert(
-            Number(
-              dSignals
-                .intentViolationEvent
-                .code,
-            ) === traceEvidence
-              .violationCode,
-            `${label}: IntentViolation code disagrees with frozen failure trace`,
-          );
+            if (
+              strictExpected
+            ) {
+              assert(
+                traceMatchesEvent,
+                `${label}: IntentViolation code disagrees with frozen failure trace`,
+              );
+            }
 
-          postconditionTraceCount += 1;
+            if (
+              traceMatchesEvent
+            ) {
+              traceEvidence =
+                traceCandidate;
+
+              postconditionTraceCount += 1;
+            }
+          } else if (
+            strictExpected
+          ) {
+            fail(
+              `${label}: postcondition trace requested without IntentViolation`,
+            );
+          }
         }
 
         let decoded =
@@ -1147,20 +1204,33 @@ export async function runObservationIntegrationPreflight() {
               rpc,
             });
 
-          assert(
-            typeof decoded
-              .errorName
-              === "string",
-            `${label}: reverted transaction has no decoded error name`,
-          );
+          if (
+            strictExpected
+          ) {
+            assert(
+              typeof decoded
+                .errorName
+                === "string",
+              `${label}: reverted transaction has no decoded error name`,
+            );
+          }
 
-          revertEvidenceCount += 1;
+          if (
+            decoded.revertHash
+              !== null
+          ) {
+            revertEvidenceCount += 1;
+          }
 
-          assert(
-            post.nonceUsed
-              === pre.nonceUsed,
-            `${label}: reverted transaction changed account nonce state`,
-          );
+          if (
+            strictExpected
+          ) {
+            assert(
+              post.nonceUsed
+                === pre.nonceUsed,
+              `${label}: reverted transaction changed account nonce state`,
+            );
+          }
         }
 
         const finalStateOk =
@@ -1225,10 +1295,14 @@ export async function runObservationIntegrationPreflight() {
             observation,
           );
 
-        assertClassification({
-          row,
-          classification,
-        });
+        if (
+          strictExpected
+        ) {
+          assertClassification({
+            row,
+            classification,
+          });
+        }
 
         if (
           classification
@@ -1242,13 +1316,24 @@ export async function runObservationIntegrationPreflight() {
             === "REJECT"
         ) {
           classifiedReject += 1;
-        } else {
+        } else if (
+          strictExpected
+        ) {
           fail(
             `${label}: unexpected applicable verdict ${classification.actual_verdict}`,
           );
+        } else {
+          /*
+           * The measured pilot must retain an unexpected or
+           * insufficient-evidence observation rather than censoring
+           * it because it did not fit the preregistered expectation.
+           */
+          unclassifiedCount += 1;
         }
 
-        diagnosticRecords.push({
+        observationRecords.push({
+          executionRole,
+
           planRow:
             row,
 
@@ -1350,9 +1435,9 @@ export async function runObservationIntegrationPreflight() {
     }
 
     assert(
-      diagnosticTransactions
+      observationTransactions
         === 27,
-      `diagnostic observation tx count=${diagnosticTransactions}, expected 27`,
+      `diagnostic observation tx count=${observationTransactions}, expected 27`,
     );
 
     assert(
@@ -1361,29 +1446,50 @@ export async function runObservationIntegrationPreflight() {
       `diagnostic prerequisite tx count=${prerequisiteTransactions}, expected 9`,
     );
 
-    assert(
-      classifiedAllow === 13,
-      `ALLOW classifications=${classifiedAllow}, expected 13`,
-    );
+    if (
+      strictExpected
+    ) {
+      assert(
+        classifiedAllow === 13,
+        `ALLOW classifications=${classifiedAllow}, expected 13`,
+      );
+
+      assert(
+        classifiedReject === 14,
+        `REJECT classifications=${classifiedReject}, expected 14`,
+      );
+
+      assert(
+        revertEvidenceCount === 8,
+        `revert evidence count=${revertEvidenceCount}, expected 8`,
+      );
+
+      assert(
+        storedViolationCount === 6,
+        `stored violation count=${storedViolationCount}, expected 6`,
+      );
+
+      assert(
+        postconditionTraceCount === 2,
+        `postcondition failure trace count=${postconditionTraceCount}, expected 2`,
+      );
+
+      assert(
+        unclassifiedCount === 0,
+        `diagnostic unclassified count=${unclassifiedCount}, expected 0`,
+      );
+    }
 
     assert(
-      classifiedReject === 14,
-      `REJECT classifications=${classifiedReject}, expected 14`,
-    );
-
-    assert(
-      revertEvidenceCount === 8,
-      `revert evidence count=${revertEvidenceCount}, expected 8`,
-    );
-
-    assert(
-      storedViolationCount === 6,
-      `stored violation count=${storedViolationCount}, expected 6`,
-    );
-
-    assert(
-      postconditionTraceCount === 2,
-      `postcondition failure trace count=${postconditionTraceCount}, expected 2`,
+      classifiedAllow
+        + classifiedReject
+        + unclassifiedCount
+        === 27,
+      `accounted observations=${
+        classifiedAllow
+        + classifiedReject
+        + unclassifiedCount
+      }, expected 27`,
     );
 
     await verifyFixture({
@@ -1417,50 +1523,124 @@ export async function runObservationIntegrationPreflight() {
       "OBSERVATION_INTEGRATION_POSTCONDITION_TRACES: 2",
     );
 
-    console.log(
-      "OBSERVATION_EXPECTED_VERDICT_MATCH: PASS",
-    );
+    if (
+      strictExpected
+    ) {
+      console.log(
+        "OBSERVATION_EXPECTED_VERDICT_MATCH: PASS",
+      );
 
-    console.log(
-      "OBSERVATION_EXPECTED_FAILURE_CLASS_MATCH: PASS",
-    );
+      console.log(
+        "OBSERVATION_EXPECTED_FAILURE_CLASS_MATCH: PASS",
+      );
 
-    console.log(
-      "OBSERVATION_EXPECTED_REASON_CODE_MATCH: PASS",
-    );
+      console.log(
+        "OBSERVATION_EXPECTED_REASON_CODE_MATCH: PASS",
+      );
 
-    console.log(
-      "POSTCONDITION_TRACE_DERIVED_NOT_ASSERTED: PASS",
-    );
+      console.log(
+        "POSTCONDITION_TRACE_DERIVED_NOT_ASSERTED: PASS",
+      );
+    }
 
     console.log(
       "ROW_LEVEL_PRISTINE_SNAPSHOT_REVERSION: PASS",
     );
 
-    console.log(
-      "DIAGNOSTIC_PREREQUISITE_TRANSACTIONS_EXECUTED: 9",
-    );
+    if (
+      strictExpected
+    ) {
+      console.log(
+        "DIAGNOSTIC_PREREQUISITE_TRANSACTIONS_EXECUTED: 9",
+      );
 
-    console.log(
-      "DIAGNOSTIC_OBSERVATION_TRANSACTIONS_EXECUTED: 27",
-    );
+      console.log(
+        "DIAGNOSTIC_OBSERVATION_TRANSACTIONS_EXECUTED: 27",
+      );
 
-    console.log(
-      "MEASURED_PILOT_TRANSACTIONS_EXECUTED: 0",
-    );
+      console.log(
+        "MEASURED_PILOT_TRANSACTIONS_EXECUTED: 0",
+      );
 
-    console.log(
-      "PILOT_OBSERVATIONS_CREATED: 0",
-    );
+      console.log(
+        "PILOT_OBSERVATIONS_CREATED: 0",
+      );
 
-    console.log(
-      "OBSERVATION_INTEGRATION_PREFLIGHT_PASS",
-    );
+      console.log(
+        "OBSERVATION_INTEGRATION_PREFLIGHT_PASS",
+      );
+    } else {
+      console.log(
+        `MEASURED_OBSERVATION_ALLOW: ${classifiedAllow}`,
+      );
 
-    return diagnosticRecords;
+      console.log(
+        `MEASURED_OBSERVATION_REJECT: ${classifiedReject}`,
+      );
+
+      console.log(
+        `MEASURED_OBSERVATION_REVERT_EVIDENCE: ${revertEvidenceCount}`,
+      );
+
+      console.log(
+        `MEASURED_OBSERVATION_STORED_VIOLATIONS: ${storedViolationCount}`,
+      );
+
+      console.log(
+        `MEASURED_OBSERVATION_POSTCONDITION_TRACES: ${postconditionTraceCount}`,
+      );
+
+      console.log(
+        `MEASURED_OBSERVATION_UNCLASSIFIED: ${unclassifiedCount}`,
+      );
+
+      console.log(
+        "EXCLUDED_PREREQUISITE_TRANSACTIONS_EXECUTED: 9",
+      );
+
+      console.log(
+        "MEASURED_PILOT_TRANSACTIONS_EXECUTED: 27",
+      );
+
+      console.log(
+        "MEASURED_OBSERVATIONS_COLLECTED_IN_MEMORY: 27",
+      );
+
+      console.log(
+        "PILOT_OBSERVATIONS_PERSISTED: 0",
+      );
+
+      console.log(
+        "MEASURED_OBSERVATION_COLLECTION_IN_MEMORY_ONLY: PASS",
+      );
+    }
+
+    return observationRecords;
   } finally {
     await stopAnvil(
       anvil.child,
     );
   }
+}
+
+export async function runObservationIntegrationPreflight() {
+  return runObservationIntegration({
+    executionRole:
+      OBSERVATION_EXECUTION_ROLES
+        .DIAGNOSTIC,
+  });
+}
+
+/*
+ * Reserved exclusively for the future immutable --output writer.
+ *
+ * Do not expose this through paper-pilot.mjs as a standalone CLI command.
+ * Calling this function constitutes the designated measured pilot run.
+ */
+export async function collectMeasuredPilotObservationsForWriter() {
+  return runObservationIntegration({
+    executionRole:
+      OBSERVATION_EXECUTION_ROLES
+        .MEASURED_PILOT,
+  });
 }
