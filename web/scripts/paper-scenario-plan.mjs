@@ -86,6 +86,130 @@ const PILOT_07_REPLAY_PAYLOAD =
       "transfer(address,uint256)",
   });
 
+/*
+ * Pre-execution Amendment 5.
+ *
+ * These fields make the already-frozen advanced scenarios
+ * executable without mutating pilot-scenarios.json.
+ */
+const AMENDMENT_5_PAYLOADS =
+  Object.freeze({
+    "PILOT-05": Object.freeze({
+      input_token:
+        "MOCK_USDC",
+
+      output_token:
+        "MOCK_WETH",
+
+      router:
+        "MOCK_ROUTER",
+
+      swap_recipient:
+        "RECIPIENT_ALLOWED",
+
+      d_approval_amount:
+        "1000000",
+
+      d_final_allowance_cap:
+        "0",
+    }),
+
+    "PILOT-06": Object.freeze({
+      batch_recipient:
+        "RECIPIENT_ALLOWED",
+
+      batch_signed_amounts:
+        Object.freeze([
+          "400000",
+          "600000",
+        ]),
+
+      batch_executed_amounts:
+        Object.freeze([
+          "600000",
+          "400000",
+        ]),
+
+      batch_max_spend:
+        "1000000",
+
+      batch_min_receive:
+        "1000000",
+    }),
+
+    "PILOT-08": Object.freeze({
+      approval_spender:
+        "MOCK_ROUTER",
+
+      ac_approval_amount:
+        "1000001",
+
+      d_approval_amount:
+        "2000001",
+
+      d_swap_input:
+        "1000000",
+
+      d_swap_output:
+        "1",
+
+      d_swap_recipient:
+        "RECIPIENT_ALLOWED",
+
+      d_swap_behavior:
+        "Valid",
+
+      d_min_receive:
+        "1",
+    }),
+
+    "PILOT-09": Object.freeze({
+      violation_target:
+        "MOCK_USDC",
+
+      violation_policy_recipient:
+        "RECIPIENT_ALLOWED",
+
+      violation_executed_recipient:
+        "THIEF",
+
+      violation_amount:
+        "1000000",
+
+      violation_max_spend:
+        "1000000",
+    }),
+
+    "PILOT-10": Object.freeze({
+      prerequisite_violation_target:
+        "MOCK_USDC",
+
+      prerequisite_policy_recipient:
+        "RECIPIENT_ALLOWED",
+
+      prerequisite_executed_recipient:
+        "THIEF",
+
+      prerequisite_amount:
+        "1000000",
+
+      prerequisite_max_spend:
+        "1000000",
+
+      measured_target:
+        "MOCK_USDC",
+
+      measured_recipient:
+        "RECIPIENT_ALLOWED",
+
+      measured_amount:
+        "1000000",
+
+      measured_max_spend:
+        "1000000",
+    }),
+  });
+
 function fail(message) {
   throw new Error(message);
 }
@@ -493,6 +617,32 @@ export function buildPilotPlan() {
       }
     }
 
+    const amendment5Payload =
+      AMENDMENT_5_PAYLOADS[
+        scenarioId
+      ];
+
+    if (amendment5Payload) {
+      for (
+        const field
+        of Object.keys(
+          amendment5Payload,
+        )
+      ) {
+        if (
+          Object.prototype
+            .hasOwnProperty.call(
+              parameters,
+              field,
+            )
+        ) {
+          fail(
+            `${scenarioId}: original frozen definition unexpectedly contains Amendment 5 field ${field}`,
+          );
+        }
+      }
+    }
+
     for (
       const baseline
       of BASELINES
@@ -604,6 +754,18 @@ export function buildPilotPlan() {
             scenarioId === "PILOT-07"
               ? structuredClone(
                   PILOT_07_REPLAY_PAYLOAD,
+                )
+              : {}
+          ),
+
+          ...(
+            AMENDMENT_5_PAYLOADS[
+              scenarioId
+            ]
+              ? structuredClone(
+                  AMENDMENT_5_PAYLOADS[
+                    scenarioId
+                  ],
                 )
               : {}
           ),
