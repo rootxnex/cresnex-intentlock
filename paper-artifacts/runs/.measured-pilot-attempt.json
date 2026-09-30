@@ -1,0 +1,9 @@
+{
+  "state": "MEASURED_PILOT_ATTEMPT_STARTED_NO_RETRY",
+  "run_id": "intentlock-pilot-bbff8573c0a3-20260930063406607",
+  "git_commit": "bbff8573c0a314aaf328211f1f807de2862ec14d",
+  "branch": "paper-experiments-2026",
+  "output_path": "/home/rootx/cresnex intentlock/paper-artifacts/runs/pilot-measured-bbff857",
+  "incomplete_path": "/home/rootx/cresnex intentlock/paper-artifacts/runs/pilot-measured-bbff857.incomplete",
+  "started_at": "2026-09-30T06:34:06.607Z"
+}
