@@ -26,6 +26,10 @@ import {
   buildAdvancedPilotTransaction,
 } from "./paper-advanced-transaction-builders.mjs";
 
+import {
+  applyPilotPrerequisites,
+} from "./paper-prerequisite-preflight.mjs";
+
 const MEASURED_GAS_LIMIT =
   8_000_000n;
 
@@ -609,6 +613,380 @@ export async function runMeasuredSendPreflight() {
 
     console.log(
       "MEASURED_TRANSACTION_SEND_PREFLIGHT_PASS",
+    );
+  } finally {
+    await stopAnvil(
+      anvil.child,
+    );
+  }
+}
+
+export async function runMeasuredMatrixPreflight() {
+  const artifacts =
+    loadArtifacts();
+
+  const accountRoles =
+    roles();
+
+  const plan =
+    buildPilotPlan();
+
+  validatePilotPlan(
+    plan,
+  );
+
+  const selected =
+    plan.filter(
+      (row) =>
+        row.applicability
+          === "APPLICABLE",
+    );
+
+  assert(
+    selected.length === 27,
+    `applicable measured matrix rows=${selected.length}, expected 27`,
+  );
+
+  const counts =
+    Object.fromEntries(
+      ["A", "B", "C", "D"]
+        .map(
+          (baseline) => [
+            baseline,
+
+            selected.filter(
+              (row) =>
+                row.baseline
+                  === baseline,
+            ).length,
+          ],
+        ),
+    );
+
+  assert(
+    counts.A === 7
+    && counts.B === 4
+    && counts.C === 6
+    && counts.D === 10,
+    `unexpected measured matrix counts ${JSON.stringify(counts)}`,
+  );
+
+  const anvil =
+    await startAnvil();
+
+  let diagnosticMeasuredTransactions =
+    0;
+
+  let diagnosticPrerequisiteTransactions =
+    0;
+
+  let successReceipts =
+    0;
+
+  let revertedReceipts =
+    0;
+
+  try {
+    const {
+      publicClient,
+      chain,
+      rpc,
+    } = anvil;
+
+    const ownerWallet =
+      createWalletClient({
+        account:
+          accountRoles.owner,
+
+        chain,
+
+        transport:
+          http(rpc),
+      });
+
+    const agentWallet =
+      createWalletClient({
+        account:
+          accountRoles.agent,
+
+        chain,
+
+        transport:
+          http(rpc),
+      });
+
+    const fixture =
+      await deployFixture({
+        walletClient:
+          ownerWallet,
+
+        publicClient,
+
+        artifacts,
+
+        accountRoles,
+      });
+
+    await verifyFixture({
+      publicClient,
+      artifacts,
+      fixture,
+      accountRoles,
+    });
+
+    for (
+      const row
+      of selected
+    ) {
+      const label =
+        `${row.scenario_id}/${row.baseline}`;
+
+      const snapshot =
+        await rawRpc(
+          rpc,
+          "evm_snapshot",
+          [],
+        );
+
+      try {
+        /*
+         * Build exactly once before prerequisites.
+         *
+         * This is required for PILOT-07: the excluded
+         * prior execution and the measured replay must
+         * reuse byte-identical account calldata.
+         */
+        const transaction =
+          await buildPilotTransaction({
+            row,
+            fixture,
+            artifacts,
+            accountRoles,
+            publicClient,
+          });
+
+        const prerequisiteResult =
+          await applyPilotPrerequisites({
+            row,
+
+            measuredTransaction:
+              transaction,
+
+            fixture,
+            artifacts,
+            accountRoles,
+            publicClient,
+            ownerWallet,
+            agentWallet,
+            rpc,
+          });
+
+        diagnosticPrerequisiteTransactions +=
+          prerequisiteResult
+            .excludedTransactions;
+
+        if (
+          row.scenario_id
+            === "PILOT-07"
+        ) {
+          assert(
+            prerequisiteResult
+              .reusedMeasuredCalldata
+              === true,
+            `${label}: exact measured calldata was not reused for replay prerequisite`,
+          );
+        }
+
+        await rawRpc(
+          rpc,
+          "evm_setNextBlockTimestamp",
+          [
+            row.measured_timestamp,
+          ],
+        );
+
+        const prepared =
+          await prepareMeasuredOuterTransaction({
+            transaction,
+
+            account:
+              accountRoles.agent,
+
+            publicClient,
+          });
+
+        const outerNonceBefore =
+          await publicClient
+            .getTransactionCount({
+              address:
+                accountRoles
+                  .agent
+                  .address,
+
+              blockTag:
+                "pending",
+            });
+
+        assert(
+          outerNonceBefore
+            === prepared.outerNonce,
+          `${label}: prepared outer nonce changed before send`,
+        );
+
+        const result =
+          await sendPreparedMeasuredTransaction({
+            rpc,
+            publicClient,
+            prepared,
+          });
+
+        diagnosticMeasuredTransactions += 1;
+
+        const outerNonceAfter =
+          await publicClient
+            .getTransactionCount({
+              address:
+                accountRoles
+                  .agent
+                  .address,
+
+              blockTag:
+                "latest",
+            });
+
+        assert(
+          outerNonceAfter
+            === prepared.outerNonce + 1,
+          `${label}: outer nonce did not advance exactly once`,
+        );
+
+        const block =
+          await publicClient.getBlock({
+            blockNumber:
+              result.receipt
+                .blockNumber,
+          });
+
+        assert(
+          block.timestamp
+            === BigInt(
+              row.measured_timestamp,
+            ),
+          `${label}: measured timestamp mismatch`,
+        );
+
+        assert(
+          result.receipt.status
+            === "success"
+          || result.receipt.status
+            === "reverted",
+          `${label}: unknown receipt status ${result.receipt.status}`,
+        );
+
+        if (
+          result.receipt.status
+            === "success"
+        ) {
+          successReceipts += 1;
+        } else {
+          revertedReceipts += 1;
+        }
+
+        console.log(
+          [
+            label,
+            `receipt=${result.receipt.status}`,
+            `gas=${result.receipt.gasUsed}`,
+            `ns=${result.executionTimeNs}`,
+            `prereq=${prerequisiteResult.excludedTransactions}`,
+            "DIAGNOSTIC_PASS",
+          ].join(" "),
+        );
+      } finally {
+        const reverted =
+          await rawRpc(
+            rpc,
+            "evm_revert",
+            [
+              snapshot,
+            ],
+          );
+
+        assert(
+          reverted === true,
+          `${label}: row snapshot revert failed`,
+        );
+      }
+    }
+
+    assert(
+      diagnosticMeasuredTransactions
+        === 27,
+      `diagnostic measured tx count=${diagnosticMeasuredTransactions}, expected 27`,
+    );
+
+    assert(
+      diagnosticPrerequisiteTransactions
+        === 9,
+      `diagnostic prerequisite tx count=${diagnosticPrerequisiteTransactions}, expected 9`,
+    );
+
+    assert(
+      successReceipts
+        + revertedReceipts
+        === 27,
+      "receipt accounting does not sum to 27",
+    );
+
+    await verifyFixture({
+      publicClient,
+      artifacts,
+      fixture,
+      accountRoles,
+    });
+
+    console.log(
+      "MEASURED_MATRIX_APPLICABLE_ROWS: 27",
+    );
+
+    console.log(
+      `MEASURED_MATRIX_COUNTS: A=${counts.A} B=${counts.B} C=${counts.C} D=${counts.D}`,
+    );
+
+    console.log(
+      `MEASURED_MATRIX_SUCCESS_RECEIPTS: ${successReceipts}`,
+    );
+
+    console.log(
+      `MEASURED_MATRIX_REVERTED_RECEIPTS: ${revertedReceipts}`,
+    );
+
+    console.log(
+      "PILOT_07_EXACT_ACCOUNT_CALLDATA_REPLAY: PASS",
+    );
+
+    console.log(
+      "ROW_LEVEL_PRISTINE_SNAPSHOT_REVERSION: PASS",
+    );
+
+    console.log(
+      "DIAGNOSTIC_PREREQUISITE_TRANSACTIONS_EXECUTED: 9",
+    );
+
+    console.log(
+      "DIAGNOSTIC_MEASURED_MATRIX_TRANSACTIONS_EXECUTED: 27",
+    );
+
+    console.log(
+      "MEASURED_PILOT_TRANSACTIONS_EXECUTED: 0",
+    );
+
+    console.log(
+      "PILOT_OBSERVATIONS_CREATED: 0",
+    );
+
+    console.log(
+      "MEASURED_MATRIX_PREFLIGHT_PASS",
     );
   } finally {
     await stopAnvil(

@@ -667,6 +667,549 @@ function findRow(
   return row;
 }
 
+export async function applyPilotPrerequisites({
+  row,
+  measuredTransaction,
+  fixture,
+  artifacts,
+  accountRoles,
+  publicClient,
+  ownerWallet,
+  agentWallet,
+  rpc,
+}) {
+  const key =
+    `${row.scenario_id}/${row.baseline}`;
+
+  const prerequisite =
+    row.prerequisite_parameters
+    ?? null;
+
+  if (prerequisite === null) {
+    return {
+      excludedTransactions:
+        0,
+
+      reusedMeasuredCalldata:
+        false,
+    };
+  }
+
+  if (
+    key === "PILOT-05/A"
+  ) {
+    assert(
+      prerequisite.action
+        === "USDC_APPROVE_ROUTER",
+      "PILOT-05/A prerequisite action mismatch",
+    );
+
+    assert(
+      prerequisite.measured
+        === false,
+      "PILOT-05/A prerequisite must be excluded",
+    );
+
+    const nonce =
+      BigInt(
+        prerequisite.nonce,
+      );
+
+    const amount =
+      BigInt(
+        prerequisite.amount,
+      );
+
+    const transaction =
+      await buildAPrerequisiteApproval({
+        row,
+        nonce,
+        amount,
+        fixture,
+        artifacts,
+        accountRoles,
+        publicClient,
+      });
+
+    await setNextTimestamp(
+      rpc,
+      prerequisite.timestamp,
+    );
+
+    await sendExcludedTransaction({
+      walletClient:
+        agentWallet,
+
+      publicClient,
+
+      transaction,
+
+      label:
+        "PILOT-05/A prerequisite",
+    });
+
+    const allowance =
+      await publicClient.readContract({
+        address:
+          fixture.USDC,
+
+        abi:
+          artifacts.token.abi,
+
+        functionName:
+          "allowance",
+
+        args: [
+          fixture.A,
+          fixture.ROUTER,
+        ],
+      });
+
+    assert(
+      allowance === amount,
+      `PILOT-05/A allowance=${allowance}, expected ${amount}`,
+    );
+
+    assert(
+      await readUsedNonce({
+        publicClient,
+
+        address:
+          fixture.A,
+
+        abi:
+          artifacts.A.abi,
+
+        nonce,
+      }) === true,
+      "PILOT-05/A prerequisite nonce not consumed",
+    );
+
+    assert(
+      await readUsedNonce({
+        publicClient,
+
+        address:
+          fixture.A,
+
+        abi:
+          artifacts.A.abi,
+
+        nonce:
+          BigInt(row.nonce),
+      }) === false,
+      "PILOT-05/A measured nonce consumed by prerequisite",
+    );
+
+    return {
+      excludedTransactions:
+        1,
+
+      reusedMeasuredCalldata:
+        false,
+    };
+  }
+
+  if (
+    row.scenario_id
+      === "PILOT-07"
+    && ["A", "B", "C", "D"]
+      .includes(
+        row.baseline,
+      )
+  ) {
+    assert(
+      prerequisite.action
+        === "PRIOR_IDENTICAL_SUCCESS",
+      `${key}: prerequisite action mismatch`,
+    );
+
+    assert(
+      prerequisite.nonce
+        === row.nonce,
+      `${key}: prerequisite nonce differs from measured nonce`,
+    );
+
+    assert(
+      measuredTransaction
+      && typeof measuredTransaction.calldata
+        === "string"
+      && measuredTransaction.calldata
+        .startsWith("0x"),
+      `${key}: measured transaction required for exact replay prerequisite`,
+    );
+
+    const frozenCalldata =
+      measuredTransaction.calldata;
+
+    await setNextTimestamp(
+      rpc,
+      prerequisite.timestamp,
+    );
+
+    /*
+     * Exact inner/account-level replay:
+     *
+     * The prerequisite executes the same already-built
+     * account calldata that will be used for the measured
+     * replay. The outer EOA transaction is necessarily
+     * re-signed later with the next Ethereum nonce.
+     */
+    await sendExcludedTransaction({
+      walletClient:
+        agentWallet,
+
+      publicClient,
+
+      transaction:
+        measuredTransaction,
+
+      label:
+        `${key} prerequisite`,
+    });
+
+    assert(
+      measuredTransaction.calldata
+        === frozenCalldata,
+      `${key}: measured account calldata mutated after prerequisite`,
+    );
+
+    assert(
+      await readUsedNonce({
+        publicClient,
+
+        address:
+          fixture[row.baseline],
+
+        abi:
+          artifacts[
+            row.baseline
+          ].abi,
+
+        nonce:
+          BigInt(row.nonce),
+      }) === true,
+      `${key}: replay nonce not consumed by prerequisite`,
+    );
+
+    return {
+      excludedTransactions:
+        1,
+
+      reusedMeasuredCalldata:
+        true,
+    };
+  }
+
+  if (
+    key === "PILOT-09/D"
+  ) {
+    assert(
+      prerequisite.action
+        === "TWO_AUTHENTICATED_POLICY_VIOLATIONS",
+      "PILOT-09/D prerequisite action mismatch",
+    );
+
+    assert(
+      prerequisite.nonces.length
+        === 2
+      && prerequisite.timestamps.length
+        === 2,
+      "PILOT-09/D prerequisite cardinality mismatch",
+    );
+
+    for (
+      let index = 0;
+      index < 2;
+      index += 1
+    ) {
+      const nonce =
+        BigInt(
+          prerequisite
+            .nonces[index],
+        );
+
+      const transaction =
+        await buildDTransferPrerequisite({
+          row,
+
+          nonce,
+
+          executedRecipient:
+            accountRoles
+              .thief
+              .address,
+
+          policyRecipient:
+            accountRoles
+              .recipientAllowed
+              .address,
+
+          amount:
+            BigInt(
+              row.parameters
+                .violation_amount,
+            ),
+
+          maximum:
+            BigInt(
+              row.parameters
+                .violation_max_spend,
+            ),
+
+          fixture,
+          artifacts,
+          accountRoles,
+          publicClient,
+
+          label:
+            `PILOT-09/D prerequisite ${index + 1}`,
+        });
+
+      await setNextTimestamp(
+        rpc,
+        prerequisite
+          .timestamps[index],
+      );
+
+      await sendExcludedTransaction({
+        walletClient:
+          agentWallet,
+
+        publicClient,
+
+        transaction,
+
+        label:
+          `PILOT-09/D prerequisite ${index + 1}`,
+      });
+
+      const state =
+        await readAgentState({
+          publicClient,
+          fixture,
+          artifacts,
+          accountRoles,
+        });
+
+      assert(
+        state.strikes
+          === BigInt(
+            index + 1,
+          ),
+        `PILOT-09/D strikes=${state.strikes}, expected ${index + 1}`,
+      );
+
+      assert(
+        state.quarantined
+          === false,
+        "PILOT-09/D quarantined before measured third violation",
+      );
+    }
+
+    assert(
+      await readUsedNonce({
+        publicClient,
+
+        address:
+          fixture.D,
+
+        abi:
+          artifacts.D.abi,
+
+        nonce:
+          BigInt(row.nonce),
+      }) === false,
+      "PILOT-09/D measured nonce consumed by prerequisite",
+    );
+
+    return {
+      excludedTransactions:
+        2,
+
+      reusedMeasuredCalldata:
+        false,
+    };
+  }
+
+  if (
+    key === "PILOT-10/D"
+  ) {
+    assert(
+      prerequisite.action
+        === "ONE_AUTHENTICATED_POLICY_VIOLATION",
+      "PILOT-10/D prerequisite action mismatch",
+    );
+
+    assert(
+      prerequisite.threshold
+        === 1,
+      "PILOT-10/D threshold mismatch",
+    );
+
+    const thresholdData =
+      encodeFunctionData({
+        abi:
+          artifacts.D.abi,
+
+        functionName:
+          "setQuarantineThreshold",
+
+        args: [
+          1n,
+        ],
+      });
+
+    const thresholdHash =
+      await ownerWallet.sendTransaction({
+        to:
+          fixture.D,
+
+        data:
+          thresholdData,
+
+        gas:
+          1_000_000n,
+      });
+
+    const thresholdReceipt =
+      await publicClient
+        .waitForTransactionReceipt({
+          hash:
+            thresholdHash,
+        });
+
+    assert(
+      thresholdReceipt.status
+        === "success",
+      "PILOT-10/D threshold prerequisite failed",
+    );
+
+    const threshold =
+      await publicClient.readContract({
+        address:
+          fixture.D,
+
+        abi:
+          artifacts.D.abi,
+
+        functionName:
+          "quarantineThreshold",
+      });
+
+    assert(
+      threshold === 1n,
+      `PILOT-10/D threshold=${threshold}, expected 1`,
+    );
+
+    const nonce =
+      BigInt(
+        prerequisite.nonce,
+      );
+
+    const transaction =
+      await buildDTransferPrerequisite({
+        row,
+
+        nonce,
+
+        executedRecipient:
+          accountRoles
+            .thief
+            .address,
+
+        policyRecipient:
+          accountRoles
+            .recipientAllowed
+            .address,
+
+        amount:
+          BigInt(
+            row.parameters
+              .prerequisite_amount,
+          ),
+
+        maximum:
+          BigInt(
+            row.parameters
+              .prerequisite_max_spend,
+          ),
+
+        fixture,
+        artifacts,
+        accountRoles,
+        publicClient,
+
+        label:
+          "PILOT-10/D prerequisite violation",
+      });
+
+    await setNextTimestamp(
+      rpc,
+      prerequisite.timestamp,
+    );
+
+    await sendExcludedTransaction({
+      walletClient:
+        agentWallet,
+
+      publicClient,
+
+      transaction,
+
+      label:
+        "PILOT-10/D prerequisite violation",
+    });
+
+    const state =
+      await readAgentState({
+        publicClient,
+        fixture,
+        artifacts,
+        accountRoles,
+      });
+
+    assert(
+      state.strikes === 1n,
+      `PILOT-10/D strikes=${state.strikes}, expected 1`,
+    );
+
+    assert(
+      state.quarantined
+        === true,
+      "PILOT-10/D agent not quarantined after prerequisite",
+    );
+
+    assert(
+      await readUsedNonce({
+        publicClient,
+
+        address:
+          fixture.D,
+
+        abi:
+          artifacts.D.abi,
+
+        nonce:
+          BigInt(row.nonce),
+      }) === false,
+      "PILOT-10/D measured nonce consumed by prerequisite",
+    );
+
+    return {
+      excludedTransactions:
+        2,
+
+      reusedMeasuredCalldata:
+        false,
+    };
+  }
+
+  fail(
+    `${key}: unexpected prerequisite topology`,
+  );
+}
+
 export async function runPrerequisitePreflight() {
   const artifacts =
     loadArtifacts();
