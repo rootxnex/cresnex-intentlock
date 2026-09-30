@@ -25,6 +25,7 @@ import {
   runMeasuredMatrixPreflight,
   runMeasuredSendPreflight,
 } from "./paper-measured-transaction-executor.mjs";
+import { runRevertEvidencePreflight } from "./paper-revert-evidence-preflight.mjs";
 
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(SCRIPT_DIR, "../..");
@@ -96,6 +97,7 @@ function usage() {
     "  node --experimental-strip-types web/scripts/paper-pilot.mjs --postcondition-trace-preflight",
     "  node --experimental-strip-types web/scripts/paper-pilot.mjs --measured-send-preflight",
     "  node --experimental-strip-types web/scripts/paper-pilot.mjs --measured-matrix-preflight",
+    "  node --experimental-strip-types web/scripts/paper-pilot.mjs --revert-evidence-preflight",
     "  node --experimental-strip-types web/scripts/paper-pilot.mjs --output <new-directory>",
     "  node --experimental-strip-types web/scripts/paper-pilot.mjs --validate <existing-directory>",
   ].join("\n");
@@ -736,6 +738,14 @@ async function main() {
     && args[0] === "--measured-matrix-preflight"
   ) {
     await runMeasuredMatrixPreflight();
+    return 0;
+  }
+
+  if (
+    args.length === 1
+    && args[0] === "--revert-evidence-preflight"
+  ) {
+    await runRevertEvidencePreflight();
     return 0;
   }
 
