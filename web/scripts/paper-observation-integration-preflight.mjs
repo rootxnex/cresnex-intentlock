@@ -1407,7 +1407,9 @@ async function runObservationIntegration({
             `rollback=${rollbackVerified}`,
             `storedViolation=${storedViolation}`,
             `postTrace=${traceEvidence?.postconditionFailureTrace ?? false}`,
-            "CLASSIFICATION_PASS",
+            strictExpected
+              ? "CLASSIFICATION_PASS"
+              : "OBSERVATION_RECORDED",
           ].join(" "),
         );
       } finally {
@@ -1503,29 +1505,29 @@ async function runObservationIntegration({
       "OBSERVATION_INTEGRATION_APPLICABLE_ROWS: 27",
     );
 
-    console.log(
-      "OBSERVATION_INTEGRATION_ALLOW: 13",
-    );
-
-    console.log(
-      "OBSERVATION_INTEGRATION_REJECT: 14",
-    );
-
-    console.log(
-      "OBSERVATION_INTEGRATION_REVERT_EVIDENCE: 8",
-    );
-
-    console.log(
-      "OBSERVATION_INTEGRATION_STORED_VIOLATIONS: 6",
-    );
-
-    console.log(
-      "OBSERVATION_INTEGRATION_POSTCONDITION_TRACES: 2",
-    );
-
     if (
       strictExpected
     ) {
+      console.log(
+        "OBSERVATION_INTEGRATION_ALLOW: 13",
+      );
+
+      console.log(
+        "OBSERVATION_INTEGRATION_REJECT: 14",
+      );
+
+      console.log(
+        "OBSERVATION_INTEGRATION_REVERT_EVIDENCE: 8",
+      );
+
+      console.log(
+        "OBSERVATION_INTEGRATION_STORED_VIOLATIONS: 6",
+      );
+
+      console.log(
+        "OBSERVATION_INTEGRATION_POSTCONDITION_TRACES: 2",
+      );
+
       console.log(
         "OBSERVATION_EXPECTED_VERDICT_MATCH: PASS",
       );
