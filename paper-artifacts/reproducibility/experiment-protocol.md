@@ -211,3 +211,42 @@ remains nonce 700010 at timestamp 1700001000.
 All prerequisite transactions are retained separately as setup provenance and
 are excluded from measured gas, latency and pilot row denominators. No silent
 retry is permitted.
+
+## Pilot replay payload topology — pre-execution amendment 4
+
+Before any pilot transaction or pilot observation was created, the
+PILOT-07 nonce-replay execution payload was made explicit.
+
+The preregistered PILOT-07 definition already fixed nonce `700007`,
+the successful prerequisite timestamp `1700000999`, the measured
+timestamp `1700001000`, and the requirement that the measured
+transaction replay the prior successful authorization. The original
+definition did not specify the underlying benign call payload.
+
+For every applicable baseline A/B/C/D, PILOT-07 therefore uses the
+following fixed benign ERC-20 transfer payload:
+
+- token/target: fixture Mock USDC;
+- recipient: frozen allowed recipient, account index 2;
+- amount: `1000000` mock-USDC base units;
+- maximum spend/path amount where represented: `1000000`;
+- selector: `transfer(address,uint256)`;
+- call value: `0`;
+- authorization/intent nonce: `700007`;
+- validity window remains the already frozen pilot window.
+
+At timestamp `1700000999`, the prerequisite submits the successfully
+signed nonce-700007 package once. At timestamp `1700001000`, the
+measured replay resubmits the exact same signed authorization/package
+and calldata. The measured package is not re-signed or rebuilt after
+the prerequisite execution.
+
+This amendment supplies only the previously omitted replay payload.
+It does not change PILOT-07 applicability, expected verdicts,
+expected reason classes, expected reason codes, security properties,
+nonce, timestamps, or any final-corpus definition.
+
+This omission was discovered during the builder-only Phase 2F.2A
+preflight. That preflight constructed packages only; it produced no
+pilot transaction and no pilot observation.
+
