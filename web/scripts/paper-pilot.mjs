@@ -29,6 +29,7 @@ import { runRevertEvidencePreflight } from "./paper-revert-evidence-preflight.mj
 import { runObservationIntegrationPreflight } from "./paper-observation-integration-preflight.mjs";
 import { runExecutionRowMaterializationPreflight } from "./paper-execution-row-materialization-preflight.mjs";
 import { runOutputPreflight } from "./paper-output-preflight.mjs";
+import { runMeasuredOutputWriter } from "./paper-output-writer.mjs";
 
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(SCRIPT_DIR, "../..");
@@ -979,12 +980,15 @@ async function main() {
 
   validateNewOutputPath(path);
 
-  console.error(
-    "Pilot execution engine not implemented beyond fixture preflight; "
-    + "no observations created.",
-  );
+  await runMeasuredOutputWriter({
+    outputPath:
+      path,
 
-  return 2;
+    validateDirectory:
+      validatePilotDirectory,
+  });
+
+  return 0;
 }
 
 try {

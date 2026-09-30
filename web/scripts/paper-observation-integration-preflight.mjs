@@ -779,6 +779,7 @@ export const OBSERVATION_EXECUTION_ROLES =
 
 async function runObservationIntegration({
   executionRole,
+  onObservation = null,
 }) {
   assert(
     Object.values(
@@ -793,6 +794,13 @@ async function runObservationIntegration({
     executionRole
       === OBSERVATION_EXECUTION_ROLES
         .DIAGNOSTIC;
+
+  assert(
+    onObservation === null
+    || typeof onObservation
+      === "function",
+    "onObservation must be null or a function",
+  );
 
   const artifacts =
     loadArtifacts();
@@ -1331,7 +1339,7 @@ async function runObservationIntegration({
           unclassifiedCount += 1;
         }
 
-        observationRecords.push({
+        const observationRecord = {
           executionRole,
 
           planRow:
@@ -1393,7 +1401,23 @@ async function runObservationIntegration({
             executionTimeMs:
               result.executionTimeMs,
           },
-        });
+        };
+
+        observationRecords.push(
+          observationRecord,
+        );
+
+        /*
+         * Measured mode may journal each completed observation
+         * immediately. Diagnostic mode leaves this null.
+         */
+        if (
+          onObservation !== null
+        ) {
+          await onObservation(
+            observationRecord,
+          );
+        }
 
         console.log(
           [
@@ -1639,10 +1663,14 @@ export async function runObservationIntegrationPreflight() {
  * Do not expose this through paper-pilot.mjs as a standalone CLI command.
  * Calling this function constitutes the designated measured pilot run.
  */
-export async function collectMeasuredPilotObservationsForWriter() {
+export async function collectMeasuredPilotObservationsForWriter({
+  onObservation = null,
+} = {}) {
   return runObservationIntegration({
     executionRole:
       OBSERVATION_EXECUTION_ROLES
         .MEASURED_PILOT,
+
+    onObservation,
   });
 }
