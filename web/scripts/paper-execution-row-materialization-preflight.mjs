@@ -17,6 +17,7 @@ import {
 } from "./paper-execution-engine.mjs";
 
 import {
+  OBSERVATION_EXECUTION_ROLES,
   runObservationIntegrationPreflight,
 } from "./paper-observation-integration-preflight.mjs";
 
@@ -647,9 +648,12 @@ function assertMaterializedSemantics({
   }
 }
 
-function bindDiagnosticRecord({
+function bindObservationRecord({
   executionRow,
   record,
+  runId,
+  gitCommit,
+  observationSource,
 }) {
   const recipient =
     measuredRecipient(
@@ -680,7 +684,10 @@ function bindDiagnosticRecord({
     executionRow,
     {
       run_id:
-        "DIAGNOSTIC_PREFLIGHT_NONPERSISTED",
+        runId,
+
+      git_commit:
+        gitCommit,
 
       timestamp:
         new Date(
@@ -888,14 +895,59 @@ function bindDiagnosticRecord({
           .failure_class,
 
       observation_source:
-        "DIAGNOSTIC_PREFLIGHT_NONPERSISTED",
+        observationSource,
     },
   );
 
   return executionRow;
 }
 
-export async function runExecutionRowMaterializationPreflight() {
+export function materializeExecutionRowsFromObservationRecords({
+  observationRecords,
+  runId,
+  gitCommit = null,
+  observationSource,
+  expectedExecutionRole,
+  requireExpectedMatch,
+}) {
+  assert(
+    typeof runId === "string"
+    && runId.length > 0,
+    "materialization runId must be a non-empty string",
+  );
+
+  assert(
+    gitCommit === null
+    || (
+      typeof gitCommit === "string"
+      && /^[0-9a-f]{40}$/.test(
+        gitCommit,
+      )
+    ),
+    "materialization gitCommit must be null or a 40-character lowercase SHA",
+  );
+
+  assert(
+    typeof observationSource === "string"
+    && observationSource.length > 0,
+    "materialization observationSource must be a non-empty string",
+  );
+
+  assert(
+    Object.values(
+      OBSERVATION_EXECUTION_ROLES,
+    ).includes(
+      expectedExecutionRole,
+    ),
+    `unsupported materialization execution role ${expectedExecutionRole}`,
+  );
+
+  assert(
+    typeof requireExpectedMatch
+      === "boolean",
+    "requireExpectedMatch must be boolean",
+  );
+
   const schema =
     loadSchema();
 
@@ -917,16 +969,13 @@ export async function runExecutionRowMaterializationPreflight() {
     `execution rows=${executionRows.length}, expected 40`,
   );
 
-  const diagnosticRecords =
-    await runObservationIntegrationPreflight();
-
   assert(
     Array.isArray(
-      diagnosticRecords,
+      observationRecords,
     )
-    && diagnosticRecords.length
+    && observationRecords.length
       === 27,
-    `diagnostic records=${diagnosticRecords?.length}, expected 27`,
+    `observation records=${observationRecords?.length}, expected 27`,
   );
 
   const recordMap =
@@ -934,8 +983,14 @@ export async function runExecutionRowMaterializationPreflight() {
 
   for (
     const record
-    of diagnosticRecords
+    of observationRecords
   ) {
+    assert(
+      record.executionRole
+        === expectedExecutionRole,
+      `record execution role=${record.executionRole}, expected ${expectedExecutionRole}`,
+    );
+
     const key =
       recordKey(
         record,
@@ -945,7 +1000,7 @@ export async function runExecutionRowMaterializationPreflight() {
       !recordMap.has(
         key,
       ),
-      `duplicate diagnostic record ${key}`,
+      `duplicate observation record ${key}`,
     );
 
     recordMap.set(
@@ -972,6 +1027,16 @@ export async function runExecutionRowMaterializationPreflight() {
         row,
       );
 
+    /*
+     * Run-level provenance applies to all 40 frozen matrix rows,
+     * including preregistered NOT_APPLICABLE rows.
+     */
+    row.run_id =
+      runId;
+
+    row.git_commit =
+      gitCommit;
+
     if (
       row.applicability
         === "APPLICABLE"
@@ -985,14 +1050,20 @@ export async function runExecutionRowMaterializationPreflight() {
 
       assert(
         record,
-        `${key}: diagnostic record missing`,
+        `${key}: observation record missing`,
       );
 
-      bindDiagnosticRecord({
+      bindObservationRecord({
         executionRow:
           row,
 
         record,
+
+        runId,
+
+        gitCommit,
+
+        observationSource,
       });
 
       materialized += 1;
@@ -1030,26 +1101,30 @@ export async function runExecutionRowMaterializationPreflight() {
         `${key}: receipt status not materialized`,
       );
 
-      assert(
-        row.actual_verdict
-          === record.planRow
-            .expected_verdict,
-        `${key}: materialized verdict mismatch`,
-      );
+      if (
+        requireExpectedMatch
+      ) {
+        assert(
+          row.actual_verdict
+            === record.planRow
+              .expected_verdict,
+          `${key}: materialized verdict mismatch`,
+        );
 
-      assert(
-        row.failure_class
-          === record.planRow
-            .expected_reason_class,
-        `${key}: materialized failure class mismatch`,
-      );
+        assert(
+          row.failure_class
+            === record.planRow
+              .expected_reason_class,
+          `${key}: materialized failure class mismatch`,
+        );
 
-      assert(
-        row.reason_code
-          === record.planRow
-            .expected_reason_code,
-        `${key}: materialized reason code mismatch`,
-      );
+        assert(
+          row.reason_code
+            === record.planRow
+              .expected_reason_code,
+          `${key}: materialized reason code mismatch`,
+        );
+      }
     } else {
       notApplicable += 1;
 
@@ -1109,6 +1184,35 @@ export async function runExecutionRowMaterializationPreflight() {
     recordMap.size === 27,
     `record map size=${recordMap.size}, expected 27`,
   );
+
+  return executionRows;
+}
+
+export async function runExecutionRowMaterializationPreflight() {
+  const diagnosticRecords =
+    await runObservationIntegrationPreflight();
+
+  const executionRows =
+    materializeExecutionRowsFromObservationRecords({
+      observationRecords:
+        diagnosticRecords,
+
+      runId:
+        "DIAGNOSTIC_PREFLIGHT_NONPERSISTED",
+
+      gitCommit:
+        null,
+
+      observationSource:
+        "DIAGNOSTIC_PREFLIGHT_NONPERSISTED",
+
+      expectedExecutionRole:
+        OBSERVATION_EXECUTION_ROLES
+          .DIAGNOSTIC,
+
+      requireExpectedMatch:
+        true,
+    });
 
   console.log(
     "EXECUTION_ROW_MATERIALIZATION_ROWS: 40",
