@@ -273,7 +273,9 @@ export function classifyObservation(
    * receipt plus the expected checked final state.
    */
   if (
-    observation.baseline !== "D"
+    ["A", "B", "C"].includes(
+      observation.baseline,
+    )
     && observation.outerReceiptStatus === 1
     && observation.finalStateOk === true
   ) {
@@ -296,15 +298,16 @@ export function classifyObservation(
    */
   if (
     observation.baseline === "D"
+    && observation.outerReceiptStatus === 1
     && observation.intentViolation === true
     && observation.storedViolation === true
     && observation.rollbackVerified === true
   ) {
     if (
       observation.traceStage
-      === "_validateOutcomes"
-      || observation.traceStage
-      === "POSTCONDITION"
+        === "_validateOutcomes"
+      && observation.postconditionFailureTrace
+        === true
     ) {
       return reject(
         FAILURE_CLASS
@@ -867,6 +870,9 @@ export function runObservationPreflight() {
       baseline:
         "D",
 
+      outerReceiptStatus:
+        1,
+
       intentViolation:
         true,
 
@@ -898,6 +904,9 @@ export function runObservationPreflight() {
       baseline:
         "D",
 
+      outerReceiptStatus:
+        1,
+
       intentViolation:
         true,
 
@@ -909,6 +918,9 @@ export function runObservationPreflight() {
 
       traceStage:
         "_validateOutcomes",
+
+      postconditionFailureTrace:
+        true,
     },
     {
       actual_verdict:
@@ -917,6 +929,43 @@ export function runObservationPreflight() {
       failure_class:
         FAILURE_CLASS
           .POSTCONDITION_VIOLATION,
+    },
+  );
+
+  assertClassification(
+    "CASE_D_POSTCONDITION_TRAVERSAL_ONLY",
+    {
+      applicability:
+        "APPLICABLE",
+
+      baseline:
+        "D",
+
+      outerReceiptStatus:
+        1,
+
+      intentViolation:
+        true,
+
+      storedViolation:
+        true,
+
+      rollbackVerified:
+        true,
+
+      traceStage:
+        "_validateOutcomes",
+
+      postconditionFailureTrace:
+        false,
+    },
+    {
+      actual_verdict:
+        "REJECT",
+
+      failure_class:
+        FAILURE_CLASS
+          .POLICY_VIOLATION,
     },
   );
 

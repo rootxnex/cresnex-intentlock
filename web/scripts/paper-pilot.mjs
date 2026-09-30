@@ -20,6 +20,7 @@ import { runExecutionEnginePlanPreflight } from "./paper-execution-engine.mjs";
 import { runSimpleBuilderPreflight } from "./paper-transaction-builders.mjs";
 import { runAdvancedBuilderPreflight } from "./paper-advanced-transaction-builders.mjs";
 import { runPrerequisitePreflight } from "./paper-prerequisite-preflight.mjs";
+import { runPostconditionTracePreflight } from "./paper-postcondition-trace-preflight.mjs";
 
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(SCRIPT_DIR, "../..");
@@ -88,6 +89,7 @@ function usage() {
     "  node --experimental-strip-types web/scripts/paper-pilot.mjs --builder-simple-preflight",
     "  node --experimental-strip-types web/scripts/paper-pilot.mjs --builder-advanced-preflight",
     "  node --experimental-strip-types web/scripts/paper-pilot.mjs --prerequisite-preflight",
+    "  node --experimental-strip-types web/scripts/paper-pilot.mjs --postcondition-trace-preflight",
     "  node --experimental-strip-types web/scripts/paper-pilot.mjs --output <new-directory>",
     "  node --experimental-strip-types web/scripts/paper-pilot.mjs --validate <existing-directory>",
   ].join("\n");
@@ -704,6 +706,14 @@ async function main() {
     && args[0] === "--prerequisite-preflight"
   ) {
     await runPrerequisitePreflight();
+    return 0;
+  }
+
+  if (
+    args.length === 1
+    && args[0] === "--postcondition-trace-preflight"
+  ) {
+    await runPostconditionTracePreflight();
     return 0;
   }
 
