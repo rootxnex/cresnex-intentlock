@@ -290,7 +290,9 @@ async function rawRpc(
   return body.result;
 }
 
-export async function startAnvil() {
+export async function startAnvil({
+  stepsTracing = false,
+} = {}) {
   const port =
     await findFreePort();
 
@@ -312,6 +314,9 @@ export async function startAnvil() {
       String(GENESIS_TIMESTAMP),
       "--mnemonic",
       MNEMONIC,
+      ...(stepsTracing
+        ? ["--steps-tracing"]
+        : []),
     ],
     {
       stdio: [
