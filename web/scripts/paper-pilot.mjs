@@ -28,6 +28,7 @@ import {
 import { runRevertEvidencePreflight } from "./paper-revert-evidence-preflight.mjs";
 import { runObservationIntegrationPreflight } from "./paper-observation-integration-preflight.mjs";
 import { runExecutionRowMaterializationPreflight } from "./paper-execution-row-materialization-preflight.mjs";
+import { runOutputPreflight } from "./paper-output-preflight.mjs";
 
 const SCRIPT_DIR = dirname(fileURLToPath(import.meta.url));
 const REPO_ROOT = resolve(SCRIPT_DIR, "../..");
@@ -102,6 +103,7 @@ function usage() {
     "  node --experimental-strip-types web/scripts/paper-pilot.mjs --revert-evidence-preflight",
     "  node --experimental-strip-types web/scripts/paper-pilot.mjs --observation-integration-preflight",
     "  node --experimental-strip-types web/scripts/paper-pilot.mjs --execution-row-materialization-preflight",
+    "  node --experimental-strip-types web/scripts/paper-pilot.mjs --output-preflight <new-directory>",
     "  node --experimental-strip-types web/scripts/paper-pilot.mjs --output <new-directory>",
     "  node --experimental-strip-types web/scripts/paper-pilot.mjs --validate <existing-directory>",
   ].join("\n");
@@ -766,6 +768,23 @@ async function main() {
     && args[0] === "--execution-row-materialization-preflight"
   ) {
     await runExecutionRowMaterializationPreflight();
+    return 0;
+  }
+
+  if (
+    args.length === 2
+    && args[0] === "--output-preflight"
+  ) {
+    const outputPath =
+      resolve(
+        process.cwd(),
+        args[1],
+      );
+
+    await runOutputPreflight({
+      outputPath,
+    });
+
     return 0;
   }
 
