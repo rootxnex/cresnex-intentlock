@@ -1,0 +1,51 @@
+[
+  {
+    "type": "event",
+    "name": "IntentViolation",
+    "inputs": [
+      {
+        "name": "intentDigest",
+        "type": "bytes32",
+        "indexed": true,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "agent",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "code",
+        "type": "uint8",
+        "indexed": false,
+        "internalType": "enum ICresnexIntentLockV2.ViolationCode"
+      },
+      {
+        "name": "module",
+        "type": "uint8",
+        "indexed": false,
+        "internalType": "enum IntentTypesV2.PolicyModule"
+      },
+      {
+        "name": "evidenceHash",
+        "type": "bytes32",
+        "indexed": false,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "strikeCount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "quarantined",
+        "type": "bool",
+        "indexed": false,
+        "internalType": "bool"
+      }
+    ],
+    "anonymous": false
+  }
+]
